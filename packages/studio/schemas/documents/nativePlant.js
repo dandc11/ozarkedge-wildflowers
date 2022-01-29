@@ -1,4 +1,5 @@
 import { GiFlowerEmblem } from "react-icons/gi";
+import AssetSource from "part:sanity-plugin-media-library/asset-source";
 import nearbyPlant from "../objects/nearbyPlant";
 
 export default {
@@ -86,6 +87,7 @@ export default {
       description:
         "Upload or select images of this plant to appear in a gallery on the plant's page.",
       of: [{ type: "figure" }],
+      options: { sources: [AssetSource] },
       fieldset: "description",
     },
     {
@@ -154,13 +156,13 @@ export default {
       of: [{ type: "nearbyPlant" }],
       fieldset: "growingNearby",
     },
-    // {
-    //   name: "growingNearbyText",
-    //   title: "What's growing nearby?",
-    //   description:
-    //     "This is where you can add any additional information about what's growing near this plant.",
-    //   type: "plantPortableText",
-    //   fieldset: "growingNearby",
-    // },
+    {
+      name: "growingNearbyText",
+      title: "What's growing nearby?",
+      description:
+        "This is where you can add any additional information about what's growing near this plant.",
+      type: "plantPortableText",
+      fieldset: "growingNearby",
+    },
   ],
 };
