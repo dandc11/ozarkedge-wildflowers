@@ -1,5 +1,6 @@
 import { GiFlowerEmblem } from "react-icons/gi";
 import AssetSource from "part:sanity-plugin-media-library/asset-source";
+import nearbyPlant from "../objects/nearbyPlant";
 
 export default {
   name: "nativePlant",
@@ -152,7 +153,7 @@ export default {
       type: "array",
       description:
         "List any plants growing nearby. Hit Enter to delineate each one. Only published native plants can be referenced.",
-      of: [{ type: "reference", to: { type: "nativePlant" } }],
+      of: [{ type: "nearbyPlant" }],
       fieldset: "growingNearby",
     },
     {
