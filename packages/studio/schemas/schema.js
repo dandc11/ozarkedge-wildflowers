@@ -15,6 +15,7 @@ import nativePlant from "./documents/nativePlant";
 import landingPage from "./documents/landingPage";
 import plantListPage from "./documents/plantListPage";
 import pollinator from "./documents/pollinator";
+import nearbyPlant from "./objects/nearbyPlant";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -30,6 +31,7 @@ export default createSchema({
     pageBodyPortableText,
     plantPortableText,
     plantName,
+    nearbyPlant,
     nativePlant,
     pollinator,
     plantListPage,

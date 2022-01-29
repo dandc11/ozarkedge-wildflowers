@@ -7,11 +7,13 @@ export default {
       name: "botanicalName",
       title: "Botanical Name",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "commonName",
       title: "Common Name",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "nameInformation",

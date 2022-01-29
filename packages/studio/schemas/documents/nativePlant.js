@@ -1,4 +1,5 @@
 import { GiFlowerEmblem } from "react-icons/gi";
+import nearbyPlant from "../objects/nearbyPlant";
 
 export default {
   name: "nativePlant",
@@ -84,7 +85,7 @@ export default {
       title: "Plant Image Gallery",
       description:
         "Upload or select images of this plant to appear in a gallery on the plant's page.",
-      of: [{ type: "image" }],
+      of: [{ type: "figure" }],
       fieldset: "description",
     },
     {
@@ -150,16 +151,16 @@ export default {
       type: "array",
       description:
         "List any plants growing nearby. Hit Enter to delineate each one. Only published native plants can be referenced.",
-      of: [{ type: "reference", to: { type: "nativePlant" } }],
+      of: [{ type: "nearbyPlant" }],
       fieldset: "growingNearby",
     },
-    {
-      name: "growingNearbyText",
-      title: "What's growing nearby?",
-      description:
-        "This is where you can add any additional information about what's growing near this plant.",
-      type: "plantPortableText",
-      fieldset: "growingNearby",
-    },
+    // {
+    //   name: "growingNearbyText",
+    //   title: "What's growing nearby?",
+    //   description:
+    //     "This is where you can add any additional information about what's growing near this plant.",
+    //   type: "plantPortableText",
+    //   fieldset: "growingNearby",
+    // },
   ],
 };
