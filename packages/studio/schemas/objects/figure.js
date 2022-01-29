@@ -10,6 +10,7 @@ export default {
       title: "Caption",
       name: "caption",
       type: "string",
+      description: "Optional caption text for this image.",
       options: {
         isHighlighted: true,
       },
@@ -21,7 +22,7 @@ export default {
       validation: (Rule) =>
         Rule.error("You have to fill out the alternative text.").required(),
       description:
-        "A description of the image that will appear only in the html - important for SEO and accessiblity.",
+        "A brief description of the image that will appear only in the html - important for SEO and accessiblity.",
       options: {
         isHighlighted: true,
       },
