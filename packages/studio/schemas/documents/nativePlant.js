@@ -1,4 +1,5 @@
 import { GiFlowerEmblem } from "react-icons/gi";
+import AssetSource from "part:sanity-plugin-media-library/asset-source";
 
 export default {
   name: "nativePlant",
@@ -84,7 +85,8 @@ export default {
       title: "Plant Image Gallery",
       description:
         "Upload or select images of this plant to appear in a gallery on the plant's page.",
-      of: [{ type: "image" }],
+      of: [{ type: "figure" }],
+      options: { sources: [AssetSource] },
       fieldset: "description",
     },
     {
