@@ -1,7 +1,8 @@
 {
   "root": true,
   "project": {
-    "name": "ozarkedge-wildflowers"
+    "name": "ozarkedge-wildflowers",
+    "basePath": "/studio"
   },
   "api": {
     "projectId": "zljsx9u1",

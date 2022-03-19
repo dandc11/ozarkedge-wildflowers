@@ -5,9 +5,10 @@
   "scripts": {
     "build": "lerna run build --parallel",
     "dev": "lerna run dev --parallel",
+    "start": "lerna run start --parallel",
     "format": "lerna run format",
-    "build-sanity": "lerna bootstrap && cd studio && npm run build",
-    "build-web": "lerna bootstrap && (cd studio && npm run graphql-deploy) && (cd site && npm run build)",
+    "build-sanity": "lerna bootstrap && cd packages/studio && npm run build",
+    "build-web": "lerna bootstrap && (cd packages/studio && npm run graphql-deploy) && (cd packages/site/ozarkedge-website && npm run build)",
     "graphql-deploy": "lerna run graphql-deploy",
     "lint": "lerna run lint",
     "postinstall": "lerna bootstrap",
@@ -15,5 +16,8 @@
   },
   "devDependencies": {
     "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "next-sanity": "^0.5.0"
   }
 }
