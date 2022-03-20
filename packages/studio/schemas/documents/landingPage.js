@@ -2,7 +2,7 @@ import { GiHouse } from "react-icons/gi";
 
 export default {
   name: "landingPage",
-  title: "Landing page",
+  title: "Landing Page",
   icon: GiHouse,
   type: "document",
   liveEdit: false,
@@ -25,7 +25,7 @@ export default {
     {
       name: "mainImage",
       title: "Main Image",
-      description: "Select the main landing page.",
+      description: "Select the banner image for the landing page.",
       type: "mainImage",
     },
   ],

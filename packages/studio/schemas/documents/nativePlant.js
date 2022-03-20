@@ -1,6 +1,5 @@
 import { GiFlowerEmblem } from "react-icons/gi";
 import AssetSource from "part:sanity-plugin-media-library/asset-source";
-import nearbyPlant from "../objects/nearbyPlant";
 
 export default {
   name: "nativePlant",
@@ -10,23 +9,23 @@ export default {
   fieldsets: [
     {
       name: "name",
-      title: "Name",
-      options: { collapsible: true, collapsed: true },
+      title: "Plant Name",
+      options: { collapsible: true, collapsed: false },
     },
     {
       name: "metadata",
       title: "Plant Metadata",
-      options: { collapsible: true, collapsed: true },
+      options: { collapsible: true, collapsed: false },
     },
     {
       name: "description",
-      title: "Description",
-      options: { collapsible: true, collapsed: true },
+      title: "Plant Description",
+      options: { collapsible: true, collapsed: false },
     },
     {
       name: "growingNearby",
       title: "Habitat and Nearby Plants",
-      options: { collapsible: true, collapsed: true },
+      options: { collapsible: true, collapsed: false },
     },
   ],
   preview: {
@@ -94,7 +93,7 @@ export default {
       name: "description",
       title: "Plant Description",
       description:
-        "This will serves as the main content of the plant's page. Feel free to add images or other content.",
+        "Add a plant description to serve as the main text content on this plant's page. Images and other content can also be embedded.",
       type: "plantPortableText",
       fieldset: "description",
     },
@@ -136,8 +135,7 @@ export default {
     {
       name: "conservationStatus",
       title: "Conservation Status",
-      description:
-        "This is where you can add any information about the plant's conservation status.",
+      description: "Add any information about the plant's conservation status.",
       type: "plantPortableText",
       fieldset: "description",
     },
@@ -160,7 +158,7 @@ export default {
       name: "growingNearbyText",
       title: "What's growing nearby?",
       description:
-        "This is where you can add any additional information about what's growing near this plant.",
+        "Add any additional information about what's growing near this plant.",
       type: "plantPortableText",
       fieldset: "growingNearby",
     },
