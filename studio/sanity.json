@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "project": {
+    "name": "ozarkedge-wildflowers",
+    "basePath": "/studio"
+  },
+  "api": {
+    "projectId": "zljsx9u1",
+    "dataset": "prod"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "media-library"
+  ],
+  "env": {
+    "development": {
+      "plugins": ["@sanity/vision"]
+    }
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
+    }
+  ]
+}
