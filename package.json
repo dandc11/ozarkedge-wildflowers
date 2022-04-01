@@ -1,23 +1,25 @@
 {
-  "name": "root",
+  "name": "ozarkedge-website",
+  "version": "0.1.0",
   "private": true,
-  "version": "1.0,0",
   "scripts": {
-    "build": "lerna run build --parallel",
-    "dev": "lerna run dev --parallel",
-    "start": "lerna run start --parallel",
-    "format": "lerna run format",
-    "build-sanity": "lerna bootstrap && cd packages/studio && npm run build",
-    "build-web": "lerna bootstrap && (cd packages/studio && npm run graphql-deploy) && (cd packages/site/ozarkedge-website && npm run build)",
-    "graphql-deploy": "lerna run graphql-deploy",
-    "lint": "lerna run lint",
-    "postinstall": "lerna bootstrap",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "devDependencies": {
-    "lerna": "^4.0.0"
+    "dev": "next dev",
+    "prebuild": "echo 'Building Sanity to public/studio' && cd studio && npx @sanity/cli build ../public/studio -y && echo 'Done'",
+    "build": "next build",
+    "start": "next start",
+    "sanity": "cd studio && sanity start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "next-sanity": "^0.5.0"
+    "@portabletext/react": "^1.0.4",
+    "@sanity/image-url": "^1.0.1",
+    "next": "12.1.0",
+    "next-sanity": "^0.5.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0"
   }
 }
