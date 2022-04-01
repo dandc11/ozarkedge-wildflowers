@@ -1,6 +1,0 @@
-{
-  "packages": ["packages/*"],
-  "npmClient": "npm",
-  "stream": true,
-  "version": "independent"
-}
