@@ -98,7 +98,7 @@ export default {
       fieldset: "description",
     },
     {
-      name: "genre",
+      name: "flowerColor",
       title: "Flower Color",
       type: "string",
       options: {

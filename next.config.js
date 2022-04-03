@@ -15,5 +15,3 @@ module.exports = {
   rewrites: () => [STUDIO_REWRITE],
   nextConfig,
 };
-
-// module.exports = nextConfig
