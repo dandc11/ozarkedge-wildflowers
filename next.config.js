@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    domains: ["cdn.sanity.io"],
+  },
 };
 
 const STUDIO_REWRITE = {
@@ -13,5 +16,8 @@ const STUDIO_REWRITE = {
 
 module.exports = {
   rewrites: () => [STUDIO_REWRITE],
+  images: {
+    domains: ["cdn.sanity.io"],
+  },
   nextConfig,
 };
