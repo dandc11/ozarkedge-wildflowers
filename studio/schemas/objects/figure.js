@@ -4,6 +4,11 @@ export default {
   type: "image",
   options: {
     hotspot: true,
+    metadata: [
+      "blurhash", // Default: included
+      "lqip", // Default: included
+      "palette", // Default: included
+    ],
   },
   fields: [
     {
