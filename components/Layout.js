@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import Nav from "./Nav";
 import Footer from "./Footer";
-import Head from "next/head";
+import Meta from "./Meta";
 
 const Layout = ({ children, ...props }) => {
   console.log(children);
   return (
     <div className="page-content">
-      <Head />
+      <Meta />
       <Nav />
       {children}
       <Footer />
