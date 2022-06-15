@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Head from 'next/head'
-import Link from 'next/link'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import Link from 'next/link';
 
 const Meta = (props) => {
     return (
@@ -10,9 +10,9 @@ const Meta = (props) => {
             <meta name="description" content="" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-    )
-}
+    );
+};
 
-Meta.propTypes = {}
+Meta.propTypes = {};
 
-export default Meta
+export default Meta;
