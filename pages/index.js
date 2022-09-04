@@ -15,12 +15,6 @@ export default function Home({ pageData }) {
     // console.log('environment ', process.env.NODE_ENV)
     console.log('pageData ', pageData);
 
-    let cssProperties = {
-        '--hero-bg-color': '#fff',
-        '--hero-text-color': '#000',
-    };
-
-    let mainImageBgColor;
     return (
         <div>
             {pageData &&
