@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/Link';
 import { useState } from 'react';
-import navStyles from './../styles/nav.module.scss';
-import globalStyles from './../styles/global.module.scss';
+import navStyles from './../styles/components/nav.module.scss';
 
 const Nav = (cx = props) => {
     console.log(navStyles);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {
         nav,
         navLinks,
-        navClosed,
+        navListItem,
+        menuOpen,
         menuIcon,
         menuIconBar,
         barOne,
@@ -19,11 +19,11 @@ const Nav = (cx = props) => {
         barThree,
     } = navStyles;
     const toggleMenu = () => {
-        menuOpen ? setMenuOpen(false) : setMenuOpen(true);
+        isMenuOpen ? setIsMenuOpen(false) : setIsMenuOpen(true);
     };
-    const menuClosed = menuOpen ? '' : navClosed;
+    const menuClosed = isMenuOpen ? '' : menuOpen;
     return (
-        <nav className={`${nav} ${menuClosed}`}>
+        <nav className={`${nav} ${isMenuOpen ? menuOpen : ''}`}>
             <button
                 className={`${menuIcon}`}
                 onClick={(e) => toggleMenu()}
@@ -34,27 +34,27 @@ const Nav = (cx = props) => {
                 <div className={`${menuIconBar} ${barThree}`}></div>
             </button>
             <ul className={`${navLinks}`}>
-                <li>
+                <li className={`${navListItem}`}>
                     <Link href="/">
                         <a>Home</a>
                     </Link>
                 </li>
-                <li>
+                <li className={`${navListItem}`}>
                     <Link href="/about">
                         <a>About Ozarkedge</a>
                     </Link>
                 </li>
-                <li>
+                <li className={`${navListItem}`}>
                     <Link href="/">
-                        <a>Plant List</a>
+                        <a>Ozarkedge Native Plants</a>
                     </Link>
                 </li>
-                <li>
+                <li className={`${navListItem}`}>
                     <Link href="/">
                         <a>Seasons</a>
                     </Link>
                 </li>
-                <li>
+                <li className={`${navListItem}`}>
                     <Link href="/">
                         <a>Fungi and Lichens</a>
                     </Link>

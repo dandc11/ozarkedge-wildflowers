@@ -5,7 +5,6 @@ export default function Document() {
     return (
         <Html>
             <Head>
-                <title>Sanity site settings should set these values!</title>
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="stylesheet" href="..." />

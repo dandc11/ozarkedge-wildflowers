@@ -10,11 +10,19 @@ import {
 } from '@lib/helperFunctions';
 import { landingPageQuery } from '@lib/queries';
 import React from 'react';
+import landingPageStyles from './../styles/pages/landing-page.module.scss';
 
 export default function Home({ pageData }) {
     // console.log('environment ', process.env.NODE_ENV)
     console.log('pageData ', pageData);
-
+    const {
+        containerHero,
+        containerHeroImg,
+        containerTitle,
+        title,
+        subtitle,
+        hRule,
+    } = landingPageStyles;
     return (
         <div>
             {pageData &&
@@ -22,7 +30,7 @@ export default function Home({ pageData }) {
                     ({ id, titleText, subtitleText, mainImage } = data) => (
                         <React.Fragment key={id}>
                             <div
-                                className="full-bg-img container-hero"
+                                className={`${containerHero}`}
                                 style={{
                                     backgroundColor:
                                         getImagePaletteBackgroundColor(
@@ -35,13 +43,20 @@ export default function Home({ pageData }) {
                                     ),
                                 }}
                             >
-                                <div className="full-bg-img container-hero-img">
-                                    <NextImage
+                                <div
+                                    className={`${containerHeroImg}`}
+                                    style={{
+                                        backgroundImage: `url('${urlFor(
+                                            mainImage
+                                        )}')`,
+                                    }}
+                                >
+                                    {/* <NextImage
                                         classNames={'hero-image'}
                                         altText={mainImage.alt}
                                         imgAsset={mainImage}
                                         quality={`100`}
-                                    />
+                                    /> */}
                                     {/* <img
                                     className="hero-img"
                                     src={urlFor(data.mainImage)
@@ -52,7 +67,7 @@ export default function Home({ pageData }) {
                                 /> */}
                                 </div>
                                 <div
-                                    className="full-bg-img container-title"
+                                    className={`${containerTitle}`}
                                     // style={{
                                     //     background:
                                     //         mainImage.palette.darkMuted
@@ -61,8 +76,11 @@ export default function Home({ pageData }) {
                                     //         .title,
                                     // }}
                                 >
-                                    <h1>{titleText}</h1>
-                                    <p>{subtitleText}</p>
+                                    <h1 className={`${title}`}>{titleText}</h1>
+                                    <hr className={`${hRule}`}></hr>
+                                    <p className={`${subtitle}`}>
+                                        {subtitleText}
+                                    </p>
                                 </div>
                             </div>
                         </React.Fragment>

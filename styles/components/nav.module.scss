@@ -1,12 +1,30 @@
 .nav {
-    &.navClosed {
+    position: fixed;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    z-index: 2;
+    color: white;
+
+    &.menuOpen {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-color: hsla(86, 46%, 32%, 1);
+
         .navLinks {
-            display: none;
+            display: block;
+            list-style: none;
+            font-size: 1.5rem;
+            margin-top: 10vh;
+
+            .navListItem {
+                padding-bottom: 0.5rem;
+            }
         }
     }
 
     .navLinks {
-        display: block;
+        display: none;
     }
 
     .menuIcon {
