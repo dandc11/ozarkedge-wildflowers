@@ -1,5 +1,4 @@
 import '../styles/global.scss';
-import 'the-new-css-reset/css/reset.css';
 import Layout from '../components/Layout';
 import Head from 'next/head';
 
