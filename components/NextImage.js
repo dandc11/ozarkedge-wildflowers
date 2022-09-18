@@ -10,6 +10,27 @@ const composeSanityUrls = (image, altText) => {
     return imageProps;
 };
 
+{
+    /*** NextImage example
+     *  <NextImage
+        classNames={'hero-image'}
+        altText={mainImage.alt}
+        imgAsset={mainImage}
+        quality={`100`}
+    /> */
+}
+{
+    /*** img with Sanity urlFor
+    <img
+        className="hero-img"
+        src={urlFor(data.mainImage)
+            .height(550)
+            .width(550)
+            .url()}
+        alt={data.mainImage.alt}
+    /> */
+}
+
 const NextImage = ({
     priority,
     placeholder,

@@ -15,14 +15,8 @@ import landingPageStyles from './../styles/pages/landing-page.module.scss';
 export default function Home({ pageData }) {
     // console.log('environment ', process.env.NODE_ENV)
     console.log('pageData ', pageData);
-    const {
-        containerHero,
-        containerHeroImg,
-        containerTitle,
-        title,
-        subtitle,
-        hRule,
-    } = landingPageStyles;
+    const { containerHero, containerTitle, title, subtitle, hRule } =
+        landingPageStyles;
     return (
         <div>
             {pageData &&
@@ -32,6 +26,9 @@ export default function Home({ pageData }) {
                             <div
                                 className={`${containerHero}`}
                                 style={{
+                                    backgroundImage: `url('${urlFor(
+                                        mainImage
+                                    )}')`,
                                     backgroundColor:
                                         getImagePaletteBackgroundColor(
                                             mainImage,
@@ -43,29 +40,6 @@ export default function Home({ pageData }) {
                                     ),
                                 }}
                             >
-                                <div
-                                    className={`${containerHeroImg}`}
-                                    style={{
-                                        backgroundImage: `url('${urlFor(
-                                            mainImage
-                                        )}')`,
-                                    }}
-                                >
-                                    {/* <NextImage
-                                        classNames={'hero-image'}
-                                        altText={mainImage.alt}
-                                        imgAsset={mainImage}
-                                        quality={`100`}
-                                    /> */}
-                                    {/* <img
-                                    className="hero-img"
-                                    src={urlFor(data.mainImage)
-                                        .height(550)
-                                        .width(550)
-                                        .url()}
-                                    alt={data.mainImage.alt}
-                                /> */}
-                                </div>
                                 <div
                                     className={`${containerTitle}`}
                                     // style={{
