@@ -12,11 +12,32 @@ import { landingPageQuery } from '@lib/queries';
 import React from 'react';
 import landingPageStyles from './../styles/pages/landing-page.module.scss';
 
+const TitleText = ({ titleText, headingClass, underlineClass } = props) => {
+    const underlineTextIndex = titleText.indexOf('edge Wildflowers');
+    const title = underlineTextIndex ? (
+        <h1 className={`${headingClass}`}>
+            {`${titleText.substring(0, underlineTextIndex)}`}
+            <span className={`${underlineClass} ${headingClass}`}>
+                edge Wildflowers
+            </span>
+        </h1>
+    ) : (
+        <h1 className={`${headingClass}`}>{titleText}</h1>
+    );
+    return title;
+};
+
 export default function Home({ pageData }) {
     // console.log('environment ', process.env.NODE_ENV)
     console.log('pageData ', pageData);
-    const { containerHero, containerTitle, title, subtitle, hRule } =
-        landingPageStyles;
+    const {
+        containerHero,
+        containerTitle,
+        title,
+        underlineTitle,
+        subtitle,
+        hRule,
+    } = landingPageStyles;
     return (
         <div>
             {pageData &&
@@ -50,8 +71,12 @@ export default function Home({ pageData }) {
                                     //         .title,
                                     // }}
                                 >
-                                    <h1 className={`${title}`}>{titleText}</h1>
-                                    <hr className={`${hRule}`}></hr>
+                                    <TitleText
+                                        headingClass={title}
+                                        underlineClass={underlineTitle}
+                                        titleText={titleText}
+                                    ></TitleText>
+                                    {/* <h1 className={`${title}`}>{titleText}</h1> */}
                                     <p className={`${subtitle}`}>
                                         {subtitleText}
                                     </p>

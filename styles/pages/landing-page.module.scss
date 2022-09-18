@@ -23,13 +23,13 @@
 
     @media screen and (max-width: 768px) {
         background-size: 180vh;
-        background-position: 53% -3%;
+        background-position: 56% 0;
     }
 }
 
 .containerTitle {
     position: absolute;
-    top: 0;
+    top: 3%;
     height: 100vh;
     width: 100%;
     padding-top: 1vh;
@@ -38,16 +38,22 @@
     min-width: 25%;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: end;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 .title {
     font-size: 5vw;
     line-height: 1rem;
     padding-right: 3vw;
-    text-decoration: underline;
-    text-underline-offset: 7px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    .underlineTitle {
+        text-decoration: underline;
+        text-underline-offset: 1.5vw;
+        text-decoration-thickness: 2px;
+    }
 }
 
 .subtitle {
@@ -55,9 +61,4 @@
     text-align: center;
     font-size: 0.75rem;
     line-height: normal;
-}
-
-.hRule {
-    height: 3px;
-    color: white;
 }
