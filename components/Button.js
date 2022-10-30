@@ -1,7 +1,25 @@
 import React from 'react';
 
-const Button = ({ type = 'button' }, ...props) => {
-    return <button>Button</button>;
+const handleClick = (link) => {};
+
+const Button = (
+    { type = 'button', classes, link = '', children },
+    ...props
+) => {
+    let classArray = classes.join(' ');
+    return (
+        <button
+            className={`btn ${classes}`}
+            type={`${type}`}
+            onClick={handleClick(link)}
+        >
+            {children}
+        </button>
+    );
+};
+
+Button.defaultProps = {
+    classes: [],
 };
 
 Button.propTypes = {};

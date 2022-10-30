@@ -5,31 +5,31 @@
     z-index: 2;
     color: white;
 
-    &.menuOpen {
+    &.menu-active {
         width: 100vw;
         height: 100vh;
         overflow: hidden;
         background-color: hsla(86, 46%, 32%, 1);
 
-        .navLinks {
+        .nav-links {
             display: block;
             list-style: none;
             font-size: 1.5rem;
             margin-top: 10vh;
 
-            .navListItem {
+            .nav-list-item {
                 padding-bottom: 0.5rem;
             }
         }
     }
 
-    .navLinks {
+    .nav-links {
         display: none;
     }
 
-    .menuIcon {
+    .menu-icon {
         position: absolute;
-        top: 10px;
+        top: 20px;
         left: 10px;
         z-index: 1;
         height: 24px;
@@ -39,18 +39,18 @@
         flex-direction: column;
         justify-content: space-between;
 
-        .menuIconBar {
-            background-color: white;
+        .menu-icon-bar {
+            background-color: #3f403f;
             width: 30px;
             height: 4px;
 
-            &.barOne {
+            &.bar-one {
             }
 
-            &.barTwo {
+            &.bar-two {
             }
 
-            &.barThree {
+            &.bar-three {
             }
         }
     }

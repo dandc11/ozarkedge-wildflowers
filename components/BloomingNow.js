@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import bloomingNowStyles from '../styles/components/bloomingNow.module.scss';
 
 const BloomingNow = (props) => {
-    return <div>BloomingNow</div>;
+    const {} = props;
+    return (
+        <div>
+            <section className={`plant-list`}>Blooming Now</section>
+            <section className={`featured-plant`}>Featured Plant</section>
+        </div>
+    );
 };
 
 BloomingNow.propTypes = {};

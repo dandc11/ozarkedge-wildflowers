@@ -1,0 +1,46 @@
+.home-page-content {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    background-attachment: fixed;
+
+    .homepage-text {
+        position: absolute;
+        top: 0;
+        padding-top: 1vh;
+        padding-right: 3vw;
+        background-color: transparent;
+        // z-index: 1;
+        min-width: 25%;
+    }
+
+    .homepage-title {
+        font-size: 5vw;
+        font-weight: bold;
+        line-height: 0;
+        letter-spacing: 1px;
+
+        .underline-title {
+            text-decoration: underline;
+            text-underline-offset: 1.5vw;
+            text-decoration-thickness: 2px;
+        }
+    }
+
+    .homepage-cta {
+        max-width: 30vw;
+        margin-top: 0;
+        border-top: 2px solid #3f403f;
+        padding-top: 1rem;
+        text-align: center;
+        text-align: justify;
+
+        .subtitle {
+            font-size: 1rem;
+            line-height: normal;
+        }
+
+        .cta-buttons {
+        }
+    }
+}
