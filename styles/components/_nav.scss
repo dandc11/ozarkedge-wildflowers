@@ -1,0 +1,57 @@
+.nav {
+    position: fixed;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    z-index: 2;
+    color: white;
+
+    &.menu-active {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-color: hsla(86, 46%, 32%, 1);
+
+        .nav-links {
+            display: block;
+            list-style: none;
+            font-size: 1.5rem;
+            margin-top: 10vh;
+
+            .nav-list-item {
+                padding-bottom: 0.5rem;
+            }
+        }
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-icon {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        z-index: 1;
+        height: 24px;
+        border: none;
+        background: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .menu-icon-bar {
+            background-color: #3f403f;
+            width: 30px;
+            height: 4px;
+
+            &.bar-one {
+            }
+
+            &.bar-two {
+            }
+
+            &.bar-three {
+            }
+        }
+    }
+}

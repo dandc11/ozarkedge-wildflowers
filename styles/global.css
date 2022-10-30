@@ -1,0 +1,40 @@
+:root {
+    /* colors */
+    --text-medium-grey: #3f403f;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+}
+
+body {
+    font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+        sans-serif;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+
+    /* // &:hover,
+    // &:focus,
+    // &:active {
+    //     text-decoration: underline;
+    // } */
+}
+
+.page-content {
+    position: relative;
+}

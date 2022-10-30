@@ -1,0 +1,20 @@
+.container {
+    // background variables to be defined inline for dynamic images
+    --bg-small: none;
+    --bg-medium: none;
+    --bg-large: none;
+    display: block;
+    position: relative;
+    background: var(--bg-small);
+    color: var(--text-medium-grey);
+
+    // set background on medium screens
+    @media screen and (min-width: $s-breakpoint) and (max-width: $m-breakpoint) {
+        background: var(--bg-medium, none);
+    }
+
+    // set background on large screens
+    @media screen and (min-width: $m-breakpoint) {
+        background: var(--bg-large, none);
+    }
+}

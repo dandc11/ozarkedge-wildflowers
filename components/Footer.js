@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Footer = (props) => {
-  return <div className="footer">Footer</div>;
+    return <div className={`footer`}>Footer</div>;
 };
 
 Footer.propTypes = {};

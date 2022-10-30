@@ -5,6 +5,8 @@ export default function Document() {
     return (
         <Html>
             <Head>
+                <meta name="description" content="" />
+                <link rel="icon" href="/favicon.ico" />
                 <link rel="stylesheet" href="..." />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link

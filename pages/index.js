@@ -1,77 +1,81 @@
 import { groq } from 'next-sanity';
 import { useRouter } from 'next/router';
-import { urlFor, usePreviewSubscription } from '@lib/sanity';
 import { sanityClient } from '@lib/sanity.server';
-import NextImage from './../components/NextImage';
-import {
-    getImagePaletteBackgroundColor,
-    getImagePaletteForegroundColor,
-    getImagePaletteTitleColor,
-} from '@lib/helperFunctions';
+import ResponsiveImage from '../components/ResponsiveImage';
 import { landingPageQuery } from '@lib/queries';
 import React from 'react';
+import Container from 'components/Container';
+import Button from 'components/Button';
+import BloomingNow from 'components/BloomingNow';
 
 export default function Home({ pageData }) {
     // console.log('environment ', process.env.NODE_ENV)
     console.log('pageData ', pageData);
 
-    let cssProperties = {
-        '--hero-bg-color': '#fff',
-        '--hero-text-color': '#000',
-    };
-
-    let mainImageBgColor;
     return (
         <div>
             {pageData &&
                 pageData.map(
-                    ({ id, titleText, subtitleText, mainImage } = data) => (
-                        <React.Fragment key={id}>
-                            <div
-                                className="full-bg-img container-hero"
-                                style={{
-                                    backgroundColor:
-                                        getImagePaletteBackgroundColor(
-                                            mainImage,
-                                            'darkVibrant'
-                                        ),
-                                    color: getImagePaletteTitleColor(
-                                        mainImage,
-                                        'darkVibrant'
-                                    ),
-                                }}
+                    ({
+                        id,
+                        titleText,
+                        subtitleText,
+                        mainImage,
+                        mobileImage,
+                    } = data) => (
+                        <Container
+                            classes={[
+                                'w-l-100',
+                                'w-m-100',
+                                'w-s-100',
+                                'home-page-content',
+                            ]}
+                            display={'flex'}
+                            bgImageLarge={mainImage}
+                            bgImageMedium={mainImage}
+                            bgImageSmall={mobileImage}
+                            tag={'div'}
+                        >
+                            <section
+                                className={`above-fold h-s-100 flex justify-center align-start`}
                             >
-                                <div className="full-bg-img container-hero-img">
-                                    <NextImage
-                                        classNames={'hero-image'}
-                                        altText={mainImage.alt}
-                                        imgAsset={mainImage}
-                                        quality={`100`}
-                                    />
-                                    {/* <img
-                                    className="hero-img"
-                                    src={urlFor(data.mainImage)
-                                        .height(550)
-                                        .width(550)
-                                        .url()}
-                                    alt={data.mainImage.alt}
-                                /> */}
-                                </div>
                                 <div
-                                    className="full-bg-img container-title"
-                                    // style={{
-                                    //     background:
-                                    //         mainImage.palette.darkMuted
-                                    //             .background + 'e4',
-                                    //     color: mainImage.palette.darkMuted
-                                    //         .title,
-                                    // }}
+                                    className={`homepage-text flex flex-column w-s-100 h-s-100 justify-start align-end`}
                                 >
-                                    <h1>{titleText}</h1>
-                                    <p>{subtitleText}</p>
+                                    <h1 className={`homepage-title`}>
+                                        {titleText}
+                                    </h1>
+                                    <div className={`homepage-cta`}>
+                                        <p className={`subtitle`}>
+                                            {subtitleText}
+                                        </p>
+                                        <div
+                                            className={`cta-buttons flex justify-space-between`}
+                                        >
+                                            <Button classes={['btn-primary']}>
+                                                See what's blooming
+                                            </Button>
+                                            <Button classes={['btn-primary']}>
+                                                Explore native wildflowers
+                                            </Button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </React.Fragment>
+                            </section>
+                            <Container
+                                classes={[
+                                    'w-l-100',
+                                    'w-m-100',
+                                    'w-s-100',
+                                    'h-s-100',
+                                ]}
+                                bgColor={'#f5e8b5de'}
+                                // opacity={'90'}
+                                tag={'section'}
+                            >
+                                <BloomingNow></BloomingNow>
+                            </Container>
+                        </Container>
                     )
                 )}
         </div>
