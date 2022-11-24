@@ -1,9 +1,11 @@
 import React from 'react';
 
-const handleClick = (link) => {};
+const handleLink = (link) => {
+
+};
 
 const Button = (
-    { type = 'button', classes, link = '', children },
+    { type = 'button', classes, link = '', callBack = null, children },
     ...props
 ) => {
     let classArray = classes.join(' ');
@@ -11,7 +13,7 @@ const Button = (
         <button
             className={`btn ${classes}`}
             type={`${type}`}
-            onClick={handleClick(link)}
+            onClick={callBack ? callBack : () => handleLink(link)}
         >
             {children}
         </button>

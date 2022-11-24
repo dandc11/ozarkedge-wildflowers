@@ -22,27 +22,29 @@ const Nav = (cx = props) => {
             <ul className={`nav-links`}>
                 <li className={`nav-list-item`}>
                     <Link href="/">
-                        <a>Home</a>
+                        <a onClick={(e) => toggleMenu()}>Home</a>
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
                     <Link href="/about">
-                        <a>About Ozarkedge</a>
+                        <a onClick={(e) => toggleMenu()}>About Ozarkedge</a>
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
                     <Link href="/">
-                        <a>Ozarkedge Native Plants</a>
+                        <a onClick={(e) => toggleMenu()}>
+                            Ozarkedge Native Plants
+                        </a>
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
                     <Link href="/">
-                        <a>Seasons</a>
+                        <a onClick={(e) => toggleMenu()}>Seasons</a>
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
                     <Link href="/">
-                        <a>Fungi and Lichens</a>
+                        <a onClick={(e) => toggleMenu()}>Fungi and Lichens</a>
                     </Link>
                 </li>
             </ul>

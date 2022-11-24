@@ -1,14 +1,42 @@
 .btn {
     padding: 1.25rem 1rem;
     // border-radius: 5px;
+    width: 100%;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 300;
     margin-bottom: 1rem;
+    @include shadow-1;
+
+    @media screen and (min-width: $m-breakpoint) {
+        max-width: 15rem;;
+        font-size: 1rem;
+    }
+    
 
     &.btn-primary {
         background: linear-gradient(158deg, #d9579a 5.69%, #ab3c7b 100%);
         border-radius: 9px;
         color: var(--white);
+    }
+
+    &.btn-secondary {
+        background: linear-gradient(158deg, #438b0e 5.69%, #415a19 100%);
+        border-radius: 9px;
+        color: var(--white);
+    }
+
+    &.btn-hollow-primary {
+        background: transparent;
+        border-radius: 9px;
+        font-weight: bold;
+        border: 2px solid var(--bright-yellow);
+        color: var(--bright-yellow);
+
+        &.yellow {
+            border: 2px solid var(--bright-yellow);
+            color: var(--bright-yellow);
+        }
     }
 }
