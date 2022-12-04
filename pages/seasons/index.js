@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Seasons = props => {
+const SeasonsPage = props => {
   return (
     <div>Seasons</div>
   )
 }
 
-Seasons.propTypes = {}
+SeasonsPage.propTypes = {}
 
-export default Seasons
+export default SeasonsPage;

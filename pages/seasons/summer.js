@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Summer = props => {
+const SummerPage = props => {
   return (
-    <div>Summer</div>
+    <div>SummerPage</div>
   )
 }
 
-Summer.propTypes = {}
+SummerPage.propTypes = {}
 
-export default Summer
+export default SummerPage;

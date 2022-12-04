@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const spring = props => {
+const SpringPage = props => {
   return (
-    <div>spring</div>
+    <div>SpringPage</div>
   )
 }
 
-spring.propTypes = {}
+SpringPage.propTypes = {}
 
-export default spring
+export default SpringPage;

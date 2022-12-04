@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const About = (props) => {
+const AboutPage = (props) => {
     return <div>About Page</div>;
 };
 
 about.propTypes = {};
 
-export default About;
+export default AboutPage;

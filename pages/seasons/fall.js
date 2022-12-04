@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Fall = props => {
+const FallPage = props => {
   return (
     <div>Fall</div>
   )
 }
 
-Fall.propTypes = {}
+FallPage.propTypes = {}
 
-export default Fall
+export default FallPage;
