@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const AllNativePlantsPage = props => {
   return (
-    <div>index</div>
+    <div>Native Plants List Page</div>
   )
 }
 

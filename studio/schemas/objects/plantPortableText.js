@@ -35,15 +35,15 @@ export default {
         annotations: [
           {
             name: "link",
-            type: "object",
+            type: "link",
             title: "URL",
-            fields: [
-              {
-                title: "URL",
-                name: "href",
-                type: "url",
-              },
-            ],
+            // fields: [
+            //   {
+            //     title: "URL",
+            //     name: "href",
+            //     type: "url",
+            //   },
+            // ],
           },
         ],
       },

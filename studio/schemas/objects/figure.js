@@ -15,7 +15,7 @@ export default {
             title: 'Caption',
             name: 'caption',
             type: 'string',
-            description: 'Optional caption text for this image.',
+            description: 'Optional caption text for this image. If you add text here, a caption will display with this image. Leave this field blank if a caption is not desired.',
             options: {
                 isHighlighted: true,
             },
@@ -26,10 +26,10 @@ export default {
             title: 'Alternative text',
             validation: (Rule) =>
                 Rule.error(
-                    'You have to fill out the alternative text.'
+                    'Alternative text is required.'
                 ).required(),
             description:
-                'A brief description of the image that will appear only in the html - important for SEO and accessiblity.',
+                'A very brief description of the image that will appear only in the html - important for SEO and accessiblity.',
             options: {
                 isHighlighted: true,
             },

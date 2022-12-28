@@ -6,6 +6,29 @@ export default {
     title: 'Native Plants',
     icon: GiFlowerEmblem,
     type: 'document',
+    // orderings: [
+    //     {
+    //       title: 'Flo',
+    //       name: 'releaseDateDesc',
+    //       by: [
+    //         {field: 'releaseDate', direction: 'desc'}
+    //       ]
+    //     },
+    //     {
+    //       title: 'Release Date, Old',
+    //       name: 'releaseDateAsc',
+    //       by: [
+    //         {field: 'releaseDate', direction: 'asc'}
+    //       ]
+    //     },
+    //     {
+    //       title: 'Popularity',
+    //       name: 'popularityDesc',
+    //       by: [
+    //         {field: 'popularity', direction: 'desc'}
+    //       ]
+    //     }
+    //   ],
     fieldsets: [
         {
             name: 'name',
@@ -73,8 +96,8 @@ export default {
             name: 'previewImage',
             title: 'Plant Thumbnail Image',
             description:
-                "Choose a thumbnail image for this plant. Should be a portrait crop (3/4 aspect ratio).",
-            type: 'image',
+                "Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).",
+            type: 'figure',
             options: {
                 hotspot: true, // <-- Defaults to false
             },
@@ -137,6 +160,21 @@ export default {
                     { title: 'October', value: 10 },
                     { title: 'November', value: 11 },
                     { title: 'December', value: 12 },
+                ], // <-- predefined values
+            },
+            fieldset: 'description',
+        },
+        {
+            name: 'floweringSeason',
+            title: 'Flowering Season',
+            description: 'Choose a season to associate this plant with. This will determine the season page it appears on.',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Spring', value: 'spring' },
+                    { title: 'Summer', value: 'summer' },
+                    { title: 'Fall', value: 'fall' },
+                    { title: 'Winter', value: 'winter' },
                 ], // <-- predefined values
             },
             fieldset: 'description',
