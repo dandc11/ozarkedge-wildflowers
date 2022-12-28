@@ -5,6 +5,6 @@ const AboutPage = (props) => {
     return <div>About Page</div>;
 };
 
-about.propTypes = {};
+AboutPage.propTypes = {};
 
 export default AboutPage;

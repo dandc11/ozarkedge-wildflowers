@@ -5,14 +5,12 @@ import { useState } from 'react';
 
 const Nav = (cx = props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const toggleMenu = () => {
-        isMenuOpen ? setIsMenuOpen(false) : setIsMenuOpen(true);
-    };
+
     return (
         <nav className={`nav ${isMenuOpen ? `menu-active` : ''}`}>
             <button
                 className={`menu-icon`}
-                onClick={(e) => toggleMenu()}
+                onClick={(e) => setIsMenuOpen(!isMenuOpen)}
                 type="button"
             >
                 <div className={`menu-icon-bar bar-one`}></div>
@@ -21,30 +19,37 @@ const Nav = (cx = props) => {
             </button>
             <ul className={`nav-links`}>
                 <li className={`nav-list-item`}>
-                    <Link href="/">
-                        <a onClick={(e) => toggleMenu()}>Home</a>
+                    <Link href="/" onClick={(e) => setIsMenuOpen(!isMenuOpen)}>
+                        Home
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
-                    <Link href="/about">
-                        <a onClick={(e) => toggleMenu()}>About Ozarkedge</a>
+                    <Link
+                        href="/about"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        About Ozarkedge
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
-                    <Link href="/">
-                        <a onClick={(e) => toggleMenu()}>
-                            Ozarkedge Native Plants
-                        </a>
+                    <Link
+                        href="/native-plants"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Ozarkedge Native Plants
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
-                    <Link href="/">
-                        <a onClick={(e) => toggleMenu()}>Seasons</a>
+                    <Link
+                        href="/seasons"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Seasons
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
-                    <Link href="/">
-                        <a onClick={(e) => toggleMenu()}>Fungi and Lichens</a>
+                    <Link href="/" onClick={(e) => setIsMenuOpen(!isMenuOpen)}>
+                        Fungi and Lichens
                     </Link>
                 </li>
             </ul>

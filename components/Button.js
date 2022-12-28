@@ -1,19 +1,25 @@
 import React from 'react';
-
-const handleLink = (link) => {
-
-};
+import { useRouter } from 'next/router';
 
 const Button = (
-    { type = 'button', classes, link = '', callBack = null, children },
+    {
+        type = 'button',
+        classes,
+        internalLink = '',
+        externalLink = '',
+        callBack = null,
+        children,
+    },
     ...props
 ) => {
+    // TODO : handle external links?
+    const router = useRouter();
     let classArray = classes.join(' ');
     return (
         <button
-            className={`btn ${classes}`}
+            className={`btn ${classArray}`}
             type={`${type}`}
-            onClick={callBack ? callBack : () => handleLink(link)}
+            onClick={internalLink !== '' ? () => router.push(internalLink) : callBack}
         >
             {children}
         </button>
