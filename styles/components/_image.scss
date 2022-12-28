@@ -1,0 +1,12 @@
+.img-wrapper {
+    color: blue;
+    width: 500%;
+
+    .img-figure {
+        position: relative;
+
+        figcaption {
+            position: absolute;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.thumbnail-grid {
+    padding: 10px 0 0 10px;
+    display: grid;
+    grid: auto / auto;
+    gap: 10px;
+    
+    &.row {
+        display: flex;
+        overflow-x: scroll;
+    }
+}
