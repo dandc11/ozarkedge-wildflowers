@@ -1,20 +1,19 @@
 import { sanityClient } from '@lib/sanity.server';
 import {
-    LANDING_PAGE_QUERY,
-    BLOOMING_NOW_QUERY,
-    CURRENT_SEASON_QUERY,
-    ALL_SEASONS_QUERY
+    GET_LANDING_PAGE_DATA_QUERY,
+    GET_BLOOMING_PLANTS_QUERY,
+    GET_CURRENT_SEASON_QUERY,
 } from '@lib/queries';
-import { buildBackgroundStyleObject } from '@lib/utilityFunctions/imageUtil';
+import { buildBackgroundStyleObject, getImagePaletteBackgroundColor } from '@lib/utilities/imageUtil';
 import React from 'react';
 import Button from 'components/Button';
 import BloomingNow from 'components/BloomingNow';
 import cx from 'classnames';
 
 export default function HomePage({ pageData, bloomingNowData, seasonData }) {
-    console.log('environment ', process.env.NODE_ENV);
-    console.log('season data ', seasonData);
-    console.log('blooming data ', bloomingNowData);
+    // console.log('environment ', process.env.NODE_ENV);
+    // console.log('season data ', seasonData);
+    // console.log('blooming data ', bloomingNowData);
     console.log('pageData ', pageData[0]);
     const {
         id,
@@ -49,22 +48,24 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                     </div>
                                     <div className={`homepage-cta`}>
                                         <div className={`cta-buttons`}>
-                                            {buttonOne.slug && (
+                                            {buttonOne && (
                                                 <Button
-                                                    classes={['btn-secondary']}
+                                                    className={['btn-secondary']}
                                                     internalLink={
                                                         buttonOne.slug
                                                     }
+                                                    linkDocType={buttonOne.docType}
                                                 >
                                                     See what's blooming
                                                 </Button>
                                             )}
-                                            {buttonTwo.slug && (
+                                            {buttonTwo && (
                                                 <Button
-                                                    classes={['btn-secondary']}
+                                                    className={['btn-secondary']}
                                                     internalLink={
                                                         buttonTwo.slug
                                                     }
+                                                    linkDocType={buttonTwo.docType}
                                                 >
                                                     Explore native wildflowers
                                                 </Button>
@@ -95,9 +96,9 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
 }
 
 export async function getStaticProps(context) {
-    const pageData = await sanityClient.fetch(LANDING_PAGE_QUERY);
-    const bloomingNowData = await sanityClient.fetch(BLOOMING_NOW_QUERY);
-    const seasonData = await sanityClient.fetch(CURRENT_SEASON_QUERY);
+    const pageData = await sanityClient.fetch(GET_LANDING_PAGE_DATA_QUERY);
+    const bloomingNowData = await sanityClient.fetch(GET_BLOOMING_PLANTS_QUERY);
+    const seasonData = await sanityClient.fetch(GET_CURRENT_SEASON_QUERY);
     return {
         props: { pageData, bloomingNowData, seasonData },
     };

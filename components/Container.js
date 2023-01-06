@@ -1,5 +1,5 @@
 import React from 'react';
-import { buildBackgroundStyleObject } from '@lib/utilityFunctions/imageUtil';
+import { buildBackgroundStyleObject } from '@lib/utilities/imageUtil';
 import PropTypes from 'prop-types';
 
 const buildClassArray = (classes, containerProps) => {

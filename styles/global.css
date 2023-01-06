@@ -11,6 +11,13 @@
 
     /* font-sizes */
     --base-font-size: 18px;
+    --fs-xs: calc(var(--base-font-size) * .8);
+    --fs-s: var(--base-font-size);
+    --fs-m: calc(var(--base-font-size) * 1.2);
+    --fs-l: calc(var(--base-font-size) * 1.4);
+    --fs-xl: calc(var(--base-font-size) * 1.6);
+    --fs-xxl: calc(var(--base-font-size) * 2);
+    --fs-xxxl: calc(var(--base-font-size) * 2.2);
     --h1-size: 2rem;
     --h2-size: 1.4rem;
     --h3-size: 1.25rem;

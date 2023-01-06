@@ -13,6 +13,10 @@ export default {
             title: 'Link',
             description: 'The path to navigate to when the button is pressed.',
             type: 'link',
+            validation: (Rule) => Rule.required(),
+            // ({ parent, value }) => {
+            //     return !value && parent?.external
+            //   }
         },
     ],
 };

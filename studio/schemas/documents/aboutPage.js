@@ -20,14 +20,19 @@ export default {
             type: 'pageBodyPortableText',
         },
         {
+            name: 'parentPath',
+            title: 'Path From Root',
+            type: 'string',    
+        },
+        {
             name: 'slug',
             title: 'Slug',
             description:
-                "How this page's name will appear in the url. Keep it short and avoid spaces.",
+                "This page can be found on the site at this extension.",
             type: 'slug',
+            readOnly: true,
             validation: (Rule) => Rule.required(),
             options: {
-                source: 'title',
                 validation: (Rule) => [Rule.unique()],
                 slugify: (input) =>
                     input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),

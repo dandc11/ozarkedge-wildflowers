@@ -1,6 +1,7 @@
 import React from 'react'
+import {DOCUMENT_TYPES} from '../constants/constants'
 
-const LinkRender = ({children}) => <span>{children} 🌍</span>
+const LinkRender = ({children}) => <span>{children} 🔗</span>
 
 export default {
     name: 'link',
@@ -8,7 +9,7 @@ export default {
     type: 'object',
     fields: [
         {
-            name: 'external',
+            name: 'externalLink',
             type: 'url',
             description:
                 'When linking to an external web page, add the url here. It must begin with one of the following: http, https, mailto, tel.',
@@ -19,19 +20,19 @@ export default {
             hidden: ({ parent, value }) => !value && parent?.internal,
         },
         {
-            name: 'internal',
+            name: 'internalLink',
             type: 'reference',
             title: 'Internal Link',
             description:
                 'When linking to an internal page on this site, select the path here.',
-            to: [{ type: 'landingPage' }, { type: 'aboutPage' }, {type: 'plantListPage'}, { type: 'nativePlant'}],
+            to: DOCUMENT_TYPES,
             hidden: ({ parent, value }) => {
               return !value && parent?.external
             },
         },
     ],
     blockEditor: {
-        icon: () => '🌍',
+        icon: () => '🔗 Link',
         render: LinkRender,
       },
 };

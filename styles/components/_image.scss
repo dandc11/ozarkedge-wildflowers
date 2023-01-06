@@ -1,12 +1,21 @@
 .img-wrapper {
-    color: blue;
-    width: 500%;
 
     .img-figure {
         position: relative;
 
+        img {
+            border-radius: 7px;
+        }
+
         figcaption {
             position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: $black;
+            opacity: .65;
+            color: $white;
+            font-size: calc(var(--base-font-size) * .8);
+            padding: 0 .4rem;
         }
     }
 }

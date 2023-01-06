@@ -118,7 +118,7 @@ export default {
             title: 'Plant Description',
             description:
                 "Add a plant description to serve as the main text content on this plant's page. Images and other content can also be embedded.",
-            type: 'plantPortableText',
+            type: 'pageBodyPortableText',
             fieldset: 'description',
         },
         {
@@ -184,13 +184,13 @@ export default {
             title: 'Conservation Status',
             description:
                 "Add any information about the plant's conservation status.",
-            type: 'plantPortableText',
+            type: 'pageBodyPortableText',
             fieldset: 'description',
         },
         {
             name: 'habitat',
             title: 'Habitat',
-            type: 'plantPortableText',
+            type: 'pageBodyPortableText',
             fieldset: 'growingNearby',
         },
         {
@@ -207,13 +207,13 @@ export default {
             title: "What's growing nearby?",
             description:
                 "Add any additional information about what's growing near this plant.",
-            type: 'plantPortableText',
+            type: 'pageBodyPortableText',
             fieldset: 'growingNearby',
         },
         {
             name: 'tidbits',
             title: 'Interesting Tidbits',
-            type: 'plantPortableText',
+            type: 'pageBodyPortableText',
             fieldset: 'description',
         },
     ],

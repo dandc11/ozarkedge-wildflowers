@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/Link';
+// import Link from './Link'
 import { useState } from 'react';
 
 const Nav = (cx = props) => {
@@ -40,16 +41,40 @@ const Nav = (cx = props) => {
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
-                    <Link
-                        href="/seasons"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        Seasons
+                    <Link href="/" onClick={(e) => setIsMenuOpen(!isMenuOpen)}>
+                        Fungi and Lichens
                     </Link>
                 </li>
                 <li className={`nav-list-item`}>
-                    <Link href="/" onClick={(e) => setIsMenuOpen(!isMenuOpen)}>
-                        Fungi and Lichens
+                    <Link
+                        href="/season/spring"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Spring
+                    </Link>
+                </li>
+                <li className={`nav-list-item`}>
+                    <Link
+                        href="/season/summer"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Summer
+                    </Link>
+                </li>
+                <li className={`nav-list-item`}>
+                    <Link
+                        href="/season/fall"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Fall
+                    </Link>
+                </li>
+                <li className={`nav-list-item`}>
+                    <Link
+                        href="/season/winter"
+                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        Winter
                     </Link>
                 </li>
             </ul>

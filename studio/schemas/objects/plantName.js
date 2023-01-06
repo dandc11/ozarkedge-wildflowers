@@ -20,7 +20,7 @@ export default {
       title: "Plant Name Information",
       description:
         "Add any additional information about the plant's names here.",
-      type: "plantPortableText",
+      type: "pageBodyPortableText",
     },
   ],
 };

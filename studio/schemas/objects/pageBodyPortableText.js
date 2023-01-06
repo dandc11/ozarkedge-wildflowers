@@ -1,3 +1,5 @@
+import {DOCUMENT_TYPES} from '../constants/constants'
+
 export default {
   name: "pageBodyPortableText",
   type: "array",
@@ -34,17 +36,41 @@ export default {
         // TODO: Need to handle internal vs. external links
         annotations: [
           {
-            name: "link",
-            type: "object",
-            title: "URL",
-            fields: [
-              {
-                title: "URL",
-                name: "href",
-                type: "url",
-              },
-            ],
-          },
+            name: 'link',
+            type: 'link',
+            // title: 'Link',
+        }
+          // {
+          //   name: 'internalLink',
+          //   type: 'object',
+          //   title: 'Internal link',
+          //   fields: [
+          //     {
+          //       name: 'reference',
+          //       type: 'reference',
+          //       title: 'Reference',
+          //       to: DOCUMENT_TYPES,
+          //     }
+          //   ]
+          // },
+          // {
+          //   name: 'externalLink',
+          //   type: 'object',
+          //   title: 'External link',
+          //   fields: [
+          //     {
+          //       name: 'href',
+          //       type: 'url',
+          //       title: 'URL'
+          //     },
+          //     {
+          //       title: 'Open in new tab',
+          //       name: 'blank',
+          //       description: 'Link to another site.',
+          //       type: 'boolean'
+          //     }
+          //   ]
+          // },
         ],
       },
     },

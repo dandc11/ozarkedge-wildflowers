@@ -15,6 +15,7 @@ export default {
             title: 'Caption',
             name: 'caption',
             type: 'string',
+            hidden: ({ parent }) => !parent?.asset,
             description: 'Optional caption text for this image. If you add text here, a caption will display with this image. Leave this field blank if a caption is not desired.',
             options: {
                 isHighlighted: true,
@@ -24,6 +25,7 @@ export default {
             name: 'alt',
             type: 'string',
             title: 'Alternative text',
+            hidden: ({ parent }) => !parent?.asset,
             validation: (Rule) =>
                 Rule.error(
                     'Alternative text is required.'

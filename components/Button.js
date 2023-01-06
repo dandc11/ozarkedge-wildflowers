@@ -1,10 +1,13 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import cx from 'classnames';
 
 const Button = (
     {
         type = 'button',
-        classes,
+        className,
+        linkDocType='',
         internalLink = '',
         externalLink = '',
         callBack = null,
@@ -14,12 +17,13 @@ const Button = (
 ) => {
     // TODO : handle external links?
     const router = useRouter();
-    let classArray = classes.join(' ');
+    const path = getInternalLinkFullPath(linkDocType, internalLink);
+    // console.log('button path ', path)
     return (
         <button
-            className={`btn ${classArray}`}
+            className={cx(className, 'btn')}
             type={`${type}`}
-            onClick={internalLink !== '' ? () => router.push(internalLink) : callBack}
+            onClick={internalLink !== '' ? () => router.push(path) : callBack}
         >
             {children}
         </button>

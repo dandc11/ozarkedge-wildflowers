@@ -3,8 +3,11 @@ import SeasonsPreview from './SeasonsPreview';
 import PropTypes from 'prop-types';
 import PlantName from './PlantName';
 import ResponsiveImage from './ResponsiveImage';
-import { getCurrentMonthName } from '@lib/utilityFunctions/helperUtil';
+import { getCurrentMonthName } from '@lib/utilities/helperUtil';
+import CircleHeader from './CircleHeader';
 import Button from './Button';
+import PortTextWrapper  from './PortableText';
+
 import cx from 'classnames';
 
 const BloomingNow = (props) => {
@@ -53,16 +56,26 @@ const BloomingNow = (props) => {
     return (
         <div id="bloomingNow" className="blooming">
             <section id="seasonsPreview" className={`seasons`}>
-                {seasonData && (
-                    <SeasonsPreview seasonData={seasonData}></SeasonsPreview>
+                {seasonData.length && (
+                    <SeasonsPreview seasonData={seasonData[0]}></SeasonsPreview>
                 )}
             </section>
             <section id="bloomingThisMonth" className={`blooming-now`}>
-                <div id={'bloomingHeader'} className={`blooming-header`}>
+                <CircleHeader
+                    id={`bloomingHeader`}
+                    wrapperClasses={`blooming-header`}
+                    headerClasses={`blooming-header-title swatch-2`}
+                    accentColor="#9d3c10"
+                    firstLetter
+                    // showCircle
+                >
+                    Blooming in {thisMonth}
+                </CircleHeader>
+                {/* <div id={'bloomingHeader'} className={`blooming-header`}>
                     <h2 className={`blooming-header-title`}>
                         Blooming in {thisMonth}
                     </h2>
-                </div>
+                </div> */}
                 {/*<PlantName plant={currentPlant}></PlantName>
                 <ResponsiveImage
                     classNames={['thumbnail', 'featured-image']}
@@ -76,14 +89,12 @@ const BloomingNow = (props) => {
                         {plantList &&
                             plantList.map((plant, index) => (
                                 <div className={'plant'} key={index}>
-                                    <PlantName plant={plant}></PlantName>
+                                    <PlantName
+                                        plantName={plant.plantName}
+                                    ></PlantName>
                                     <ResponsiveImage
-                                        classes={[
-                                            'thumbnail',
-                                            'featured-image',
-                                        ]}
+                                        classes={['featured-image']}
                                         wrapperClasses={'blooming-plant-img'}
-                                        caption={plant.previewImage.caption}
                                         slug={plant.slug.current}
                                         placeholder="empty"
                                         blurDataURL={
@@ -96,11 +107,25 @@ const BloomingNow = (props) => {
                                         sizes="(max-width: 700px) 90vw, 700px"
                                         image={plant.previewImage.asset}
                                         alt={plant.previewImage.alt}
+                                        // caption={plant.previewImage.caption}
                                         // fill="false"
                                         // width={'500'}
                                         // height={'800'}
                                         // mobileWIdth={'300'}
                                     />
+                                    {plant.description && (
+                                        <PortTextWrapper
+                                            value={plant.description}
+                                            components={{}}
+                                        />
+                                    )}
+                                    <Button
+                                        linkDocType="nativePlant"
+                                        internalLink={plant.slug.current}
+                                        className="btn-secondary"
+                                    >
+                                        Read more
+                                    </Button>
                                 </div>
                             ))}
                     </div>

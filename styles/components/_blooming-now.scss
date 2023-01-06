@@ -9,7 +9,6 @@
         justify-items: center;
         background-color: #D3D05D;
         width: 100%;
-        padding-top: 1.5rem;
         z-index: 1;
 
         // .blooming-nav {
@@ -20,43 +19,13 @@
         //     top: -50px;
         //     left: 0;
         //     z-index: 1;
-
-            .blooming-header {
-                position: absolute;
-                font-style: italic;
-                font-weight: var(--fw-500);
-                letter-spacing: .5px;
-                font-size: 1.45rem;
-                padding: 0 5vw;
-                top: -1rem;
-                white-space: nowrap;
-                align-self: flex-start;
-                width: 100%;
-
-                .blooming-header-title {
-                    position: relative;
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        width: 100px;
-                        height: 100px;
-                        background-color: $pink-100;
-                        border-radius: 50%;
-                        top: -30px;
-                        left: -26px;
-                        z-index: -1;
-                    }
-                }
-
-            }
-
-            // .btn-arrow-next,
-            // .btn-arrow-prev {
-            //     // display: inline;
-            // }
+        
+        // .btn-arrow-next,
+        // .btn-arrow-prev {
+        //     // display: inline;
         // }
-
+        // }
+        
         .plant-container {
             overflow-x: scroll;
             width: 100%;
@@ -66,11 +35,8 @@
                 display: flex;
                 flex-wrap: nowrap;
                 gap: 4vw;
-    
+
                 .plant {
-                    // padding: .75rem 5vw;
-                    // width: 85vw;
-                    // aspect-ratio: 8/5;
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
@@ -79,23 +45,20 @@
 
                     &:first-of-type {
                         padding-left: 4vw;
-                    } 
+                    }
 
                     &:last-of-type {
                         padding-right: 4vw;
                     }
                 }
-                
+
                 .blooming-plant-img {
                     position: relative;
-                    // aspect-ratio: 8/5;
-                    // height: 100%;
                     margin-bottom: 2vh;
-                    
+
                     img {
-                        width: 85vw; 
+                        width: 85vw;
                         height: auto;
-                        border-radius: 7px;
                         aspect-ratio: 8/6;
                         object-fit: cover;
                     }
@@ -103,7 +66,7 @@
             }
 
         }
-        
+
 
     }
 }

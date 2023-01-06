@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 const PlantName = (props) => {
-    const { plant } = props;
+    const {
+        plantName,
+        showBotanicalName = true,
+        showCommonName = true,
+        showSeparator = true,
+    } = props;
     return (
         <div className={`featured-name`}>
-            <h3 className={`common-name`}>
-                {plant.plantName.commonName}
-            </h3>
-            <h4 className={`botanical-name`}>
-                {plant.plantName.botanicalName}
-            </h4>
+            {showCommonName && (
+                <h3 className={`common-name ${cx({'separator': showSeparator})}`}>{plantName.commonName}</h3>
+            )}
+            {showBotanicalName && (
+                <h4 className={`botanical-name`}>
+                    {plantName.botanicalName}
+                </h4>
+            )}
         </div>
     );
 };
@@ -18,3 +26,4 @@ const PlantName = (props) => {
 PlantName.propTypes = {};
 
 export default PlantName;
+ 

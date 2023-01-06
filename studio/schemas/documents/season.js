@@ -1,6 +1,9 @@
+import { GiSunCloud } from 'react-icons/gi';
+
 export default {
     name: 'season',
-    title: 'Season',
+    title: 'Seasons',
+    icon: GiSunCloud,
     type: 'document',
     fields: [
         {
@@ -18,13 +21,28 @@ export default {
             validation: (Rule) => Rule.required(),
         },
         {
+            name: 'slug',
+            title: 'Slug',
+            description:
+                "How this page's name will appear in the url. Keep it short and avoid spaces.",
+            type: 'slug',
+            validation: (Rule) => Rule.required(),
+            options: {
+                source: 'seasonName',
+                validation: (Rule) => [Rule.unique()],
+                slugify: (input) =>
+                    input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+            },
+        },
+        {
             name: 'monthNumbers',
             title: 'Season Months',
-            description: 'These are the months used for this season. Plants\' flowering months will be matched to these to determine the season the plant corresponds to. This field is read-only to prevent accidental changes.',
+            description:
+                "These are the months used for this season. Plants' flowering months will be matched to these to determine the season the plant corresponds to. This field is read-only to prevent accidental changes.",
             hidden: true,
             readOnly: true,
             type: 'array',
-            of: [{type: 'number'}],
+            of: [{ type: 'number' }],
             options: {
                 list: [
                     { title: 'January', value: 1 },
@@ -47,7 +65,7 @@ export default {
             name: 'description',
             title: 'Season Description',
             description: 'Add body text content about this season here.',
-            type: 'plantPortableText',
+            type: 'pageBodyPortableText',
         },
         {
             name: 'mainImage',
@@ -67,8 +85,8 @@ export default {
                     to: [{ type: 'nativePlant' }],
                     options: {
                         filter: 'season == $season',
-                        filterParams: {season: 'floweringSeason'}
-                      }
+                        filterParams: { season: 'floweringSeason' },
+                    },
                 },
             ],
             validation: (Rule) => Rule.unique(),
