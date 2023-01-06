@@ -1,7 +1,72 @@
-.bloomingNow {
-    .plantListSection {
-    }
+.blooming {
+    display: flex;
+    flex-direction: column;
 
-    .featuredPlantSection {
+    .blooming-now {
+        position: relative;
+        display: grid;
+        grid: auto 2fr 2fr / 1fr;
+        justify-items: center;
+        background-color: #D3D05D;
+        width: 100%;
+        z-index: 1;
+
+        // .blooming-nav {
+        //     width: 100%;
+        //     display: flex;
+        //     justify-content: space-around;
+        //     position: absolute;
+        //     top: -50px;
+        //     left: 0;
+        //     z-index: 1;
+        
+        // .btn-arrow-next,
+        // .btn-arrow-prev {
+        //     // display: inline;
+        // }
+        // }
+        
+        .plant-container {
+            overflow-x: scroll;
+            width: 100%;
+            margin: 0 4vw;
+
+            .plant-slider {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 4vw;
+
+                .plant {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    position: relative;
+
+                    &:first-of-type {
+                        padding-left: 4vw;
+                    }
+
+                    &:last-of-type {
+                        padding-right: 4vw;
+                    }
+                }
+
+                .blooming-plant-img {
+                    position: relative;
+                    margin-bottom: 2vh;
+
+                    img {
+                        width: 85vw;
+                        height: auto;
+                        aspect-ratio: 8/6;
+                        object-fit: cover;
+                    }
+                }
+            }
+
+        }
+
+
     }
 }

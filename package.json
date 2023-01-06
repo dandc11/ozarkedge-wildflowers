@@ -11,17 +11,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@portabletext/react": "^1.0.4",
+    "@portabletext/react": "^1.0.6",
     "@sanity/image-url": "^1.0.1",
-    "next": "12.1.0",
+    "classnames": "^2.3.2",
+    "next": "^13.0.7",
     "next-sanity": "^0.5.1",
-    "next-sanity-image": "^3.2.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "next-sanity-image": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "eslint": "8.9.0",
-    "eslint-config-next": "12.1.0",
+    "eslint-config-next": "^13.0.7",
     "sass": "^1.54.8"
   }
 }

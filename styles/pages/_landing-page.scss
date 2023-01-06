@@ -1,46 +1,160 @@
-.home-page-content {
-    position: relative;
-    padding: 0;
-    overflow: hidden;
-    background-attachment: fixed;
+#landingImageContainer {
+    z-index: -1;
+    height: 100vh;
+    width: 100%;
+    background: var(--bg-small);
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-    .homepage-text {
+    // @media screen and (min-width: $breakpoint-400) {
+    //     background-size: auto 75%;
+    //     background-position: 55% -30%;
+    //     // background-position: 55% -30rem;
+    //     // background-size: cover;
+    // }
+
+    @media screen and (min-width: $breakpoint-900) {
         position: absolute;
         top: 0;
-        padding-top: 1vh;
-        padding-right: 3vw;
+        left: 0;
+        position: fixed;
+        background: var(--bg-large);
+        background-size: cover;
+        background-position: 40% 0;
+        background-attachment: scroll;
+    }
+}
+
+
+// body {
+//     height: auto; 
+//     z-index: 1;
+// }
+
+.homepage-content {
+    color: #6c383e;
+    position: relative;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // background-position: center top;
+    // background-repeat: no-repeat;
+    // background-attachment: scroll, local;
+    // background-size: 100vw auto;
+    // background-color: grey;
+
+    .above-fold {
+        @media screen and (min-width: $breakpoint-900) {
+            height: 100vh;
+        }
+    }
+
+    .homepage-info-section {
+        position: absolute;
+        top: 0;
+        padding: 10vh 2vh 7vh 2vh;
+        display: flex;
+        flex-direction: column;
         background-color: transparent;
-        // z-index: 1;
+        justify-content: space-between;
         min-width: 25%;
     }
 
     .homepage-title {
-        font-size: 5vw;
-        font-weight: bold;
-        line-height: 0;
-        letter-spacing: 1px;
+        align-self: center;
+        text-align: center;
+        background: linear-gradient(92.12deg, #9d3c10 4.6%, #6e3b07 92.37%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 
-        .underline-title {
-            text-decoration: underline;
-            text-underline-offset: 1.5vw;
-            text-decoration-thickness: 2px;
+        .title {
+            font-size: calc(2.5rem + 1vw);
+            padding-bottom: .3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 3rem;
+        }
+
+        .subtitle {
+            padding-top: .35rem;
+            font-size: 1rem;
+            line-height: normal;
         }
     }
 
     .homepage-cta {
-        max-width: 30vw;
-        margin-top: 0;
-        border-top: 2px solid #3f403f;
-        padding-top: 1rem;
-        text-align: center;
-        text-align: justify;
+        align-self: center;
+        width: 100%;
+        color: $white;
 
-        .subtitle {
-            font-size: 1rem;
-            line-height: normal;
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+
+            .btn {
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
+
+    .blooming-container {
+        background-color: #f5e8b5de;
+        color: $text-medium-grey;
+    }
+
+    @media screen and (min-width: $breakpoint-900) {
+
+        .homepage-info-section {
+            justify-content: flex-start;
+        }
+
+        .homepage-title {
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .homepage-cta {
+            padding-top: 10vh;
         }
 
         .cta-buttons {
+            align-items: flex-end;
+
         }
+    }
+
+    @media screen and (min-width: $breakpoint-1000) {
+
+        .homepage-info-section {
+            padding-right: 3vw;
+
+            .homepage-cta {
+                padding-top: 10vh;
+
+                .cta-buttons {
+                    flex-direction: row;
+                    justify-content: flex-end;
+
+                    .btn+.btn {
+                        margin-left: 2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-1600) {
+        .homepage-title {
+
+            .subtitle {
+                font-size: 1.25rem;
+            }
+        }
+
     }
 }

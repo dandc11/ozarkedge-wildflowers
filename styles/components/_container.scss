@@ -9,12 +9,12 @@
     color: var(--text-medium-grey);
 
     // set background on medium screens
-    @media screen and (min-width: $s-breakpoint) and (max-width: $m-breakpoint) {
+    @media screen and (min-width: $breakpoint-600) and (max-width: $breakpoint-900) {
         background: var(--bg-medium, none);
     }
 
     // set background on large screens
-    @media screen and (min-width: $m-breakpoint) {
+    @media screen and (min-width: $breakpoint-900) {
         background: var(--bg-large, none);
     }
 }

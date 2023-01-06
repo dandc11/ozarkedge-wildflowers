@@ -1,73 +1,19 @@
 import React from 'react';
-import { urlFor, usePreviewSubscription } from '@lib/sanity';
-import {
-    getImagePaletteBackgroundColor,
-    getImagePaletteForegroundColor,
-    getImagePaletteTitleTextColor,
-} from '@lib/imageUtil';
+import { buildBackgroundStyleObject } from '@lib/utilities/imageUtil';
 import PropTypes from 'prop-types';
-
-const buildContainerBackground = (containerProps) => {
-    const {
-        display,
-        bgImageLarge,
-        bgImageMedium,
-        bgImageSmall,
-        bgSize,
-        bgPosition,
-        bgColor,
-        bgBlendMode,
-        opacity,
-        tag = 'div',
-    } = containerProps;
-    let styleObject = {};
-    if (bgImageLarge) {
-        styleObject['--bg-large'] = `url('${urlFor(
-            bgImageLarge
-        )}') 0px 0px / cover no-repeat fixed`;
-    }
-    if (bgImageMedium) {
-        styleObject['--bg-medium'] = `url('${urlFor(
-            bgImageMedium
-        )}') 0px 0px / cover no-repeat fixed`;
-    }
-    if (bgImageSmall) {
-        styleObject['--bg-small'] = `url('${urlFor(
-            bgImageSmall
-        )}') 0px 0px / cover no-repeat fixed`;
-    }
-    if (bgColor) {
-        styleObject.backgroundColor =
-            bgColor !== 'palette'
-                ? bgColor
-                : getImagePaletteBackgroundColor(bgImageLarge, 'darkVibrant');
-        if (opacity) {
-            styleObject.backgroundColor = `${
-                styleObject.backgroundColor + opacity
-            }`;
-        }
-    }
-    if (bgBlendMode) {
-        styleObject.backgroundBlendMode = bgBlendMode;
-    }
-    return styleObject;
-};
 
 const buildClassArray = (classes, containerProps) => {
     const { display } = containerProps;
     classes = [...classes, 'container'];
     let classArray = classes.join(' ');
-    console.log('class array ', classArray);
     return classArray;
 };
 
 const Container = ({ classes, children, ...props }) => {
-    const { tag } = props;
-    const bgStyle = buildContainerBackground(props);
+    const { bgParamObj = undefined, tag } = props;
+    const bgStyle = bgParamObj ? buildBackgroundStyleObject(bgParamObj) : {};
     const classArray = buildClassArray(classes, props);
-    console.log('styles ', bgStyle);
 
-    // console.log('classes ', classArray);
     return (
         <>
             {tag === 'none' && <>{children}</>}

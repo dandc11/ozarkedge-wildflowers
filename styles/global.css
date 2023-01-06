@@ -1,38 +1,84 @@
 :root {
-    /* colors */
-    --text-medium-grey: #3f403f;
-    --white: #ffffff;
-    --black: #000000;
+
+
+    /* TYPOGRAPHY-------------------------- */
+
+    /* fonts */
+    --title-font: 'Playfair Display', serif;
+    --base-font: 'PT Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+
+    /* font-sizes */
+    --base-font-size: 18px;
+    --fs-xs: calc(var(--base-font-size) * .8);
+    --fs-s: var(--base-font-size);
+    --fs-m: calc(var(--base-font-size) * 1.2);
+    --fs-l: calc(var(--base-font-size) * 1.4);
+    --fs-xl: calc(var(--base-font-size) * 1.6);
+    --fs-xxl: calc(var(--base-font-size) * 2);
+    --fs-xxxl: calc(var(--base-font-size) * 2.2);
+    --h1-size: 2rem;
+    --h2-size: 1.4rem;
+    --h3-size: 1.25rem;
+
+    /* font-weights */
+    --base-fw: var(--fw-500);
+    --fw-300: 300;
+    --fw-400: 400;
+    --fw-500: 500;
+    --fw-600: 600;
+    --fw-700: 500;
+    --fw-800: 800;
+    --fw-900: 900;
+
+    --underline-offset: 2px;
+
+    /* SPACING----------------------------- */
+
+    --full-width-h-margin: 1.5rem;
+
+
+
 }
 
+/* minimal reset */
 * {
     box-sizing: border-box;
-}
-
-html,
-body {
     margin: 0;
-}
-
-body {
-    font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-        sans-serif;
+    padding: 0;
+    font-family: var(--base-font);
+    font-size: var(--base-font-size);
+    font-weight: var(--base-fw);
+    line-height: normal;
+    color: #3f403f;
 }
 
 h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--title-font);
+    font-size: var(--h1-size);
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+h2 {
+    font-size: var(--h2-size);
+    font-weight: var(--fw-500);
+}
 
-    /* // &:hover,
-    // &:focus,
-    // &:active {
-    //     text-decoration: underline;
-    // } */
+h3 {
+    font-size: var(--h3-size);
+}
+
+a[href] {
+    color: inherit;
+    text-underline-offset: var(--underline-offset);
+    font-weight: var(--fw-600);
+    /* text-decoration: none; */
+}
+
+a:hover,
+a:focus,
+a:active {
+    
 }
 
 .page-content {

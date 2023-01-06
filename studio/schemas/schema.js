@@ -5,11 +5,9 @@ import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 import siteSettings from './documents/siteSettings';
 import category from './objects/category';
-import responsiveImage from './objects/responsiveImage';
 import mainImage from './objects/mainImage';
 import figure from './objects/figure';
 import pageBodyPortableText from './objects/pageBodyPortableText';
-import plantPortableText from './objects/plantPortableText';
 import plantName from './objects/plantName';
 import aboutPage from './documents/aboutPage';
 import nativePlant from './documents/nativePlant';
@@ -19,6 +17,7 @@ import pollinator from './documents/pollinator';
 import nearbyPlant from './objects/nearbyPlant';
 import link from './objects/link';
 import button from './objects/button';
+import season from './documents/season';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -31,12 +30,11 @@ export default createSchema({
         category,
         link,
         button,
-        responsiveImage,
         mainImage,
         figure,
         pageBodyPortableText,
-        plantPortableText,
         plantName,
+        season,
         nearbyPlant,
         nativePlant,
         pollinator,

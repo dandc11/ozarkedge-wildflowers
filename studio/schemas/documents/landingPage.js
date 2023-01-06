@@ -23,16 +23,23 @@ export default {
             type: 'text',
         },
         {
+            name: 'slug',
+            type: 'slug',
+            readOnly: true,
+            hidden: true
+        },
+        {
             name: 'mainImage',
             title: 'Main Image',
-            description: 'Select the banner image for the landing page.',
+            description:
+                'Provide an image for the background of the landing page.',
             type: 'mainImage',
         },
         {
             name: 'mobileImage',
             title: 'Mobile Image',
             description:
-                'If a different image should appear at mobile screen sizes, or a different crop of the main image, provide that here. If blank, the main image will be used at all screen sizes.',
+                'Optional - Provide an image cropped for mobile viewports. If blank, the main image will be used.',
             type: 'image',
             options: {
                 hotspot: true,

@@ -1,0 +1,28 @@
+.thumbnail {
+    border-radius: 7px;
+    // object-fit: contain;
+    // height: auto;
+
+    & > * {
+        aspect-ratio: 8/6;
+    }
+    
+    &.small {
+        width: 250px;
+    }
+
+    &.medium {
+
+    }
+
+    &.large {
+
+    }
+
+    &.tall {
+        object-fit: cover;
+        > span {
+            aspect-ratio: 3/4;
+        }
+    }
+}

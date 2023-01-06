@@ -1,75 +1,93 @@
 import Image from 'next/image';
-import { urlFor } from '@lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import { sanityClient } from '@lib/sanity.server';
-import { getImgUrlsForSrcSet } from '@lib/imageUtil';
-import { getDefaultImgSizes } from '@lib/imageUtil';
-
-const composeSanityUrls = (image, altText) => {
-    // let url = urlFor(image).height(550).width(550).url();
-    // return url;
-};
+import cx from 'classnames';
 
 {
     /*** ResponsiveImage example
      *  <ResponsiveImage
-        classNames={'hero-image'}
-        altText={mainImage.alt}
-        image={mainImage}
-        quality={`100`}
+    classes={'hero-image'}
+    altText={mainImage.alt}
+    image={mainImage}
+    quality={`100`}
     /> */
 }
 {
     /*** img with Sanity urlFor
-    <img
-        className="hero-img"
-        src={urlFor(data.mainImage)
-            .height(550)
-            .width(550)
-            .url()}
+     <img
+     className="hero-img"
+     src={urlFor(data.mainImage)
+        .height(550)
+        .width(550)
+        .url()}
         alt={data.mainImage.alt}
     /> */
 }
+const myCustomImageBuilder = (imageUrlBuilder, options) => {
+    return imageUrlBuilder
+        .width(
+            options.width ||
+                Math.min(options.originalImageDimensions.width, 800)
+        )
+        .fit('clip');
+};
 
 const ResponsiveImage = ({
-    priority = false,
-    placeholder = `empty`,
-    quality = `100`,
-    classNames,
+    alt = 'A flower at Ozarkedge',
+    caption,
+    classes,
+    height,
     image,
-    altText,
+    mobileWidth,
     mobileImage = false,
+    priority = false,
+    placeholder = `blur`,
+    quality = `100`,
+    fill = false,
+    sizes,
+    style,
+    width,
+    wrapperClasses,
     ...props
 }) => {
     const imageProps = useNextSanityImage(sanityClient, image);
     const mobileImageProps = mobileImage
-        ? useNextSanityImage(sanityClient, image)
+        ? useNextSanityImage(sanityClient, image, {
+              imageBuilder: myCustomImageBuilder,
+          })
         : '';
+    const classNames = cx(classes);
+    const wrapperClassNames = cx(wrapperClasses, 'img-wrapper');
     return (
-        <div className="imageContainer">
-            <Image
-                {...imageProps}
-                layout="responsive"
-                className={[...classNames, ' screen-large']}
-                alt={altText}
-                placeholder={placeholder}
-                priority={priority}
-                quality={quality}
-                // sizes="(max-width: 1600px) 100vw, 1600px"
-                // sizes={getDefaultImgSizes()}
-            />
+        <div className={wrapperClassNames}>
+            <figure className={'img-figure'}>
+                <Image
+                    {...imageProps}
+                    className={classNames + ' img-desktop'}
+                    alt={alt}
+                    placeholder={placeholder}
+                    priority={priority}
+                    quality={quality}
+                    sizes={sizes}
+                    style={style}
+                    // fill={fill}
+                    width={imageProps.width}
+                    height={imageProps.height}
+                />
+                {caption && <figcaption>{caption}</figcaption>}
+            </figure>
             {/* output separate image/crop at mobile size if one exists */}
             {mobileImage && (
                 <Image
                     {...mobileImageProps}
-                    layout="responsive"
-                    className={[...classNames, 'screen-small']}
+                    className={classNames + 'img-mobile'}
                     alt={altText}
-                    placeholder={placeholder}
                     priority={priority}
                     quality={quality}
-                    // sizes="(max-width: 1600px) 100vw, 1600px"
-                    // sizes={getDefaultImgSizes()}
+                    // placeholder={placeholder}
+                    // mobileWidth={mobileWidth}
+                    // mobileHeight={mobileHeight}
+                    sizes={sizes}
                 />
             )}
         </div>

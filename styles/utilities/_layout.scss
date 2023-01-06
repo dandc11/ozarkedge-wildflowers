@@ -1,6 +1,10 @@
 // breakpoints (must be scss variables because
-$s-breakpoint: 600px;
-$m-breakpoint: 950px;
+$breakpoint-500: 400px;
+$breakpoint-600: 600px;
+$breakpoint-900: 900px;
+$breakpoint-1000: 1180px;
+$breakpoint-1200: 1400px;
+$breakpoint-1600: 1650px;
 
 // spacers
 .mt-0 {
@@ -135,47 +139,3 @@ $m-breakpoint: 950px;
     }
 }
 
-// Flex classes
-.flex {
-    display: flex;
-
-    &.flex-column {
-        flex-direction: column;
-    }
-
-    &.jusify-start {
-        justify-content: flex-start;
-    }
-
-    &.jusify-end {
-        justify-content: flex-end;
-    }
-
-    &.justify-center {
-        justify-content: center;
-    }
-
-    &.justify-space-around {
-        justify-content: space-around;
-    }
-
-    &.justify-space-between {
-        justify-content: space-between;
-    }
-
-    &.align-start {
-        align-items: flex-start;
-    }
-
-    &.align-end {
-        align-items: flex-end;
-    }
-
-    &.align-center {
-        align-items: center;
-    }
-
-    &.wrap {
-        flex-wrap: wrap;
-    }
-}

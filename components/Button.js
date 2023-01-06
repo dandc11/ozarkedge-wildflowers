@@ -1,17 +1,29 @@
 import React from 'react';
-
-const handleClick = (link) => {};
+import { useRouter } from 'next/router';
+import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import cx from 'classnames';
 
 const Button = (
-    { type = 'button', classes, link = '', children },
+    {
+        type = 'button',
+        className,
+        linkDocType='',
+        internalLink = '',
+        externalLink = '',
+        callBack = null,
+        children,
+    },
     ...props
 ) => {
-    let classArray = classes.join(' ');
+    // TODO : handle external links?
+    const router = useRouter();
+    const path = getInternalLinkFullPath(linkDocType, internalLink);
+    // console.log('button path ', path)
     return (
         <button
-            className={`btn ${classes}`}
+            className={cx(className, 'btn')}
             type={`${type}`}
-            onClick={handleClick(link)}
+            onClick={internalLink !== '' ? () => router.push(path) : callBack}
         >
             {children}
         </button>

@@ -28,5 +28,11 @@ export default {
       hidden: true,
       of: [{ type: "nativePlant" }],
     },
+    {
+      name: 'slug',
+      type: 'slug',
+      description: "The URL slug for this page (read-only since changing will break links under this path).",
+      readOnly: true,
+  },
   ],
 };

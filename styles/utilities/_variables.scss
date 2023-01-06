@@ -1,1 +1,29 @@
-// colors
+/* Breakpoints-------------------------- */
+
+$breakpoint-400: 400px;
+$breakpoint-500: 500px;
+$breakpoint-600: 600px;
+$breakpoint-700: 700px;
+$breakpoint-800: 800px;
+$breakpoint-900: 900px;
+$breakpoint-1000: 1000px;
+$breakpoint-1200: 1200px;
+$breakpoint-1600: 1600px;
+
+/* COLORS------------------------------ */
+
+$white: #ffffff;
+$black: #000000;
+$text-medium-grey: #3f403f;
+$brown-100: #9d3c10;
+$dark-green-100: #546e44;
+$pink-100: #dba1be;
+$bright-yellow: #F7FF0A;
+
+@mixin shadow-1 {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+@mixin transition-speed {
+
+}
