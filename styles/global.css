@@ -1,6 +1,4 @@
 :root {
-
-
     /* TYPOGRAPHY-------------------------- */
 
     /* fonts */
@@ -41,6 +39,10 @@
 
 
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* minimal reset */
 * {
