@@ -1,5 +1,5 @@
 import { PortableText } from '@portabletext/react';
-import Link from './Link';
+import CustomLink from './CustomLink';
 import { DOCTYPE_PATH_PREFIXES } from '@lib/utilities/constants';
 
 const portTextComponents = {
@@ -14,7 +14,7 @@ const portTextComponents = {
     },
 
     marks: {
-        // link: ({ children, value }) => <Link docType={DOCTYPE_PATH_PREFIXES.nativePlant} href={value}>{children}</Link>,
+        // link: ({ children, value }) => <CustomLink docType={DOCTYPE_PATH_PREFIXES.nativePlant} href={value}>{children}</CustomLink>,
         link: ({ children, value }) => console.log('value ', value),
     },
 };

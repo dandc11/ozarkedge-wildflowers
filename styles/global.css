@@ -2,72 +2,60 @@
     /* TYPOGRAPHY-------------------------- */
 
     /* fonts */
-    --title-font: 'Playfair Display', serif;
-    --base-font: 'PT Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
-
-    /* font-sizes */
-    --base-font-size: 18px;
-    --fs-xs: calc(var(--base-font-size) * .8);
-    --fs-s: var(--base-font-size);
-    --fs-m: calc(var(--base-font-size) * 1.2);
-    --fs-l: calc(var(--base-font-size) * 1.4);
-    --fs-xl: calc(var(--base-font-size) * 1.6);
-    --fs-xxl: calc(var(--base-font-size) * 2);
-    --fs-xxxl: calc(var(--base-font-size) * 2.2);
-    --h1-size: 2rem;
-    --h2-size: 1.4rem;
-    --h3-size: 1.25rem;
-
-    /* font-weights */
-    --base-fw: var(--fw-500);
-    --fw-300: 300;
-    --fw-400: 400;
-    --fw-500: 500;
-    --fw-600: 600;
-    --fw-700: 500;
-    --fw-800: 800;
-    --fw-900: 900;
-
+    /* --title-font: 'Playfair Display', serif; */
+    /* --base-font: 'PT Sans', -apple-system, Segoe UI, Roboto,
+        Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+        sans-serif; */
     --underline-offset: 2px;
-
-    /* SPACING----------------------------- */
-
-    --full-width-h-margin: 1.5rem;
-
-
-
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .btn-primary {
+        @apply py-5 px-4 w-full text-white font-semibold rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 bp-900:w-56 bp-1100:py-3 bp-1100:px-4 bg-gradient-to-r from-pink-500 to-pink-600;
+    }
+    .btn-secondary {
+        @apply py-5 px-4 w-full text-white font-semibold rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 bp-900:w-56 bp-1100:py-3 bp-1100:px-4 bg-gradient-to-r from-green-600 to-lime-800;
+    }
+    .btn-hollow-primary {
+        @apply py-5 px-4 w-full text-pink-500 font-semibold rounded-lg mb-4 border-pink-500 border-2 border-solid shadow-md bg-transparent cursor-pointer focus:outline-none focus:text-white focus:bg-pink-500 focus:border-none bp-900:w-56 bp-1100:py-3 bp-1100:px-4;
+    }
+
+    .btn-arrow-right {
+        @apply relative bg-white rounded-full w-16 h-16 z-10 before:absolute before:w-4 before:h-4 before:top-[38%] before:left-[36%] before:border-black before:border-solid before:border-spacing-1 before:rotate-[315deg] before:border-b-[5px] before:border-r-[5px] before:border-l-0 before:border-t-0;
+    }
+    
+    .btn-arrow-left {
+        @apply relative bg-white rounded-full w-16 h-16 z-10 before:absolute before:w-4 before:h-4 before:top-[38%] before:left-[42%] before:border-black before:border-solid before:border-spacing-1 before:rotate-[135deg] before:border-b-[5px] before:border-r-[5px] before:border-l-0 before:border-t-0;
+    }
+}
+
 /* minimal reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: var(--base-font);
+    /* font-family: var(--base-font);
     font-size: var(--base-font-size);
-    font-weight: var(--base-fw);
+    font-weight: var(--base-fw); */
     line-height: normal;
     color: #3f403f;
 }
 
-h1 {
-    font-family: var(--title-font);
-    font-size: var(--h1-size);
+/* Landing Page */
+#landingImageContainer {
+    background-image: var(--bg-small);
+
+    @media screen and (min-width: $breakpoint-900) {
+        background-image: var(--bg-large);
+    }
 }
 
-h2 {
-    font-size: var(--h2-size);
-    font-weight: var(--fw-500);
-}
-
-h3 {
-    font-size: var(--h3-size);
+.homepage-content .title {
+    font-size: calc(2.5rem + 1vw);
 }
 
 a[href] {
@@ -80,7 +68,6 @@ a[href] {
 a:hover,
 a:focus,
 a:active {
-    
 }
 
 .page-content {

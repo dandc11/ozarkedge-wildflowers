@@ -12,89 +12,92 @@ import cx from 'classnames';
 
 const BloomingNow = (props) => {
     const { plantList, seasonData } = props;
-    // const [currentPlantIndex, setCurrentPlantIndex] = useState(0);
-    // const [currentPlant, setCurrentPlant] = useState(
-    //     plantList[currentPlantIndex]
-    // );
+    const [currentPlantIndex, setCurrentPlantIndex] = useState(0);
+    const [currentPlant, setCurrentPlant] = useState(
+        plantList[currentPlantIndex]
+    );
     const thisMonth = getCurrentMonthName();
-
-    // const showNextPlant = () => {
-    //     let newIndex =
-    //         currentPlantIndex === plantList.length - 1
-    //             ? 0
-    //             : currentPlantIndex + 1;
-    //     setCurrentPlantIndex(newIndex);
-    //     setCurrentPlant(plantList[newIndex]);
-    // };
-    // const showPreviousPlant = () => {
-    //     let newIndex =
-    //         currentPlantIndex === 0
-    //             ? plantList.length - 1
-    //             : currentPlantIndex - 1;
-    //     setCurrentPlantIndex(newIndex);
-    //     setCurrentPlant(plantList[newIndex]);
-    // };
-
-    // const BloomingNav = (props) => (
-    //     <nav className="blooming-nav" aria-labelledby="bloomingHeader">
-    //         <Button
-    //             classes={['btn-arrow-prev']}
-    //             callBack={showPreviousPlant}
-    //         ></Button>
-    //         <h2 id={"bloomingHeader"} className={`blooming-header`}>
-    //             Blooming in {thisMonth}
-    //         </h2>
-    //         <Button classes={['play-button']} callBack={}></Button>
-    //         <Button
-    //             classes={['btn-arrow-next']}
-    //             callBack={showNextPlant}
-    //         ></Button>
-    //     </nav>
-    // );
     console.log('plants blooming now ', plantList);
 
+    const showNextPlant = () => {
+        let newIndex =
+            currentPlantIndex === plantList.length - 1
+                ? 0
+                : currentPlantIndex + 1;
+        setCurrentPlantIndex(newIndex);
+        setCurrentPlant(plantList[newIndex]);
+    };
+    const showPreviousPlant = () => {
+        let newIndex =
+            currentPlantIndex === 0
+                ? plantList.length - 1
+                : currentPlantIndex - 1;
+        setCurrentPlantIndex(newIndex);
+        setCurrentPlant(plantList[newIndex]);
+    };
+
+    const BloomingNav = (props) => (
+        <nav className={`blooming-nav w-full flex justify-around absolute -top-12 left-0 z-10`} aria-labelledby="bloomingHeader">
+            <Button
+                className={`btn-arrow-left`}
+                callBack={showPreviousPlant}
+            ></Button>
+            <h2 id={"bloomingHeader"} className={`blooming-header`}>
+                Blooming in {thisMonth}
+            </h2>
+            {/* <Button className={['play-button']} callBack={}></Button> */}
+            <Button
+                className={`btn-arrow-right`}
+                callBack={showNextPlant}
+            ></Button>
+        </nav>
+    );
+
     return (
-        <div id="bloomingNow" className="blooming">
+        <div id="bloomingNow" className={`blooming flex flex-col`}>
             <section id="seasonsPreview" className={`seasons`}>
                 {seasonData.length && (
                     <SeasonsPreview seasonData={seasonData[0]}></SeasonsPreview>
                 )}
             </section>
-            <section id="bloomingThisMonth" className={`blooming-now`}>
-                <CircleHeader
+            <section id="bloomingThisMonth" className={`blooming-now relative grid grid-cols-[auto_2fr_2fr] w-full bg-[#D3D05D] justify-center`}>
+                {/* <CircleHeader
                     id={`bloomingHeader`}
                     wrapperClasses={`blooming-header`}
                     headerClasses={`blooming-header-title swatch-2`}
                     accentColor="#9d3c10"
                     firstLetter
-                    // showCircle
+                    showCircle
                 >
                     Blooming in {thisMonth}
-                </CircleHeader>
-                {/* <div id={'bloomingHeader'} className={`blooming-header`}>
+                </CircleHeader> */}
+                <BloomingNav></BloomingNav>
+                <div className={`blooming-nav-container`}>
+                <div id={'bloomingHeader'} className={`blooming-header`}>
                     <h2 className={`blooming-header-title`}>
                         Blooming in {thisMonth}
                     </h2>
-                </div> */}
-                {/*<PlantName plant={currentPlant}></PlantName>
+                </div>
+                {/* <PlantName plant={currentPlant.plantName}></PlantName> */}
                 <ResponsiveImage
-                    classNames={['thumbnail', 'featured-image']}
-                    slug={plant.slug.current}
+                    className={''}
+                    slug={currentPlant.slug.current}
                     // width={'300px'}
-                    image={plant.previewImage.asset}
+                    image={currentPlant.previewImage.asset}
                     key={'index'}
-                /> */}
-                <div className={`plant-container`}>
-                    <div className={`plant-slider`}>
+                />
+                </div>
+                <div className={`plant-container hidden overflow-x-scroll w-full my-0`}>
+                    <div className={`plant-slider flex flex-nowrap gap-4`}>
                         {plantList &&
                             plantList.map((plant, index) => (
-                                <div className={'plant'} key={index}>
+                                <div className={`plnat flex flex-col justify-start items-center relative first-of-type:pl-4 last-of-type:pr-4`} key={index}>
                                     <PlantName
                                         plantName={plant.plantName}
                                     ></PlantName>
                                     <ResponsiveImage
-                                        classes={['featured-image']}
-                                        wrapperClasses={'blooming-plant-img'}
+                                        className={`featured-image w-full object-cover aspect-[8/6] h-auto min-w-[85vw]`}
+                                        wrapperClasses={'blooming-plant-img relative mb-8'}
                                         slug={plant.slug.current}
                                         placeholder="empty"
                                         blurDataURL={

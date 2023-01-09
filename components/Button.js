@@ -21,7 +21,7 @@ const Button = (
     // console.log('button path ', path)
     return (
         <button
-            className={cx(className, 'btn')}
+            className={cx(className)}
             type={`${type}`}
             onClick={internalLink !== '' ? () => router.push(path) : callBack}
         >

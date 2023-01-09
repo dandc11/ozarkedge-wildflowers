@@ -3,26 +3,6 @@ import { useNextSanityImage } from 'next-sanity-image';
 import { sanityClient } from '@lib/sanity.server';
 import cx from 'classnames';
 
-{
-    /*** ResponsiveImage example
-     *  <ResponsiveImage
-    classes={'hero-image'}
-    altText={mainImage.alt}
-    image={mainImage}
-    quality={`100`}
-    /> */
-}
-{
-    /*** img with Sanity urlFor
-     <img
-     className="hero-img"
-     src={urlFor(data.mainImage)
-        .height(550)
-        .width(550)
-        .url()}
-        alt={data.mainImage.alt}
-    /> */
-}
 const myCustomImageBuilder = (imageUrlBuilder, options) => {
     return imageUrlBuilder
         .width(
@@ -35,13 +15,13 @@ const myCustomImageBuilder = (imageUrlBuilder, options) => {
 const ResponsiveImage = ({
     alt = 'A flower at Ozarkedge',
     caption,
-    classes,
+    className,
     height,
     image,
     mobileWidth,
     mobileImage = false,
     priority = false,
-    placeholder = `blur`,
+    placeholder = ``,
     quality = `100`,
     fill = false,
     sizes,
@@ -56,14 +36,14 @@ const ResponsiveImage = ({
               imageBuilder: myCustomImageBuilder,
           })
         : '';
-    const classNames = cx(classes);
+    const classNames = cx(className);
     const wrapperClassNames = cx(wrapperClasses, 'img-wrapper');
     return (
         <div className={wrapperClassNames}>
-            <figure className={'img-figure'}>
+            <figure className={'img-figure relative'}>
                 <Image
                     {...imageProps}
-                    className={classNames + ' img-desktop'}
+                    className={classNames + ' img-desktop rounded-md'}
                     alt={alt}
                     placeholder={placeholder}
                     priority={priority}
@@ -74,7 +54,7 @@ const ResponsiveImage = ({
                     width={imageProps.width}
                     height={imageProps.height}
                 />
-                {caption && <figcaption>{caption}</figcaption>}
+                {caption && <figcaption className={`text-white absolute bottom-0 w-full bg-black opacity-70 text-base py-0 px-2`}>{caption}</figcaption>}
             </figure>
             {/* output separate image/crop at mobile size if one exists */}
             {mobileImage && (

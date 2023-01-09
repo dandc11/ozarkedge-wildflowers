@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sanityClient } from '@lib/sanity.server';
 import { GET_ALL_NATIVE_PLANTS_QUERY } from '@lib/queries';
 import PlantName from 'components/PlantName';
-import Link from 'components/Link';
+import CustomLink from 'components/CustomLink';
 
 const AllNativePlantsPage = ({ nativePlantPageData }) => {
   console.log('all plants page data ', nativePlantPageData)
@@ -13,9 +13,9 @@ const AllNativePlantsPage = ({ nativePlantPageData }) => {
               <h1>Ozerkedge Native Plants</h1>
                 {nativePlantPageData &&
                     nativePlantPageData.map((plant) => (
-                      <Link docType={'nativePlant'} href={plant.slug.current}>
+                      <CustomLink docType={'nativePlant'} href={plant.slug.current}>
                         <PlantName plantName={plant.plantName} showSeparator={false} showBotanicalName={false}></PlantName>
-                      </Link>
+                      </CustomLink>
                     ))}
             </div>
         </>

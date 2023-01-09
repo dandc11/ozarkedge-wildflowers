@@ -12,7 +12,7 @@ const ThumbnailGrid = (props) => {
                         { plantName, description, previewImage, slug } = asset,
                         index
                     ) => (
-                        <ResponsiveImage classNames={['thumbnail', 'small']} slug={slug} image={previewImage.asset} key={index} />
+                        <ResponsiveImage className={['thumbnail', 'small']} slug={slug} image={previewImage.asset} key={index} />
                     )
                 )}
         </div>
