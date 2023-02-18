@@ -4,8 +4,9 @@ import createSchema from 'part:@sanity/base/schema-creator';
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 import siteSettings from './documents/siteSettings';
-import category from './objects/category';
+import menu from './documents/menu';
 import mainImage from './objects/mainImage';
+import menuItem from './objects/menuItem';
 import figure from './objects/figure';
 import pageBodyPortableText from './objects/pageBodyPortableText';
 import plantName from './objects/plantName';
@@ -14,7 +15,6 @@ import nativePlant from './documents/nativePlant';
 import landingPage from './documents/landingPage';
 import plantListPage from './documents/plantListPage';
 import pollinator from './documents/pollinator';
-import nearbyPlant from './objects/nearbyPlant';
 import link from './objects/link';
 import button from './objects/button';
 import season from './documents/season';
@@ -27,7 +27,6 @@ export default createSchema({
     // to the ones provided by any plugins that are installed
     types: schemaTypes.concat([
         siteSettings,
-        category,
         link,
         button,
         mainImage,
@@ -35,11 +34,12 @@ export default createSchema({
         pageBodyPortableText,
         plantName,
         season,
-        nearbyPlant,
         nativePlant,
         pollinator,
         plantListPage,
         aboutPage,
         landingPage,
+        menu,
+        menuItem,
     ]),
 });

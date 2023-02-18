@@ -3,7 +3,7 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
+    content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}', './lib/**/*.{js,jsx}'],
     theme: {
         extend: {
             aspectRatio: {
@@ -47,7 +47,7 @@ module.exports = {
                 'oe-blue-green-dark-800': '#375562',
                 'oe-blue-green-dark-900': '#2C444E',
                 'oe-blue-dark-100': '#E0E6F2',
-                'oe-blue-dark-200': '#C1CEE',
+                'oe-blue-dark-200': '#C1CEE5',
                 'oe-blue-dark-300': '#839DCB',
                 'oe-blue-dark-400': '#5D7EBB',
                 'oe-blue-dark-500': '#3C598F',
@@ -66,7 +66,7 @@ module.exports = {
                 'oe-red-900': '#180802',
                 'oe-pink-100': '#FAE8F1',
                 'oe-pink-200': '#F4D1E3',
-                'oe-pink-300': '#E48DBA',
+                'oe-pink-300': '#EAA3C8',
                 'oe-pink-400': '#DF76AD',
                 'oe-pink-500': '#D44891',
                 'oe-pink-600': '#C92F80',

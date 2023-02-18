@@ -18,7 +18,6 @@ const Button = (
     // TODO : handle external links?
     const router = useRouter();
     const path = getInternalLinkFullPath(linkDocType, internalLink);
-    // console.log('button path ', path)
     return (
         <button
             className={cx(className)}

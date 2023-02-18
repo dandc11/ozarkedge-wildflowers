@@ -1,33 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { titleCase } from '@lib/utilities/helperUtil';
 
 const PlantName = (props) => {
     const {
         plantName,
+        align = 'center',
         showBotanicalName = true,
         showCommonName = true,
         showSeparator = true,
+        className,
+        topNameClassName,
+        bottomNameClassName,
     } = props;
     return (
-        <div className={`featured-name my-6 mx-0 w-full`}>
+        <div
+            className={cx(
+                `my-6 mx-0 w-full text-center`,
+                className
+            )}
+        >
             {showCommonName && (
                 <h3
-                    className={`common-name font-display font-semibold whitespace-nowrap text-xl pb-1 text-center bp-600:text-center bp-600:pb-1 bp-600:text-xl ${cx(
-                        {
-                            'border-b border-black border-solid':
-                                showSeparator,
-                        }
-                    )}`}
+                    className={cx(
+                        `common-name font-display font-semibold whitespace-nowrap text-2xl pb-1 bp-600:pb-1 bp-700:text-3xl`,
+                        topNameClassName
+                    )}
                 >
-                    {plantName.commonName}
+                    {titleCase(plantName?.commonName)}
                 </h3>
+            )}
+            {showSeparator && (
+                <hr className={`border-t-[1px] border-gray-800`}></hr>
             )}
             {showBotanicalName && (
                 <h4
-                    className={`botanical-name font-body italic pt-1 font-normal text-base text-center bp-600:pt-1 bp-600:text-xl`}
+                    className={cx(
+                        `botanical-name italic pt-1 font-normal text-base text-center bp-600:pt-1 bp-600:text-xl`,
+                        bottomNameClassName
+                    )}
                 >
-                    {plantName.botanicalName}
+                    {titleCase(plantName?.botanicalName)}
                 </h4>
             )}
         </div>

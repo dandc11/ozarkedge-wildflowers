@@ -20,8 +20,9 @@ export default {
             type: 'pageBodyPortableText',
         },
         {
-            name: 'parentPath',
-            title: 'Path From Root',
+            name: 'fullPathFromRoot',
+            title: 'Full Path From Root',
+            description: 'This is the extension from https://ozarkedgewildflowers.com at which this page can be found.',
             type: 'string',    
         },
         {

@@ -11,13 +11,14 @@ import {
 import React from 'react';
 import Button from 'components/Button';
 import BloomingNow from 'components/BloomingNow';
+import SeasonsPreview from 'components/SeasonsPreview';
 import cx from 'classnames';
 
 export default function HomePage({ pageData, bloomingNowData, seasonData }) {
     // console.log('environment ', process.env.NODE_ENV);
     // console.log('season data ', seasonData);
     // console.log('blooming data ', bloomingNowData);
-    console.log('pageData ', pageData[0]);
+    // console.log('pageData ', pageData[0]);
     const {
         id,
         titleText,
@@ -33,30 +34,30 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
         <>
             <div>
                 {pageData &&
-                    pageData.map(() => (
+                  pageData.map(() => (
                         <div
                             className={`homepage-content w-full h-auto overflow-hidden flex flex-col relative p-0`}
                             key={id}
                         >
                             <div
-                                className={`-z-10 w-full h-screen bg-center bg-cover bp-900:absolute bp-900:top-0 bp-900:left-0 bp-900:bg-cover bp-900:bg-scroll bp-1100:fixed `}
-                                id="landingImageContainer"
+                                className={`-z-10 w-full h-[100svh] bg-center bg-cover bp-900:absolute bp-900:top-0 bp-900:left-0 bp-900:bg-cover bp-900:bg-scroll bp-1100:fixed `}
+                                id={`landingImageContainer`}
                                 style={bgStyle}
                             ></div>
-                            <section className={`above-fold bp-900:h-screen`}>
+                            <section className={`above-fold bp-900:h-[100svh]`}>
                                 <div
-                                    className={`homepage-info-section absolute px-4 pt-12 pb-4 top-0 flex flex-col bg-transparent justify-between w-full h-screen bp-900:justify-start bp-1200:pr-6`}
+                                    className={`homepage-info-section absolute px-4 pt-16 pb-4 top-0 flex flex-col bg-transparent justify-between w-full h-[100svh] bp-900:justify-start bp-1200:pr-6`}
                                 >
                                     <div
                                         className={`homepage-title self-center text-center bp-900:self-end bp-900:text-right`}
                                     >
                                         <h1
-                                            className={`title font-display pb-1 font-bold leading-none bp-600:leading-tight tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-orange-700 to-amber-900`}
+                                            className={`title text-[calc(2.5rem+1vw)] font-display pb-1 font-bold leading-none bp-600:leading-tight tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-oe-red-500 to-oe-red-700`}
                                         >
                                             {titleText}
                                         </h1>
                                         <p
-                                            className={`subtitle pt-1 text-base bg-clip-text text-transparent bg-gradient-to-r from-orange-700 to-amber-900 bp-1600:text-lg`}
+                                            className={`subtitle pt-1 text-lg font-medium bg-clip-text text-transparent bg-gradient-to-r from-orange-700 to-amber-900 bp-1600:text-lg`}
                                         >
                                             {subtitleText}
                                         </p>
@@ -69,7 +70,7 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                         >
                                             {buttonOne && (
                                                 <Button
-                                                    className={`btn-secondary mb-6`}
+                                                    className={`btn-primary bp-900:mb-6`}
                                                     internalLink={
                                                         buttonOne.slug
                                                     }
@@ -82,7 +83,7 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                             )}
                                             {buttonTwo && (
                                                 <Button
-                                                    className={`btn-secondary ml-8`}
+                                                    className={`btn-secondary bp-900:ml-8`}
                                                     internalLink={
                                                         buttonTwo.slug
                                                     }
@@ -97,17 +98,29 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                     </div>
                                 </div>
                             </section>
+                            <div
+                                id={`desktopBgImage`}
+                                className={`hidden absolute w-full h-full my-[100vh] bp-1100:block bp-1100:opacity-95 bg-white`}
+                                style={bgStyle}
+                            ></div>
                             <section
+                                id={`beneathFoldContent`}
                                 className={
-                                    'blooming-container w-full bg-yellow-100'
+                                    `flex flex-col w-full bg-yellow-100 bp-1100:bg-transparent`
                                 }
                                 // bgParamObj={{bgColor: '#f5e8b5de', bgOpacity: '90'}}
                                 tag={'section'}
                             >
+                                {seasonData && (
+                                    <SeasonsPreview
+                                        seasonData={seasonData[0]}
+                                        className={`pb-24 bp-800:px-6 bp-1000:px-8 bp-1100:px-12 bp-800:pt-8 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
+                                    ></SeasonsPreview>
+                                )}
                                 {bloomingNowData && (
                                     <BloomingNow
                                         plantList={bloomingNowData}
-                                        seasonData={seasonData}
+                                        className={`pb-24 bp-800:px-6 bp-1000:px-8 bp-1100:px-12 bp-800:pt-8 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
                                     ></BloomingNow>
                                 )}
                             </section>

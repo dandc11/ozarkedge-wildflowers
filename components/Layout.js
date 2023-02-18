@@ -5,11 +5,11 @@ import Footer from './Footer';
 
 const Layout = ({ children, ...props }) => {
     return (
-        <>
+        <div className={`flex flex-col`}>
             <Nav />
-            <div className="page-content">{children}</div>
+            <div id={`page-content`} className={`relative min-h-screen text-lg`}>{children}</div>
             <Footer />
-        </>
+        </div>
     );
 };
 

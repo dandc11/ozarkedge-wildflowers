@@ -2,7 +2,7 @@ import { GiFlowers } from "react-icons/gi";
 
 export default {
   name: "plantListPage",
-  title: "Ozarkedge Native Plants Page",
+  title: "Native Wildflowers Top Level Page",
   icon: GiFlowers,
   type: "document",
   liveEdit: false,
