@@ -93,6 +93,15 @@ export default {
             fieldset: 'metadata',
         },
         {
+            name: 'metaDescription',
+            type: 'text',
+            title: 'Meta-description',
+            validation: [(Rule) => Rule.required(), (Rule) => Rule.max(150), (Rule) => Rule.min(40)],
+            description:
+                'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
+            fieldset: 'metadata',
+        },
+        {
             name: 'previewImage',
             title: 'Plant Thumbnail Image',
             description:
@@ -195,11 +204,16 @@ export default {
         },
         {
             name: 'growingNearbyPlantList',
-            title: 'List native plants growing nearby',
+            title: 'Native plants growing nearby',
             type: 'array',
             description:
-                'List any plants growing nearby. Hit Enter to delineate each one. Only published native plants can be referenced.',
-            of: [{ type: 'nearbyPlant' }],
+                'Hit Enter to delineate each one. Only published native plants can be referenced.',
+            of: [
+                {
+                    type: 'reference',
+                    to: [{ type: 'nativePlant' }],
+                },
+            ],
             fieldset: 'growingNearby',
         },
         {

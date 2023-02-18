@@ -1,4 +1,8 @@
-import {DOCUMENT_TYPES} from '../constants/constants'
+import React from 'react'
+import {DOCUMENT_TYPES} from '../constants/constants';
+
+const InternaLinkRender = ({children}) => <span>{children}</span>;
+const ExternaLinkRender = ({children}) => <span>{children}</span>;
 
 export default {
   name: "pageBodyPortableText",
@@ -35,44 +39,56 @@ export default {
         // Annotations can be any object structure – e.g. a link or a footnote.
         // TODO: Need to handle internal vs. external links
         annotations: [
+        //   {
+        //     name: 'link',
+        //     type: 'link',
+        //     title: 'Link',
+        // }
           {
-            name: 'link',
-            type: 'link',
-            // title: 'Link',
-        }
-          // {
-          //   name: 'internalLink',
-          //   type: 'object',
-          //   title: 'Internal link',
-          //   fields: [
-          //     {
-          //       name: 'reference',
-          //       type: 'reference',
-          //       title: 'Reference',
-          //       to: DOCUMENT_TYPES,
-          //     }
-          //   ]
-          // },
-          // {
-          //   name: 'externalLink',
-          //   type: 'object',
-          //   title: 'External link',
-          //   fields: [
-          //     {
-          //       name: 'href',
-          //       type: 'url',
-          //       title: 'URL'
-          //     },
-          //     {
-          //       title: 'Open in new tab',
-          //       name: 'blank',
-          //       description: 'Link to another site.',
-          //       type: 'boolean'
-          //     }
-          //   ]
-          // },
+            name: 'internalLink',
+            type: 'object',
+            title: 'Internal link',
+            fields: [
+              {
+                name: 'reference',
+                type: 'reference',
+                title: 'Reference',
+                to: DOCUMENT_TYPES,
+              }
+            ],
+            blockEditor: {
+              icon: () => '🔗 ',
+              render: InternaLinkRender,
+            },
+          },
+          {
+            name: 'externalLink',
+            type: 'object',
+            title: 'External link',
+            fields: [
+              {
+                name: 'href',
+                type: 'url',
+                title: 'URL'
+              },
+              {
+                title: 'Open in new tab',
+                name: 'blank',
+                description: 'Link to another site.',
+                type: 'boolean'
+              }
+            ],
+            blockEditor: {
+              icon: () => '🌐 ',
+              render: ExternaLinkRender,
+            },
+          },
         ],
       },
+    },
+    {
+      type: 'text',
+      title: "Text"
     },
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array

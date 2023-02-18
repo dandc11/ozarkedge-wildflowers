@@ -5,6 +5,12 @@ export default {
     title: 'Seasons',
     icon: GiSunCloud,
     type: 'document',
+    preview: {
+        select: {
+            title: 'seasonName',
+            media: 'mainImage', // Use the previewImage field as thumbnail
+        },
+    },
     fields: [
         {
             name: 'seasonName',

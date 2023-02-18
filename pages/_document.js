@@ -3,9 +3,8 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
     return (
-        <Html >
+        <Html>
             <Head>
-                <title>Sanity site settings should set these values!</title>
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="stylesheet" href="..." />
@@ -21,7 +20,7 @@ export default function Document() {
                     rel="stylesheet"
                 />
             </Head>
-            <body className={`font-body text-gray-800`}>
+            <body className={`text-gray-800`}>
                 <Main />
                 <NextScript />
             </body>
