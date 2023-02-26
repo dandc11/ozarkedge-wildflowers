@@ -29,7 +29,7 @@ const BloomingNow = (props) => {
         >
             <Header
                 id={`bloomingHeader`}
-                wrapperClasses={`absolute bp-800:static bp-800:row-start-1 bp-800:col-start-1 bp-800:col-span-2 top-[-1.8rem] bp-800:top-0`}
+                wrapperClass={`absolute bp-800:static bp-800:row-start-1 bp-800:col-start-1 bp-800:col-span-2 top-[-1.8rem] bp-800:top-0`}
                 headerClasses={`text-xl`}
                 spanText={'BLOOMING'}
                 showCircle
@@ -38,7 +38,7 @@ const BloomingNow = (props) => {
             </Header>
             <div
                 id={`bloomingSliderContainer`}
-                className={`relative overflow-x-scroll w-full bp-800:z-10 bp-800:max-w-sm bp-800:overflow-visible bp-800:justify-self-center bp-800:row-start-1 bp-800:col-start-3 bp-800:col-span-2 bp-800:-top-4 bp-800:right-0 bp-1000:max-w-md bp-1000:top-[-2.5rem]`}
+                className={`relative overflow-x-scroll hide-scroll w-full bp-800:z-10 bp-800:max-w-sm bp-800:overflow-visible bp-800:justify-self-center bp-800:row-start-1 bp-800:col-start-3 bp-800:col-span-2 bp-800:-top-4 bp-800:right-0 bp-1000:max-w-md bp-1000:top-[-2.5rem]`}
             >
                 <ul
                     id={`plantSlider`}

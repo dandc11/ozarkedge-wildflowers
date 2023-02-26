@@ -17,7 +17,7 @@ const PlantName = (props) => {
     return (
         <div
             className={cx(
-                `my-6 mx-0 w-full text-center`,
+                `py-3 mx-0 w-full text-center`,
                 className
             )}
         >

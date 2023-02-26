@@ -16,6 +16,7 @@ const ResponsiveImage = ({
     id,
     className,
     figureClassName,
+    captionClassName,
     height,
     image,
     mobileWidth,
@@ -39,34 +40,24 @@ const ResponsiveImage = ({
         : '';
     const { caption = '', alt = '' } = image;
     const classes = cx(className);
-    const wrapperClasses = cx(
-        'overflow-hidden ',
-        wrapperClassName
-    );
-    const figureClasses = cx(
-        'relative overflow-hidden rounded-md',
-        figureClassName
-    );
     return (
-        <div id={id} className={wrapperClasses}>
-            <figure className={figureClasses}>
+        <div id={id} className={cx(wrapperClassName)}>
+            <figure className={cx(`img-base`, figureClassName)}>
                 <Image
                     {...imageProps}
                     className={classes + ` img-desktop`}
                     alt={alt}
                     placeholder={placeholder}
                     priority={priority}
-                    quality={quality}
-                    sizes={sizes}
-                    style={style}
+                    // quality={quality}
+                    // sizes={sizes}
+                    // style={style}
                     // fill={fill}
                     width={imageProps.width}
                     height={imageProps.height}
                 />
                 {showCaption && caption && (
-                    <figcaption
-                        className={`text-white absolute bottom-0 rounded-bl-md overflow-hidden bg-black opacity-70 text-base py-0 px-2`}
-                    >
+                    <figcaption className={cx(captionClassName)}>
                         {caption}
                     </figcaption>
                 )}

@@ -1,17 +1,35 @@
 import { PortableText } from '@portabletext/react';
 import { DOCTYPE_PATH_PREFIXES } from '@lib/utilities/constants';
 import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import ResponsiveImage from './ResponsiveImage';
 import cx from 'classnames';
 import Link from 'next/link';
 
 const portTextComponents = {
     types: {
-        image: ({ value }) => <img src={value.imageUrl} />,
+        figure: ({ value }) => (
+            <ResponsiveImage
+                className={``}
+                figureClassName={`rounded-none`}
+                captionClassName={`rounded-bl-none`}
+                image={value}
+                priority={false}
+                placeholder={``}
+                // quality={`100`}
+                showCaption={true}
+                wrapperClassName={`flex justify-center`}
+            />
+        ),
+        block: ({ children }) => (
+            <p className="px-6 bp-700:px-12 bp-1100:px-18">{children}</p>
+        ),
     },
     list: {
         // Ex. 1: customizing common list types
         bullet: ({ children }) => <ul className={`mt-2`}>{children}</ul>,
-        number: ({ children }) => <ol className={`mt-2 list-decimal`}>{children}</ol>,
+        number: ({ children }) => (
+            <ol className={`mt-2 list-decimal`}>{children}</ol>
+        ),
 
         // Ex. 2: rendering custom lists
         checkmarks: ({ children }) => (
@@ -21,11 +39,16 @@ const portTextComponents = {
     listItem: {
         // Ex. 1: customizing common list types
         bullet: ({ children }) => (
-            <li className={`list-item list-inside`} style={{ listStyleType: ' disclosure-closed' }}>{children}</li>
-        ), 
+            <li
+                className={`list-item list-inside`}
+                style={{ listStyleType: ' disclosure-closed' }}
+            >
+                {children}
+            </li>
+        ),
         number: ({ children }) => (
             <li className={`list-item list-inside`}>{children}</li>
-        ), 
+        ),
 
         // Ex. 2: rendering custom list items
         checkmarks: ({ children }) => <li>✅ {children}</li>,
@@ -62,7 +85,7 @@ const portTextComponents = {
 const PortTextWrapper = (props) => {
     const { className } = props;
     return (
-        <div className={cx(className)}>
+        <div className={cx(`port-text`, className)}>
             <PortableText value={props.value} components={portTextComponents} />
         </div>
     );

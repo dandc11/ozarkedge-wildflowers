@@ -96,7 +96,7 @@ export default {
             name: 'metaDescription',
             type: 'text',
             title: 'Meta-description',
-            validation: [(Rule) => Rule.required(), (Rule) => Rule.max(150), (Rule) => Rule.min(40)],
+            validation: [(Rule) => Rule.required(), (Rule) => Rule.max(160), (Rule) => Rule.min(40)],
             description:
                 'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
             fieldset: 'metadata',
@@ -120,6 +120,22 @@ export default {
                 "Upload or select images of this plant to appear in a gallery on the plant's page.",
             of: [{ type: 'figure' }],
             options: { sources: [AssetSource] },
+            fieldset: 'description',
+        },
+        {
+            name: 'lede',
+            title: 'Plant Lede',
+            description:
+                "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
+            type: 'pageBodyPortableText',
+            fieldset: 'description',
+        },
+        {
+            name: 'bloomText',
+            title: 'Bloom description',
+            description:
+                "Add any information about the plant's bloom.",
+            type: 'pageBodyPortableText',
             fieldset: 'description',
         },
         {
