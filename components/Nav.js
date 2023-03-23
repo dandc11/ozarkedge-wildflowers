@@ -8,7 +8,7 @@ const Nav = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className={`group/nav fixed font-display tracking-tight pt-6 bg-gradient-to-br from-oe-green-600 to-oe-green-yelow-800 text-2xl flex z-20 ${cx({'menu-active px-5 pt-6 w-full h-full overflow-hidden bg-white' : isMenuOpen})}`}>
+        <nav className={`group/nav fixed font-display tracking-tight pt-6 bg-gradient-to-br from-oe-green-600 to-oe-green-yelow-800 text-2xl flex z-50 ${cx({'menu-active px-5 pt-6 w-full h-full overflow-hidden bg-white' : isMenuOpen})}`}>
             <button
                 className={`menu-icon absolute top-5 left-5 z-10 h-6 border-none flex flex-col justify-between`}
                 onClick={(e) => setIsMenuOpen(!isMenuOpen)}

@@ -65,6 +65,17 @@ export default {
             fieldset: 'name',
         },
         {
+            name: 'bannerImage',
+            title: 'Banner Image',
+            type: 'figure',
+            description: 'Add a wide-cropped image to use as the banner image on wider screens. A crop with an 8/5 is preferrable.',
+            options: {
+                validation: (Rule) => [Rule.required()],
+                hotspot: true,
+            },
+            fieldset: 'name'
+        },
+        {
             name: 'slug',
             title: 'Slug',
             description:

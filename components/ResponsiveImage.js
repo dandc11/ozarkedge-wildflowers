@@ -14,6 +14,7 @@ const myCustomImageBuilder = (imageUrlBuilder, options) => {
 
 const ResponsiveImage = ({
     id,
+    breakpoint = '',
     className,
     figureClassName,
     captionClassName,
@@ -34,49 +35,57 @@ const ResponsiveImage = ({
 }) => {
     const imageProps = useNextSanityImage(sanityClient, image);
     const mobileImageProps = mobileImage
-        ? useNextSanityImage(sanityClient, image, {
+        ? useNextSanityImage(sanityClient, mobileImage, {
               imageBuilder: myCustomImageBuilder,
           })
         : '';
-    const { caption = '', alt = '' } = image;
+    const { caption = '', alt = '' } = image ? image : {};
     const classes = cx(className);
     return (
-        <div id={id} className={cx(wrapperClassName)}>
-            <figure className={cx(`img-base`, figureClassName)}>
-                <Image
-                    {...imageProps}
-                    className={classes + ` img-desktop`}
-                    alt={alt}
-                    placeholder={placeholder}
-                    priority={priority}
-                    // quality={quality}
-                    // sizes={sizes}
-                    // style={style}
-                    // fill={fill}
-                    width={imageProps.width}
-                    height={imageProps.height}
-                />
-                {showCaption && caption && (
-                    <figcaption className={cx(captionClassName)}>
-                        {caption}
-                    </figcaption>
-                )}
-            </figure>
-            {/* output separate image/crop at mobile size if one exists */}
-            {mobileImage && (
-                <Image
-                    {...mobileImageProps}
-                    className={classes + ` img-mobile`}
-                    alt={altText}
-                    priority={priority}
-                    quality={quality}
-                    // placeholder={placeholder}
-                    // mobileWidth={mobileWidth}
-                    // mobileHeight={mobileHeight}
-                    sizes={sizes}
-                />
+        <>
+            {image && (
+                <div id={id} className={cx(wrapperClassName)}>
+                    <figure className={cx(`img-base`, figureClassName)}>
+                        <Image
+                            {...imageProps}
+                            className={cx(classes, ` img-desktop `, {
+                                ' hidden bp-500:block': mobileImage
+                            })}
+                            alt={alt}
+                            placeholder={placeholder}
+                            priority={priority}
+                            // quality={quality}
+                            // sizes={sizes}
+                            style={style}
+                            // fill={fill}
+                            width={imageProps.width}
+                            height={imageProps.height}
+                        />
+                        {/* output separate image/crop at mobile size if one exists */}
+                        {mobileImage && (
+                            <Image
+                                {...mobileImageProps}
+                                className={
+                                    classes + ` img-mobile bp-500:hidden`
+                                }
+                                alt={alt}
+                                priority={priority}
+                                quality={quality}
+                                // placeholder={placeholder}
+                                width={mobileImageProps.width}
+                                height={mobileImageProps.height}
+                                // sizes={sizes}
+                            />
+                        )}
+                        {(caption && showCaption) && (
+                            <figcaption className={cx(captionClassName)}>
+                                {caption}
+                            </figcaption>
+                        )}
+                    </figure>
+                </div>
             )}
-        </div>
+        </>
     );
 };
 

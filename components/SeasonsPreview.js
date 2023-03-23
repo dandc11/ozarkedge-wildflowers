@@ -19,7 +19,7 @@ const SeasonsPreview = (props) => {
         <section id={`seasonPreview`} className={cx(`relative`, className)}>
             <Header
                 id={``}
-                wrapperClasses={`z-20 bg-yellow-100 px-4 bp-800:hidden bp-800:px-0 bp-800:pb-4 bp-800:ml-6 bp-800:relative`}
+                wrapperClasses={`z-20 bg-transparent px-4 bp-800:hidden bp-800:px-0 bp-800:pb-4 bp-800:ml-6 bp-800:relative`}
                 headerClasses={`season-header bp-800:bg-transparent `}
                 spanClasses={`bp-800:bg-transparent`}
                 showCircle
@@ -34,7 +34,7 @@ const SeasonsPreview = (props) => {
                 >
                     <Header
                         id={``}
-                        wrapperClasses={`hidden bp-800:block z-20 bg-yellow-100 px-4 bp-800:pb-4 bp-800:relative`}
+                        wrapperClasses={`hidden bp-800:block z-20 px-4 bp-800:pb-4 bp-800:relative`}
                         headerClasses={`season-header bp-800:bg-transparent `}
                         spanClasses={`bp-800:bg-transparent`}
                         showCircle
@@ -63,7 +63,7 @@ const SeasonsPreview = (props) => {
                     className={`featured-image h-auto rounded-none w-full bp-800:rounded-md bp-800:order-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
-                    sizes="(max-width: 700px) 90vw, 700px"
+                    // sizes="(max-width: 700px) 90vw, 700px"
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 />

@@ -9,15 +9,15 @@ const portTextComponents = {
     types: {
         figure: ({ value }) => (
             <ResponsiveImage
-                className={``}
-                figureClassName={`rounded-none`}
-                captionClassName={`rounded-bl-none`}
+                className={`z-0`}
+                figureClassName={`rounded-none mt-4`}
+                captionClassName={`absolute`}
                 image={value}
                 priority={false}
                 placeholder={``}
-                // quality={`100`}
                 showCaption={true}
                 wrapperClassName={`flex justify-center`}
+                // quality={`100`}
             />
         ),
         block: ({ children }) => (
