@@ -13,8 +13,8 @@ const TableOfContents = (props) => {
             {linkHrefs?.length > 0 && (
                 <div
                     className={cx(
-                        className,
-                        'px-6 py-6 bg-white z-30 w-72 flex flex-col '
+                        'px-6 py-6 bg-white z-30 w-72 flex flex-col',
+                        className
                     )}
                 >
                     {showHeader && (

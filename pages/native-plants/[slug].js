@@ -106,7 +106,7 @@ const ImageGallery = ({
         <>
             {' '}
             {images && (
-                <div className={`relative pb-10 z-0`}>
+                <div className={`relative z-0`}>
                     <Header
                         id={'images'}
                         wrapperClassName
@@ -171,7 +171,7 @@ const BloomInfo = ({ bloomText, tocLinks, openToCSection, setShowToC }) => {
                                 openToCSection !==
                                 PLANT_PAGE_SECTIONS.bloomText,
                         },
-                        'pb-10'
+                        
                     )}
                 >
                     <Header
@@ -202,7 +202,7 @@ const Description = ({ description, tocLinks, openToCSection, setShowToC }) => {
         <>
             {description && (
                 <section
-                    className={cx('relative pb-10', {
+                    className={cx('relative', {
                         'z-10':
                             openToCSection === PLANT_PAGE_SECTIONS.description,
                         'z-0':
@@ -244,7 +244,7 @@ const GrowingNearby = ({
         <>
             {growingNearbyText && (
                 <section
-                    className={cx('relative pb-10 bg-oe-green-yelow-400', {
+                    className={cx('relative bg-oe-green-yelow-400', {
                         'z-10':
                             openToCSection ===
                             PLANT_PAGE_SECTIONS.growingNearbyText,
@@ -324,7 +324,7 @@ const Habitat = ({ habitat, tocLinks, openToCSection, setShowToC }) => {
         <>
             {habitat && (
                 <section
-                    className={cx('relative pb-10', {
+                    className={cx('relative', {
                         'z-10': openToCSection === PLANT_PAGE_SECTIONS.habitat,
                         'z-0': openToCSection !== PLANT_PAGE_SECTIONS.habitat,
                     })}
@@ -361,7 +361,7 @@ const ConservationStatus = ({
         <>
             {conservationStatus && (
                 <section
-                    className={cx('relative pb-10', {
+                    className={cx('relative', {
                         'z-10':
                             openToCSection ===
                             PLANT_PAGE_SECTIONS.conservationStatus,
@@ -399,7 +399,7 @@ const Tidbits = ({ tidbits, tocLinks, openToCSection, setShowToC }) => {
         <>
             {tidbits && (
                 <section
-                    className={cx('relative pb-10 bg-oe-green-yelow-400', {
+                    className={cx('relative bg-oe-green-yelow-400', {
                         'z-10': openToCSection === PLANT_PAGE_SECTIONS.tidbits,
                         'z-0': openToCSection !== PLANT_PAGE_SECTIONS.tidbits,
                     })}
@@ -465,10 +465,10 @@ const NativePlantPage = ({ pageData }) => {
     console.log('plant page data ', pageData);
 
     return (
-        <>
+        <div className='bg-topography'>
             {pageData && (
                 <>
-                    <header className="bg-oe-green-yelow-200">
+                    <header className="">
                         <IntroSection
                             previewImage={previewImage}
                             bannerImage={bannerImage}
@@ -482,8 +482,8 @@ const NativePlantPage = ({ pageData }) => {
                     </header>
                     <main
                         id="plantPageMainContent"
-                        className={`z-0 bp-800:px-6 bp-1000:px-12 bg-oe-green-yelow-200 [&_p]:px-7 [&_p]:pt-3 [&_.header-base]:px-7`}
-                    >
+                        className={`z-0 bp-800:px-6 bp-1000:px-12 [&_section]:pb-10 [&_section]:pt-2 [&_p]:px-7 [&_p]:pt-3 [&_.header-base]:px-7 bp-800:[&_.header-base]:px-4 `}
+                    > 
                         <NameInfo
                             plantName={plantName}
                             tocLinks={sectionLinks}
@@ -530,7 +530,7 @@ const NativePlantPage = ({ pageData }) => {
                     </main>
                 </>
             )}
-        </>
+        </div>
     );
 };
 

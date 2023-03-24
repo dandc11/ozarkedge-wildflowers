@@ -24,8 +24,8 @@ const Header = (props) => {
         ? `${circleColorClass}`
         : currentSeason.ACCENT_COLOR_CLASS;
     const circleClassNames = cx(
-        'group absolute font-normal w-[40px] h-[40px] hover:w-[45px] hover:h-[45px] rounded-full -z-10 bp-800:hover:w-[55px] bp-800:hover:h-[55px] ease-in duration-200 -top-4 -left-7 bp-800:w-[50px] bp-800:h-[50px] bp-800:-top-7 bp-800:-left-8',
-        { 'cursor-pointer': tocLinks != null },
+        'group absolute font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-300 -top-4 -left-7 bp-800:w-[50px] bp-800:h-[50px] bp-800:-top-7 bp-800:-left-8',
+        { 'cursor-pointer': tocLinks != null, 'z-50': showToC },
         circleColor
     );
     const headerClassNames = cx(
@@ -49,9 +49,9 @@ const Header = (props) => {
                     ></div>
                 )}
                 {tocLinks && showToC && (
-                    <div className="z-50" onClick={() => setShowToC()}>
+                    <div className={cx("z-50 opacity-0",  {'opacity-100 transition-opacity duration-700': showToC})} onClick={() => setShowToC()}>
                         <TableOfContents
-                            className={'absolute'}
+                            className={cx('absolute')}
                             links={tocLinks}
                         />
                     </div>
