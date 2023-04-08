@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { getCurrentSeason } from '@lib/utilities/helperUtil';
+import TableOfContents from './TableOfContents';
 
 const Header = (props) => {
     const {
@@ -11,8 +12,10 @@ const Header = (props) => {
         headerClasses = '',
         spanClasses = '',
         absolute = false,
-        firstLetter = false,
         showCircle = false,
+        tocLinks = null,
+        showToC,
+        setShowToC,
         spanText,
         children,
     } = props;
@@ -20,35 +23,41 @@ const Header = (props) => {
     const circleColor = circleColorClass
         ? `${circleColorClass}`
         : currentSeason.ACCENT_COLOR_CLASS;
-        const circleClassNames = cx('absolute font-normal w-[40px] h-[40px] rounded-full -z-10 -top-4 -left-6 bp-800:w-[50px] bp-800:h-[50px] bp-800:-top-7 bp-800:-left-8', circleColor);
-    const wrapperClassNames = cx(
-        'header-wrapper w-full z-10 whitespace-nowrap px-7 bp-800:bg-transparent',
-        { absolute: absolute },
-        wrapperClasses
+    const circleClassNames = cx(
+        'group absolute font-normal w-[35px] h-[35px] rounded-full -z-10 opacity-90 hover:opacity-100 hover:scale-110 ease-in duration-300 -top-4 -left-6 bp-700:w-[50px] bp-700:h-[50px] bp-700:-top-6 bp-700:-left-10 bp-1000:w-[55px] bp-1000:h-[55px] bp-1000:-top-8 bp-1000:-left-10',
+        { 'cursor-pointer': tocLinks != null, 'z-50': showToC },
+        circleColor
     );
     const headerClassNames = cx(
-        {
-            'first-letter:relative first-letter:text-5xl first-letter:font-display first-letter:font-semibold':
-                firstLetter,
-        },
-        'text-xl bp-800:text-lg bp-1000:text-xl italic z-0 relative',
         headerClasses
     );
     return (
-        <div id={id} className={wrapperClassNames}>
+        <div
+            id={id}
+            className={cx(
+                'header-base',
+                { absolute: absolute },
+                wrapperClasses
+            )}
+        >
             <h2 className={headerClassNames}>
                 {' '}
                 {showCircle && (
                     <div
                         className={circleClassNames}
+                        onClick={() => setShowToC(spanText)}
                     ></div>
                 )}
+                {tocLinks && showToC && (
+                    <div className={cx("z-50 opacity-0",  {'opacity-100 transition-opacity duration-700': showToC})} onClick={() => setShowToC()}>
+                        <TableOfContents
+                            className={cx('absolute')}
+                            links={tocLinks}
+                        />
+                    </div>
+                )}
                 {spanText && (
-                    <span
-                        className={cx(`font-extralight text-3xl not-italic uppercase bp-800:text-3xl bp-1000:text-4xl`, spanClasses)}
-                    >
-                        {spanText}
-                    </span>
+                    <span className={cx(spanClasses)}>{spanText}</span>
                 )}{' '}
                 {children}
             </h2>

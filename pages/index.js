@@ -16,9 +16,9 @@ import cx from 'classnames';
 
 export default function HomePage({ pageData, bloomingNowData, seasonData }) {
     // console.log('environment ', process.env.NODE_ENV);
-    // console.log('season data ', seasonData);
-    // console.log('blooming data ', bloomingNowData);
-    // console.log('pageData ', pageData[0]);
+    console.log('season data ', seasonData);
+    console.log('blooming data ', bloomingNowData);
+    console.log('pageData ', pageData[0]);
     const {
         id,
         titleText,
@@ -117,9 +117,9 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                         className={`pb-24 bp-800:px-6 bp-1000:px-8 bp-1100:px-12 bp-800:pt-8 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
                                     ></SeasonsPreview>
                                 )}
-                                {bloomingNowData && (
+                                {(bloomingNowData && bloomingNowData.length > 0) && (
                                     <BloomingNow
-                                        plantList={bloomingNowData}
+                                        bloomingList={bloomingNowData}
                                         className={`pb-24 bp-800:px-6 bp-1000:px-8 bp-1100:px-12 bp-800:pt-8 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
                                     ></BloomingNow>
                                 )}

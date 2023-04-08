@@ -18,7 +18,6 @@ export default {
       // use your content.
       styles: [
         { title: "Normal", value: "normal" },
-        { title: "H1", value: "h1" },
         { title: "H2", value: "h2" },
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },
@@ -85,10 +84,6 @@ export default {
           },
         ],
       },
-    },
-    {
-      type: 'text',
-      title: "Text"
     },
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array

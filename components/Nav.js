@@ -8,15 +8,15 @@ const Nav = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className={`group/nav fixed font-display tracking-tight pt-6 bg-gradient-to-br from-oe-green-600 to-oe-green-yelow-800 text-2xl flex z-20 ${cx({'menu-active px-5 pt-6 w-full h-full overflow-hidden bg-white' : isMenuOpen})}`}>
+        <nav className={`group/nav fixed font-display tracking-tight pt-6 bg-gradient-to-br from-oe-green-600 to-oe-green-yelow-800 text-2xl flex z-50 ${cx({'menu-active px-5 pt-6 w-full h-full overflow-hidden bg-white' : isMenuOpen})}`}>
             <button
                 className={`menu-icon absolute top-5 left-5 z-10 h-6 border-none flex flex-col justify-between`}
                 onClick={(e) => setIsMenuOpen(!isMenuOpen)}
                 type="button"
             >
-                <div className={`w-8 h-1 bg-gradient-to-r from-oe-red-600 to-oe-red-700 ${cx({'bg-slate-100 bg-none' : isMenuOpen})}`}></div>
-                <div className={`w-8 h-1 bg-gradient-to-r from-oe-red-600 to-oe-red-700 ${cx({'bg-slate-100 bg-none' : isMenuOpen})}`}></div>
-                <div className={`w-8 h-1 bg-gradient-to-r from-oe-red-600 to-oe-red-700 ${cx({'bg-slate-100 bg-none' : isMenuOpen})}`}></div>
+                <div className={`w-8 h-1 bg-slate-100`}></div>
+                <div className={`w-8 h-1 bg-slate-100`}></div>
+                <div className={`w-8 h-1 bg-slate-100`}></div>
             </button>
             <ul className={`nav-links mt-16 hidden group-[.menu-active]/nav:block`}>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
