@@ -70,7 +70,11 @@ const Button = (
     const path = getInternalLinkFullPath(linkDocType, internalLink);
     return (
         <button
-            className={cx(className, 'flex justify-center')}
+            className={cx(
+                { 'btn-expand': buttonIcon === 'expand' },
+                className,
+                'flex justify-center'
+            )}
             type={`${type}`}
             onClick={() => clickHandler()}
         >

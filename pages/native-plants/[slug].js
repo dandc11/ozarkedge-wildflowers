@@ -26,19 +26,12 @@ const IntroSection = ({
     bannerImage,
     // setOpenToCSection,
 }) => {
-    const expand = () => {
-        if (openToCSection === 'intro') {
-            setOpenToCSection('none');
-        } else {
-            setOpenToCSection('intro');
-        }
-    };
     return (
         <div>
             {(previewImage || bannerImage) && (
                 <ResponsiveImage
                     className={`relative w-full bp-1200:object-cover bp-1200:object-center bp-1200:h-full`}
-                    figureClassName={`w-full rounded-none bp-1200:h-[70vh]`}
+                    figureClassName={`w-full rounded-none bp-1200:h-[80vh]`}
                     height={`auto`}
                     width={`auto`}
                     image={bannerImage}
@@ -52,40 +45,51 @@ const IntroSection = ({
                     wrapperClassName={`w-full`}
                 />
             )}
-            <div className={`relative bg-white -mt-12 w-11/12 z-10 m-auto `}>
-                {plantName && (
-                    <div
-                        id={`header`}
-                        className={`relative block px-6 py-3 bp-400:px-10`}
-                    >
-                        <PlantName
-                            align={`right`}
-                            plantName={plantName}
-                        ></PlantName>
-                    </div>
-                )}
-                {lede && (
-                    <div id="lede">
-                        <PortTextWrapper
-                            className={`plant-pg-port-text px-6`}
-                            value={lede}
-                        ></PortTextWrapper>
-                        <br></br>
-                    </div>
-                )}
-                {openToCSection === 'intro' && (
+            <div
+                className={`relative bg-white -mt-[3.2rem] w-11/12 m-auto bp-900:w-fit bp-900:ml-8 z-10 bp-900:flex bp-900:pb-3`}
+            >
+                <div className={`bp-900:max-w-lg`}>
+                    {plantName && (
+                        <div
+                            id={`header`}
+                            className={`relative block px-6 py-3 bp-400:px-10 bp-900:px-6`}
+                        >
+                            <PlantName
+                                className={`bp-900:text-left`}
+                                bottomNameClassName={`bp-900:text-left`}
+                                plantName={plantName}
+                            ></PlantName>
+                        </div>
+                    )}
+                    {lede && (
+                        <div id="lede">
+                            <PortTextWrapper
+                                className={`plant-pg-port-text px-6 max-bp-900:`}
+                                value={lede}
+                            ></PortTextWrapper>
+                            <br></br>
+                        </div>
+                    )}
+                </div>
+                <div className={`bp-900:pt-6`}>
                     <TableOfContents
                         showHeader
+                        showCircle
+                        headerClassName={`mb-3`}
+                        listItemClassName={``}
+                        className={cx({
+                            'max-[900px]:hidden': openToCSection !== 'intro',
+                        })}
                         callBack={() => setShowToC('intro')}
                         links={tocLinks}
                     />
-                )}
-                <Button
-                    className={`bg-transparent w-full bp-700:hidden`}
-                    callBack={() => setShowToC('intro')}
-                    buttonIcon="expand"
-                    expanded={openToCSection === 'intro'}
-                ></Button>
+                    <Button
+                        className={`bg-transparent w-full bp-900:hidden`}
+                        callBack={() => setShowToC('intro')}
+                        buttonIcon="expand"
+                        expanded={openToCSection === 'intro'}
+                    ></Button>
+                </div>
             </div>
         </div>
     );
@@ -125,7 +129,7 @@ const NameInfo = ({ plantName, tocLinks, openToCSection, setShowToC }) => {
         <>
             {plantName.nameInformation && (
                 <section
-                    className={cx('relative', {
+                    className={cx('relative mt-10', {
                         'z-10':
                             openToCSection === PLANT_PAGE_SECTIONS.plantName,
                         'z-0': openToCSection !== PLANT_PAGE_SECTIONS.plantName,
@@ -161,18 +165,11 @@ const BloomInfo = ({ bloomText, tocLinks, openToCSection, setShowToC }) => {
             {' '}
             {bloomText && (
                 <section
-                    className={cx(
-                        'relative',
-                        {
-                            'z-10':
-                                openToCSection ===
-                                PLANT_PAGE_SECTIONS.bloomText,
-                            'z-0':
-                                openToCSection !==
-                                PLANT_PAGE_SECTIONS.bloomText,
-                        },
-                        
-                    )}
+                    className={cx('relative', {
+                        'z-10':
+                            openToCSection === PLANT_PAGE_SECTIONS.bloomText,
+                        'z-0': openToCSection !== PLANT_PAGE_SECTIONS.bloomText,
+                    })}
                 >
                     <Header
                         id={'bloom'}
@@ -244,18 +241,22 @@ const GrowingNearby = ({
         <>
             {growingNearbyText && (
                 <section
-                    className={cx('relative bg-oe-green-yelow-400', {
-                        'z-10':
-                            openToCSection ===
-                            PLANT_PAGE_SECTIONS.growingNearbyText,
-                        'z-0':
-                            openToCSection !==
-                            PLANT_PAGE_SECTIONS.growingNearbyText,
-                    })}
+                    id="growingNearby"
+                    className={cx(
+                        'relative bg-oe-green-yelow-400 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36',
+                        {
+                            'z-10':
+                                openToCSection ===
+                                PLANT_PAGE_SECTIONS.growingNearbyText,
+                            'z-0':
+                                openToCSection !==
+                                PLANT_PAGE_SECTIONS.growingNearbyText,
+                        }
+                    )}
                 >
                     <Header
                         id={'growingNearbyText'}
-                        wrapperClassName={``}
+                        wrapperClasses={``}
                         showCircle
                         setShowToC={setShowToC}
                         showToC={
@@ -274,7 +275,7 @@ const GrowingNearby = ({
                                     (nearbyPlant, index) => (
                                         <li
                                             key={index}
-                                            className={`relative flex flex-col h-full first-of-type:pl-6 last-of-type:pr-4`}
+                                            className={`relative flex flex-col h-full`}
                                         >
                                             <div>
                                                 <Link
@@ -324,7 +325,7 @@ const Habitat = ({ habitat, tocLinks, openToCSection, setShowToC }) => {
         <>
             {habitat && (
                 <section
-                    className={cx('relative', {
+                    className={cx('relative mt-11', {
                         'z-10': openToCSection === PLANT_PAGE_SECTIONS.habitat,
                         'z-0': openToCSection !== PLANT_PAGE_SECTIONS.habitat,
                     })}
@@ -399,7 +400,7 @@ const Tidbits = ({ tidbits, tocLinks, openToCSection, setShowToC }) => {
         <>
             {tidbits && (
                 <section
-                    className={cx('relative bg-oe-green-yelow-400', {
+                    className={cx('relative', {
                         'z-10': openToCSection === PLANT_PAGE_SECTIONS.tidbits,
                         'z-0': openToCSection !== PLANT_PAGE_SECTIONS.tidbits,
                     })}
@@ -465,7 +466,7 @@ const NativePlantPage = ({ pageData }) => {
     console.log('plant page data ', pageData);
 
     return (
-        <div className='bg-topography'>
+        <div className="bg-topography pb-10">
             {pageData && (
                 <>
                     <header className="">
@@ -480,28 +481,29 @@ const NativePlantPage = ({ pageData }) => {
                             // setOpenToCSection={setOpenToCSection}
                         />
                     </header>
-                    <main
-                        id="plantPageMainContent"
-                        className={`z-0 bp-800:px-6 bp-1000:px-12 [&_section]:pb-10 [&_section]:pt-2 [&_p]:px-7 [&_p]:pt-3 [&_.header-base]:px-7 bp-800:[&_.header-base]:px-4 `}
-                    > 
-                        <NameInfo
-                            plantName={plantName}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                        />
-                        <BloomInfo
-                            bloomText={bloomText}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                        />
-                        <Description
-                            description={description}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                        />
+                    <main id="plantPageMainContent">
+                        <div
+                            className={`z-0 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36 [&_section]:ml-auto [&_section]:mr-auto [&_section]:max-w-7xl [&_section]:pb-12 [&_section]:pt-2`}
+                        >
+                            <NameInfo
+                                plantName={plantName}
+                                tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                            />
+                            <BloomInfo
+                                bloomText={bloomText}
+                                tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                            />
+                            <Description
+                                description={description}
+                                tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                            />
+                        </div>
                         <GrowingNearby
                             growingNearbyPlantList={growingNearbyPlantList}
                             growingNearbyText={growingNearbyText}
@@ -509,24 +511,28 @@ const NativePlantPage = ({ pageData }) => {
                             openToCSection={openToCSection}
                             setShowToC={setShowToC}
                         />
-                        <Habitat
-                            habitat={habitat}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                        />
-                        <ConservationStatus
-                            conservationStatus={conservationStatus}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                        />
-                        <Tidbits
-                            tidbits={tidbits}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                        />
+                        <div
+                            className={`z-0 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36 [&_section]:ml-auto [&_section]:mr-auto [&_section]:max-w-7xl [&_section]:pb-12 [&_section]:pt-2`}
+                        >
+                            <Habitat
+                                habitat={habitat}
+                                tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                            />
+                            <ConservationStatus
+                                conservationStatus={conservationStatus}
+                                tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                            />
+                            <Tidbits
+                                tidbits={tidbits}
+                                tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                            />
+                        </div>
                     </main>
                 </>
             )}

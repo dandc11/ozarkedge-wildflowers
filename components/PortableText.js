@@ -6,6 +6,22 @@ import cx from 'classnames';
 import Link from 'next/link';
 
 const portTextComponents = {
+    block: {
+        // Ex. 1: customizing common block types
+        h2: ({ children }) => <h1 className="text-2xl">{children}</h1>,
+        h3: ({ children }) => <h1 className="text-xl">{children}</h1>,
+        h4: ({ children }) => <h1 className="text-lg">{children}</h1>,
+        normal: ({ children }) => (
+            <p className="pt-3">
+                {children}
+            </p>
+        ),
+        blockquote: ({ children }) => (
+            <blockquote className="border-l-purple-500">
+                {children}
+            </blockquote>
+        ),
+    },
     types: {
         figure: ({ value }) => (
             <ResponsiveImage
@@ -19,9 +35,6 @@ const portTextComponents = {
                 wrapperClassName={`flex justify-center`}
                 // quality={`100`}
             />
-        ),
-        block: ({ children }) => (
-            <p className="px-6 bp-700:px-12 bp-1100:px-18">{children}</p>
         ),
     },
     list: {

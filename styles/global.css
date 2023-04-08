@@ -16,9 +16,9 @@
 @layer base {
     html {
         font-family: Raleway, system-ui, sans-serif;
+        font-weight: 300;
     }
     * {
-        line-height: normal;
         color: #272827;
     }
 }
@@ -40,6 +40,10 @@
 
     .btn-arrow-left {
         @apply relative bg-oe-pink-200 rounded-full w-16 h-16 z-10 before:absolute before:w-4 before:h-4 before:top-[38%] before:left-[42%] before:border-black before:border-solid before:border-spacing-1 before:rotate-[135deg] before:border-b-[5px] before:border-r-[5px] before:border-l-0 before:border-t-0;
+    }
+
+    .btn-expand {
+        @apply w-full
     }
 
     .img-base {

@@ -14,9 +14,9 @@ const Nav = (props) => {
                 onClick={(e) => setIsMenuOpen(!isMenuOpen)}
                 type="button"
             >
-                <div className={`w-8 h-1 bg-gradient-to-r from-oe-red-600 to-oe-red-700 ${cx({'bg-slate-100 bg-none' : isMenuOpen})}`}></div>
-                <div className={`w-8 h-1 bg-gradient-to-r from-oe-red-600 to-oe-red-700 ${cx({'bg-slate-100 bg-none' : isMenuOpen})}`}></div>
-                <div className={`w-8 h-1 bg-gradient-to-r from-oe-red-600 to-oe-red-700 ${cx({'bg-slate-100 bg-none' : isMenuOpen})}`}></div>
+                <div className={`w-8 h-1 bg-slate-100`}></div>
+                <div className={`w-8 h-1 bg-slate-100`}></div>
+                <div className={`w-8 h-1 bg-slate-100`}></div>
             </button>
             <ul className={`nav-links mt-16 hidden group-[.menu-active]/nav:block`}>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
