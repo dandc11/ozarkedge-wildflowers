@@ -15,6 +15,7 @@ import PortTextWrapper from 'components/PortableText';
 import TableOfContents from 'components/TableOfContents';
 import cx from 'classnames';
 import Button from 'components/Button';
+import ThumbnailGrid from 'components/ThumbnailGrid';
 
 const IntroSection = ({
     previewImage,
@@ -24,7 +25,7 @@ const IntroSection = ({
     openToCSection,
     setShowToC,
     bannerImage,
-    // setOpenToCSection,
+    images,
 }) => {
     return (
         <div>
@@ -32,8 +33,8 @@ const IntroSection = ({
                 <ResponsiveImage
                     className={`relative w-full bp-1200:object-cover bp-1200:object-center bp-1200:h-full`}
                     figureClassName={`w-full rounded-none bp-1200:h-[80vh]`}
-                    height={`auto`}
-                    width={`auto`}
+                    // height={`auto`}
+                    // width={`auto`}
                     image={bannerImage}
                     mobileImage={previewImage}
                     breakpoint={'500'}
@@ -45,79 +46,89 @@ const IntroSection = ({
                     wrapperClassName={`w-full`}
                 />
             )}
-            <div
-                className={`relative bg-white -mt-[3.2rem] w-11/12 m-auto bp-900:w-fit bp-900:ml-8 z-10 bp-900:flex bp-900:pb-3`}
-            >
-                <div className={`bp-900:max-w-lg`}>
-                    {plantName && (
-                        <div
-                            id={`header`}
-                            className={`relative block px-6 py-3 bp-400:px-10 bp-900:px-6`}
-                        >
-                            <PlantName
-                                className={`bp-900:text-left`}
-                                bottomNameClassName={`bp-900:text-left`}
-                                plantName={plantName}
-                            ></PlantName>
-                        </div>
-                    )}
-                    {lede && (
-                        <div id="lede">
-                            <PortTextWrapper
-                                className={`plant-pg-port-text px-6 max-bp-900:`}
-                                value={lede}
-                            ></PortTextWrapper>
-                            <br></br>
-                        </div>
-                    )}
+            <div className="flex flex-col justify-center items-center bp-900:justify-start bp-900:gap-4 bp-900:flex-row bp-1200:pl-[10vw]">
+                <div
+                    className={`relative bg-white -mt-[3.2rem] w-11/12 bp-900:w-fit bp-900:ml-8 z-10 bp-900:flex bp-900:pb-3 bp-1200:px-5 bp-1200:py-3`}
+                >
+                    <div className={`bp-900:max-w-md`}>
+                        {plantName && (
+                            <div
+                                id={`header`}
+                                className={`relative block px-6 py-3 bp-400:px-10 bp-900:px-6`}
+                            >
+                                <PlantName
+                                    topNameClassName={`bp-900:text-left bp-1200:text-4xl`}
+                                    bottomNameClassName={`bp-900:text-left bp-1200:text-`}
+                                    plantName={plantName}
+                                ></PlantName>
+                            </div>
+                        )}
+                        {lede && (
+                            <div id="lede">
+                                <PortTextWrapper
+                                    className={`plant-pg-port-text px-6 max-bp-900:`}
+                                    value={lede}
+                                ></PortTextWrapper>
+                                <br></br>
+                            </div>
+                        )}
+                    </div>
+                    <div className={`bp-900:pt-6`}>
+                        <TableOfContents
+                            showHeader
+                            showCircle
+                            headerClassName={`mb-3`}
+                            listItemClassName={``}
+                            className={cx({
+                                'max-[900px]:hidden':
+                                    openToCSection !== 'intro',
+                            })}
+                            callBack={() => setShowToC('intro')}
+                            links={tocLinks}
+                        />
+                        <Button
+                            className={`bg-transparent w-full bp-900:hidden`}
+                            callBack={() => setShowToC('intro')}
+                            buttonIcon="expand"
+                            expanded={openToCSection === 'intro'}
+                        ></Button>
+                    </div>
                 </div>
-                <div className={`bp-900:pt-6`}>
-                    <TableOfContents
-                        showHeader
-                        showCircle
-                        headerClassName={`mb-3`}
-                        listItemClassName={``}
-                        className={cx({
-                            'max-[900px]:hidden': openToCSection !== 'intro',
-                        })}
-                        callBack={() => setShowToC('intro')}
-                        links={tocLinks}
-                    />
-                    <Button
-                        className={`bg-transparent w-full bp-900:hidden`}
-                        callBack={() => setShowToC('intro')}
-                        buttonIcon="expand"
-                        expanded={openToCSection === 'intro'}
-                    ></Button>
+                <div className="pt-10 bp-900:pr-4 bp-1200:px-8">
+                    <ImageGallery images={images} maxItems={6} cols={3} />
                 </div>
             </div>
         </div>
     );
 };
 
-const ImageGallery = ({
-    images,
-    tocLinks,
-    openToCSection,
-    setOpenToCSection,
-}) => {
-    const setShowToC = () => {
-        openToCSection === 'name'
-            ? setOpenToCSection('none')
-            : setOpenToCSection('name');
-    };
+const ImageGallery = ({ images, rows, cols, maxItems }) => {
     return (
         <>
             {' '}
             {images && (
-                <div className={`relative z-0`}>
-                    <Header
+                <div
+                    id={`images`}
+                    className={`relative z-0 flex flex-col gap-4 pt-3 px-4`}
+                >
+                    {/* <Header
                         id={'images'}
                         wrapperClassName
                         showCircle
-                        tocLinks={tocLinks}
                         spanText={PLANT_PAGE_SECTIONS.images}
-                    ></Header>
+                    ></Header> */}
+                    <ThumbnailGrid
+                        assets={images}
+                        maxItems={maxItems}
+                        rows={rows}
+                        cols={cols}
+                    />
+                    <Button
+                        className={`btn-secondary w-10 self-center`}
+                        // callBack={}
+                    >
+                        View All Images
+                    </Button>
                 </div>
             )}
         </>
@@ -172,7 +183,7 @@ const BloomInfo = ({ bloomText, tocLinks, openToCSection, setShowToC }) => {
                     })}
                 >
                     <Header
-                        id={'bloom'}
+                        id={'bloomText'}
                         wrapperClassName
                         showCircle
                         setShowToC={setShowToC}
@@ -241,9 +252,9 @@ const GrowingNearby = ({
         <>
             {growingNearbyText && (
                 <section
-                    id="growingNearby"
+                    id="growingNearbyText"
                     className={cx(
-                        'relative bg-oe-green-yelow-400 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36',
+                        'relative bg-oe-green-yelow-400 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36 ',
                         {
                             'z-10':
                                 openToCSection ===
@@ -254,65 +265,67 @@ const GrowingNearby = ({
                         }
                     )}
                 >
-                    <Header
-                        id={'growingNearbyText'}
-                        wrapperClasses={``}
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={
-                            openToCSection ===
-                            PLANT_PAGE_SECTIONS.growingNearbyText
-                        }
-                        tocLinks={tocLinks}
-                        spanText={PLANT_PAGE_SECTIONS.growingNearbyText}
-                    ></Header>
-                    <div
-                        className={`relative overflow-x-scroll w-full pt-2 hide-scroll`}
-                    >
-                        <ul className={`flex flex-nowrap gap-3 h-full`}>
-                            {growingNearbyPlantList &&
-                                growingNearbyPlantList.map(
-                                    (nearbyPlant, index) => (
-                                        <li
-                                            key={index}
-                                            className={`relative flex flex-col h-full`}
-                                        >
-                                            <div>
-                                                <Link
-                                                    href={`${getInternalLinkFullPath(
-                                                        nearbyPlant.docType,
-                                                        nearbyPlant.slug
-                                                    )}`}
-                                                >
-                                                    <ResponsiveImage
-                                                        className={`w-full aspect-[3/4] h-auto`}
-                                                        captionClassName={`absolute`}
-                                                        figureClassName={`img w-64 relative mb-5 rounded-md bp-800:w-[15rem] bp-800:aspect-[3/4] bp-800:h-auto transition ease-in-out delay-150 b-800:hover:-translate-y-1 hover:scale-110`}
-                                                        wrapperClassName={``}
-                                                        height
-                                                        image={
-                                                            nearbyPlant.previewImage
-                                                        }
-                                                        sizes="(max-width: 100px) 90vw, 700px"
-                                                        mobileWidth
-                                                        priority={false}
-                                                        placeholder={``}
-                                                        // quality={`100`}
-                                                        showCaption={true}
-                                                    />
-                                                </Link>
-                                            </div>
-                                        </li>
-                                    )
-                                )}
-                        </ul>
-                    </div>
-                    <div>
-                        <PortTextWrapper
-                            className={`plant-pg-port-text`}
-                            value={growingNearbyText}
-                        ></PortTextWrapper>
-                        <br></br>
+                    <div className='max-w-7xl m-auto'>
+                        <Header
+                            id={'growingNearbyText'}
+                            wrapperClasses={``}
+                            showCircle
+                            setShowToC={setShowToC}
+                            showToC={
+                                openToCSection ===
+                                PLANT_PAGE_SECTIONS.growingNearbyText
+                            }
+                            tocLinks={tocLinks}
+                            spanText={PLANT_PAGE_SECTIONS.growingNearbyText}
+                        ></Header>
+                        <div
+                            className={`relative overflow-x-scroll w-full pt-2 hide-scroll`}
+                        >
+                            <ul className={`flex flex-nowrap gap-3 h-full`}>
+                                {growingNearbyPlantList &&
+                                    growingNearbyPlantList.map(
+                                        (nearbyPlant, index) => (
+                                            <li
+                                                key={index}
+                                                className={`relative flex flex-col h-full transition duration-200 ease-in-out hover:scale-105 first:hover:pl-2`}
+                                            >
+                                                <div>
+                                                    <Link
+                                                        href={`${getInternalLinkFullPath(
+                                                            nearbyPlant.docType,
+                                                            nearbyPlant.slug
+                                                        )}`}
+                                                    >
+                                                        <ResponsiveImage
+                                                            className={`w-full aspect-[3/4] h-auto `}
+                                                            captionClassName={`absolute`}
+                                                            figureClassName={`img w-36 relative mb-5 rounded-md bp-800:w-[15rem] bp-800:aspect-[3/4] bp-800:h-auto`}
+                                                            wrapperClassName={``}
+                                                            height
+                                                            image={
+                                                                nearbyPlant.previewImage
+                                                            }
+                                                            sizes="(max-width: 100px) 90vw, 700px"
+                                                            mobileWidth
+                                                            priority={false}
+                                                            placeholder={``}
+                                                            // quality={`100`}
+                                                            showCaption={true}
+                                                        />
+                                                    </Link>
+                                                </div>
+                                            </li>
+                                        )
+                                    )}
+                            </ul>
+                        </div>
+                        <div>
+                            <PortTextWrapper
+                                className={`plant-pg-port-text`}
+                                value={growingNearbyText}
+                            ></PortTextWrapper>
+                            <br></br>
+                        </div>
                     </div>
                 </section>
             )}
@@ -431,7 +444,7 @@ const Tidbits = ({ tidbits, tocLinks, openToCSection, setShowToC }) => {
 const getSectionLinks = (pageData) => {
     let tableOfContents = {};
     for (const section in PLANT_PAGE_SECTIONS) {
-        if (pageData[section] && pageData[section] !== null) {
+        if (pageData[section] !== undefined && pageData[section] !== null) {
             tableOfContents[section] = PLANT_PAGE_SECTIONS[section];
         }
     }
@@ -478,6 +491,7 @@ const NativePlantPage = ({ pageData }) => {
                             tocLinks={sectionLinks}
                             openToCSection={openToCSection}
                             setShowToC={setShowToC}
+                            images={images}
                             // setOpenToCSection={setOpenToCSection}
                         />
                     </header>

@@ -3,6 +3,7 @@ import { useNextSanityImage } from 'next-sanity-image';
 import { sanityClient } from '@lib/sanity.server';
 import cx from 'classnames';
 
+
 const myCustomImageBuilder = (imageUrlBuilder, options) => {
     return imageUrlBuilder
         .width(
@@ -13,24 +14,24 @@ const myCustomImageBuilder = (imageUrlBuilder, options) => {
 };
 
 const ResponsiveImage = ({
-    id,
+    id = '',
     breakpoint = '',
-    className,
-    figureClassName,
-    captionClassName,
+    className = '',
+    figureClassName = '',
+    captionClassName = '',
     height,
-    image,
-    mobileWidth,
+    image = '',
+    mobileWidth = '',
     mobileImage = false,
     priority = false,
     placeholder = ``,
     quality = `100`,
     fill = false,
     showCaption = true,
-    sizes,
-    style,
+    sizes = '',
+    style = '',
     width,
-    wrapperClassName,
+    wrapperClassName = '',
     ...props
 }) => {
     const imageProps = useNextSanityImage(sanityClient, image);
@@ -48,18 +49,18 @@ const ResponsiveImage = ({
                     <figure className={cx(`img-base`, figureClassName)}>
                         <Image
                             {...imageProps}
-                            className={cx(classes, ` img-desktop `, {
-                                ' hidden bp-500:block': mobileImage
+                            className={cx(classes, ` img-desktop`, {
+                                ' hidden bp-500:block': mobileImage,
                             })}
                             alt={alt}
                             placeholder={placeholder}
                             priority={priority}
-                            // quality={quality}
+                            quality={quality}
                             // sizes={sizes}
                             style={style}
                             // fill={fill}
-                            width={imageProps.width}
-                            height={imageProps.height}
+                            width={width ? width : imageProps.width}
+                            // height={height ? height : imageProps.height}
                         />
                         {/* output separate image/crop at mobile size if one exists */}
                         {mobileImage && (
@@ -71,13 +72,13 @@ const ResponsiveImage = ({
                                 alt={alt}
                                 priority={priority}
                                 quality={quality}
-                                // placeholder={placeholder}
                                 width={mobileImageProps.width}
                                 height={mobileImageProps.height}
+                                // placeholder={placeholder}
                                 // sizes={sizes}
                             />
                         )}
-                        {(caption && showCaption) && (
+                        {caption && showCaption && (
                             <figcaption className={cx(captionClassName)}>
                                 {caption}
                             </figcaption>
