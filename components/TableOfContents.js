@@ -9,7 +9,7 @@ const TableOfContents = (props) => {
         className,
         headerClassName,
         links,
-        listItemClassName,
+        listItemClassName = '',
         showHeader = false,
         showCircle = false,
         circleColorClass,

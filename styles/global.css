@@ -47,11 +47,11 @@
     }
 
     .img-base {
-        @apply relative w-fit z-0 overflow-hidden bp-800:rounded-md [&>figcaption]:text-white [&>figcaption]:bottom-0 [&>figcaption]:overflow-hidden [&>figcaption]:bg-black [&>figcaption]:opacity-70 [&>figcaption]:text-base [&>figcaption]:py-0 [&>figcaption]:px-3;
+        @apply relative w-fit z-0 overflow-hidden bp-800:rounded-md [&>figcaption]:text-white [&>figcaption]:bottom-0 [&>figcaption]:overflow-hidden [&>figcaption]:bg-black [&>figcaption]:opacity-70 [&>figcaption]:text-xs bp-800:[&>figcaption]:text-sm [&>figcaption]:py-0 [&>figcaption]:px-3;
     }
 
     .header-base {
-        @apply relative w-full z-10 bg-transparent [&>h2]:relative [&>h2]:text-xl [&>h2]:italic [&>h2]:z-0 [&_span]:font-extralight [&_span]:text-2xl [&_span]:not-italic [&_span]:uppercase [&_span]:bp-400:text-3xl [&>h2]:bp-800:text-lg bp-800:[&_span]:text-3xl [&>h2]:bp-1000:text-xl bp-1000:[&_span]:text-4xl;
+        @apply relative w-full z-10 pl-6 bg-transparent bp-400:pl-0 [&>h2]:relative [&>h2]:text-xl [&>h2]:italic [&>h2]:z-0 [&_span]:font-extralight [&_span]:text-2xl [&_span]:not-italic [&_span]:uppercase [&_span]:bp-400:text-3xl [&>h2]:bp-800:text-lg bp-800:[&_span]:text-3xl [&>h2]:bp-1000:text-xl bp-1000:[&_span]:text-4xl;
     }
 }
 
