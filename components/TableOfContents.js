@@ -23,7 +23,7 @@ const TableOfContents = (props) => {
         ? `${circleColorClass}`
         : currentSeason.ACCENT_COLOR_CLASS;
     const circleClassNames = cx(
-        'group max-[900px]:hidden absolute -z-10 font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-300 -top-4 -left-7 bp-800:-top-4 bp-800:-left-7',
+        'group max-[700px]:hidden absolute -z-10 font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-300 -top-4 -left-7 bp-800:-top-4 bp-800:-left-7',
         circleColor
     );
     return (
@@ -49,11 +49,11 @@ const TableOfContents = (props) => {
                     )}
                     <ol>
                         {linkHrefs.map((href, index) => (
-                            <li className={cx(`mb-3 bp-900:mb-1`, listItemClassName)} key={href}>
+                            <li className={cx(`mb-3 bp-700:mb-1 `, listItemClassName)} key={href}>
                                 <a
                                     href={`#${href}`}
                                     onClick={() => handleCallBack()}
-                                    className={`text-lg font-extralight not-italic uppercase underline underline-offset-2 decoration-1 hover:font-normal`}
+                                    className={`text-lg font-extralight not-italic uppercasehover:font-normal`}
                                 >
                                     {linkTitles[index]}
                                 </a>

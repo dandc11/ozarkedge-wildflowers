@@ -4,20 +4,24 @@ import ResponsiveImage from './ResponsiveImage';
 import cx from 'classnames';
 
 const ThumbnailGrid = (props) => {
-    const { assets, rows, cols, maxItems } = props;
-    console.log(maxItems)
-    const gridRows = `grid-rows-${rows}`;
-    const gridCols = `grid-cols-${cols}`;
+    const { assets, cols=3, maxItems, thumbnailWidth = 100 } = props;
+    const gridColumns = {
+        1: 'grid-cols-1',
+        2: 'grid-cols-2',
+        3: 'grid-cols-3',
+        4: 'grid-cols-4',
+    }
     const thumbnails = maxItems ? assets.slice(0, maxItems) : assets;
     return (
-        <ul className={cx(`grid auto-cols-min ${gridCols} gap-2 `)}>
-        {thumbnails.map((imageAsset) => (
-            <li key={imageAsset.id}>
+        <ul className={cx(`grid ${gridColumns[cols]} gap-2`)}>
+        {thumbnails.map((imageAsset, index) => (
+            <li key={index}>
+                {/* <p>something</p> */}
                 <ResponsiveImage
                     figureClassName="rounded-md"
                     className={cx('thumbnail', 'small')}
                     image={imageAsset}
-                    width={100}
+                    width={thumbnailWidth}
                     showCaption={false}
                 />
             </li>

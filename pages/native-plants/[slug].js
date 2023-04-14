@@ -46,19 +46,19 @@ const IntroSection = ({
                     wrapperClassName={`w-full`}
                 />
             )}
-            <div className="flex flex-col justify-center items-center bp-900:justify-start bp-900:gap-4 bp-900:flex-row bp-1200:pl-[10vw]">
+            <div className="flex flex-col justify-center items-center bp-900:justify-start bp-1200:gap-4 bp-1200:flex-row bp-1200:pl-[4vw]">
                 <div
-                    className={`relative bg-white -mt-[3.2rem] w-11/12 bp-900:w-fit bp-900:ml-8 z-10 bp-900:flex bp-900:pb-3 bp-1200:px-5 bp-1200:py-3`}
+                    className={`relative bg-white -mt-[3.2rem] w-11/12 bp-700:flex bp-700:py-3 bp-900:w-fit bp-900:ml-3 z-10 bp-1200:px-5 bp-1200:py-3`}
                 >
-                    <div className={`bp-900:max-w-md`}>
+                    <div className={`px-6 bp-700:px-8 bp-900:w-[30rem] bp-900:mr-4`}>
                         {plantName && (
                             <div
                                 id={`header`}
-                                className={`relative block px-6 py-3 bp-400:px-10 bp-900:px-6`}
+                                className={`relative block py-3`}
                             >
                                 <PlantName
-                                    topNameClassName={`bp-900:text-left bp-1200:text-4xl`}
-                                    bottomNameClassName={`bp-900:text-left bp-1200:text-`}
+                                    topNameClassName={`bp-700:text-left bp-1200:text-3xl`}
+                                    bottomNameClassName={`bp-700:text-left`}
                                     plantName={plantName}
                                 ></PlantName>
                             </div>
@@ -66,28 +66,28 @@ const IntroSection = ({
                         {lede && (
                             <div id="lede">
                                 <PortTextWrapper
-                                    className={`plant-pg-port-text px-6 max-bp-900:`}
+                                    className={`plant-pg-port-text`}
                                     value={lede}
                                 ></PortTextWrapper>
                                 <br></br>
                             </div>
                         )}
                     </div>
-                    <div className={`bp-900:pt-6`}>
+                    <div className={`pt-6`}>
                         <TableOfContents
                             showHeader
                             showCircle
                             headerClassName={`mb-3`}
-                            listItemClassName={``}
+                            listItemClassName={`ml-4 whitespace-nowrap`}
                             className={cx({
-                                'max-[900px]:hidden':
+                                'max-[700px]:hidden':
                                     openToCSection !== 'intro',
                             })}
                             callBack={() => setShowToC('intro')}
                             links={tocLinks}
                         />
                         <Button
-                            className={`bg-transparent w-full bp-900:hidden`}
+                            className={`bg-transparent w-full bp-700:hidden`}
                             callBack={() => setShowToC('intro')}
                             buttonIcon="expand"
                             expanded={openToCSection === 'intro'}
@@ -95,14 +95,14 @@ const IntroSection = ({
                     </div>
                 </div>
                 <div className="pt-10 bp-900:pr-4 bp-1200:px-8">
-                    <ImageGallery images={images} maxItems={6} cols={3} />
+                    <ImageGallery images={images} maxItems={6} cols={3} thumbnailWidth={150} />
                 </div>
             </div>
         </div>
     );
 };
 
-const ImageGallery = ({ images, rows, cols, maxItems }) => {
+const ImageGallery = ({ images, cols, maxItems, thumbnailWidth }) => {
     return (
         <>
             {' '}
@@ -120,8 +120,8 @@ const ImageGallery = ({ images, rows, cols, maxItems }) => {
                     <ThumbnailGrid
                         assets={images}
                         maxItems={maxItems}
-                        rows={rows}
                         cols={cols}
+                        thumbnailWidth={150}
                     />
                     <Button
                         className={`btn-secondary w-10 self-center`}

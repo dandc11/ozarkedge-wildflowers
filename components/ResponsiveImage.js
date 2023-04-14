@@ -42,6 +42,7 @@ const ResponsiveImage = ({
         : '';
     const { caption = '', alt = '' } = image ? image : {};
     const classes = cx(className);
+    console.log('image ', image)
     return (
         <>
             {image && (

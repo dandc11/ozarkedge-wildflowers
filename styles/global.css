@@ -64,10 +64,6 @@
     }
 }
 
-a[href] {
-    text-underline-offset: 2px;
-}
-
 *.hide-scroll::-webkit-scrollbar {
     display: none;
 }
