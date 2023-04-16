@@ -150,6 +150,14 @@ export default {
             fieldset: 'description',
         },
         {
+            name: 'pollinators',
+            title: 'Pollinators description',
+            description:
+                "Add any information about the plant's pollinators.",
+            type: 'pageBodyPortableText',
+            fieldset: 'description',
+        },
+        {
             name: 'description',
             title: 'Plant Description',
             description:
