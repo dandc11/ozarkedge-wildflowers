@@ -8,6 +8,7 @@ const TableOfContents = (props) => {
     const {
         className,
         headerClassName,
+        shadow = true,
         links,
         listItemClassName = '',
         showHeader = false,
@@ -23,7 +24,7 @@ const TableOfContents = (props) => {
         ? `${circleColorClass}`
         : currentSeason.ACCENT_COLOR_CLASS;
     const circleClassNames = cx(
-        'group max-[700px]:hidden absolute -z-10 font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-300 -top-4 -left-7 bp-800:-top-4 bp-800:-left-7',
+        'group max-[700px]:hidden absolute -z-10 font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-150 -top-4 -left-7 bp-800:-top-4 bp-800:-left-7',
         circleColor
     );
     return (
@@ -31,29 +32,37 @@ const TableOfContents = (props) => {
             {linkHrefs?.length > 0 && (
                 <div
                     className={cx(
-                        'px-6 py-6 bg-white z-30 w-72 flex flex-col',
+                        'pl-6 py-6 bg-white z-30 w-80 flex flex-col',
+                        { 'shadow-md': shadow },
                         className
                     )}
                 >
                     {showHeader && (
                         <h4
-                            className={cx(`relative z-10 text-2xl font-extralight not-italic uppercase`, headerClassName)}
+                            className={cx(
+                                `relative z-10 text-3xl font-extralight not-italic uppercase`,
+                                headerClassName
+                            )}
                         >
                             {showCircle && (
-                                <div
-                                    className={circleClassNames}
-                                ></div>
+                                <div className={circleClassNames}></div>
                             )}
                             Table of Contents
                         </h4>
                     )}
                     <ol>
                         {linkHrefs.map((href, index) => (
-                            <li className={cx(`mb-3 bp-700:mb-1 `, listItemClassName)} key={href}>
+                            <li
+                                className={cx(
+                                    `mb-3 bp-700:mb-1 `,
+                                    listItemClassName
+                                )}
+                                key={href}
+                            >
                                 <a
                                     href={`#${href}`}
                                     onClick={() => handleCallBack()}
-                                    className={`text-lg font-extralight not-italic uppercasehover:font-normal`}
+                                    className={`text-lg font-extralight not-italic uppercase transition ease-in-out delay-150 hover:text-oe-blue-green-light-800 hover:border-b-2 hover:font-normal hover:border-b-oe-green-800 hover:transition-all bp-1200:text-xl`}
                                 >
                                     {linkTitles[index]}
                                 </a>

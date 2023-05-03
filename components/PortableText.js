@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import { PortableText } from '@portabletext/react';
 import { DOCTYPE_PATH_PREFIXES } from '@lib/utilities/constants';
 import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
@@ -11,32 +12,12 @@ const portTextComponents = {
         h2: ({ children }) => <h1 className="text-2xl">{children}</h1>,
         h3: ({ children }) => <h1 className="text-xl">{children}</h1>,
         h4: ({ children }) => <h1 className="text-lg">{children}</h1>,
-        normal: ({ children }) => (
-            <p className="pt-3">
-                {children}
-            </p>
-        ),
+        normal: ({ children }) => <p className="pt-3">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-purple-500">
-                {children}
-            </blockquote>
+            <blockquote className="border-l-purple-500">{children}</blockquote>
         ),
     },
-    types: {
-        figure: ({ value }) => (
-            <ResponsiveImage
-                className={`z-0`}
-                figureClassName={`rounded-none mt-4`}
-                captionClassName={`absolute`}
-                image={value}
-                priority={false}
-                placeholder={``}
-                showCaption={true}
-                wrapperClassName={`flex justify-center`}
-                // quality={`100`}
-            />
-        ),
-    },
+    types: {},
     list: {
         // Ex. 1: customizing common list types
         bullet: ({ children }) => <ul className={`mt-2`}>{children}</ul>,
@@ -79,7 +60,6 @@ const portTextComponents = {
             );
         },
         externalLink: ({ children, value }) => {
-            console.log('value', value);
             const href = value?.href || '';
             return (
                 <a
@@ -95,13 +75,40 @@ const portTextComponents = {
     },
 };
 
-const PortTextWrapper = (props) => {
-    const { className } = props;
+const PortTextWrapper = React.memo((props) => {
+    const { className, value, lightboxCallback } = props;
+
+    const componentsWithCallback = useMemo(() => {
+        const { figure, ...otherComponents } = portTextComponents;
+      
+        return {
+          ...otherComponents,
+          types: {
+            ...portTextComponents.types,
+            figure: (typeProps) => (
+              <ResponsiveImage
+                captionClassName={`absolute`}
+                className={`z-0`}
+                figureClassName={`rounded-none mt-4`}
+                image={typeProps.value}
+                priority={false}
+                placeholder={``}
+                showCaption={true}
+                sizes={`(max-width: 900px) 90vw, 800px`}
+                wrapperClassName={`flex justify-center`}
+                onClick={lightboxCallback ? lightboxCallback : null}
+              />
+            ),
+          },
+        };
+      }, [className, value]);
+      
+
     return (
         <div className={cx(`port-text`, className)}>
-            <PortableText value={props.value} components={portTextComponents} />
+            <PortableText value={value} components={componentsWithCallback} />
         </div>
     );
-};
+});
 
 export default PortTextWrapper;

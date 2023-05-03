@@ -6,7 +6,6 @@
     /* --base-font: 'PT Sans', -apple-system, Segoe UI, Roboto,
         Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
         sans-serif; */
-    --underline-offset: 2px;
 }
 
 @tailwind base;

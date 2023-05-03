@@ -3,30 +3,22 @@ import { useNextSanityImage } from 'next-sanity-image';
 import { sanityClient } from '@lib/sanity.server';
 import cx from 'classnames';
 
-
-const myCustomImageBuilder = (imageUrlBuilder, options) => {
-    return imageUrlBuilder
-        .width(
-            options.width ||
-                Math.min(options.originalImageDimensions.width, 800)
-        )
-        .fit('clip');
-};
-
 const ResponsiveImage = ({
-    id = '',
     breakpoint = '',
+    captionClassName = '',
     className = '',
     figureClassName = '',
-    captionClassName = '',
+    fill = false,
     height,
+    id = '',
     image = '',
+    lightboxIdentifier,
     mobileWidth = '',
     mobileImage = false,
-    priority = false,
+    onClick = () => {},
     placeholder = ``,
+    priority = false,
     quality = `100`,
-    fill = false,
     showCaption = true,
     sizes = '',
     style = '',
@@ -35,48 +27,51 @@ const ResponsiveImage = ({
     ...props
 }) => {
     const imageProps = useNextSanityImage(sanityClient, image);
-    const mobileImageProps = mobileImage
-        ? useNextSanityImage(sanityClient, mobileImage, {
-              imageBuilder: myCustomImageBuilder,
-          })
-        : '';
+    const mobileImageProps = useNextSanityImage(sanityClient, mobileImage);
+    const imgWidth = typeof parseInt(width, 10) === Number
+        ? typeof parseInt(width, 10)
+        : null;
+    const imgHeight = typeof parseInt(height, 10) === Number
+        ? typeof parseInt(height, 10)
+        : null;
     const { caption = '', alt = '' } = image ? image : {};
     const classes = cx(className);
-    console.log('image ', image)
+
     return (
         <>
             {image && (
                 <div id={id} className={cx(wrapperClassName)}>
-                    <figure className={cx(`img-base`, figureClassName)}>
+                    <figure
+                        className={cx(`img-base`, figureClassName)}
+                        onClick={onClick}
+                    >
                         <Image
                             {...imageProps}
-                            className={cx(classes, ` img-desktop`, {
-                                ' hidden bp-500:block': mobileImage,
-                            })}
                             alt={alt}
+                            className={cx(classes, ` img-desktop`, {
+                                ' !hidden bp-500:!block': mobileImage,
+                            })}
+                            data-lightboxjs={lightboxIdentifier}
                             placeholder={placeholder}
                             priority={priority}
                             quality={quality}
-                            // sizes={sizes}
-                            style={style}
+                            sizes={sizes}
                             // fill={fill}
-                            width={width ? width : imageProps.width}
-                            // height={height ? height : imageProps.height}
+                            style={style}
                         />
                         {/* output separate image/crop at mobile size if one exists */}
                         {mobileImage && (
                             <Image
                                 {...mobileImageProps}
                                 className={
-                                    classes + ` img-mobile bp-500:hidden`
+                                    classes + ` img-mobile bp-500:!hidden`
                                 }
                                 alt={alt}
                                 priority={priority}
                                 quality={quality}
-                                width={mobileImageProps.width}
-                                height={mobileImageProps.height}
+                                data-lightboxjs={lightboxIdentifier}
                                 // placeholder={placeholder}
-                                // sizes={sizes}
+                                sizes={sizes}
                             />
                         )}
                         {caption && showCaption && (

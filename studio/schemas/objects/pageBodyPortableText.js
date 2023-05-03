@@ -1,13 +1,12 @@
 import React from 'react'
 import {DOCUMENT_TYPES} from '../constants/constants';
 
-const InternaLinkRender = ({children}) => <span>{children}</span>;
-const ExternaLinkRender = ({children}) => <span>{children}</span>;
+const LinkRender = ({children}) => <span>{children}</span>;
 
 export default {
   name: "pageBodyPortableText",
   type: "array",
-  title: "Post body",
+  title: "Rich Text",
   of: [
     {
       type: "block",
@@ -36,13 +35,7 @@ export default {
           { title: "Emphasis", value: "em" },
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
-        // TODO: Need to handle internal vs. external links
         annotations: [
-        //   {
-        //     name: 'link',
-        //     type: 'link',
-        //     title: 'Link',
-        // }
           {
             name: 'internalLink',
             type: 'object',
@@ -57,7 +50,7 @@ export default {
             ],
             blockEditor: {
               icon: () => '🔗 ',
-              render: InternaLinkRender,
+              render: LinkRender,
             },
           },
           {
@@ -79,7 +72,7 @@ export default {
             ],
             blockEditor: {
               icon: () => '🌐 ',
-              render: ExternaLinkRender,
+              render: LinkRender,
             },
           },
         ],

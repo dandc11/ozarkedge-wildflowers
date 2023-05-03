@@ -3,11 +3,10 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
     return (
-        <Html>
+        <Html className='scroll-smooth'>
             <Head>
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />
-                <link rel="stylesheet" href="..." />
             </Head>
             <body className={`text-gray-800`}>
                 <Main />
