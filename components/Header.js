@@ -24,7 +24,7 @@ const Header = (props) => {
         ? `${circleColorClass}`
         : currentSeason.ACCENT_COLOR_CLASS;
     const circleClassNames = cx(
-        'group absolute font-normal w-[45px] h-[45px] rounded-full -z-10 opacity-90 hover:opacity-100 hover:scale-110 ease-in duration-300 -top-6 -left-8 bp-700:w-[50px] bp-700:h-[50px] bp-700:-top-6 bp-700:-left-10 bp-1000:w-[55px] bp-1000:h-[55px] bp-1000:-top-8 bp-1000:-left-10',
+        'group absolute font-normal w-[45px] h-[45px] rounded-full -z-10 opacity-90 hover:opacity-100 hover:scale-110 transition-all ease-in duration-150 -top-6 -left-8 bp-700:w-[50px] bp-700:h-[50px] bp-700:-top-6 bp-700:-left-10 bp-1000:w-[55px] bp-1000:h-[55px] bp-1000:-top-8 bp-1000:-left-10',
         { 'cursor-pointer': tocLinks != null, 'z-50': showToC },
         circleColor
     );
@@ -48,8 +48,8 @@ const Header = (props) => {
                         onClick={() => setShowToC(spanText)}
                     ></div>
                 )}
-                {tocLinks && showToC && (
-                    <div className={cx("z-50 opacity-0",  {'opacity-100 transition-opacity duration-700': showToC})} onClick={() => setShowToC()}>
+                {tocLinks && (
+                    <div className={cx('transition-z-50 transition-hidden ease-in-out duration-175',{'z-50': showToC, 'hidden': !showToC})} onClick={() => setShowToC()}>
                         <TableOfContents
                             className={cx('absolute')}
                             links={tocLinks}

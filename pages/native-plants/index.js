@@ -6,7 +6,6 @@ import PlantName from 'components/PlantName';
 import CustomLink from 'components/CustomLink';
 
 const AllNativePlantsPage = ({ nativePlantPageData }) => {
-  console.log('all plants page data ', nativePlantPageData)
     return (
         <>
             <div>

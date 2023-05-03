@@ -16,9 +16,6 @@ import cx from 'classnames';
 
 export default function HomePage({ pageData, bloomingNowData, seasonData }) {
     // console.log('environment ', process.env.NODE_ENV);
-    console.log('season data ', seasonData);
-    console.log('blooming data ', bloomingNowData);
-    console.log('pageData ', pageData[0]);
     const {
         id,
         titleText,
