@@ -40,7 +40,8 @@ export default {
                     input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
             },
         },
-        {
+        {   // Hidden field to store the months of the season as numbers - set to read-only to prevent accidental changes
+            // SPRING: 4, 5, 6 - SUMMER: 7, 8, 9 - FALL: 10, 11, 12 - WINTER: 1, 2, 3
             name: 'monthNumbers',
             title: 'Season Months',
             description:
@@ -79,23 +80,6 @@ export default {
             description:
                 'Add an image to depict this season in the page banner.',
             type: 'figure',
-        },
-        {
-            name: 'seasonPlants',
-            title: 'Plants Flowering in this Season',
-            type: 'array',
-            // readOnly: true,
-            of: [
-                {
-                    type: 'reference',
-                    to: [{ type: 'nativePlant' }],
-                    options: {
-                        filter: 'season == $season',
-                        filterParams: { season: 'floweringSeason' },
-                    },
-                },
-            ],
-            validation: (Rule) => Rule.unique(),
         },
     ],
 };

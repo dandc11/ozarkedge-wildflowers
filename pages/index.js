@@ -13,6 +13,7 @@ import Button from 'components/Button';
 import BloomingNow from 'components/BloomingNow';
 import SeasonsPreview from 'components/SeasonsPreview';
 import cx from 'classnames';
+import Blooming from 'components/Blooming';
 
 export default function HomePage({ pageData, bloomingNowData, seasonData }) {
     // console.log('environment ', process.env.NODE_ENV);
@@ -31,7 +32,7 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
         <>
             <div>
                 {pageData &&
-                  pageData.map(() => (
+                    pageData.map(() => (
                         <div
                             className={`homepage-content w-full h-auto overflow-hidden flex flex-col relative p-0`}
                             key={id}
@@ -41,7 +42,7 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                 id={`landingImageContainer`}
                                 style={bgStyle}
                             ></div>
-                            <section className={`above-fold bp-900:h-[100svh]`}>
+                            <div className={`above-fold bp-900:h-[100svh]`}>
                                 <div
                                     className={`homepage-info-section absolute px-4 pt-16 pb-4 top-0 flex flex-col bg-transparent justify-between w-full h-[100svh] bp-900:justify-start bp-1200:pr-6`}
                                 >
@@ -94,24 +95,27 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
                             <div
                                 id={`desktopBgImage`}
-                                className={`hidden absolute w-full h-full my-[100vh] bp-1100:block bp-1100:opacity-95 bg-white`}
+                                className={`hidden absolute w-full h-full my-[100vh] bp-1100:block bp-1100:opacity-95 `}
                                 style={bgStyle}
                             ></div>
-                            <section
+                            <div
                                 id={`beneathFoldContent`}
-                                className={
-                                    `flex flex-col w-full bg-yellow-100 bp-1100:bg-transparent`
-                                }
+                                className={`w-full bg-yellow-100 bp-1100:bg-transparent`}
                                 // bgParamObj={{bgColor: '#f5e8b5de', bgOpacity: '90'}}
                                 tag={'section'}
                             >
-                                {seasonData && (
+                                <Blooming
+                                    bloomingList={bloomingNowData}
+                                    seasonData={seasonData[0]}
+                                    className={``}
+                                />
+                                {/* {seasonData && (
                                     <SeasonsPreview
                                         seasonData={seasonData[0]}
-                                        className={`pb-24 bp-800:px-6 bp-1000:px-8 bp-1100:px-12 bp-800:pt-8 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
+                                        className={`pb-24 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
                                     ></SeasonsPreview>
                                 )}
                                 {(bloomingNowData && bloomingNowData.length > 0) && (
@@ -119,8 +123,8 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                         bloomingList={bloomingNowData}
                                         className={`pb-24 bp-800:px-6 bp-1000:px-8 bp-1100:px-12 bp-800:pt-8 bp-1200:m-auto bp-1200:max-w-[90%] bp-1600:max-w-[70%]`}
                                     ></BloomingNow>
-                                )}
-                            </section>
+                                )} */}
+                            </div>
                         </div>
                     ))}
             </div>

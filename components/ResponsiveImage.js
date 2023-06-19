@@ -5,7 +5,9 @@ import cx from 'classnames';
 
 const ResponsiveImage = ({
     breakpoint = '',
-    captionClassName = '',
+    captionBgClass,
+    captionStyle = 'inset',
+    children,
     className = '',
     figureClassName = '',
     fill = false,
@@ -28,14 +30,17 @@ const ResponsiveImage = ({
 }) => {
     const imageProps = useNextSanityImage(sanityClient, image);
     const mobileImageProps = useNextSanityImage(sanityClient, mobileImage);
-    const imgWidth = typeof parseInt(width, 10) === Number
-        ? typeof parseInt(width, 10)
-        : null;
-    const imgHeight = typeof parseInt(height, 10) === Number
-        ? typeof parseInt(height, 10)
-        : null;
-    const { caption = '', alt = '' } = image ? image : {};
+    const imgWidth =
+        typeof parseInt(width, 10) === Number
+            ? typeof parseInt(width, 10)
+            : null;
+    const imgHeight =
+        typeof parseInt(height, 10) === Number
+            ? typeof parseInt(height, 10)
+            : null;
     const classes = cx(className);
+    const { caption = '', alt = '' } = image ? image : {};
+    const captionClassName = cx(`inset-caption`);
 
     return (
         <>
@@ -74,8 +79,9 @@ const ResponsiveImage = ({
                                 sizes={sizes}
                             />
                         )}
+                        {children && children}
                         {caption && showCaption && (
-                            <figcaption className={cx(captionClassName)}>
+                            <figcaption className={cx(captionClassName, captionBgClass)}>
                                 {caption}
                             </figcaption>
                         )}

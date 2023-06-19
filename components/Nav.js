@@ -1,14 +1,41 @@
-import React from 'react';
+// import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { SanityClient } from 'next-sanity';
+import { useState, useEffect, React } from 'react';
 import cx from 'classnames';
 
 const Nav = (props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleRouteChange = (url, { shallow }) => {
+            // close the menu when the route changes if it's open
+            if (isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        router.events.on('routeChangeComplete', handleRouteChange);
+
+        // If the component is unmounted, unsubscribe
+        // from the event with the `off` method:
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange);
+        };
+    }, [router]);
 
     return (
-        <nav className={`group/nav fixed font-display tracking-tight pt-6 bg-gradient-to-br from-oe-green-600 to-oe-green-yelow-800 text-2xl flex z-50 ${cx({'menu-active px-5 pt-6 w-full h-full overflow-hidden bg-white' : isMenuOpen})}`}>
+        <nav
+            className={`group/nav fixed font-display tracking-tight pt-6 bg-gradient-to-br from-oe-green-600 to-oe-green-yellow-800 text-2xl flex z-50 ${cx(
+                {
+                    'menu-active px-5 pt-6 w-full h-full overflow-hidden bg-white':
+                        isMenuOpen,
+                }
+            )}`}
+        >
             <button
                 className={`menu-icon absolute top-5 left-5 z-10 h-6 border-none flex flex-col justify-between`}
                 onClick={(e) => setIsMenuOpen(!isMenuOpen)}
@@ -18,7 +45,9 @@ const Nav = (props) => {
                 <div className={`w-8 h-1 bg-slate-100`}></div>
                 <div className={`w-8 h-1 bg-slate-100`}></div>
             </button>
-            <ul className={`nav-links mt-16 hidden group-[.menu-active]/nav:block`}>
+            <ul
+                className={`nav-links mt-16 hidden group-[.menu-active]/nav:block`}
+            >
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
@@ -34,12 +63,10 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/" onClick={(e) => setIsMenuOpen(!isMenuOpen)}>
-                        Home
-                    </Link>
-                </li> 
+                    <Link href="/">Home</Link>
+                </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -53,15 +80,10 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link
-                        href="/about"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        About Ozarkedge
-                    </Link>
+                    <Link href="/about">About Ozarkedge</Link>
                 </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -75,15 +97,10 @@ const Nav = (props) => {
                     image={menuImage.asset}
                     alt={menuImage.alt}
                 /> */}
-                    <Link
-                        href="/native-plants"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        Ozarkedge Native Plants
-                    </Link>
+                    <Link href="/native-plants">Ozarkedge Native Plants</Link>
                 </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -97,12 +114,10 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/pollinators" onClick={(e) => setIsMenuOpen(!isMenuOpen)}>
-                        Pollinators
-                    </Link>
+                    <Link href="/pollinators">Pollinators</Link>
                 </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -116,15 +131,10 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link
-                        href="/season/spring"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        Spring
-                    </Link>
+                    <Link href="/season/spring">Spring</Link>
                 </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -138,15 +148,10 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link
-                        href="/season/summer"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        Summer
-                    </Link>
+                    <Link href="/season/summer">Summer</Link>
                 </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -160,15 +165,10 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link
-                        href="/season/fall"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        Fall
-                    </Link>
+                    <Link href="/season/fall">Fall</Link>
                 </li>
                 <li className={`nav-list-item text-slate-100 pb-2 flex`}>
-                                    {/* <ResponsiveImage
+                    {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
                     placeholder="empty"
@@ -182,13 +182,8 @@ const Nav = (props) => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link
-                        href="/season/winter"
-                        onClick={(e) => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        Winter
-                    </Link>
-                 </li>
+                    <Link href="/season/winter">Winter</Link>
+                </li>
             </ul>
         </nav>
     );
