@@ -56,9 +56,6 @@ const Header = (props) => {
                         />
                     </div>
                 )}
-                {spanText && (
-                    <span className={cx(spanClasses)}>{spanText}</span>
-                )}{' '}
                 {children}
             </h2>
         </div>

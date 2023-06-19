@@ -13,6 +13,7 @@ import { urlFor } from '@lib/sanity';
  * @param {number} cols - Number of columns to display in the image grid.
  * @param {array} images - Array of images to be featured in the open lightbox.
  * @param {string} lightboxIdentifier - Identifier for the lightbox.
+ * @param {string} lightboxImgClass - Class applied to the lightbox images.
  * @param {number} maxItems - Maximum number of items to display in the lightbox. TODO: Implement this.
  * @param {boolean} open - Opens the lightbox when true.
  * @param {function} onOpenCallback - Callback function to run when the lightbox is opened.
@@ -28,6 +29,7 @@ const Lightbox = ({
     cols = 3,
     images,
     lightboxIdentifier,
+    lightboxImgClass,
     maxItems,
     open = false,
     onOpenCallback,
@@ -45,10 +47,6 @@ const Lightbox = ({
             );
         }
     }, []);
-    // const thumbnails = maxItems ? images.slice(0, maxItems) : assets;
-    // const selectedImage = useMemo(() => {
-    //     return images.find((image) => image._key === selectedImageKey);
-    // }, [images, selectedImageKey]);
 
     const gridColumns = {
         1: 'grid-cols-1',
@@ -90,6 +88,7 @@ const Lightbox = ({
                 images={imageSrcAndAlt}
                 leftArrowClassname={'text-white text-2xl'}
                 lightboxIdentifier={lightboxIdentifier}
+                lightboxImgClass={'!w-full h-auto'}
                 onClose={onCloseCallback ? onCloseCallback : () => {}}
                 open={open}
                 rightArrowClassname={'text-white text-2xl'}
