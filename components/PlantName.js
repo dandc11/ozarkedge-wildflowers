@@ -39,7 +39,7 @@ const PlantName = (props) => {
                 </h3>
             )}
             {showSeparator && (
-                <hr className={`border-t-[1px] w-full border-gray-800`}></hr>
+                <hr className={`w-full border-gray-800 border-solid border-t-[1px]`}></hr>
             )}
             {showBotanicalName && (
                 <h4

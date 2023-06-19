@@ -32,7 +32,7 @@ const TableOfContents = (props) => {
             {linkHrefs?.length > 0 && (
                 <div
                     className={cx(
-                        'pl-6 py-6 bg-white z-30 w-80 flex flex-col',
+                        'w-full flex flex-col px-6 py-8 bg-white z-30 bp-700:w-80 bp-700:pl-3',
                         { 'shadow-md': shadow },
                         className
                     )}
@@ -40,7 +40,7 @@ const TableOfContents = (props) => {
                     {showHeader && (
                         <h4
                             className={cx(
-                                `relative z-10 text-3xl font-extralight not-italic uppercase`,
+                                `relative z-10 text-3xl font-extralight not-italic uppercase antialiased`,
                                 headerClassName
                             )}
                         >
@@ -54,7 +54,7 @@ const TableOfContents = (props) => {
                         {linkHrefs.map((href, index) => (
                             <li
                                 className={cx(
-                                    `mb-3 bp-700:mb-1 `,
+                                    `mb-3 bp-700:mb-1 overflow-hidden `,
                                     listItemClassName
                                 )}
                                 key={href}
@@ -62,7 +62,7 @@ const TableOfContents = (props) => {
                                 <a
                                     href={`#${href}`}
                                     onClick={() => handleCallBack()}
-                                    className={`text-lg font-extralight not-italic uppercase transition ease-in-out delay-150 hover:text-oe-blue-green-light-800 hover:border-b-2 hover:font-normal hover:border-b-oe-green-800 hover:transition-all bp-1200:text-xl`}
+                                    className={`text-lg font-extralight not-italic uppercase antialiased after:content-['..................................................................................................'] transition ease-in-out delay-150 hover:text-oe-blue-green-light-800 hover:border-b-2 hover:font-normal hover:border-b-oe-green-800 hover:transition-all bp-1200:text-lg`}
                                 >
                                     {linkTitles[index]}
                                 </a>

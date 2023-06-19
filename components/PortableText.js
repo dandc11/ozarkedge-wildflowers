@@ -12,7 +12,7 @@ const portTextComponents = {
         h2: ({ children }) => <h1 className="text-2xl">{children}</h1>,
         h3: ({ children }) => <h1 className="text-xl">{children}</h1>,
         h4: ({ children }) => <h1 className="text-lg">{children}</h1>,
-        normal: ({ children }) => <p className="pt-3">{children}</p>,
+        normal: ({ children }) => <p className="pt-3 text-inherit">{children}</p>,
         blockquote: ({ children }) => (
             <blockquote className="border-l-purple-500">{children}</blockquote>
         ),

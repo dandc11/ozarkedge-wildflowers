@@ -17,24 +17,14 @@ const SeasonsPreview = (props) => {
     );
     return (
         <section id={`seasonPreview`} className={cx(`relative`, className)}>
-            <Header
-                id={``}
-                wrapperClasses={`z-20 bg-transparent px-4 bp-800:hidden bp-800:px-0 bp-800:pb-4 bp-800:ml-6 bp-800:relative`}
-                headerClasses={`season-header bp-800:bg-transparent `}
-                spanClasses={`bp-800:bg-transparent`}
-                showCircle
-                spanText={titleCase(seasonName)}
-            >
-                at Ozarkedge
-            </Header>
             <div className={`flex flex-col bp-800:flex-row bp-800:gap-6`}>
                 <div
                     id={`seasonPreviewText`}
-                    className={`order-2 bp-800:order-1 bp-800:max-w-sm bp-1100:max-w-xl`}
+                    className={`order-2 bp-800:order-1 bp-800:max-w-xs bp-1100:max-w-xl`}
                 >
                     <Header
                         id={``}
-                        wrapperClasses={`hidden bp-800:block z-20 px-4 bp-800:pb-4 bp-800:relative`}
+                        wrapperClasses={`hidden bp-800:block z-20 px-4 relative`}
                         headerClasses={`season-header bp-800:bg-transparent `}
                         spanClasses={`bp-800:bg-transparent`}
                         showCircle
@@ -42,7 +32,7 @@ const SeasonsPreview = (props) => {
                     >
                         at Ozarkedge
                     </Header>
-                    {seasonData.description && (
+                    {/* {seasonData.description && (
                         <div className={`px-4 pt-6 bp-800:p-0`}>
                             <PortTextWrapper
                                 value={seasonData.description}
@@ -50,7 +40,7 @@ const SeasonsPreview = (props) => {
                             />
                         </div>
                     )}
-                    <br></br>
+                    <br></br> */}
                     <Link
                         href="/seasons"
                         className={`seasons-page-link font-semibold underline px-4 bp-800:px-0`}
@@ -59,14 +49,24 @@ const SeasonsPreview = (props) => {
                     </Link>
                 </div>
                 <ResponsiveImage
-                    wrapperClassName={`order-1 bp-800:w-full bp-800:order-2`}
-                    className={`featured-image h-auto rounded-none w-full bp-800:rounded-md bp-800:order-2`}
-                    wrapperClasses={`season-img`}
+                    wrapperClassName={`relative order-1 bp-800:w-full bp-800:order-2 b`}
+                    className={`featured-image h-auto w-full bp-800:order-2`}
+                    figureClassName={`rounded-none bp-1200:rounded-md `}
                     placeholder="empty"
-                    // sizes="(max-width: 700px) 90vw, 700px"
                     image={mainImage.asset}
+                    sizes={`(max-width: 800px) 100vw, 670px`}
                     alt={mainImage.alt}
-                />
+                >
+                    <Header
+                        id={``}
+                        wrapperClasses={`absolute bottom-0 bg-transparent px-4 pt-2 bp-800:hidden`}
+                        headerClasses={`season-header text-white`}
+                        spanClasses={`text-white`}
+                        spanText={titleCase(seasonName)}
+                    >
+                        at Ozarkedge
+                    </Header>
+                </ResponsiveImage>
             </div>
         </section>
     );
