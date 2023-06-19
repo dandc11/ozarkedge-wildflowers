@@ -1,22 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { createContext } from 'react';
 import Link from 'next/link';import ResponsiveImage from './ResponsiveImage';
 import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import cx from 'classnames';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 /**
  * ImageSlider - component to render a horizontal slider of images
+ * @param {string} captionBgClass - background color for caption
  * @param {array} sliderItems - array of objects containing a image, link and documentType (optional)
  * @param {boolean} useLightbox - whether or not to use lightbox.js
  * @param {boolean} useLinks - whether or not to use links
  * @param {string} lightboxIdentifier - identifier for lightbox.js
  * @returns {JSX.Element}
- * @created 11/01/2021
- * @lastUpdated 11/01/2021
+ * @created 04-06-2023  
+ * @lastUpdated 04-06-2023  
  */
 
 const ImageSlider = (props) => {
     const {
+        captionBgClass,
         sliderItems,
+        className = '',
         useLightbox = false,
         useLinks = false,
         lightboxIdentifier = '',
@@ -33,7 +38,7 @@ const ImageSlider = (props) => {
         return (
             <li
                 key={index}
-                className={`relative flex flex-col h-full transition duration-200 ease-in-out hover:scale-105 first:hover:pl-2`}
+                className={`relative flex flex-col h-full snap-center transition duration-200 ease-in-out hover:scale-105 first:hover:pl-2`}
             >
                 {useLinks ? (
                     <Link
@@ -43,9 +48,8 @@ const ImageSlider = (props) => {
                         )}`}
                     >
                         <ResponsiveImage
-                            className={`w-full aspect-[3/4] h-auto `}
-                            captionClassName={`absolute`}
-                            figureClassName={`img w-36 relative mb-5 rounded-md bp-800:w-[15rem] bp-800:aspect-[3/4] bp-800:h-auto`}
+                            className={`w-full aspect-[3/4] h-auto rounded-md`}
+                            figureClassName={`img w-36 relative mb-5 bp-800:w-[15rem] bp-800:aspect-[3/4] bp-800:h-auto`}
                             wrapperClassName={``}
                             image={item.image}
                             sizes="(max-width: 800px) 150px, 240px"
@@ -53,12 +57,12 @@ const ImageSlider = (props) => {
                             priority={false}
                             placeholder={``}
                             showCaption={true}
+                            captionBgClass={captionBgClass}
                         />
                     </Link>
                 ) : (
                     <ResponsiveImage
                         className={`w-full aspect-[3/4] h-auto `}
-                        captionClassName={`absolute`}
                         figureClassName={`img w-36 relative mb-5 rounded-md bp-800:w-[15rem] bp-800:aspect-[3/4] bp-800:h-auto`}
                         wrapperClassName={``}
                         image={item.image}
@@ -67,6 +71,7 @@ const ImageSlider = (props) => {
                         priority={false}
                         placeholder={``}
                         showCaption={true}
+                        captionBgClass={captionBgClass}
                     />
                 )}
             </li>
@@ -74,7 +79,7 @@ const ImageSlider = (props) => {
     });
 
     return (
-        <div className={`relative overflow-x-scroll w-full pt-2 hide-scroll`}>
+        <div className={cx(`relative overflow-x-auto snap-x snap-mandatory w-full pt-2 hide-scroll`, className)}>
             <ul className={`flex flex-nowrap gap-3 h-full`}>
                 {listItems}
             </ul>
