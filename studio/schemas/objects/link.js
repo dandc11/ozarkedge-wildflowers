@@ -1,7 +1,6 @@
-import React from 'react'
-import {DOCUMENT_TYPES} from '../constants/constants'
-
-const LinkRender = ({children}) => <span>{children} 🔗</span>
+import React from 'react';
+import LinkRender from '../components/LinkRender';
+import { DOCUMENT_TYPES } from '../constants/constants';
 
 export default {
     name: 'link',
@@ -16,7 +15,7 @@ export default {
             title: 'External link (URL)',
             validation: Rule => Rule.uri({
                 scheme: ['http', 'https', 'mailto', 'tel']
-              }),
+            }),
             hidden: ({ parent, value }) => !value && parent?.internal,
         },
         {
@@ -27,12 +26,12 @@ export default {
                 'When linking to an internal page on this site, select the path here.',
             to: DOCUMENT_TYPES,
             hidden: ({ parent, value }) => {
-              return !value && parent?.external
+                return !value && parent?.external
             },
         },
     ],
     blockEditor: {
         icon: () => '🔗 Link',
         render: LinkRender,
-      },
+    },
 };

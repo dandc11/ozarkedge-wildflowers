@@ -1,7 +1,6 @@
 import React from 'react'
 import {DOCUMENT_TYPES} from '../constants/constants';
-
-const LinkRender = ({children}) => <span>{children}</span>;
+import LinkRender from '../components/LinkRender';
 
 export default {
   name: "pageBodyPortableText",
@@ -48,10 +47,8 @@ export default {
                 to: DOCUMENT_TYPES,
               }
             ],
-            blockEditor: {
-              icon: () => '🔗 ',
-              render: LinkRender,
-            },
+            components: LinkRender,
+            icon: () => '🔗 ',
           },
           {
             name: 'externalLink',
@@ -70,10 +67,8 @@ export default {
                 type: 'boolean'
               }
             ],
-            blockEditor: {
-              icon: () => '🌐 ',
-              render: LinkRender,
-            },
+            icon: () => '🌐 ',
+            components: LinkRender,
           },
         ],
       },

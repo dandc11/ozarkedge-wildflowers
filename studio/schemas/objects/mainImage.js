@@ -15,9 +15,6 @@ export default {
             name: 'caption',
             type: 'string',
             title: 'Caption',
-            options: {
-                isHighlighted: true,
-            },
         },
         {
             name: 'alt',
@@ -29,9 +26,6 @@ export default {
                 Rule.error(
                     'You have to fill out the alternative text.'
                 ).required(),
-            options: {
-                isHighlighted: true,
-            },
         },
     ],
     preview: {

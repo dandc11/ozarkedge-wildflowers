@@ -17,9 +17,6 @@ export default {
             type: 'string',
             hidden: ({ parent }) => !parent?.asset,
             description: 'Optional caption text for this image. If you add text here, a caption will display with this image. Leave this field blank if a caption is not desired.',
-            options: {
-                isHighlighted: true,
-            },
         },
         {
             name: 'alt',
@@ -32,9 +29,6 @@ export default {
                 ).required(),
             description:
                 'A very brief description of the image that will appear only in the html - important for SEO and accessiblity.',
-            options: {
-                isHighlighted: true,
-            },
         },
     ],
     preview: {
