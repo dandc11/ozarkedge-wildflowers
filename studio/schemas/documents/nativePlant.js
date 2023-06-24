@@ -1,5 +1,5 @@
 import { GiFlowerEmblem } from 'react-icons/gi';
-import AssetSource from 'part:sanity-plugin-media-library/asset-source';
+// import AssetSource from 'part:sanity-plugin-media-library/asset-source';
 
 export default {
     name: 'nativePlant',
@@ -130,7 +130,7 @@ export default {
             description:
                 "Upload or select images of this plant to appear in a gallery on the plant's page.",
             of: [{ type: 'figure' }],
-            options: { sources: [AssetSource] },
+            // options: { sources: [AssetSource] },
             fieldset: 'description',
         },
         {
@@ -164,7 +164,7 @@ export default {
             description:
                 "Upload or select images of pollinators associated with ths plant to appear in the pollinator section on this plant's page.",
             of: [{ type: 'figure' }],
-            options: { sources: [AssetSource] },
+            // options: { sources: [AssetSource] },
             fieldset: 'description',
         },
         {

@@ -1,10 +1,3 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    reactStrictMode: true,
-    // images: {
-    //     domains: ['cdn.sanity.io'],
-    // },
-};
 
 const STUDIO_REWRITE = {
     source: '/studio/:path*',
@@ -20,5 +13,5 @@ module.exports = {
         domains: ['cdn.sanity.io'],
         loader: 'custom',
     },
-    nextConfig,
+    reactStrictMode: true,
 };
