@@ -21,6 +21,7 @@ function OzarkedgeApp({ Component, pageProps }) {
         <div className={`${PLAYFAIR_DISPLAY.variable} ${RALEWAY.variable}`}>
             <Head>
                 <title>Ozarkedge Wildflowers</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <Layout>
                 <Component {...pageProps} />
