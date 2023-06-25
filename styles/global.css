@@ -75,7 +75,13 @@
     .header-base {
         @apply relative w-full z-10 bg-transparent bp-400:pl-0 [&>h2]:relative [&>h2]:font-thin [&>h2]:text-xl [&>h2]:z-0 [&_span]:font-thin [&_span]:text-inherit [&_span]:uppercase [&_span]:text-2xl [&>h2]:bp-800:text-xl bp-800:[&_span]:text-3xl [&>h2]:bp-1000:text-2xl bp-1000:[&_span]:text-4xl;
     }
+
+    .content-well {
+        /* @apply z-0 px-3 grid grid-cols-1 gap-4 place-self-center  bp-1000:grid-cols-2 bp-1000:gap-8 bp-1000:mt-10 bp-1000:px-8 bp-1000:gap-x-20 bp-1400:px-16 max-bp-700:[&.img-base]:px-6; */
+    }
 }
+
+
 
 
 
