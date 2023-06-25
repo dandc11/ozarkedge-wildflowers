@@ -17,6 +17,7 @@ import Button from 'components/Button';
 import Lightbox from 'components/Lightbox';
 import ThumbnailGrid from 'components/ThumbnailGrid';
 import ImageSlider from 'components/ImageSlider';
+import ContentSection from 'components/ContentSection';
 
 /**
  * IntroSection component - 1st section of plant page (intro text)
@@ -91,231 +92,6 @@ const IntroSection = ({
 };
 
 /**
- * NameInfo component - 2nd section of plant page (name info text)
- * @param {plantName} plantName - plant name object
- * @param {tocLinks} tocLinks - table of contents links
- * @param {openToCSection} openToCSection - currently open table of contents section
- * @param {setShowToC} setShowToC - function to set currently open table of contents section
- * @param {toggleLightboxCallback} toggleLightboxCallback - function to toggle lightbox
- * @returns {JSX.Element} - JSX Element for name info section
- * @example
- * <NameInfo
- *   plantName={plantName}
- *   tocLinks={tocLinks}
- *   openToCSection={openToCSection}
- *   setShowToC={setShowToC}
- *   toggleLightboxCallback={toggleLightboxCallback}
- * ></NameInfo>
- */
-const NameInfo = ({
-    plantName,
-    tocLinks,
-    openToCSection,
-    setShowToC,
-    toggleLightboxCallback,
-}) => {
-    return (
-        <>
-            {plantName.nameInformation && (
-                <section
-                    className={cx('relative mt-10', {
-                        'z-10':
-                            openToCSection === PLANT_PAGE_SECTIONS.plantName,
-                        'z-0': openToCSection !== PLANT_PAGE_SECTIONS.plantName,
-                    })}
-                >
-                    <Header
-                        id={'plantName'}
-                        wrapperClassName={``}
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={
-                            openToCSection === PLANT_PAGE_SECTIONS.plantName
-                        }
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.plantName}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            lightboxCallback={toggleLightboxCallback}
-                            className={`plant-pg-port-text`}
-                            value={plantName.nameInformation}
-                        ></PortTextWrapper>
-                        <br></br>
-                    </div>
-                </section>
-            )}
-        </>
-    );
-};
-
-/**
- * BloomInfo component - 3rd section of plant page (bloom text)
- * @param {string} bloomText - text about plant bloom
- * @param {array} tocLinks - array of objects with shape {id: string, text: string} for table of contents links
- * @param {string} openToCSection - id of section that is open in table of contents
- * @param {function} setShowToC - function to set which section is open in table of contents
- * @param {function} toggleLightboxCallback - function to toggle lightbox
- * @returns {JSX.Element} - JSX Element for bloom info section
- * @example
- *  <BloomInfo
- *     bloomText={bloomText}
- *     tocLinks={tocLinks}
- *     openToCSection={openToCSection}
- *     setShowToC={setShowToC}
- *     toggleLightboxCallback={toggleLightboxCallback}
- *   ></BloomInfo>
- */
-const BloomInfo = ({
-    bloomText,
-    tocLinks,
-    openToCSection,
-    setShowToC,
-    toggleLightboxCallback,
-}) => {
-    return (
-        <>
-            {' '}
-            {bloomText && (
-                <section
-                    className={cx('relative', {
-                        'z-10':
-                            openToCSection === PLANT_PAGE_SECTIONS.bloomText,
-                        'z-0': openToCSection !== PLANT_PAGE_SECTIONS.bloomText,
-                    })}
-                >
-                    <Header
-                        id={'bloomText'}
-                        wrapperClassName
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={
-                            openToCSection === PLANT_PAGE_SECTIONS.bloomText
-                        }
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.bloomText}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            lightboxCallback={toggleLightboxCallback}
-                            className={`plant-pg-port-text`}
-                            value={bloomText}
-                        ></PortTextWrapper>
-                    </div>
-                </section>
-            )}
-        </>
-    );
-};
-
-/**
- * Pollinators component - 4th section of plant page (pollinators)
- * @param {array} pollinators - array of pollinator objects (see schema.js for object shape)
- * @param {array} tocLinks - array of objects with shape {id: string, text: string} for table of contents links
- * @param {string} openToCSection - id of section that is open in table of contents
- * @param {function} setShowToC - function to set which section is open in table of contents
- * @returns {JSX.Element} - JSX element with pollinator information
- * @example
- * <Pollinators
- *   pollinators={pollinators}
- *   tocLinks={tocLinks}
- *   openToCSection={openToCSection}
- *   setShowToC={setShowToC}
- * ></Pollinators>
- */
-const Pollinators = ({ pollinators, tocLinks, openToCSection, setShowToC }) => {
-    return (
-        <>
-            {' '}
-            {pollinators && (
-                <section
-                    className={cx('relative', {
-                        'z-10':
-                            openToCSection === PLANT_PAGE_SECTIONS.pollinators,
-                        'z-0':
-                            openToCSection !== PLANT_PAGE_SECTIONS.pollinators,
-                    })}
-                >
-                    <Header
-                        id={'pollinators'}
-                        wrapperClassName
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={
-                            openToCSection === PLANT_PAGE_SECTIONS.pollinators
-                        }
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.pollinators}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            className={`plant-pg-port-text`}
-                            value={bloomText}
-                        ></PortTextWrapper>
-                    </div>
-                </section>
-            )}
-        </>
-    );
-};
-
-/**
- * Description component - 1st section of plant page (description)
- * @param {string} description - description of plant
- * @param {array} tocLinks - array of objects with link and text for table of contents
- * @param {string} openToCSection - section of table of contents that is open
- * @param {function} setShowToC - function to set section of table of contents that is open
- * @param {function} toggleLightboxCallback - function to toggle lightbox
- * @returns {JSX} - returns jsx of description section
- */
-const Description = ({
-    description,
-    tocLinks,
-    openToCSection,
-    setShowToC,
-    toggleLightboxCallback,
-}) => {
-    return (
-        <>
-            {description && (
-                <section
-                    className={cx('relative', {
-                        'z-10':
-                            openToCSection === PLANT_PAGE_SECTIONS.description,
-                        'z-0':
-                            openToCSection !== PLANT_PAGE_SECTIONS.description,
-                    })}
-                >
-                    <Header
-                        id={'description'}
-                        wrapperClassName
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={
-                            openToCSection === PLANT_PAGE_SECTIONS.description
-                        }
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.description}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            lightboxCallback={toggleLightboxCallback}
-                            className={`plant-pg-port-text`}
-                            value={description}
-                        ></PortTextWrapper>
-                    </div>
-                    <br></br>
-                </section>
-            )}
-        </>
-    );
-};
-
-/**
  * GrowingNearby component - 6th section of plant page (growing nearby)
  * @param {Array} growingNearbyPlantList - list of plants that grow nearby
  * @param {String} growingNearbyText - text about growing nearby
@@ -347,7 +123,7 @@ const GrowingNearby = ({
                 <section
                     id="growingNearbyText"
                     className={cx(
-                        'relative bg-oe-green-yelow-400 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36 ',
+                        'relative bg-oe-green-yelow-400',
                         {
                             'z-10':
                                 openToCSection ===
@@ -382,138 +158,6 @@ const GrowingNearby = ({
                             <br></br>
                         </div>
                     </div>
-                </section>
-            )}
-        </>
-    );
-};
-
-// Habitat component - 7th section of plant page (habitat)
-const Habitat = ({
-    habitat,
-    tocLinks,
-    openToCSection,
-    setShowToC,
-    lightboxIdentifier,
-    toggleLightboxCallback,
-}) => {
-    return (
-        <>
-            {habitat && (
-                <section
-                    className={cx('relative mt-11', {
-                        'z-10': openToCSection === PLANT_PAGE_SECTIONS.habitat,
-                        'z-0': openToCSection !== PLANT_PAGE_SECTIONS.habitat,
-                    })}
-                >
-                    <Header
-                        id={'habitat'}
-                        wrapperClassName
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={openToCSection === PLANT_PAGE_SECTIONS.habitat}
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.habitat}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            lightboxCallback={toggleLightboxCallback}
-                            className={`plant-pg-port-text`}
-                            value={habitat}
-                        ></PortTextWrapper>
-                        <br></br>
-                    </div>
-                </section>
-            )}
-        </>
-    );
-};
-
-// ConservationStatus component - 8th section of plant page (conservation status)
-const ConservationStatus = ({
-    conservationStatus,
-    tocLinks,
-    openToCSection,
-    setShowToC,
-    lightboxIdentifier,
-    toggleLightboxCallback,
-}) => {
-    return (
-        <>
-            {conservationStatus && (
-                <section
-                    className={cx('relative', {
-                        'z-10':
-                            openToCSection ===
-                            PLANT_PAGE_SECTIONS.conservationStatus,
-                        'z-0':
-                            openToCSection !==
-                            PLANT_PAGE_SECTIONS.conservationStatus,
-                    })}
-                >
-                    <Header
-                        id={'conservationStatus'}
-                        wrapperClassName
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={
-                            openToCSection ===
-                            PLANT_PAGE_SECTIONS.conservationStatus
-                        }
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.conservationStatus}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            lightboxCallback={toggleLightboxCallback}
-                            className={`plant-pg-port-text`}
-                            value={conservationStatus}
-                        ></PortTextWrapper>
-                    </div>
-                </section>
-            )}
-        </>
-    );
-};
-
-// Tidbits component - 9th section of plant page (tidbits)
-const Tidbits = ({
-    tidbits,
-    tocLinks,
-    openToCSection,
-    setShowToC,
-    lightboxIdentifier,
-    toggleLightboxCallback,
-}) => {
-    return (
-        <>
-            {tidbits && (
-                <section
-                    className={cx('relative', {
-                        'z-10': openToCSection === PLANT_PAGE_SECTIONS.tidbits,
-                        'z-0': openToCSection !== PLANT_PAGE_SECTIONS.tidbits,
-                    })}
-                >
-                    <Header
-                        id={'tidbits'}
-                        wrapperClassName
-                        showCircle
-                        setShowToC={setShowToC}
-                        showToC={openToCSection === PLANT_PAGE_SECTIONS.tidbits}
-                        tocLinks={tocLinks}
-                    >
-                        <span>{PLANT_PAGE_SECTIONS.tidbits}</span>
-                    </Header>
-                    <div>
-                        <PortTextWrapper
-                            lightboxCallback={toggleLightboxCallback}
-                            className={`plant-pg-port-text`}
-                            value={tidbits}
-                        ></PortTextWrapper>
-                    </div>
-                    <br></br>
                 </section>
             )}
         </>
@@ -633,11 +277,12 @@ const NativePlantPage = ({ pageData }) => {
                     </header>
                     <main id="plantPageMainContent w-full">
                         <div
-                            className={`z-0 m-auto w-[90%] bp-400:w-[87%] bp-700:w-[75%] bp-1000:px-36 [&_section]:ml-auto [&_section]:mr-auto [&_section]:max-w-7xl [&_section]:pb-12 [&_section]:pt-2`}
+                            className={`content-well [&_section]:pb-12 [&_section]:pt-2 `}
                         >
-                            <NameInfo
-                                plantName={plantName}
+                            <ContentSection
+                                portableText={plantName.nameInformation}
                                 tocLinks={sectionLinks}
+                                sectionTitle={`plantName`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}
@@ -645,9 +290,10 @@ const NativePlantPage = ({ pageData }) => {
                                     toggleLightbox()
                                 }
                             />
-                            <BloomInfo
-                                bloomText={bloomText}
+                            <ContentSection
+                                portableText={bloomText}
                                 tocLinks={sectionLinks}
+                                sectionTitle={`bloomText`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}
@@ -655,9 +301,10 @@ const NativePlantPage = ({ pageData }) => {
                                     toggleLightbox()
                                 }
                             />
-                            <Description
-                                description={description}
+                            <ContentSection
+                                portableText={description}
                                 tocLinks={sectionLinks}
+                                sectionTitle={`description`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}
@@ -665,9 +312,11 @@ const NativePlantPage = ({ pageData }) => {
                                     toggleLightbox()
                                 }
                             />
-                            <Pollinators
-                                pollinators={pollinators}
+
+                            <ContentSection
+                                portableText={pollinators}
                                 tocLinks={sectionLinks}
+                                sectionTitle={`pollinators`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}
@@ -675,21 +324,18 @@ const NativePlantPage = ({ pageData }) => {
                                     toggleLightbox()
                                 }
                             />
-                        </div>
-                        <GrowingNearby
-                            growingNearbyPlantList={growingNearbyPlantList}
-                            growingNearbyText={growingNearbyText}
-                            tocLinks={sectionLinks}
-                            openToCSection={openToCSection}
-                            setShowToC={setShowToC}
-                            toggleLightboxCallback={() => toggleLightbox()}
-                        />
-                        <div
-                            className={`z-0 px-5 bp-400:px-8 bp-700:px-12 bp-1000:px-36 [&_section]:ml-auto [&_section]:mr-auto [&_section]:max-w-7xl [&_section]:pb-12 [&_section]:pt-2`}
-                        >
-                            <Habitat
-                                habitat={habitat}
+                            <GrowingNearby
+                                growingNearbyPlantList={growingNearbyPlantList}
+                                growingNearbyText={growingNearbyText}
                                 tocLinks={sectionLinks}
+                                openToCSection={openToCSection}
+                                setShowToC={setShowToC}
+                                toggleLightboxCallback={() => toggleLightbox()}
+                            />
+                            <ContentSection
+                                portableText={habitat}
+                                tocLinks={sectionLinks}
+                                sectionTitle={`habitat`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}
@@ -697,9 +343,10 @@ const NativePlantPage = ({ pageData }) => {
                                     toggleLightbox()
                                 }
                             />
-                            <ConservationStatus
-                                conservationStatus={conservationStatus}
+                            <ContentSection
+                                portableText={conservationStatus}
                                 tocLinks={sectionLinks}
+                                sectionTitle={`conservationStatus`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}
@@ -707,9 +354,10 @@ const NativePlantPage = ({ pageData }) => {
                                     toggleLightbox()
                                 }
                             />
-                            <Tidbits
-                                tidbits={tidbits}
+                            <ContentSection
+                                portableText={tidbits}
                                 tocLinks={sectionLinks}
+                                sectionTitle={`tidbits`}
                                 openToCSection={openToCSection}
                                 setShowToC={setShowToC}
                                 lightboxIdentifier={`plantPage`}

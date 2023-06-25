@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const portTextComponents = {
     block: {
-        // Ex. 1: customizing common block types
+        // customizing common block types
         h2: ({ children }) => <h1 className="text-2xl">{children}</h1>,
         h3: ({ children }) => <h1 className="text-xl">{children}</h1>,
         h4: ({ children }) => <h1 className="text-lg">{children}</h1>,
@@ -78,6 +78,7 @@ const portTextComponents = {
 const PortTextWrapper = React.memo((props) => {
     const { className, value, lightboxCallback } = props;
 
+    // callback for opening lightbox
     const componentsWithCallback = useMemo(() => {
         const { figure, ...otherComponents } = portTextComponents;
       
@@ -87,7 +88,6 @@ const PortTextWrapper = React.memo((props) => {
             ...portTextComponents.types,
             figure: (typeProps) => (
               <ResponsiveImage
-                captionClassName={`absolute`}
                 className={`z-0`}
                 figureClassName={`rounded-none mt-4`}
                 image={typeProps.value}
