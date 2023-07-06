@@ -50,7 +50,7 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
                                         className={`homepage-title self-center text-center bp-900:self-end bp-900:text-right`}
                                     >
                                         <h1
-                                            className={`title text-[calc(2.5rem+1vw)] font-display pb-1 font-bold leading-none bp-600:leading-tight tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-oe-red-500 to-oe-red-700`}
+                                            className={`title text-dynamic-title font-display pb-1 font-bold leading-none bp-600:leading-tight tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-oe-red-500 to-oe-red-700`}
                                         >
                                             {titleText}
                                         </h1>

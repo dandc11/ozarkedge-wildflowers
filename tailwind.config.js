@@ -97,6 +97,29 @@ module.exports = {
                 '20': '20rem',
             }
         },
+        fontSize: {
+            'xs': '.75rem',
+            'sm': '.875rem',
+            'base': '1rem',
+            'lg': '1.125rem',
+            'xl': '1.25rem',
+            '2xl': '1.5rem',
+            '3xl': '1.875rem',
+            '4xl': '2.25rem',
+            '5xl': '3rem',
+            '6xl': '4rem',
+            '7xl': '5rem',
+            '8xl': '6rem',
+            '9xl': '8rem',
+            'dynamic-title': 'clamp(1.5rem, calc(1.5rem + 4cqi), 4rem)',
+            'dynamic-1': 'clamp(1rem, calc(1rem + 1cqi), 3rem)',
+            'dynamic-2': 'clamp(1rem, calc(1rem + 2cqi), 3rem)',
+            'dynamic-3': 'clamp(1rem, calc(1rem + 2cqi), 3.5rem)',
+            'dynamic-4': 'clamp(1rem, calc(1rem + 3cqi), 3.5rem)',
+            'dynamic-5': 'clamp(1rem, calc(1rem + 4cqi), 3.5rem)',
+            'dynamic-6': 'clamp(1rem, calc(1rem + 5cqi), 3.5rem)',
+            'dynamic-7': 'clamp(1rem, calc(1rem + 6cqi), 3.5rem)',
+        },    
         fontFamily: {
             display: ['var(--font-playfair-display)', ...fontFamily.sans],
             sans: [
@@ -130,6 +153,6 @@ module.exports = {
     },
     plugins: [],
     purge: [
-        './pages/**/*.{js,jsx}', './components/**/*.{js,jsx}', './lib/**/*.{js,jsx}','styles/global.css'
+        './pages/**/*.{js,jsx}', './components/**/*.{js,jsx}', './lib/**/*.{js,jsx}', 'styles/global.css'
     ],
 };
