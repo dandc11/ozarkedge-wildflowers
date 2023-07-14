@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 const ResponsiveImage = ({
     breakpoint = '',
-    captionBgClass = 'bg-oe-green-yellow-200',
+    captionBgClassNameName = 'bg-oe-green-yellow-200',
     captionStyle = 'inset',
     children,
     className = '',
@@ -81,7 +81,7 @@ const ResponsiveImage = ({
                         )}
                         {children && children}
                         {caption && showCaption && (
-                            <figcaption className={cx(captionClassName, captionBgClass)}>
+                            <figcaption className={cx(captionClassName, captionBgClassNameName)}>
                                 {caption}
                             </figcaption>
                         )}

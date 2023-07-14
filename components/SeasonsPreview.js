@@ -24,8 +24,8 @@ const SeasonsPreview = (props) => {
                 >
                     <Header
                         id={``}
-                        wrapperClasses={`hidden bp-800:block z-20 px-4 relative`}
-                        headerClasses={`season-header bp-800:bg-transparent `}
+                        className={`hidden bp-800:block z-20 px-4 relative`}
+                        headerClassName={`season-header bp-800:bg-transparent `}
                         spanClasses={`bp-800:bg-transparent`}
                         showCircle
                         spanText={titleCase(seasonName)}
@@ -59,8 +59,8 @@ const SeasonsPreview = (props) => {
                 >
                     <Header
                         id={``}
-                        wrapperClasses={`absolute bottom-0 bg-transparent px-4 pt-2 bp-800:hidden`}
-                        headerClasses={`season-header text-white`}
+                        className={`absolute bottom-0 bg-transparent px-4 pt-2 bp-800:hidden`}
+                        headerClassName={`season-header text-white`}
                         spanClasses={`text-white`}
                         spanText={titleCase(seasonName)}
                     >

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 /**
  * ImageSlider - component to render a horizontal slider of images
- * @param {string} captionBgClass - background color for caption
+ * @param {string} captionBgClassName - background color for caption
  * @param {array} sliderItems - array of objects containing a image, link and documentType (optional)
  * @param {boolean} useLightbox - whether or not to use lightbox.js
  * @param {boolean} useLinks - whether or not to use links
@@ -19,7 +19,7 @@ import classNames from 'classnames';
 
 const ImageSlider = (props) => {
     const {
-        captionBgClass,
+        captionBgClassName,
         sliderItems,
         className = '',
         useLightbox = false,
@@ -57,7 +57,7 @@ const ImageSlider = (props) => {
                             priority={false}
                             placeholder={``}
                             showCaption={true}
-                            captionBgClass={captionBgClass}
+                            captionBgClassName={captionBgClassName}
                         />
                     </Link>
                 ) : (
@@ -71,7 +71,7 @@ const ImageSlider = (props) => {
                         priority={false}
                         placeholder={``}
                         showCaption={true}
-                        captionBgClass={captionBgClass}
+                        captionBgClassName={captionBgClassName}
                     />
                 )}
             </li>

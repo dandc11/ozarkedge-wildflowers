@@ -29,8 +29,8 @@ const BloomingNow = (props) => {
         >
             <Header
                 id={`bloomingHeader`}
-                wrapperClasses={`absolute px-4 bp-800:static bp-800:row-start-1 bp-800:col-start-1 bp-800:col-span-3 top-[-1.8rem] bp-800:top-0`}
-                headerClasses={`text-xl`}
+                className={`absolute px-4 bp-800:static bp-800:row-start-1 bp-800:col-start-1 bp-800:col-span-3 top-[-1.8rem] bp-800:top-0`}
+                headerClassName={`text-xl`}
                 spanText={'BLOOMING'}
                 showCircle
             >

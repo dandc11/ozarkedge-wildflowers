@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { getCurrentSeason } from '@lib/utilities/helperUtil';
@@ -14,11 +14,9 @@ const TableOfContents = (props) => {
         showHeader = false,
         showCircle = false,
         circleColorClass,
-        callBack,
     } = props;
     const linkHrefs = Object.keys(links);
     const linkTitles = Object.values(links);
-    const handleCallBack = callBack ? callBack : () => {};
     const currentSeason = getCurrentSeason();
     const circleColor = circleColorClass
         ? `${circleColorClass}`
@@ -27,6 +25,7 @@ const TableOfContents = (props) => {
         'group max-[700px]:hidden absolute -z-10 font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-150 -top-4 -left-7 bp-800:-top-4 bp-800:-left-7',
         circleColor
     );
+
     return (
         <>
             {linkHrefs?.length > 0 && (
@@ -54,14 +53,13 @@ const TableOfContents = (props) => {
                         {linkHrefs.map((href, index) => (
                             <li
                                 className={cx(
-                                    `mb-3 bp-700:mb-1 overflow-hidden `,
+                                    `whitespace-nowrap mb-3 bp-700:mb-1 overflow-hidden `,
                                     listItemClassName
                                 )}
                                 key={href}
                             >
                                 <a
                                     href={`#${href}`}
-                                    onClick={() => handleCallBack()}
                                     className={`text-lg font-extralight not-italic uppercase antialiased after:content-['..................................................................................................'] transition ease-in-out delay-150 hover:text-oe-blue-green-light-800 hover:border-b-2 hover:font-normal hover:border-b-oe-green-800 hover:transition-all bp-1200:text-lg`}
                                 >
                                     {linkTitles[index]}
