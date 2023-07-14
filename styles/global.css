@@ -16,6 +16,7 @@
     html {
         font-family:Raleway, system-ui, sans-serif;
         font-weight:300;
+        /* font-size: 16px; */
     }
 
     * {
@@ -75,6 +76,13 @@
     .header-base {
         @apply relative w-full z-10 bg-transparent bp-400:pl-0 [&>h2]:relative [&>h2]:font-thin [&>h2]:text-xl [&>h2]:z-0 [&_span]:font-thin [&_span]:text-inherit [&_span]:uppercase [&_span]:text-2xl [&>h2]:bp-800:text-xl bp-800:[&_span]:text-3xl [&>h2]:bp-1000:text-2xl bp-1000:[&_span]:text-4xl;
     }
+}
+
+.content-well > * {
+    margin: 0 auto;
+    width: clamp(8rem, 90cqi, 70rem);
+    padding-block: min(5vh, 18rem);
+
 }
 
 
