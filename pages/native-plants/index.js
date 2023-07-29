@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sanityClient } from '@lib/sanity.server';
+import { getClient } from '@lib/sanity';
 import { GET_ALL_NATIVE_PLANTS_QUERY } from '@lib/queries';
 import PlantName from 'components/PlantName';
 import CustomLink from 'components/CustomLink';
@@ -22,7 +22,7 @@ const AllNativePlantsPage = ({ nativePlantPageData }) => {
 };
 
 export async function getStaticProps(context) {
-    const nativePlantPageData = await sanityClient.fetch(
+    const nativePlantPageData = await getClient().fetch(
         GET_ALL_NATIVE_PLANTS_QUERY
     );
     return {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { sanityClient } from '@lib/sanity.server';
+import { getClient } from '@lib/sanity';
 import {
     GET_ALL_NATIVE_PLANT_PATHS_QUERY,
     GET_PLANT_PAGE_DATA,
@@ -354,7 +354,7 @@ const NativePlantPage = ({ pageData }) => {
 };
 
 export async function getStaticPaths() {
-    const plantPagePaths = await sanityClient.fetch(
+    const plantPagePaths = await getClient().fetch(
         GET_ALL_NATIVE_PLANT_PATHS_QUERY
     );
     const paths = plantPagePaths.map((slug) => ({
@@ -368,7 +368,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
     const { slug = '' } = context.params;
-    const pageData = await sanityClient.fetch(GET_PLANT_PAGE_DATA, { slug });
+    const pageData = await getClient().fetch(GET_PLANT_PAGE_DATA, { slug });
     return {
         props: {
             pageData,

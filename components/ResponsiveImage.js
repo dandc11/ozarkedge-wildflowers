@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useNextSanityImage } from 'next-sanity-image';
-import { sanityClient } from '@lib/sanity.server';
+import { getClient } from '@lib/sanity';
 import cx from 'classnames';
 
 const ResponsiveImage = ({
@@ -28,8 +28,8 @@ const ResponsiveImage = ({
     wrapperClassName = '',
     ...props
 }) => {
-    const imageProps = useNextSanityImage(sanityClient, image);
-    const mobileImageProps = useNextSanityImage(sanityClient, mobileImage);
+    const imageProps = useNextSanityImage(getClient(), image);
+    const mobileImageProps = useNextSanityImage(getClient(), mobileImage);
     const imgWidth =
         typeof parseInt(width, 10) === Number
             ? typeof parseInt(width, 10)

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sanityClient } from '@lib/sanity.server';
+import { getClient } from '@lib/sanity';
 import { GET_ALL_SEASON_PATHS_QUERY } from '@lib/queries';
 import PlantName from 'components/PlantName';
 
@@ -27,7 +27,7 @@ const SeasonPage = ({ plantPageData }) => {
 };
 
 export async function getStaticPaths() {
-    const plantPagePaths = await sanityClient.fetch(GET_ALL_SEASON_PATHS_QUERY);
+    const plantPagePaths = await getClient().fetch(GET_ALL_SEASON_PATHS_QUERY);
 const paths = plantPagePaths.map((slug) => ({
         params: { slug },
     }));
@@ -39,7 +39,7 @@ const paths = plantPagePaths.map((slug) => ({
 
 export async function getStaticProps(context) {
     const { slug = '' } = context.params;
-    const plantPageData = await sanityClient.fetch(
+    const plantPageData = await getClient().fetch(
         `
         *[_type == "season" && slug.current == $slug][0] {...}
         `,

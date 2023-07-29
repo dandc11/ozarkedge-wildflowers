@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react';
 import Image from 'next/image';
 import { useNextSanityImage } from 'next-sanity-image';
-import { sanityClient } from '@lib/sanity.server';
+import { getClient } from '@lib/sanity';
 import cx from 'classnames';
 import { urlFor } from '@lib/sanity';
 
@@ -58,7 +58,7 @@ const Lightbox = ({
     const showChildren = !showImageGrid && children;
     const imageSrcAndAlt = [];
     const imageComponents = images?.map((image, index) => {
-        const imageProps = useNextSanityImage(sanityClient, image.asset);
+        const imageProps = useNextSanityImage(getClient(), image.asset);
         imageSrcAndAlt.push({ src: urlFor(image), alt: image.alt });
 
         return (

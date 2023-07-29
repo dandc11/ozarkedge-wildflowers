@@ -1,4 +1,4 @@
-import { sanityClient } from '@lib/sanity.server';
+import { getClient } from '@lib/sanity';
 import {
     GET_LANDING_PAGE_DATA_QUERY,
     GET_BLOOMING_PLANTS_QUERY,
@@ -133,9 +133,10 @@ export default function HomePage({ pageData, bloomingNowData, seasonData }) {
 }
 
 export async function getStaticProps(context) {
-    const pageData = await sanityClient.fetch(GET_LANDING_PAGE_DATA_QUERY);
-    const bloomingNowData = await sanityClient.fetch(GET_BLOOMING_PLANTS_QUERY);
-    const seasonData = await sanityClient.fetch(GET_CURRENT_SEASON_QUERY);
+    console.log('draft mode ', context)
+    const pageData = await getClient().fetch(GET_LANDING_PAGE_DATA_QUERY);
+    const bloomingNowData = await getClient().fetch(GET_BLOOMING_PLANTS_QUERY);
+    const seasonData = await getClient().fetch(GET_CURRENT_SEASON_QUERY);
     return {
         props: { pageData, bloomingNowData, seasonData },
     };
