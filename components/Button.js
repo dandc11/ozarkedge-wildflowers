@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import { getInternalLinkFullPath } from '../utilities/helperUtil';
 import cx from 'classnames';
 
 const ChevronDown = () => {
@@ -88,7 +88,5 @@ const Button = (
 Button.defaultProps = {
     classes: [],
 };
-
-Button.propTypes = {};
 
 export default Button;

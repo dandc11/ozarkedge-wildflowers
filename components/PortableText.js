@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { PortableText } from '@portabletext/react';
-import { DOCTYPE_PATH_PREFIXES } from '@lib/utilities/constants';
-import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import { DOCTYPE_PATH_PREFIXES } from '../utilities/constants';
+import { getInternalLinkFullPath } from '../utilities/helperUtil';
 import ResponsiveImage from './ResponsiveImage';
 import cx from 'classnames';
 import Link from 'next/link';

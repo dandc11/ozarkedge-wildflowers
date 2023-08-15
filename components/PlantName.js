@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import cx from 'classnames';
-import { titleCase } from '@lib/utilities/helperUtil';
+import { titleCase } from '../utilities/helperUtil';
 
 const TopHeader = (headingLevel, children, classnames) => {
     return (
@@ -54,7 +54,5 @@ const PlantName = (props) => {
         </div>
     );
 };
-
-PlantName.propTypes = {};
 
 export default PlantName;

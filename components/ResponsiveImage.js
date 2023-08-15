@@ -1,6 +1,4 @@
-import Image from 'next/image';
-import { useNextSanityImage } from 'next-sanity-image';
-import { sanityClient } from '@lib/sanity.server';
+import { SanityImage } from "sanity-image"
 import cx from 'classnames';
 
 const ResponsiveImage = ({
@@ -28,8 +26,8 @@ const ResponsiveImage = ({
     wrapperClassName = '',
     ...props
 }) => {
-    const imageProps = useNextSanityImage(sanityClient, image);
-    const mobileImageProps = useNextSanityImage(sanityClient, mobileImage);
+    // const imageProps = useNextSanityImage(sanityClient, image);
+    // const mobileImageProps = useNextSanityImage(sanityClient, mobileImage);
     const imgWidth =
         typeof parseInt(width, 10) === Number
             ? typeof parseInt(width, 10)
@@ -50,7 +48,7 @@ const ResponsiveImage = ({
                         className={cx(`img-base`, figureClassName)}
                         onClick={onClick}
                     >
-                        <Image
+                        {/* <Image
                             {...imageProps}
                             alt={alt}
                             className={cx(classes, ` img-desktop`, {
@@ -63,9 +61,9 @@ const ResponsiveImage = ({
                             sizes={sizes}
                             // fill={fill}
                             style={style}
-                        />
+                        /> */}
                         {/* output separate image/crop at mobile size if one exists */}
-                        {mobileImage && (
+                        {/* {mobileImage && (
                             <Image
                                 {...mobileImageProps}
                                 className={
@@ -78,7 +76,7 @@ const ResponsiveImage = ({
                                 // placeholder={placeholder}
                                 sizes={sizes}
                             />
-                        )}
+                        )} */}
                         {children && children}
                         {caption && showCaption && (
                             <figcaption className={cx(captionClassName, captionBgClassNameName)}>

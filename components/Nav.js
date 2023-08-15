@@ -1,8 +1,7 @@
 // import React from 'react';
-import PropTypes from 'prop-types';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SanityClient } from 'next-sanity';
 import { useState, useEffect, React } from 'react';
 import cx from 'classnames';
 
@@ -188,7 +187,5 @@ const Nav = (props) => {
         </nav>
     );
 };
-
-Nav.propTypes = {};
 
 export default Nav;

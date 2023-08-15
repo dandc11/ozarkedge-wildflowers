@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { sanityClient } from '@lib/sanity.server';
+
+import { sanityClient } from '@lib/sanity.client';
 import { GET_ALL_SEASON_PATHS_QUERY } from '@lib/queries';
 import PlantName from 'components/PlantName';
 
@@ -18,7 +18,6 @@ const SeasonPage = ({ plantPageData }) => {
     //     previewImage,
     //     tidbits,
     // } = plantPageData;
-    console.log('season page data ', plantPageData);
     return (
         <div>
             {/* <PlantName plantName={plantName}></PlantName> */}
@@ -51,7 +50,5 @@ export async function getStaticProps(context) {
         },
     };
 }
-
-SeasonPage.propTypes = {};
 
 export default SeasonPage;

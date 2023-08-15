@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import ResponsiveImage from './ResponsiveImage';
-import { getCurrentMonthName, titleCase } from '@lib/utilities/helperUtil';
+import { getCurrentMonthName, titleCase } from '../utilities/helperUtil';
 import Header from './Header';
 import Button from './Button';
 import PortTextWrapper from './PortableText';
@@ -93,7 +92,5 @@ const Blooming = (props) => {
         </>
     );
 };
-
-Blooming.propTypes = {};
 
 export default Blooming;
