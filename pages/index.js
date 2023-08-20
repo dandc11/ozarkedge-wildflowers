@@ -85,7 +85,6 @@ export default function HomePage(props) {
                           internalLink={buttonOne.slug}
                           linkDocType={buttonOne.docType}
                         >
-                          See what's blooming
                         </Button>
                       )}
                       {buttonTwo && (

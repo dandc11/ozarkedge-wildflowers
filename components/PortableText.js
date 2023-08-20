@@ -101,7 +101,7 @@ const PortTextWrapper = React.memo((props) => {
             ),
           },
         };
-      }, [className, value]);
+      }, [className, lightboxCallback, value]);  
       
 
     return (

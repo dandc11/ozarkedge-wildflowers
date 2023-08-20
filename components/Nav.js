@@ -24,7 +24,7 @@ const Nav = (props) => {
         return () => {
             router.events.off('routeChangeComplete', handleRouteChange);
         };
-    }, [router]);
+    }, [router, isMenuOpen]);
 
     return (
         <nav
