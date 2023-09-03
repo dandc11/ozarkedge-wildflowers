@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { getInternalLinkFullPath } from '../utilities/helperUtil';
+import { getPathFromDocType } from '../utilities/helperUtil';
 import cx from 'classnames';
 
 const ChevronDown = () => {
@@ -67,7 +67,7 @@ const Button = (
         }
     };
     const router = useRouter();
-    const path = getInternalLinkFullPath(linkDocType, internalLink);
+    const path = getPathFromDocType(linkDocType, internalLink);
     return (
         <button
             className={cx(
@@ -83,10 +83,6 @@ const Button = (
             {buttonIcon === 'expand' && expanded && <ChevronUp />}
         </button>
     );
-};
-
-Button.defaultProps = {
-    classes: [],
 };
 
 export default Button;

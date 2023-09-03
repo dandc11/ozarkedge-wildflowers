@@ -1,11 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { getInternalLinkFullPath } from '../utilities/helperUtil'
+import { getPathFromDocType } from '../utilities/helperUtil'
 
 const CustomLink = ({ docType = undefined, href = '', children }) => {
   // if the href value passed has an internal link slug, check to see if it needs a path prefix, e.g. /native-plants/
   const slug = href.internal ? href.internal : href
-  const path = docType ? getInternalLinkFullPath(docType, slug) : ''
+  const path = docType ? getPathFromDocType(docType, slug) : ''
   return (
     <>
       {href?.external && (

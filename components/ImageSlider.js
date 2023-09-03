@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import Link from 'next/link';import ResponsiveImage from './ResponsiveImage';
-import { getInternalLinkFullPath } from '../utilities/helperUtil';
+import { getPathFromDocType } from '../utilities/helperUtil';
 import cx from 'classnames';
 
 /**
@@ -40,7 +40,7 @@ const ImageSlider = (props) => {
             >
                 {useLinks ? (
                     <Link
-                        href={`${getInternalLinkFullPath(
+                        href={`${getPathFromDocType(
                             item.docType,
                             item.slug
                         )}`}

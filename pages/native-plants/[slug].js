@@ -165,9 +165,10 @@ const GrowingNearby = ({
 
 // get links to section ids for the sections with content
 const getSectionLinks = (pageData) => {
+  console.log('pageData ', pageData)
   let tableOfContents = {}
   for (const section in PLANT_PAGE_SECTIONS) {
-    if (pageData[section]) {
+    if (pageData && pageData[section]) {
       tableOfContents[section] = PLANT_PAGE_SECTIONS[section]
     }
   }
@@ -181,8 +182,7 @@ const getSectionLinks = (pageData) => {
  *
  */
 const NativePlantPage = (props) => {
-  const { pageProps } = props
-  console.log('slug props ', props)
+  const { pageProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_PLANT_PAGE_DATA)
   const {
     bannerImage,
@@ -212,7 +212,6 @@ const NativePlantPage = (props) => {
   const closeLightbox = () => {
     setIsLightboxOpen(false)
   }
-console.log('images ', previewImage, bannerImage)
   return (
     <div className="bg-topography pb-10">
       {pageData && (
@@ -372,8 +371,6 @@ export async function getStaticProps(context) {
   const pageProps = await client.fetch(GET_PLANT_PAGE_DATA, { slug })
   return {
     props: {
-      //   draftMode,
-      //   token: draftMode ? { token: readToken } : '',
       pageProps,
     },
   }

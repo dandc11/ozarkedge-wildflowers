@@ -1,19 +1,20 @@
-import { getClient } from '../lib/sanity.client'
-import { readToken } from '../lib/sanity.api'
+import cx from 'classnames'
+import Blooming from 'components/Blooming'
+import Button from 'components/Button'
 import { useLiveQuery } from 'next-sanity/preview'
+import React from 'react'
+
 import {
-  GET_LANDING_PAGE_DATA_QUERY,
   GET_BLOOMING_PLANTS_QUERY,
   GET_CURRENT_SEASON_QUERY,
+  GET_LANDING_PAGE_DATA_QUERY,
 } from '../lib/queries'
+import { readToken } from '../lib/sanity.api'
+import { getClient } from '../lib/sanity.client'
 import {
   buildBackgroundStyleObject,
   getImagePaletteBackgroundColor,
 } from '../utilities/imageUtil'
-import React from 'react'
-import Button from 'components/Button'
-import cx from 'classnames'
-import Blooming from 'components/Blooming'
 
 /**
  * @param {object} pageProps - props for the page
@@ -24,7 +25,7 @@ import Blooming from 'components/Blooming'
  **/
 export default function HomePage(props) {
   // console.log('pageProps', props)
-  const { pageProps, bloomingProps, seasonProps } = props;
+  const { pageProps = null, bloomingProps = null, seasonProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_LANDING_PAGE_DATA_QUERY)
   const [bloomingNowData] = useLiveQuery(
     bloomingProps,
@@ -84,8 +85,7 @@ export default function HomePage(props) {
                           className={`btn-primary bp-900:mb-6`}
                           internalLink={buttonOne.slug}
                           linkDocType={buttonOne.docType}
-                        >
-                        </Button>
+                        ></Button>
                       )}
                       {buttonTwo && (
                         <Button
@@ -124,11 +124,13 @@ export default function HomePage(props) {
   )
 }
 
-export async function getStaticProps (context) {
-  console.log('draftMode ', context)
-  console.log('readToken ', readToken)
+export async function getStaticProps(context) {
+  // console.log('draftMode ', context)
+  // console.log('readToken ', readToken)
   // const draftMode = context?.draftMode;
-  const client = getClient(context?.draftMode ? { token: readToken } : undefined)
+  const client = getClient(
+    context?.draftMode ? { token: readToken } : undefined
+  )
   const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
   const bloomingProps = await client.fetch(GET_BLOOMING_PLANTS_QUERY)
   const seasonProps = await client.fetch(GET_CURRENT_SEASON_QUERY)

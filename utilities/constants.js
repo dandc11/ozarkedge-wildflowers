@@ -1,9 +1,9 @@
 export const DOCTYPE_PATH_PREFIXES = {
     nativePlant: '/native-plants/',
     season: '/season/',
-    aboutPage: '',
+    aboutPage: '/',
     landingPage: '',
-    plantListPage: '',
+    plantListPage: '/',
 };
 
 export const MONTH_NAMES = [

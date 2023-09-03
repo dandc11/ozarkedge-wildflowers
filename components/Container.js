@@ -30,8 +30,4 @@ const Container = ({ classes, children, ...props }) => {
     );
 };
 
-Container.defaultProps = {
-    tag: 'div',
-};
-
 export default Container;

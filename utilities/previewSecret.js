@@ -9,7 +9,7 @@ const query = (ttl) => groq`
 const tag = 'preview.secret';
 
 /**
- * Retrieves a preview secret from the Sanity API.
+ * Retrieves a preview-secret key from the Sanity API.
  *
  * @param {Object} options - Options for retrieving the preview secret.
  * @param {SanityClient} options.client - The Sanity client to use for fetching the secret.
@@ -19,13 +19,13 @@ const tag = 'preview.secret';
  */
 export async function getPreviewSecret(options) {
   const { client, id, createIfNotExists } = options;
-
+  
   // Use a TTL of 1 hour when reading the secret, while using a 30min expiry if `createIfNotExists`
   // is defined to avoid a race condition where a preview pane could get a Secret and use it just as
   // it expires. Twice the TTL gives a wide enough margin to ensure that when the secret is read
   // it's recent enough to be valid no matter if it's used in an iframe URL, or a "Open Preview" URL.
   const ttl = createIfNotExists ? 60 * 30 : 60 * 60;
-
+  
   const secret = await client.fetch(query(ttl), { id });
 
   if (!secret && createIfNotExists) {
@@ -51,6 +51,5 @@ export async function getPreviewSecret(options) {
       );
     }
   }
-  console.log('secret ', secret);
   return secret;
 }

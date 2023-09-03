@@ -1,13 +1,14 @@
-import React from 'react'
-import { getClient } from '../../lib/sanity.client'
-import { GET_ALL_NATIVE_PLANTS_QUERY } from '../../lib/queries'
-import PlantName from 'components/PlantName'
 import CustomLink from 'components/CustomLink'
+import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
+import React from 'react'
+
+import { GET_ALL_NATIVE_PLANTS_QUERY } from '../../lib/queries'
 import { readToken } from '../../lib/sanity.api'
+import { getClient } from '../../lib/sanity.client'
 
 export default function PlantListPage(props) {
-  const { nativePlantPageProps } = props;
+  const { nativePlantPageProps = null } = props;
   const [nativePlantPageData] = useLiveQuery(
     nativePlantPageProps,
     GET_ALL_NATIVE_PLANTS_QUERY
@@ -17,8 +18,8 @@ export default function PlantListPage(props) {
       <div>
         <h1>Ozerkedge Native Plants</h1>
         {nativePlantPageData &&
-          nativePlantPageData.map((plant) => (
-            <CustomLink docType={'nativePlant'} href={plant.slug.current}>
+          nativePlantPageData.map((plant, index) => (
+            <CustomLink docType={'nativePlant'} href={plant.slug.current} key={plant.plantName.botanicalName}>
               <PlantName
                 plantName={plant.plantName}
                 showSeparator={false}

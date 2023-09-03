@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { MONTH_NAMES } from './constants';
 import { SEASONS } from './constants';
 import { DOCTYPE_PATH_PREFIXES } from './constants';
 
-export const getInternalLinkFullPath = (docytype = '', slug = '') => {
+export const getPathFromDocType = (docytype = '', slug = '') => {
     return DOCTYPE_PATH_PREFIXES[docytype]
     ? DOCTYPE_PATH_PREFIXES[docytype] + slug
     : slug;

@@ -6,7 +6,6 @@ import { getPreviewSecret } from './previewSecret';
 // @TODO the code in this plugin is a candidate for moving into `@sanity/preview-kit/studio`
 
 export const productionUrl = definePlugin(({ previewSecretId, types: _types, apiVersion = '2022-11-17' }) => {
-  console.log('productionUrl', previewSecretId, _types)
   if (!previewSecretId) {
     // Throw an error if `previewSecretId` is missing
     throw new TypeError('`previewSecretId` is required');
@@ -45,7 +44,6 @@ export const productionUrl = definePlugin(({ previewSecretId, types: _types, api
         if (types.has(document._type)) {
           // Set the 'type' query parameter if the 'document._type' is in the 'types' array
           url.searchParams.set('type', document._type);
-          console.log('Open preview URL', url.toString());
           return url.toString();
         }
 

@@ -93,7 +93,7 @@ module.exports = {
         },
     },
     plugins: [require('@tailwindcss/container-queries')],
-    purge: [
+    content: [
         './pages/**/*.{js,jsx}',
         './components/**/*.{js,jsx}',
         './lib/**/*.{js,jsx}',
