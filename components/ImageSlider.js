@@ -1,9 +1,7 @@
 import React, { createContext } from 'react';
 import Link from 'next/link';import ResponsiveImage from './ResponsiveImage';
-import { getInternalLinkFullPath } from '@lib/utilities/helperUtil';
+import { getPathFromDocType } from '../utilities/helperUtil';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 /**
  * ImageSlider - component to render a horizontal slider of images
@@ -42,7 +40,7 @@ const ImageSlider = (props) => {
             >
                 {useLinks ? (
                     <Link
-                        href={`${getInternalLinkFullPath(
+                        href={`${getPathFromDocType(
                             item.docType,
                             item.slug
                         )}`}
@@ -86,7 +84,5 @@ const ImageSlider = (props) => {
         </div>
     );
 };
-
-ImageSlider.propTypes = {};
 
 export default ImageSlider;

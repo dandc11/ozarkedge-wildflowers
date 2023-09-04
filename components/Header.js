@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { getCurrentSeason } from '@lib/utilities/helperUtil';
+import { getCurrentSeason } from '../utilities/helperUtil';
 import TableOfContents from './TableOfContents';
 
 const Header = (props) => {
@@ -84,7 +83,5 @@ const Header = (props) => {
         </div>
     );
 };
-
-Header.propTypes = {};
 
 export default Header;

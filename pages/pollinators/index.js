@@ -1,12 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
 const Pollinators = props => {
   return (
     <div>Pollinators</div>
   )
 }
-
-Pollinators.propTypes = {}
 
 export default Pollinators;

@@ -3,32 +3,44 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "prebuild": "echo 'Building Sanity to public/studio' && cd studio && npx @sanity/cli build ../public/studio -y && echo 'Done'",
     "build": "next build",
-    "start": "next start",
-    "sanity": "cd studio && sanity start",
-    "lint": "next lint"
+    "dev": "next",
+    "format": "npx prettier --write . --ignore-path .gitignore",
+    "lint": "next lint -- --ignore-path .gitignore",
+    "lint:fix": "npm run format && npm run lint -- --fix",
+    "start": "next start"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   },
   "dependencies": {
-    "@next/font": "^13.1.2",
-    "@portabletext/react": "^1.0.6",
+    "@portabletext/react": "^3.0.4",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@sanity/client": "^6.4.0",
     "@sanity/image-url": "^1.0.2",
+    "@sanity/preview-kit": "^2.4.7",
+    "@sanity/vision": "^3.14.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "classnames": "^2.3.2",
     "lightbox.js-react": "^0.6.4",
     "next": "^13.0.7",
-    "next-sanity": "^0.5.1",
-    "next-sanity-image": "^5.0.0",
+    "next-sanity": "^5.1.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "sanity": "^3.14.4",
+    "sanity-image": "^0.1.6",
+    "sanity-plugin-iframe-pane": "^2.3.1",
+    "sanity-plugin-media": "^2.2.2",
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
-    "eslint": "8.9.0",
-    "eslint-config-next": "^13.3.4",
+    "eslint-config-next": "13.4.19",
     "postcss": "^8.4.21",
     "sass": "^1.54.8",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "typescript": "5.2.2"
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { buildBackgroundStyleObject } from '@lib/utilities/imageUtil';
-import PropTypes from 'prop-types';
+import { buildBackgroundStyleObject } from '../../utilities/imageUtil';
 
 const buildClassArray = (classes, containerProps) => {
     const { display } = containerProps;
@@ -30,11 +29,5 @@ const Container = ({ classes, children, ...props }) => {
         </>
     );
 };
-
-Container.defaultProps = {
-    tag: 'div',
-};
-
-Container.propTypes = {};
 
 export default Container;

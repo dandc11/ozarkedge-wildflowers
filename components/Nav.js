@@ -1,17 +1,14 @@
-// import React from 'react';
-import PropTypes from 'prop-types';
+import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SanityClient } from 'next-sanity';
-import { useState, useEffect, React } from 'react';
-import cx from 'classnames';
+import { React,useEffect, useState } from 'react';
 
-const Nav = (props) => {
+const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        const handleRouteChange = (url, { shallow }) => {
+        const handleRouteChange = () => {
             // close the menu when the route changes if it's open
             if (isMenuOpen) {
                 setIsMenuOpen(false);
@@ -25,7 +22,7 @@ const Nav = (props) => {
         return () => {
             router.events.off('routeChangeComplete', handleRouteChange);
         };
-    }, [router]);
+    }, [router, isMenuOpen]);
 
     return (
         <nav
@@ -188,7 +185,5 @@ const Nav = (props) => {
         </nav>
     );
 };
-
-Nav.propTypes = {};
 
 export default Nav;

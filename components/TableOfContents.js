@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
-import { getCurrentSeason } from '@lib/utilities/helperUtil';
+
+import { getCurrentSeason } from '../utilities/helperUtil';
 import cx from 'classnames';
 
 const TableOfContents = (props) => {
@@ -72,7 +72,5 @@ const TableOfContents = (props) => {
         </>
     );
 };
-
-TableOfContents.propTypes = {};
 
 export default TableOfContents;

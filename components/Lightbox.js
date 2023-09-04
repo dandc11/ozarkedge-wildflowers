@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react';
-import Image from 'next/image';
-import { useNextSanityImage } from 'next-sanity-image';
-import { sanityClient } from '@lib/sanity.server';
+import { SanityImage } from 'sanity-image';
 import cx from 'classnames';
-import { urlFor } from '@lib/sanity';
+import { urlForImage } from '../lib/sanity.image';
 
 /**
  * Lightbox component. Uses lightbox.js-react to display a lightbox slideshow.
@@ -27,6 +25,7 @@ const Lightbox = ({
     children,
     className,
     cols = 3,
+    draftMode,
     images,
     lightboxIdentifier,
     lightboxImgClass,
@@ -58,19 +57,20 @@ const Lightbox = ({
     const showChildren = !showImageGrid && children;
     const imageSrcAndAlt = [];
     const imageComponents = images?.map((image, index) => {
-        const imageProps = useNextSanityImage(sanityClient, image.asset);
-        imageSrcAndAlt.push({ src: urlFor(image), alt: image.alt });
+        // const imageProps = useNextSanityImage(sanityClient, image.asset);
+        imageSrcAndAlt.push({ src: urlForImage(image), alt: image.alt });
 
         return (
-            <Image
-                {...imageProps}
-                key={index}
-                className={cx('rounded-md')}
-                sizes={`25vw`}
-                alt={image.alt}
-                data-lightboxjs={lightboxIdentifier}
-                quality={80}
-            />
+            <>  </>
+            // <Image
+            //     {...imageProps}
+            //     key={index}
+            //     className={cx('rounded-md')}
+            //     sizes={`25vw`}
+            //     alt={image.alt}
+            //     data-lightboxjs={lightboxIdentifier}
+            //     quality={80}
+            // />
         );
     });
 
