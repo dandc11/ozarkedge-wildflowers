@@ -1,13 +1,15 @@
 import React from 'react';
 import LinkRender from '../components/LinkRender';
 import { DOCUMENT_TYPES } from '../constants/constants';
+import { defineField, defineType } from 'sanity'
 
-export default {
+
+export default defineType({  
     name: 'link',
     title: 'Link',
     type: 'object',
     fields: [
-        {
+        defineField({
             name: 'externalLink',
             type: 'url',
             description:
@@ -17,8 +19,8 @@ export default {
                 scheme: ['http', 'https', 'mailto', 'tel']
             }),
             hidden: ({ parent, value }) => !value && parent?.internal,
-        },
-        {
+        }),
+        defineField({
             name: 'internalLink',
             type: 'reference',
             title: 'Internal Link',
@@ -28,10 +30,10 @@ export default {
             hidden: ({ parent, value }) => {
                 return !value && parent?.external
             },
-        },
+        }),
     ],
     blockEditor: {
         icon: () => '🔗 Link',
         render: LinkRender,
     },
-};
+});

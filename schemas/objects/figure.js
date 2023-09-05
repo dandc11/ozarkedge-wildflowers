@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
     name: 'figure',
     title: 'Image',
     type: 'image',
@@ -11,14 +13,14 @@ export default {
         ],
     },
     fields: [
-        {
+        defineField({
             title: 'Caption',
             name: 'caption',
             type: 'string',
             hidden: ({ parent }) => !parent?.asset,
             description: 'Optional caption text for this image. If you add text here, a caption will display with this image. Leave this field blank if a caption is not desired.',
-        },
-        {
+        }),
+        defineField({
             name: 'alt',
             type: 'string',
             title: 'Alternative text',
@@ -29,7 +31,7 @@ export default {
                 ).required(),
             description:
                 'A very brief description of the image that will appear only in the html - important for SEO and accessiblity.',
-        },
+        }),
     ],
     preview: {
         select: {
@@ -37,4 +39,4 @@ export default {
             title: 'caption',
         },
     },
-}
+})
