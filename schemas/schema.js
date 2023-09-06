@@ -16,7 +16,8 @@ import button from './objects/button';
 import season from './documents/season';
 
 // Then we give our schema to the builder and provide the result to Sanity
-export default [
+export const schema = {
+    types: [
         siteSettings,
         link,
         button,
@@ -33,3 +34,4 @@ export default [
         menu,
         menuItem,
     ]
+}
