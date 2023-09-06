@@ -1,4 +1,3 @@
-// Then import schema types from any plugins that might expose them
 import siteSettings from './documents/siteSettings';
 import menu from './documents/menu';
 import mainImage from './objects/mainImage';
@@ -15,8 +14,8 @@ import link from './objects/link';
 import button from './objects/button';
 import season from './documents/season';
 
-// Then we give our schema to the builder and provide the result to Sanity
-export default [
+export const schema = {
+    types: [
         siteSettings,
         link,
         button,
@@ -33,3 +32,4 @@ export default [
         menu,
         menuItem,
     ]
+}

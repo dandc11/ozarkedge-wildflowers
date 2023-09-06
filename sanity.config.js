@@ -5,17 +5,8 @@ import { buildLegacyTheme } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import Iframe from 'sanity-plugin-iframe-pane'
 import { media, mediaAssetSource } from 'sanity-plugin-media'
-import { getClient } from './lib/sanity.client'
-import { getPreviewSecret } from './utilities/previewSecret'
-
-import {
-  apiVersion,
-  dataset,
-  previewSecretId,
-  projectId,
-  readToken,
-} from './lib/sanity.api'
-import schemas from './schemas/schema'
+import { apiVersion, dataset, projectId } from './lib/sanity.api'
+import { schema } from './schemas/schema'
 import { COLORS } from './utilities/constants'
 
 // build a preview url
@@ -23,19 +14,19 @@ async function getPreviewUrl(doc) {
   if (!doc) {
     return ''
   }
-  const url = new URL('', location.origin);
-  const host = window.location.host.includes('localhost') ? `http://${window.location.host}}` : `https://${window.location.host}}`
+  const url = new URL('', location.origin)
+  const host = window.location.host.includes('localhost')
+    ? `http://${window.location.host}}`
+    : `https://${window.location.host}}`
   url.pathname = `/api/preview`
   doc?.slug?.current
     ? url.searchParams.set('slug', doc?.slug?.current)
     : url.searchParams.set('slug', '')
 
-  console.log('url  ', url)
-  console.log('host ', host)
-
-  return url.href;
+  return url.href
 }
 
+// default document node for preview iframe - more here: https://www.sanity.io/docs/structure-builder-reference#9766ea34ddfb
 const defaultDocumentNode = (S, { schemaType }) => {
   return S.document().views([
     S.view.form(),
@@ -59,6 +50,7 @@ export default defineConfig({
   title: 'Ozarkedge Wildflowers',
   projectId,
   dataset,
+  schema,
   plugins: [
     deskTool({ defaultDocumentNode }),
     visionTool({ defaultApiVersion: apiVersion }),
@@ -73,9 +65,6 @@ export default defineConfig({
         )
       },
     },
-  },
-  schema: {
-    types: schemas,
   },
   theme: buildLegacyTheme({
     /* Base theme colors */
