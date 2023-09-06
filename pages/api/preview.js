@@ -21,7 +21,7 @@ export default async function preview(req, res) {
     token: readToken,
   })
 
-  // Check the slug against existing documents 
+  // Rather than redirect to any passed slug, check the slug against existing documents 
   if (slug) {
     const getDoc = async function (slug) {
       return await client.fetch(docQuery, {
@@ -31,7 +31,7 @@ export default async function preview(req, res) {
 
     const doc = await getDoc(slug)
 
-    //  
+    // If the document exists, redirect to the document's path
     if (doc?.slug?.current) {
       const path = getPathFromDocType(doc._type, doc.slug.current)
       res.setPreviewData({ token: readToken })
@@ -42,6 +42,7 @@ export default async function preview(req, res) {
     return
   }
 
+  // If no slug is passed, return a 404 error
   res
     .status(404)
     .send(

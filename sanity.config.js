@@ -23,12 +23,10 @@ async function getPreviewUrl(doc) {
     ? url.searchParams.set('slug', doc?.slug?.current)
     : url.searchParams.set('slug', '')
 
-  console.log('url  ', url)
-  console.log('host ', host)
-
   return url.href
 }
 
+// default document node for preview iframe - more here: https://www.sanity.io/docs/structure-builder-reference#9766ea34ddfb
 const defaultDocumentNode = (S, { schemaType }) => {
   return S.document().views([
     S.view.form(),
@@ -46,7 +44,6 @@ const defaultDocumentNode = (S, { schemaType }) => {
       .title('Preview'),
   ])
 }
-console.log('schema ', schema)
 
 export default defineConfig({
   basePath: '/studio',

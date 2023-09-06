@@ -165,7 +165,7 @@ const GrowingNearby = ({
 
 // get links to section ids for the sections with content
 const getSectionLinks = (pageData) => {
-  console.log('pageData ', pageData)
+  // console.log('pageData ', pageData)
   let tableOfContents = {}
   for (const section in PLANT_PAGE_SECTIONS) {
     if (pageData && pageData[section]) {
