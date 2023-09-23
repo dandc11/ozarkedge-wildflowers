@@ -33,24 +33,24 @@ export default defineType({
   //   ],
   fieldsets: [
     {
-      name: 'name',
-      title: 'Plant Name',
-      options: { collapsible: true, collapsed: false },
-    },
-    {
       name: 'metadata',
       title: 'Plant Metadata',
-      options: { collapsible: true, collapsed: false },
+      options: { collapsible: true, collapsed: true },
+    },
+    {
+      name: 'name',
+      title: 'Plant Name',
+      options: { collapsible: true, collapsed: true },
     },
     {
       name: 'description',
       title: 'Plant Description',
-      options: { collapsible: true, collapsed: false },
+      options: { collapsible: true, collapsed: true },
     },
     {
       name: 'growingNearby',
       title: 'Habitat and Nearby Plants',
-      options: { collapsible: true, collapsed: false },
+      options: { collapsible: true, collapsed: true },
     },
   ],
   preview: {
@@ -60,6 +60,58 @@ export default defineType({
     },
   },
   fields: [
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      description:
+      'A short, hyphenated version of the plant name for use in URLs. Generated slugs will have the format of common-name-botanical-name. Keep in mind that changing the slug of a published page will break any existing links to it both on the site and elswewhere.',
+      type: 'slug',
+      validation: (Rule) => Rule.required(),
+      options: {
+        source: (doc) =>
+        `${doc.plantName.commonName}-${doc.plantName.botanicalName}`,
+        validation: (Rule) => [Rule.unique()],
+        slugify: (input) =>
+        input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+      },
+      fieldset: 'metadata',
+    }),
+    defineField({
+      name: 'plantIdentificationTags',
+      type: 'array',
+      title: 'Plant Identification Tags',
+      description:
+      'Add one or more features by which to identify this plant. Keep it short (hit Enter for each one). ',
+      of: [defineArrayMember({ type: 'string' })],
+      options: {
+        layout: 'tags',
+      },
+      fieldset: 'metadata',
+    }),
+    defineField({
+      name: 'metaDescription',
+      type: 'text',
+      title: 'Meta-description',
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.max(200),
+        (Rule) => Rule.min(40),
+      ],
+      description:
+      'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
+      fieldset: 'metadata',
+    }),
+    defineField({
+      name: 'previewImage',
+      title: 'Plant Thumbnail Image',
+      description:
+      'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
+      type: 'figure',
+      options: {
+        hotspot: true, // <-- Defaults to false
+      },
+      fieldset: 'metadata',
+    }),
     defineField({
       name: 'plantName',
       title: 'Name',
@@ -79,63 +131,11 @@ export default defineType({
       fieldset: 'name',
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      description:
-        'A short, hyphenated version of the plant name for use in URLs. Generated slugs will have the format of common-name-botanical-name. Keep in mind that changing the slug of a published page will break any existing links to it both on the site and elswewhere.',
-      type: 'slug',
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: (doc) =>
-          `${doc.plantName.commonName}-${doc.plantName.botanicalName}`,
-        validation: (Rule) => [Rule.unique()],
-        slugify: (input) =>
-          input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
-      },
-      fieldset: 'metadata',
-    }),
-    defineField({
-      name: 'plantIdentificationTags',
-      type: 'array',
-      title: 'Plant Identification Tags',
-      description:
-        'Add one or more features by which to identify this plant. Keep it short (hit Enter for each one). ',
-      of: [defineArrayMember({ type: 'string' })],
-      options: {
-        layout: 'tags',
-      },
-      fieldset: 'metadata',
-    }),
-    defineField({
-      name: 'metaDescription',
-      type: 'text',
-      title: 'Meta-description',
-      validation: [
-        (Rule) => Rule.required(),
-        (Rule) => Rule.max(160),
-        (Rule) => Rule.min(40),
-      ],
-      description:
-        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
-      fieldset: 'metadata',
-    }),
-    defineField({
-      name: 'previewImage',
-      title: 'Plant Thumbnail Image',
-      description:
-        'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
-      type: 'figure',
-      options: {
-        hotspot: true, // <-- Defaults to false
-      },
-      fieldset: 'metadata',
-    }),
-    defineField({
       name: 'images',
       type: 'array',
       title: 'Plant Image Gallery',
       description:
-        "Upload or select images of this plant to appear in a gallery on the plant's page.",
+      "Upload or select images of this plant to appear in a gallery on the plant's page.",
       of: [defineArrayMember({ type: 'figure' })],
       // options: { sources: [AssetSource] },
       fieldset: 'description',

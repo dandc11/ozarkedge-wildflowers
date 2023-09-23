@@ -1,10 +1,17 @@
 import PlantName from 'components/PlantName'
 import React from 'react'
-
-import { GET_ALL_SEASON_PATHS_QUERY } from '../../lib/queries'
 import { getClient } from '../../lib/sanity.client'
+import { readToken } from '../../lib/sanity.api'
+import { useLiveQuery } from 'next-sanity/preview'
+import {
+  GET_ALL_SEASON_PATHS_QUERY,
+  GET_SEASON_PAGE_DATA_QUERY,
+} from '../../lib/queries'
+import cx from 'classnames'
 
-const SeasonPage = ({ plantPageData }) => {
+const SeasonPage = (props) => {
+  const { pageProps = null } = props
+  const [pageData] = useLiveQuery(pageProps, GET_ALL_SEASON_PATHS_QUERY)
   // const {
   //     conservationStatus,
   //     description,
@@ -18,11 +25,11 @@ const SeasonPage = ({ plantPageData }) => {
   //     previewImage,
   //     tidbits,
   // } = plantPageData;
-  return <div>{/* <PlantName plantName={plantName}></PlantName> */}</div>
+  return <div>{JSON.stringify(pageData)}</div>
 }
 
 export async function getStaticPaths() {
-  const client = getClient();
+  const client = getClient()
   const plantPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
   const paths = plantPagePaths.map((slug) => ({
     params: { slug },
@@ -37,15 +44,10 @@ export async function getStaticProps(context) {
   const { draftMode = false, params = {} } = context
   const client = getClient(draftMode ? { token: readToken } : undefined)
   const { slug = '' } = params
-  const plantPageData = await client.fetch(
-    `
-        *[_type == "season" && slug.current == $slug][0] {...}
-        `,
-    { slug }
-  )
+  const pageProps = await client.fetch(GET_SEASON_PAGE_DATA_QUERY, { slug })
   return {
     props: {
-      plantPageData,
+      pageProps,
     },
   }
 }

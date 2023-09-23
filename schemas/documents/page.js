@@ -1,8 +1,8 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType({
-  name: 'page',
-  title: 'Page',
+  name: 'nativePlantPage',
+  title: 'Native Plant Page',
   type: 'document',
   fieldsets: [
     {
@@ -13,6 +13,11 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
+      type: 'string',
+      title: 'Title',
+    }),
+    defineField({
+      name: 'pageType',
       type: 'string',
       title: 'Title',
     }),

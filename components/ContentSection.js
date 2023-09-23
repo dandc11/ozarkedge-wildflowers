@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import Header from './Header';
 import PortTextWrapper from './PortableText';
@@ -20,30 +20,29 @@ const ContentSection = ({
     tocLinks,
     sectionId = '',
     headerTitle = '',
-    lightboxIdentifier,
+    lightboxIdentifier = '',
     toggleLightboxCallback = () => {},
 }) => {
 
-    // usestate for tableOfContentsOpen - default to false
-    const [tableOfContentsOpen, setTableOfContentsOpen] = useState(false);   
     return (
         <>
             {portableText && (
                 <section
-                    className={cx('relative z-10', className)}
+                    className={cx('relative', className)}
                 >
                     <Header
                         id={sectionId}
                         title={headerTitle}
-                        className={`px-4`}
+                        className={``}
                         showCircle
                         tocLinks={tocLinks}
                     >
-                        <span>{headerTitle}</span>
+                        {headerTitle}
                     </Header>
                     <div>
                         <PortTextWrapper
                             lightboxCallback={toggleLightboxCallback}
+                            lightboxIdentifier={lightboxIdentifier}
                             className={className}
                             value={portableText}
                         ></PortTextWrapper>

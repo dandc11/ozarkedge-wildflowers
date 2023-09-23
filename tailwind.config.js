@@ -13,6 +13,7 @@ module.exports = {
         extend: {
             aspectRatio: {
                 '4/3': '4 / 3',
+                '5/4': '5 / 4',
             },
             colors: COLORS,
             minWidth: {

@@ -13,7 +13,6 @@ import { readToken } from '../lib/sanity.api'
 import { getClient } from '../lib/sanity.client'
 import {
   buildBackgroundStyleObject,
-  getImagePaletteBackgroundColor,
 } from '../utilities/imageUtil'
 
 /**
@@ -24,12 +23,11 @@ import {
  * @category Pages
  **/
 export default function HomePage(props) {
-  // console.log('pageProps', props)
   const { pageProps = null, bloomingProps = null, seasonProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_LANDING_PAGE_DATA_QUERY)
   const [bloomingNowData] = useLiveQuery(
     bloomingProps,
-    GET_BLOOMING_PLANTS_QUERY
+    GET_BLOOMING_PLANTS_QUERY,
   )
   const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_QUERY)
 
@@ -108,7 +106,6 @@ export default function HomePage(props) {
               <div
                 id={`beneathFoldContent`}
                 className={`w-full bg-yellow-100 bp-1100:bg-transparent`}
-                // bgParamObj={{bgColor: '#f5e8b5de', bgOpacity: '90'}}
                 tag={'section'}
               >
                 <Blooming
@@ -125,19 +122,14 @@ export default function HomePage(props) {
 }
 
 export async function getStaticProps(context) {
-  // console.log('draftMode ', context)
-  // console.log('readToken ', readToken)
-  // const draftMode = context?.draftMode;
   const client = getClient(
-    context?.draftMode ? { token: readToken } : undefined
+    context?.draftMode ? { token: readToken } : undefined,
   )
   const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
   const bloomingProps = await client.fetch(GET_BLOOMING_PLANTS_QUERY)
   const seasonProps = await client.fetch(GET_CURRENT_SEASON_QUERY)
   return {
     props: {
-      // draftMode,
-      // token: draftMode ? readToken : '',
       pageProps,
       bloomingProps,
       seasonProps,

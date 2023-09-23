@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { getClient } from '../../lib/sanity.client'
 import { readToken } from '../../lib/sanity.api'
 import { useLiveQuery } from 'next-sanity/preview'
@@ -15,7 +15,7 @@ import PortTextWrapper from 'components/PortableText'
 import TableOfContents from 'components/TableOfContents'
 import cx from 'classnames'
 import Button from 'components/Button'
-import Lightbox from 'components/Lightbox'
+import LightboxGallery from 'components/LightboxGallery'
 import ThumbnailGrid from 'components/ThumbnailGrid'
 import ImageSlider from 'components/ImageSlider'
 import ContentSection from 'components/ContentSection'
@@ -23,7 +23,6 @@ import ContentSection from 'components/ContentSection'
 /**
  * IntroSection component - 1st section of plant page (intro text)
  * @param {lede} lede - lede text
- * @param {isTableOfContentsOpen} isTableOfContentsOpen - currently open table of contents section
  * @param {plantName} plantName - plant name object
  * @param {closeToC} closeToC - function to set currently open table of contents section
  * @param {tocLinks} tocLinks - table of contents links
@@ -31,30 +30,27 @@ import ContentSection from 'components/ContentSection'
  * @example
  *  <IntroSection
  *    lede={lede}
- *    isTableOfContentsOpen={isTableOfContentsOpen}
  *    plantName={plantName}
  *    closeToC={closeToC}
  *    tocLinks={tocLinks}
  *  />
  */
-const IntroSection = ({
-  lede,
-  isTableOfContentsOpen,
-  plantName,
-  closeToC,
-  tocLinks,
-}) => {
-  closeToC = closeToC || (() => {})
+const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
+  const [isTableOfContentsOpen, setIsTableOfContentsOpen] = useState(false)
+  closeToC = () => {
+    setIsTableOfContentsOpen(!isTableOfContentsOpen)
+  }
   return (
     <div
-      className={`relative bg-white max-w-lg w-11/12 bp-700:max-w-full bp-700:flex bp-700:py-3 bp-900:w-fit bp-900:ml-3 z-10 bp-1200:px-5 bp-1200:py-3  bp-1600:py-6`}
+      className={`relative bg-white max-w-lg w-11/12 px-8 pt-2 shadow-sm bp-500:px-12 bp-1000:pt-6 bp-1000:gap-8 bp-1000:max-w-full bp-1000:flex bp-700:py-3 bp-1000:w-fit z-10`}
     >
-      <div className={`px-6 bp-500:px-8 bp-900:w-[30rem] bp-900:mr-4`}>
+      <div className={`bp-1000:w-[30rem]`}>
         {plantName && (
           <div id={`header`} className={`relative block py-3`}>
             <PlantName
-              topNameClassName={`bp-700:text-left bp-1200:text-3xl`}
-              bottomNameClassName={`bp-700:text-left`}
+              topNameClassName={`bp-900:text-left bp-1200:text-3xl`}
+              bottomNameClassName={`bp-900:text-left`}
+              headingLevel={1}
               plantName={plantName}
             ></PlantName>
           </div>
@@ -69,24 +65,27 @@ const IntroSection = ({
           </div>
         )}
       </div>
-      <div className={`pt-6 `}>
+      <div className={`flex flex-col justify-center bp-900:mt-8`}>
+        <h4
+          className={cx(
+            `relative z-10 mx-4 text-xl max-bp-1000:text-center font-extralight not-italic uppercase antialiased border-y-2 border-oe-green-800`,
+          )}
+        >
+          Table of Contents
+        </h4>
         <TableOfContents
-          showHeader
           showCircle
           shadow={false}
-          headerClassName={`mb-3`}
-          listItemClassName={`mx-4 whitespace-nowrap`}
-          className={cx({
-            'max-[700px]:hidden': isTableOfContentsOpen !== 'intro',
-          })}
+          listItemClassName={`mx-4 whitespace-nowrap text-lg`}
+          className={cx({ 'max-[1000px]:hidden': !isTableOfContentsOpen }, 'mt-4 pt-0')}
           toggleLightboxCallback={() => closeToC('intro')}
           links={tocLinks}
         />
         <Button
-          className={`bg-transparent w-full self-center bp-700:hidden`}
-          callBack={() => closeToC('intro')}
+          className={`mb-6 bg-transparent w-full self-center bp-1000:hidden`}
+          callBack={() => closeToC()}
           buttonIcon="expand"
-          expanded={isTableOfContentsOpen === 'intro'}
+          expanded={isTableOfContentsOpen}
         ></Button>
       </div>
     </div>
@@ -104,6 +103,7 @@ const IntroSection = ({
  * @returns {JSX.Element} - returns jsx of growing nearby section
  */
 const GrowingNearby = ({
+  className,
   growingNearbyPlantList,
   growingNearbyText,
   tocLinks,
@@ -122,17 +122,7 @@ const GrowingNearby = ({
       {growingNearbyText && (
         <section
           id="growingNearbyText"
-          className={cx(
-            'relative bg-oe-green-yelow-400'
-            // {
-            //     'z-10':
-            //         isTableOfContentsOpen ===
-            //         PLANT_PAGE_SECTIONS.growingNearbyText,
-            //     'z-0':
-            //         isTableOfContentsOpen !==
-            //         PLANT_PAGE_SECTIONS.growingNearbyText,
-            // }
-          )}
+          className={cx('relative bg-oe-green-yelow-400', className)}
         >
           <div className="max-w-7xl m-auto">
             <Header
@@ -143,11 +133,7 @@ const GrowingNearby = ({
             >
               <span>{PLANT_PAGE_SECTIONS.growingNearbyText}</span>
             </Header>
-            <ImageSlider
-              sliderItems={plantImages}
-              useLinks
-              captionBgClassName={'bg-oe-green-yellow-200'}
-            />
+            <ImageSlider sliderItems={plantImages} useLinks />
             <div>
               <PortTextWrapper
                 lightboxCallback={toggleLightboxCallback}
@@ -165,7 +151,6 @@ const GrowingNearby = ({
 
 // get links to section ids for the sections with content
 const getSectionLinks = (pageData) => {
-  // console.log('pageData ', pageData)
   let tableOfContents = {}
   for (const section in PLANT_PAGE_SECTIONS) {
     if (pageData && pageData[section]) {
@@ -184,6 +169,7 @@ const getSectionLinks = (pageData) => {
 const NativePlantPage = (props) => {
   const { pageProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_PLANT_PAGE_DATA)
+  // console.log('pageData ', typeof pageData)
   const {
     bannerImage,
     bloomText,
@@ -203,31 +189,58 @@ const NativePlantPage = (props) => {
     tidbits,
   } = { ...pageData }
   const sectionLinks = getSectionLinks(pageData)
-  const tableOfContentsRef = useRef(null)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [tableOfContentsOpen, setTableOfContentsOpen] = useState(false)
-  const toggleLightbox = () => {
+  const [startingSlideIndex, setStartingSlideIndex] = useState(0)
+
+  // create array of all images in the page data
+  const createCombinedImgArray = (data) => {
+    const figures = []
+    for (const key in data) {
+      const value = data[key]
+      if (Array.isArray(value)) {
+        const uniqueImages = value.filter((e) => {
+          // get images without a duplicate in the figures array (based on asset._ref)
+          return (
+            e._type === 'figure' &&
+            !figures.some((f) => f.asset._ref === e.asset._ref) &&
+            !figures.some((f) => f.caption === e.caption) &&
+            e.asset
+          )
+        })
+        figures.push(...uniqueImages)
+      }
+    }
+    return figures
+  }
+  const fullImageArray = createCombinedImgArray(pageData)
+
+  // toggle lightbox, set starting slide index if opening
+  const toggleLightbox = (key) => {
+    if (key) {
+      const index = fullImageArray.findIndex((e) => e.asset._ref === key)
+      setStartingSlideIndex(index)
+    }
     setIsLightboxOpen(!isLightboxOpen)
   }
   const closeLightbox = () => {
     setIsLightboxOpen(false)
   }
   return (
-    <div className="bg-topography pb-10">
+    <div className="bg-topography">
       {pageData && (
         <>
           {(previewImage || bannerImage) && (
             <div id="bannerImage" className="relative">
               <ResponsiveImage
-                className={`relative w-full bp-1200:object-cover bp-1200:object-center bp-1200:h-full`}
-                figureClassName={`w-full rounded-none bp-1600:h-[80vh]`}
-                // height={`auto`}
-                // width={`auto`}
+                className={`relative w-full h-full object-cover rounded-none cursor-auto bp-1200:object-center bp-1200:h-full`}
+                figureClassName={`h-[50vh] bp-900:h-[60vh] bp-1600:h-[80vh]`}
                 image={bannerImage}
                 mobileImage={previewImage}
                 breakpoint={'500'}
+                disableHover
                 priority={true}
                 placeholder={``}
+                loading={`eager`}
                 quality={`100`}
                 showCaption={false}
                 sizes={`100vw`}
@@ -235,7 +248,7 @@ const NativePlantPage = (props) => {
               />
             </div>
           )}
-          <header className="flex flex-col justify-center items-center -mt-12 bp-700:-mt-24 bp-900:justify-around bp-1200:gap-4 bp-1200:flex-row bp-1200:max-w-fit bp-1200:ml-auto bp-1200:mr-auto bp-1200:pt-8">
+          <header className="flex flex-col justify-center items-center -mt-12 bp-1400:-mt-48 bp-1400:justify-end bp-1400:flex-row bp-1400:pt-8 bp-1400:mr-[5cqi] bp-1600:-mt-56">
             <IntroSection
               bannerImage={bannerImage}
               lede={lede}
@@ -243,108 +256,128 @@ const NativePlantPage = (props) => {
               tocLinks={sectionLinks}
               lightboxImgClass={`w-12`}
             />
-            <div className="max-w-md bp-1200:self-end bp-1200:pt-4 bp-1400:ml-4 bp-1600:ml-14">
+            {/* <div className="max-w-md bp-1400:self-end bp-1400:pt-4 bp-1400:ml-4 bp-1600:ml-14"></div> */}
+          </header>
+          <main id="plantPageMainContent" className="w-full mt-14 bp-1400:mt-4 ">
+            <div className={`relative plant-page-layout pb-20`}>
               {images && (
-                <div id={`images`} className="flex flex-col items-center">
-                  <ThumbnailGrid
-                    className={`relative z-0 flex flex-col gap-4 mt-8 px-4`}
-                    assets={images}
-                    cols={3}
-                    thumbnailWidth={100}
-                    maxItems={6}
-                    lightboxIdentifier={`plantPage`}
-                  />
-                  <Button
-                    className={`btn-secondary w-10 mt-6 mb-10 bp-1200:mb-0`}
-                    callBack={() => toggleLightbox()}
-                  >
-                    View All Images
-                  </Button>
+                <div
+                  id={`images`}
+                  className="flex flex-col items-center right-sidebar bp-1400:mt-14" 
+                >
+                  {images && (
+                    // lightbox opens upon clicking any page image
+                    <LightboxGallery
+                      className={`px-4`}
+                      cols={3}
+                      hideGrid
+                      lightboxImgClass={`w-12`}
+                      images={fullImageArray}
+                      lightboxIdentifier="plantPage"
+                      maxItems={6}
+                      onOpenCallback={toggleLightbox}
+                      onCloseCallback={closeLightbox}
+                      open={isLightboxOpen}
+                      slideshow={true}
+                      showImageGrid={false}
+                      startingSlideIndex={startingSlideIndex}
+                    />
+                  )}
+                  <div className="relative py-6 px-8 bp-1400:sticky top-10 flex flex-col items-center">
+                    <Button
+                      className={`btn-secondary my-8 max-w-[14rem]`}
+                      callBack={toggleLightbox}
+                    >
+                      View Image Gallery
+                    </Button>
+                    <ThumbnailGrid
+                      assets={fullImageArray}
+                      cols={2}
+                      maxItems={12}
+                      thumbnailWidth={100}
+                      onClick={toggleLightbox}
+                      lightboxIdentifier={`plantPage`}
+                    />
+                  </div>
+                    <div className="absolute top-0 h-full w-full rounded-md -z-10  bp-1400:bg-oe-green-400 opacity-70"></div>
                 </div>
               )}
-            </div>
-          </header>
-          <main id="plantPageMainContent w-full">
-            <div className={`relative content-well`}>
-              <ContentSection
-                className={`px-[min(10vw, 3rem)]`}
-                portableText={plantName.nameInformation}
-                tocLinks={sectionLinks}
-                sectionId={`plantName`}
-                headerTitle={`PLANT NAME`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-              <ContentSection
-                portableText={bloomText}
-                tocLinks={sectionLinks}
-                sectionId={`bloomText`}
-                headerTitle={`BLOOM`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-              <ContentSection
-                portableText={description}
-                tocLinks={sectionLinks}
-                sectionId={`description`}
-                headerTitle={`DESCRIPTION`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-
-              <ContentSection
-                portableText={pollinators}
-                tocLinks={sectionLinks}
-                sectionId={`pollinators`}
-                headerTitle={`POLLINATORS`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-              <GrowingNearby
-                growingNearbyPlantList={growingNearbyPlantList}
-                growingNearbyText={growingNearbyText}
-                sectionId={`growingNearby`}
-                tocLinks={sectionLinks}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-              <ContentSection
-                portableText={habitat}
-                tocLinks={sectionLinks}
-                sectionId={`habitat`}
-                headerTitle={`HABITAT`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-              <ContentSection
-                portableText={conservationStatus}
-                tocLinks={sectionLinks}
-                sectionId={`conservationStatus`}
-                headerTitle={`CONSERVATION STATUS`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
-              <ContentSection
-                portableText={tidbits}
-                tocLinks={sectionLinks}
-                sectionId={`tidbits`}
-                headerTitle={`INTERESTING TIDBITS`}
-                lightboxIdentifier={`plantPage`}
-                toggleLightboxCallback={() => toggleLightbox()}
-              />
+              <article className="content-well">
+                <ContentSection
+                  className={`z-[10]`}
+                  portableText={plantName.nameInformation}
+                  tocLinks={sectionLinks}
+                  sectionId={`plantName`}
+                  headerTitle={`PLANT NAME`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <ContentSection
+                  className={`z-[9]`}
+                  portableText={bloomText}
+                  tocLinks={sectionLinks}
+                  sectionId={`bloomText`}
+                  headerTitle={`BLOOM`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <ContentSection
+                  className={`z-[8]`}
+                  portableText={description}
+                  tocLinks={sectionLinks}
+                  sectionId={`description`}
+                  headerTitle={`DESCRIPTION`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <ContentSection
+                  className={`z-[7]`}
+                  portableText={pollinators}
+                  tocLinks={sectionLinks}
+                  sectionId={`pollinators`}
+                  headerTitle={`POLLINATORS`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <GrowingNearby
+                  className={`z-[6]`}
+                  growingNearbyPlantList={growingNearbyPlantList}
+                  growingNearbyText={growingNearbyText}
+                  sectionId={`growingNearby`}
+                  tocLinks={sectionLinks}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <ContentSection
+                  className={`z-[5]`}
+                  portableText={habitat}
+                  tocLinks={sectionLinks}
+                  sectionId={`habitat`}
+                  headerTitle={`HABITAT`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <ContentSection
+                  className={`z-[4]`}
+                  portableText={conservationStatus}
+                  tocLinks={sectionLinks}
+                  sectionId={`conservationStatus`}
+                  headerTitle={`CONSERVATION STATUS`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+                <ContentSection
+                  className={`z-[3]`}
+                  portableText={tidbits}
+                  tocLinks={sectionLinks}
+                  sectionId={`tidbits`}
+                  headerTitle={`INTERESTING TIDBITS`}
+                  lightboxIdentifier={`plantPage`}
+                  toggleLightboxCallback={toggleLightbox}
+                />
+              </article>
             </div>
           </main>
-          <Lightbox
-            cols={3}
-            images={images}
-            lightboxIdentifier="plantPage"
-            maxItems={6}
-            onOpenCallback={toggleLightbox}
-            onCloseCallback={closeLightbox}
-            open={isLightboxOpen}
-            slideshow={true}
-            thumbnailWidth={150}
-          />
         </>
       )}
     </div>
@@ -352,8 +385,8 @@ const NativePlantPage = (props) => {
 }
 
 export async function getStaticPaths() {
-  const client = getClient();
-  const plantPagePaths = await client.fetch(GET_ALL_NATIVE_PLANT_PATHS_QUERY);
+  const client = getClient()
+  const plantPagePaths = await client.fetch(GET_ALL_NATIVE_PLANT_PATHS_QUERY)
   const paths = plantPagePaths.map((slug) => ({
     params: { slug },
   }))
