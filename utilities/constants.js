@@ -4,6 +4,7 @@ export const DOCTYPE_PATH_PREFIXES = {
     aboutPage: '/',
     landingPage: '',
     plantListPage: '/',
+    pollinator: '/pollinator/',
 };
 
 export const MONTH_NAMES = [

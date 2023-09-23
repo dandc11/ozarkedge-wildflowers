@@ -57,13 +57,12 @@ const Button = (
     },
     ...props
 ) => {
-    // TODO : handle external links?
     const clickHandler = () => {
         if (callBack !== null) {
             callBack();
         }
         if (internalLink !== '') {
-            () => router.push(path);
+            router.push(path);
         }
     };
     const router = useRouter();
@@ -73,7 +72,7 @@ const Button = (
             className={cx(
                 { 'btn-expand': buttonIcon === 'expand' },
                 className,
-                'flex justify-center'
+                'flex justify-center whitespace-nowrap'
             )}
             type={`${type}`}
             onClick={() => clickHandler()}

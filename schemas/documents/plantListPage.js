@@ -1,9 +1,14 @@
 import { GiFlowers } from 'react-icons/gi'
-import { defineField, defineArrayMember, defineType } from 'sanity'
+import {
+  defineArrayMember,
+  defineType,
+  defineField,
+  defineConfig,
+} from 'sanity'
 
-export default defineType({
+export default defineConfig({
   name: 'plantListPage',
-  title: 'Native Wildflowers Top Level Page',
+  title: 'Native Wildflowers List Page',
   icon: GiFlowers,
   type: 'document',
   liveEdit: false,
@@ -27,7 +32,7 @@ export default defineType({
       title: 'plantList',
       type: 'array',
       hidden: true,
-      of: [defineArrayMember({ type: 'nativePlant' })],
+      of: [{ type: 'nativePlant' }],
     }),
     defineField({
       name: 'slug',
