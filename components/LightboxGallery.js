@@ -20,25 +20,21 @@ import Image from 'next/image'
  * @param {function} onCloseCallback - Callback function to run when the lightbox is closed.
  * @param {boolean} showImageGrid - Whether to show the image grid or not.
  * @param {number} startingSlideIndex - Index of the slide to start on.
- * @param {number} thumbnailWidth - Width of the thumbnails.
  * @returns {JSX.Element} - Lightbox component. Displays a lightbox slideshow. Can display a grid of images.
  */
 const LightboxGallery = ({
   children,
-  className,
+  className = '',
   cols = 3,
-  draftMode,
-  hideGrid = false,
-  images,
+  images = undefined,
   lightboxIdentifier,
   lightboxImgClass,
-  maxItems,
   open = false,
   onOpenCallback,
   onCloseCallback,
   showImageGrid = true,
   startingSlideIndex = 0,
-  thumbnailWidth = 200,
+  useNextImage = false,
 }) => {
   // initialize lightbox.js
   useEffect(() => {
@@ -56,13 +52,20 @@ const LightboxGallery = ({
     3: 'grid-cols-3',
     4: 'grid-cols-4',
   }
-  const imageObjArray = images.map((image, index) => {
-    return {
-      src: urlFor(image.asset).width(100).url(),
-      original: urlFor(image.asset).fit('max').width(2000).url(),
-      alt: image.alt,
+  let imgObjArray = null;
+  if (images) {
+    // if images is not an array, make it an array
+    if (!Array.isArray(images)) {
+      images = [images]
     }
-  })
+    imgObjArray = images.map((image, index) => {
+      return {
+        src: urlFor(image.asset).width(100).url(),
+        original: urlFor(image.asset).fit('max').width(2000).url(),
+        alt: image.alt,
+      }
+    })
+  } 
 
   return (
     <SlideshowLightbox
@@ -70,16 +73,17 @@ const LightboxGallery = ({
         [`grid ${gridColumns[cols]} place-items-center gap-2`]: showImageGrid,
         className,
       })}
-      framework="next"
+      framework={useNextImage ? 'next' : ''}
       fullScreen={true}
       iconColor="white"
-      images={imageObjArray}
+      images={imgObjArray}
       imgAnimation="fade"
       leftArrowClassname={'text-white text-2xl'}
       lightboxIdentifier={lightboxIdentifier}
       lightboxImgClass={lightboxImgClass}
       modalClose="clickOutside"
-      onClose={onCloseCallback ? onCloseCallback : () => {}}
+      onClose={onCloseCallback ? onCloseCallback : ''}
+      onOpen={onOpenCallback ? onOpenCallback : ''}
       open={open}
       rightArrowClassname={'text-white text-2xl'}
       showControls={true}
@@ -87,7 +91,9 @@ const LightboxGallery = ({
       startingSlideIndex={startingSlideIndex}
       theme="lightbox"
       thumbnailBorder="silver"
-    ></SlideshowLightbox>
+    >
+      {children}
+    </SlideshowLightbox>
   )
 }
 

@@ -2,6 +2,7 @@ import React, { createContext } from 'react'
 import Link from 'next/link'
 import ResponsiveImage from './ResponsiveImage'
 import { getPathFromDocType } from '../utilities/helperUtil'
+import LightboxGallery from 'components/LightboxGallery'
 import cx from 'classnames'
 
 // JS Doc for ImageSlider
@@ -32,7 +33,8 @@ const ImageSlider = ({
   const listItems = sliderImages?.map((image, index) => {
     return (
       <li key={index} className={`relative flex flex-col h-full snap-center`}>
-        {useLinks ? (
+        {useLinks && image.link !== null ? (
+          // if the image has a link, wrap it in a link
           <Link href={`${getPathFromDocType(image.docType, image.link)}`}>
             <ResponsiveImage
               className={`w-full h-auto rounded-md aspect-[3/4] object-cover`}
@@ -48,18 +50,30 @@ const ImageSlider = ({
             />
           </Link>
         ) : (
-          <ResponsiveImage
-            className={`w-full h-auto rounded-md aspect-[3/4] object-cover`}
-            figureClassName={`img w-36 relative mb-5 bp-800:w-[15rem] bp-800:h-auto`}
-            wrapperClassName={``}
-            image={image}
-            sizes="(max-width: 800px) 150px, 240px"
-            mobileWidth
-            priority={false}
-            placeholder={``}
-            showCaption={true}
-            captionBgClassName={captionBgClassName}
-          />
+          // if the image has no link, open it in the lightbox when clicked
+          <LightboxGallery
+            className={`px-4`}
+            lightboxImgClass={`h-[80vh]`}
+            lightboxIdentifier={lightboxIdentifier}
+            showImageGrid={false}
+            showSingleImage
+            images={image}
+            useNextImage
+          >
+            <ResponsiveImage
+              className={`w-full h-auto rounded-md aspect-[3/4] object-cover`}
+              figureClassName={`img w-36 relative mb-5 bp-800:w-[15rem] bp-800:h-auto`}
+              wrapperClassName={``}
+              image={image}
+              sizes="(max-width: 800px) 150px, 240px"
+              lightboxIdentifier={lightboxIdentifier}
+              mobileWidth
+              priority={false}
+              placeholder={``}
+              showCaption={true}
+              captionBgClassName={captionBgClassName}
+            />
+          </LightboxGallery>
         )}
       </li>
     )

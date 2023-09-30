@@ -111,16 +111,8 @@ const GrowingNearby = ({
   growingNearbyText,
   tocLinks,
   toggleLightboxCallback,
+  lightboxIdentifier,
 }) => {
-  const plantImages = growingNearbyPlantImages?.map((image) => {
-    console.log('plant ', image)
-    return {
-      image: image.asset,
-      slug: image.link,
-      docType: image.docType,
-    }
-  })
-
   return (
     <>
       {growingNearbyText && (
@@ -138,7 +130,11 @@ const GrowingNearby = ({
               <span>{PLANT_PAGE_SECTIONS.growingNearbyText}</span>
             </Header>
             {growingNearbyPlantImages && (
-              <ImageSlider sliderImages={growingNearbyPlantImages} useLinks />
+              <ImageSlider
+                sliderImages={growingNearbyPlantImages}
+                lightboxIdentifier={lightboxIdentifier}
+                useLinks
+              />
             )}
             <div>
               <PortTextWrapper
@@ -203,9 +199,9 @@ const NativePlantPage = (props) => {
     const figures = []
     for (const key in data) {
       const value = data[key]
-      if (Array.isArray(value)) {
+      if (key !== 'growingNearbyPlantList' && Array.isArray(value)) {
         const uniqueImages = value.filter((entry) => {
-          // get images without a duplicate in the figures array (based on asset._ref)
+          // get images without a duplicate in the figures array (based on asset._ref or identical captions)
           return (
             entry._type === 'figure' &&
             !figures.some((f) => f.asset._ref === entry.asset._ref) &&
@@ -279,12 +275,9 @@ const NativePlantPage = (props) => {
                     <LightboxGallery
                       className={`px-4`}
                       cols={3}
-                      hideGrid
-                      lightboxImgClass={`w-12`}
+                      lightboxImgClass={`h-[80vh]`}
                       images={fullImageArray}
                       lightboxIdentifier="plantPage"
-                      maxItems={6}
-                      onOpenCallback={toggleLightbox}
                       onCloseCallback={closeLightbox}
                       open={isLightboxOpen}
                       slideshow={true}
@@ -355,7 +348,7 @@ const NativePlantPage = (props) => {
                   growingNearbyText={growingNearbyText}
                   sectionId={`growingNearby`}
                   tocLinks={sectionLinks}
-                  lightboxIdentifier={`plantPage`}
+                  lightboxIdentifier={`growningNearby`}
                   toggleLightboxCallback={toggleLightbox}
                 />
                 <ContentSection
