@@ -55,6 +55,13 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'link',
+      link: 'Link',
+      type: 'link',
+      description:
+        'Optional link to another page or website. If you add a link here, the image will be clickable.',
+    }),
+    defineField({
       name: 'imagePosition',
       title: 'Image position',
       type: 'string',
@@ -66,7 +73,6 @@ export default defineType({
           { title: 'Float left', value: 'left' },
           { title: 'Float right', value: 'right' },
         ],
-        layout: 'radio', // <-- defaults to 'dropdown'
       },
       fieldset: 'presentation',
     }),
@@ -86,7 +92,6 @@ export default defineType({
           { title: '75%', value: '75%' },
           { title: '100%', value: '100%' },
         ],
-        layout: 'radio', // <-- defaults to 'dropdown'
       },
       fieldset: 'presentation',
     }),

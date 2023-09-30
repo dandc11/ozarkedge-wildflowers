@@ -29,8 +29,8 @@
       grid-template-columns: 1fr;
       gap: 10px;
       grid-template-areas:
-        'content-well'
-        'right-sidebar';
+      'right-sidebar'
+        'content-well';
 
       .content-well {
         container-name: content-well;
