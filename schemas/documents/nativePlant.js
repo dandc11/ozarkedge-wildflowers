@@ -33,13 +33,13 @@ export default defineType({
   //   ],
   fieldsets: [
     {
-      name: 'metadata',
-      title: 'Plant Metadata',
+      name: 'name',
+      title: 'Plant Name',
       options: { collapsible: true, collapsed: true },
     },
     {
-      name: 'name',
-      title: 'Plant Name',
+      name: 'metadata',
+      title: 'Plant Metadata',
       options: { collapsible: true, collapsed: true },
     },
     {
@@ -60,6 +60,24 @@ export default defineType({
     },
   },
   fields: [
+    defineField({
+      name: 'plantName',
+      title: 'Name',
+      type: 'plantName',
+      fieldset: 'name',
+    }),
+    defineField({
+      name: 'bannerImage',
+      title: 'Banner Image',
+      type: 'figure',
+      description:
+        'Add a wide-cropped image to use as the banner image on wider screens. A crop with an 8/5 is preferrable.',
+      options: {
+        validation: (Rule) => [Rule.required()],
+        hotspot: true,
+      },
+      fieldset: 'name',
+    }),
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -111,24 +129,6 @@ export default defineType({
         hotspot: true, // <-- Defaults to false
       },
       fieldset: 'metadata',
-    }),
-    defineField({
-      name: 'plantName',
-      title: 'Name',
-      type: 'plantName',
-      fieldset: 'name',
-    }),
-    defineField({
-      name: 'bannerImage',
-      title: 'Banner Image',
-      type: 'figure',
-      description:
-        'Add a wide-cropped image to use as the banner image on wider screens. A crop with an 8/5 is preferrable.',
-      options: {
-        validation: (Rule) => [Rule.required()],
-        hotspot: true,
-      },
-      fieldset: 'name',
     }),
     defineField({
       name: 'images',
@@ -257,11 +257,10 @@ export default defineType({
       title: 'Native plants growing nearby',
       type: 'array',
       description:
-        'Hit Enter to delineate each one. Only published native plants can be referenced.',
+        'Select or upload an image of a plant growing near this plant. You can add multiple plants. If this plant has its own document, provide a link to it.',
       of: [
         defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'nativePlant' }],
+          type: 'figure',
         }),
       ],
       fieldset: 'growingNearby',

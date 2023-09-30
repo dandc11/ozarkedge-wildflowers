@@ -77,7 +77,10 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
           showCircle
           shadow={false}
           listItemClassName={`mx-4 whitespace-nowrap text-lg`}
-          className={cx({ 'max-[1000px]:hidden': !isTableOfContentsOpen }, 'mt-4 pt-0')}
+          className={cx(
+            { 'max-[1000px]:hidden': !isTableOfContentsOpen },
+            'mt-4 pt-0',
+          )}
           toggleLightboxCallback={() => closeToC('intro')}
           links={tocLinks}
         />
@@ -94,7 +97,7 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
 
 /**
  * GrowingNearby component - 6th section of plant page (growing nearby)
- * @param {Array} growingNearbyPlantList - list of plants that grow nearby
+ * @param {Array} growingNearbyPlantImages - list of plants that grow nearby
  * @param {String} growingNearbyText - text about growing nearby
  * @param {Array} tocLinks - list of links for the table of contents
  * @param {String} isTableOfContentsOpen - section of the table of contents that is open
@@ -104,16 +107,17 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
  */
 const GrowingNearby = ({
   className,
-  growingNearbyPlantList,
+  growingNearbyPlantImages,
   growingNearbyText,
   tocLinks,
   toggleLightboxCallback,
 }) => {
-  const plantImages = growingNearbyPlantList?.map((plant) => {
+  const plantImages = growingNearbyPlantImages?.map((image) => {
+    console.log('plant ', image)
     return {
-      image: plant.previewImage,
-      slug: plant.slug,
-      docType: plant.docType,
+      image: image.asset,
+      slug: image.link,
+      docType: image.docType,
     }
   })
 
@@ -133,7 +137,9 @@ const GrowingNearby = ({
             >
               <span>{PLANT_PAGE_SECTIONS.growingNearbyText}</span>
             </Header>
-            <ImageSlider sliderItems={plantImages} useLinks />
+            {growingNearbyPlantImages && (
+              <ImageSlider sliderImages={growingNearbyPlantImages} useLinks />
+            )}
             <div>
               <PortTextWrapper
                 lightboxCallback={toggleLightboxCallback}
@@ -198,13 +204,13 @@ const NativePlantPage = (props) => {
     for (const key in data) {
       const value = data[key]
       if (Array.isArray(value)) {
-        const uniqueImages = value.filter((e) => {
+        const uniqueImages = value.filter((entry) => {
           // get images without a duplicate in the figures array (based on asset._ref)
           return (
-            e._type === 'figure' &&
-            !figures.some((f) => f.asset._ref === e.asset._ref) &&
-            !figures.some((f) => f.caption === e.caption) &&
-            e.asset
+            entry._type === 'figure' &&
+            !figures.some((f) => f.asset._ref === entry.asset._ref) &&
+            !figures.some((f) => f.caption === entry.caption) &&
+            entry.asset
           )
         })
         figures.push(...uniqueImages)
@@ -258,12 +264,15 @@ const NativePlantPage = (props) => {
             />
             {/* <div className="max-w-md bp-1400:self-end bp-1400:pt-4 bp-1400:ml-4 bp-1600:ml-14"></div> */}
           </header>
-          <main id="plantPageMainContent" className="w-full mt-14 bp-1400:mt-4 ">
+          <main
+            id="plantPageMainContent"
+            className="w-full mt-14 bp-1400:mt-4 "
+          >
             <div className={`relative plant-page-layout pb-20`}>
               {images && (
                 <div
                   id={`images`}
-                  className="flex flex-col items-center right-sidebar bp-1400:mt-14" 
+                  className="flex flex-col items-center right-sidebar bp-1400:mt-14"
                 >
                   {images && (
                     // lightbox opens upon clicking any page image
@@ -292,6 +301,7 @@ const NativePlantPage = (props) => {
                     </Button>
                     <ThumbnailGrid
                       assets={fullImageArray}
+                      className={`max-bp-1400:hidden`}
                       cols={2}
                       maxItems={12}
                       thumbnailWidth={100}
@@ -299,7 +309,7 @@ const NativePlantPage = (props) => {
                       lightboxIdentifier={`plantPage`}
                     />
                   </div>
-                    <div className="absolute top-0 h-full w-full rounded-md -z-10  bp-1400:bg-oe-green-400 opacity-70"></div>
+                  <div className="absolute top-0 h-full w-full rounded-md -z-10  bp-1400:bg-oe-green-400 opacity-70"></div>
                 </div>
               )}
               <article className="content-well">
@@ -341,7 +351,7 @@ const NativePlantPage = (props) => {
                 />
                 <GrowingNearby
                   className={`z-[6]`}
-                  growingNearbyPlantList={growingNearbyPlantList}
+                  growingNearbyPlantImages={growingNearbyPlantList}
                   growingNearbyText={growingNearbyText}
                   sectionId={`growingNearby`}
                   tocLinks={sectionLinks}
