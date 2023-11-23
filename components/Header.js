@@ -69,7 +69,7 @@ const Header = (props) => {
             )}
           >
             <div className="overflow-hidden relative">
-              <TableOfContents className={cx('')} links={tocLinks} />
+              <TableOfContents className={cx('px-8 w-80')} links={tocLinks} />
             </div>
           </div>
         )}

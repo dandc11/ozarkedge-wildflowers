@@ -6,7 +6,7 @@ import PortTextWrapper from './PortableText';
 /**
  * ContentSection component - renders a content section containing a Header and (portable) text. Accepts table of contents props for Header.
  * Created 07/01/23 
- * @param {string} portableText - the content section portable text
+ * @param {array} portableText - array of objects with text and markup for portable text
  * @param {array} tocLinks - array of objects with link and text for table of contents
  * @param {string} sectionId - id of section (for section ID and ToC)
  * @param {string} headerTitle - title of section (for display)
@@ -23,7 +23,6 @@ const ContentSection = ({
     lightboxIdentifier = '',
     toggleLightboxCallback = () => {},
 }) => {
-
     return (
         <>
             {portableText && (

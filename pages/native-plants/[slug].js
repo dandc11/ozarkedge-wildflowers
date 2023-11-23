@@ -8,6 +8,7 @@ import {
 } from '../../lib/queries'
 
 import { PLANT_PAGE_SECTIONS } from '../../utilities/constants'
+import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
 import PlantName from 'components/PlantName'
 import Header from 'components/Header'
 import ResponsiveImage from 'components/ResponsiveImage'
@@ -42,7 +43,7 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
   }
   return (
     <div
-      className={`relative bg-white max-w-lg w-11/12 px-8 pt-2 shadow-sm bp-500:px-12 bp-1000:pt-6 bp-1000:gap-8 bp-1000:max-w-full bp-1000:flex bp-700:py-3 bp-1000:w-fit z-10`}
+      className={`relative bg-white max-w-lg w-11/12 px-8 pt-2 shadow-sm bp-500:px-12 bp-1000:py-6 bp-1000:gap-8 bp-1000:max-w-full bp-1000:flex bp-700:py-3 bp-1000:w-fit z-10`}
     >
       <div className={`bp-1000:w-[30rem]`}>
         {plantName && (
@@ -65,31 +66,29 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
           </div>
         )}
       </div>
-      <div className={`flex flex-col justify-center bp-900:mt-8`}>
-        <h4
-          className={cx(
-            `relative z-10 mx-4 text-xl max-bp-1000:text-center font-extralight not-italic uppercase antialiased border-y-2 border-oe-green-800`,
-          )}
+      <div
+        className={`flex flex-col justify-center bp-900:py-8 transition-all duration-500 ease-in-out`}
+      >
+        <Button
+          className={`bg-transparent w-auto self-center text-lg font-light not-italic uppercase antialiased flex justify-center items-center gap-2 mb-6 bp-1000:hidden`}
+          strokeWidth={1}
+          callBack={() => closeToC()}
+          buttonIcon="expand"
+          expanded={isTableOfContentsOpen}
         >
-          Table of Contents
-        </h4>
+          Contents
+        </Button>
         <TableOfContents
           showCircle
           shadow={false}
           listItemClassName={`mx-4 whitespace-nowrap text-lg`}
           className={cx(
-            { 'max-[1000px]:hidden': !isTableOfContentsOpen },
-            'mt-4 pt-0',
+            { 'max-bp-1000:hidden': !isTableOfContentsOpen },
+            'max-bp-1000:pb-8 max-bp-1000:pt-2 bp-1000:pt-4 bp-1000:pl-4 ',
           )}
           toggleLightboxCallback={() => closeToC('intro')}
           links={tocLinks}
         />
-        <Button
-          className={`mb-6 bg-transparent w-full self-center bp-1000:hidden`}
-          callBack={() => closeToC()}
-          buttonIcon="expand"
-          expanded={isTableOfContentsOpen}
-        ></Button>
       </div>
     </div>
   )
@@ -193,28 +192,7 @@ const NativePlantPage = (props) => {
   const sectionLinks = getSectionLinks(pageData)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
-
-  // create array of all images in the page data
-  const createCombinedImgArray = (data) => {
-    const figures = []
-    for (const key in data) {
-      const value = data[key]
-      if (key !== 'growingNearbyPlantList' && Array.isArray(value)) {
-        const uniqueImages = value.filter((entry) => {
-          // get images without a duplicate in the figures array (based on asset._ref or identical captions)
-          return (
-            entry._type === 'figure' &&
-            !figures.some((f) => f.asset._ref === entry.asset._ref) &&
-            !figures.some((f) => f.caption === entry.caption) &&
-            entry.asset
-          )
-        })
-        figures.push(...uniqueImages)
-      }
-    }
-    return figures
-  }
-  const fullImageArray = createCombinedImgArray(pageData)
+  const fullImageArray = getUniqueImagesFromDocument(pageData, ['growingNearbyPlantList'])
 
   // toggle lightbox, set starting slide index if opening
   const toggleLightbox = (key) => {
@@ -250,7 +228,7 @@ const NativePlantPage = (props) => {
               />
             </div>
           )}
-          <header className="flex flex-col justify-center items-center -mt-12 bp-1400:-mt-48 bp-1400:justify-end bp-1400:flex-row bp-1400:pt-8 bp-1400:mr-[5cqi] bp-1600:-mt-56">
+          <header className="flex flex-col justify-center items-center -mt-12 bp-1400:-mt-48 bp-1400:justify-end bp-1400:flex-row bp-1400:pt-8 bp-1400:mr-[5cqi] bp-1600:-mt-56 transition-all duration-500 ease-in-out">
             <IntroSection
               bannerImage={bannerImage}
               lede={lede}
@@ -260,10 +238,7 @@ const NativePlantPage = (props) => {
             />
             {/* <div className="max-w-md bp-1400:self-end bp-1400:pt-4 bp-1400:ml-4 bp-1600:ml-14"></div> */}
           </header>
-          <main
-            id="plantPageMainContent"
-            className="w-full mt-14 bp-1400:mt-4 "
-          >
+          <main id="plantPageMainContent" className="w-full">
             <div className={`relative plant-page-layout pb-20`}>
               {images && (
                 <div
@@ -296,7 +271,7 @@ const NativePlantPage = (props) => {
                       assets={fullImageArray}
                       className={`max-bp-1400:hidden`}
                       cols={2}
-                      maxItems={12}
+                      maxItems={8}
                       thumbnailWidth={100}
                       onClick={toggleLightbox}
                       lightboxIdentifier={`plantPage`}

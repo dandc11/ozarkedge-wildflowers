@@ -18,6 +18,11 @@ export default defineType({
       title: 'Image Presensation Options (within text blocks)',
       options: { collapsible: true, collapsed: true },
     },
+    {
+      name: 'link',
+      title: 'Link',
+      options: { collapsible: true, collapsed: true },
+    },
   ],
   fields: [
     defineField({
@@ -60,6 +65,7 @@ export default defineType({
       type: 'link',
       description:
         'Optional link to another page or website. If you add a link here, the image will be clickable.',
+        fieldset: 'link',
     }),
     defineField({
       name: 'imagePosition',

@@ -29,18 +29,16 @@
       grid-template-columns: 1fr;
       gap: 10px;
       grid-template-areas:
-      'right-sidebar'
+        'right-sidebar'
         'content-well';
 
       .content-well {
-        container-name: content-well;
-        container-type: inline-size;
+        container: content-well / inline-size;
         grid-area: content-well;
       }
 
       .right-sidebar {
-        container-name: content-well;
-        container-type: inline-size;
+        container: right-sidebar / inline-size;
         grid-area: right-sidebar;
       }
     }
@@ -64,8 +62,14 @@
     }
 
     .content-well > * {
-      margin: 0 auto;
       width: clamp(8rem, 90cqi, 60rem);
+      padding-block: min(5vh, 2rem);
+      margin-inline: auto;
+
+      @container (min-width: 600px) {
+        width: clamp(35rem, 85cqi, 55rem);
+        padding-block: min(10vh, 3rem);
+      }
     }
 
     /* recommended img base styles for <SanityImage> - https://github.com/coreyward/sanity-image#styling-your-images */

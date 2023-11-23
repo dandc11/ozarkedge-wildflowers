@@ -166,3 +166,47 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
   }
   return styleObject
 }
+
+/**
+ * Retrieves an array of unique image objects from the provided document data.
+ *
+ * @param {Object} docData - The document data object.
+ * @param {Array} excludedKeys- An optional array of keys to exclude from the result.
+ * @returns {Array} - An array of unique image objects.
+ */
+export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
+  const figures = []
+
+  const imageIsUnique = (image) => {
+    return (
+      // Check for duplicates of image asset reference, caption in the figures array, and that the image has an asset
+      !figures.some((f) => f.asset._ref === image.asset._ref) &&
+      !figures.some((f) => f.caption === image.caption) &&
+      image.asset
+    )
+  }
+
+  // Iterate through each key in the document data
+  for (const key in docData) {
+    const value = docData[key]
+
+    // Ignore any excluded keys and verify the value is an array
+    if (!excludedKeys.includes(key) && Array.isArray(value)) {
+      // Iterate through each data object in the value array
+      value.forEach((dataObj) => {
+        // Check if the data object type is 'figure'
+        if (dataObj._type === 'figure') {
+          imageIsUnique(dataObj) ? figures.push(dataObj) : false
+        }
+        // Check if the data object type is 'imageCollection'
+        if (dataObj._type === 'imageCollection') {
+          dataObj.imageCollection.forEach((image) => {
+            imageIsUnique(image) ? figures.push(image) : false
+          })
+        }
+      })
+    }
+  }
+
+  return figures
+}
