@@ -79,8 +79,50 @@ export default defineType({
       // as a block type.
       {
         type: 'figure',
+        title: 'Image',
+        description: 'Add an image to the page.',
         options: { hotspot: true },
       },
     ),
+    defineArrayMember({
+      name: 'imageCollection',
+      type: 'object',
+      title: 'Image Collection',
+      fields: [
+        {
+          name: 'imageCollection',
+          description: 'If you add images here, they will display within the text block together as part of a collection. You can add as many images as you like, and add captions indicating any connections between the images.',
+          title: 'Image',
+          type: 'array',
+          of: [
+            {
+              type: 'figure',
+              title: 'Image',
+              description: 'Add an image to the page.',
+              options: { hotspot: true },
+            },
+          ],
+        },
+      ],
+      preview: {
+        select: {
+          title: 'Images in collection',
+          imageOne: 'images.0.asset',
+          captionOne: 'images.0.caption', // <- images.0 is a reference to the image, which the preview component will automatically resolve
+          captionTwo: 'images.1.caption',
+          captionThree: 'images.2.caption',
+        },
+        prepare: ({imageOne, captionOne, captionTwo, captionThree}) => {
+          const imageCaptions = [captionOne, captionTwo, captionThree].filter(Boolean)
+          const caption = imageCaptions.length > 0 ? imageCaptions.join(', ') : ''
+          const hasMore  = Boolean(captionThree)
+          return {
+            title: 'Image Collection',
+            media: imageOne,
+            subtitle: hasMore  ? `${caption}…` : caption
+          }
+        }
+      }
+    }),
   ],
 })

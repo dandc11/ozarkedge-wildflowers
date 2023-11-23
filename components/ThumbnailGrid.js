@@ -12,6 +12,7 @@ const ThumbnailGrid = (props) => {
     thumbnailWidth = 100,
     lightboxIdentifier = '',
     onClick = () => {},
+    showCaptions = false,
   } = props
   const gridColumns = {
     1: 'grid-cols-1',
@@ -38,9 +39,9 @@ const ThumbnailGrid = (props) => {
           // disableHover
           figureClassName=""
           image={image}
-          // lightboxIdentifier={lightboxIdentifier}
+          lightboxIdentifier={lightboxIdentifier}
           mobileImage={false}
-          showCaption={false}
+          showCaption={showCaptions}
         />
       </li>
     )

@@ -6,6 +6,8 @@ import React, { useMemo } from 'react'
 import { DOCTYPE_PATH_PREFIXES } from '../utilities/constants'
 import { getPathFromDocType } from '../utilities/helperUtil'
 import ResponsiveImage from './ResponsiveImage'
+import PortTextFigure from './PortTextFigure'
+import ThumbnailGrid from './ThumbnailGrid'
 
 const portTextComponents = {
   block: {
@@ -87,63 +89,28 @@ const PortTextWrapper = React.memo((props) => {
         ...otherComponents,
         types: {
           ...portTextComponents.types,
-          figure: (typeProps) => {
-            const widths = {
-              '20%': 'w-full bp-600:w-[20%]',
-              '25%': 'w-full bp-600:w-1/4',
-              '33%': 'w-full bp-600:w-1/3',
-              '50%': 'w-full bp-600:w-1/2',
-              '66%': 'w-full bp-600:w-2/3',
-              '75%': 'w-full bp-600:w-3/4',
-              '100%': 'w-full',
-            }
-
-            const widthClass = typeProps.value?.imageWidth
-              ? widths[typeProps.value?.imageWidth]
-              : 'w-full bp-600:w-1/2'
-            const positions = {
-              left: `my-5 bp-600:float-left bp-600:mr-4 bp-600:my-0 ${
-                typeProps.value?.imageWidth
-                  ? widths[typeProps.value?.imageWidth]
-                  : 'bp-600:w-[20%]'
-              }`,
-              right: `my-5 bp-600:float-right bp-600:ml-4 bp-600:my-0 ${
-                typeProps.value?.imageWidth
-                  ? widths[typeProps.value?.imageWidth]
-                  : 'bp-600:w-[20%]'
-              }`,
-              center: `flex justify-center my-5`,
-            }
-            const positionClass = typeProps.value?.imagePosition
-              ? positions[typeProps.value?.imagePosition]
-              : positions['center']
-            return (
-              <>
-                <ResponsiveImage
-                  image={typeProps.value}
-                  priority={false}
-                  captionStyle={typeProps.value?.captionPosition}
-                  showCaption={true}
-                  lightboxIdentifier={lightboxIdentifier}
-                  figureClassName={cx(
-                    `${
-                      typeProps.value?.imagePosition !== 'left' &&
-                      typeProps.value?.imagePosition !== 'right'
-                        ? widthClass
-                        : 'w-full'
-                    }`,
-                  )}
-                  width={560}
-                  wrapperClassName={cx(`port-text-img z-0 ${positionClass}`)}
-                  onClick={lightboxCallback ? lightboxCallback : null}
-                />
-              </>
-            )
-          },
+          figure: (typeProps) => (
+            <PortTextFigure
+              portTextProps={typeProps}
+              lightboxIdentifier={lightboxIdentifier}
+              lightboxCallback={lightboxCallback}
+            />
+          ),
+          imageCollection: (typeProps) => (
+            <ThumbnailGrid
+              assets={typeProps.value?.imageCollection}
+              className={`bp-900:mx-6 bp-1200:mx-10`}
+              cols={2}
+              maxItems={12}
+              lightboxIdentifier={lightboxIdentifier}
+              onClick={lightboxCallback}
+              showCaptions
+            />
+          ),
         },
       }
     },
-    [lightboxCallback],
+    [lightboxCallback, lightboxIdentifier],
   )
 
   return (

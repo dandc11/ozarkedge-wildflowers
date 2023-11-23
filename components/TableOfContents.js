@@ -7,6 +7,7 @@ const TableOfContents = (props) => {
   const {
     className,
     headerClassName = '',
+    headerText='Things to know',
     shadow = true,
     links,
     listItemClassName = '',
@@ -29,7 +30,7 @@ const TableOfContents = (props) => {
       {linkHrefs?.length > 0 && (
         <div
           className={cx(
-            'w-full flex flex-col px-6 py-8 bg-white z-30 bp-700:w-80 bp-700:pl-3',
+            'flex flex-col py-8 bg-white z-30 bp-700:max-w-[23rem] bp-700:self-center',
             { 'shadow-md': shadow },
             className,
           )}
@@ -42,7 +43,7 @@ const TableOfContents = (props) => {
               )}
             >
               {showCircle && <div className={circleClassNames}></div>}
-              Table of Contents
+              {headerText}
             </h4>
           )}
           <ol>

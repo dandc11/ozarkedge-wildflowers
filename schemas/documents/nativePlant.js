@@ -257,7 +257,7 @@ export default defineType({
       title: 'Native plants growing nearby',
       type: 'array',
       description:
-        'Select or upload an image of a plant growing near this plant. You can add multiple plants. If this plant has its own document, provide a link to it.',
+        'Select or upload image(s) of plants growing near this one. For captions, provide the name of the plant. If this plant has its own page, provide a link to it. ',
       of: [
         defineArrayMember({
           type: 'figure',
