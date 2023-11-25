@@ -15,7 +15,7 @@ export default defineType({
   fieldsets: [
     {
       name: 'presentation',
-      title: 'Image Presensation Options (within text blocks)',
+      title: 'Image Presensation Options (optional - only applies within text blocks)',
       options: { collapsible: true, collapsed: true },
     },
     {
@@ -45,7 +45,7 @@ export default defineType({
     }),
     defineField({
       name: 'captionPosition',
-      title: 'Caption position',
+      title: 'Caption position (optional)',
       type: 'string',
       hidden: ({ parent }) => !parent?.asset,
       description:
