@@ -3,6 +3,7 @@ import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { buildLegacyTheme } from 'sanity'
 import { deskTool } from 'sanity/desk'
+import {muxInput} from 'sanity-plugin-mux-input'
 import Iframe from 'sanity-plugin-iframe-pane'
 import { media, mediaAssetSource } from 'sanity-plugin-media'
 import { apiVersion, dataset, projectId } from './lib/sanity.api'
@@ -55,6 +56,7 @@ export default defineConfig({
     deskTool({ defaultDocumentNode }),
     visionTool({ defaultApiVersion: apiVersion }),
     media(),
+    muxInput()
   ],
   form: {
     // Don't use this plugin when selecting files only (but allow all other enabled asset sources)
