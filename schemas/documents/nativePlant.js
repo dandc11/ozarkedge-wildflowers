@@ -8,49 +8,29 @@ export default defineType({
   title: 'Native Plants',
   icon: GiFlowerEmblem,
   type: 'document',
-  // orderings: [
-  //     {
-  //       title: 'Flo',
-  //       name: 'releaseDateDesc',
-  //       by: [
-  //         {field: 'releaseDate', direction: 'desc'}
-  //       ]
-  //     },
-  //     {
-  //       title: 'Release Date, Old',
-  //       name: 'releaseDateAsc',
-  //       by: [
-  //         {field: 'releaseDate', direction: 'asc'}
-  //       ]
-  //     },
-  //     {
-  //       title: 'Popularity',
-  //       name: 'popularityDesc',
-  //       by: [
-  //         {field: 'popularity', direction: 'desc'}
-  //       ]
-  //     }
-  //   ],
-  fieldsets: [
+  groups: [
     {
       name: 'name',
       title: 'Plant Name',
-      options: { collapsible: true, collapsed: true },
+      despcription: 'Add the common and botanical names for this plant.',
     },
     {
       name: 'metadata',
       title: 'Plant Metadata',
-      options: { collapsible: true, collapsed: true },
+      despcription:
+        'Add metadescription, tags and a thumbnail image for this plant.',
     },
     {
       name: 'description',
       title: 'Plant Description',
-      options: { collapsible: true, collapsed: true },
+      despcription:
+        'Add descriptive information about this plant, such as a lede, description text, image gallery, flower color, flowering season, pollinators and conservation status.',
     },
     {
       name: 'growingNearby',
       title: 'Habitat and Nearby Plants',
-      options: { collapsible: true, collapsed: true },
+      despcription:
+        'Add information about the habitat and plants growing nearby.',
     },
   ],
   preview: {
@@ -64,47 +44,47 @@ export default defineType({
       name: 'plantName',
       title: 'Name',
       type: 'plantName',
-      fieldset: 'name',
+      group: 'name',
     }),
     defineField({
       name: 'bannerImage',
       title: 'Banner Image',
-      type: 'figure',
+      type: 'mainImage',
       description:
         'Add a wide-cropped image to use as the banner image on wider screens. A crop with an 8/5 is preferrable.',
       options: {
         validation: (Rule) => [Rule.required()],
         hotspot: true,
       },
-      fieldset: 'name',
+      group: 'name',
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       description:
-      'A short, hyphenated version of the plant name for use in URLs. Generated slugs will have the format of common-name-botanical-name. Keep in mind that changing the slug of a published page will break any existing links to it both on the site and elswewhere.',
+        'A short, hyphenated version of the plant name for use in URLs. Generated slugs will have the format of common-name-botanical-name. Keep in mind that changing the slug of a published page will break any existing links to it both on the site and elswewhere.',
       type: 'slug',
       validation: (Rule) => Rule.required(),
       options: {
         source: (doc) =>
-        `${doc.plantName.commonName}-${doc.plantName.botanicalName}`,
+          `${doc.plantName.commonName}-${doc.plantName.botanicalName}`,
         validation: (Rule) => [Rule.unique()],
         slugify: (input) =>
-        input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+          input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
       },
-      fieldset: 'metadata',
+      group: 'metadata',
     }),
     defineField({
       name: 'plantIdentificationTags',
       type: 'array',
       title: 'Plant Identification Tags',
       description:
-      'Add one or more features by which to identify this plant. Keep it short (hit Enter for each one). ',
+        'Add one or more features by which to identify this plant. Keep it short (hit Enter for each one). ',
       of: [defineArrayMember({ type: 'string' })],
       options: {
         layout: 'tags',
       },
-      fieldset: 'metadata',
+      group: 'metadata',
     }),
     defineField({
       name: 'metaDescription',
@@ -116,29 +96,29 @@ export default defineType({
         (Rule) => Rule.min(40),
       ],
       description:
-      'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
-      fieldset: 'metadata',
+        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
+      group: 'metadata',
     }),
     defineField({
       name: 'previewImage',
       title: 'Plant Thumbnail Image',
       description:
-      'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
-      type: 'figure',
+        'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
+      type: 'mainImage',
       options: {
         hotspot: true, // <-- Defaults to false
       },
-      fieldset: 'metadata',
+      group: 'metadata',
     }),
     defineField({
       name: 'images',
       type: 'array',
       title: 'Plant Image Gallery',
       description:
-      "Upload or select images of this plant to appear in a gallery on the plant's page.",
+        "Upload or select images of this plant to appear in a gallery on the plant's page.",
       of: [defineArrayMember({ type: 'figure' })],
       // options: { sources: [AssetSource] },
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'lede',
@@ -146,21 +126,21 @@ export default defineType({
       description:
         "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
       type: 'pageBodyPortableText',
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'bloomText',
       title: 'Bloom description',
       description: "Add any information about the plant's bloom.",
       type: 'pageBodyPortableText',
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'pollinators',
       title: 'Pollinators description',
       description: "Add any information about the plant's pollinators.",
       type: 'pageBodyPortableText',
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'pollinatorImages',
@@ -170,7 +150,7 @@ export default defineType({
         "Upload or select images of pollinators associated with ths plant to appear in the pollinator section on this plant's page.",
       of: [defineArrayMember({ type: 'figure' })],
       // options: { sources: [AssetSource] },
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'description',
@@ -178,7 +158,7 @@ export default defineType({
       description:
         "Add a plant description to serve as the main text content on this plant's page. Images and other content can also be embedded.",
       type: 'pageBodyPortableText',
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'flowerColor',
@@ -198,7 +178,7 @@ export default defineType({
         ],
         layout: 'radio', // <-- defaults to 'dropdown'
       },
-      fieldset: 'description',
+      group: 'metadata',
     }),
     defineField({
       name: 'floweringMonths',
@@ -221,7 +201,7 @@ export default defineType({
           { title: 'December', value: 12 },
         ], // <-- predefined values
       },
-      fieldset: 'description',
+      group: 'metadata',
     }),
     defineField({
       name: 'floweringSeason',
@@ -237,20 +217,20 @@ export default defineType({
           { title: 'Winter', value: 'winter' },
         ], // <-- predefined values
       },
-      fieldset: 'description',
+      group: 'metadata',
     }),
     defineField({
       name: 'conservationStatus',
       title: 'Conservation Status',
       description: "Add any information about the plant's conservation status.",
       type: 'pageBodyPortableText',
-      fieldset: 'description',
+      group: 'description',
     }),
     defineField({
       name: 'habitat',
       title: 'Habitat',
       type: 'pageBodyPortableText',
-      fieldset: 'growingNearby',
+      group: 'growingNearby',
     }),
     defineField({
       name: 'growingNearbyPlantList',
@@ -263,7 +243,7 @@ export default defineType({
           type: 'figure',
         }),
       ],
-      fieldset: 'growingNearby',
+      group: 'growingNearby',
     }),
     defineField({
       name: 'growingNearbyText',
@@ -271,13 +251,13 @@ export default defineType({
       description:
         "Add any additional information about what's growing near this plant.",
       type: 'pageBodyPortableText',
-      fieldset: 'growingNearby',
+      group: 'growingNearby',
     }),
     defineField({
       name: 'tidbits',
       title: 'Interesting Tidbits',
       type: 'pageBodyPortableText',
-      fieldset: 'description',
+      group: 'description',
     }),
   ],
 })

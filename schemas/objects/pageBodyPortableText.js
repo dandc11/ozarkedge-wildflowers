@@ -1,6 +1,9 @@
 import React from 'react'
+import { AiFillPlayCircle } from 'react-icons/ai'
+import { AiOutlineCamera } from 'react-icons/ai'
+import { AiFillFileImage } from 'react-icons/ai'
 import { DOCUMENT_TYPES } from '../constants/constants'
-import LinkRender from '../components/LinkRender'
+import IconAppender from '../components/IconAppender'
 import { defineArrayMember, defineType } from 'sanity'
 
 export default defineType({
@@ -47,7 +50,7 @@ export default defineType({
                 to: DOCUMENT_TYPES,
               },
             ],
-            components: LinkRender,
+            components: <IconAppender icon={`🔗`} />,
             icon: () => '🔗 ',
           },
           {
@@ -68,22 +71,44 @@ export default defineType({
               },
             ],
             icon: () => '🌐 ',
-            components: LinkRender,
+            components: <IconAppender icon={`🌐`} />,
           },
         ],
       },
     }),
-    defineArrayMember(
-      // You can add additional types here. Note that you can't use
-      // primitive types such as 'string' and 'number' in the same array
-      // as a block type.
-      {
-        type: 'figure',
-        title: 'Image',
-        description: 'Add an image to the page.',
-        options: { hotspot: true },
+    defineArrayMember({
+      type: 'figure',
+      title: 'Image',
+      description: 'Add an image to the page.',
+      options: { hotspot: true },
+      icon: () => '📸 ',
+    }),
+    defineArrayMember({
+      title: 'Video',
+      name: 'portTextVideo',
+      type: 'document',
+      fields: [
+        { title: 'Video Title', name: 'title', type: 'string' },
+        {
+          title: 'Video file',
+          name: 'video',
+          type: 'mux.video',
+        },
+      ],
+      icon: () => '🎥 ',
+      preview: {
+        select: {
+          title: 'title',
+        },
+        prepare: ({ title }) => {
+          const hasVideo = [title].filter(Boolean)
+          return {
+            title: hasVideo ? `Video: ${title}` : 'Video (empty)',
+            media: AiOutlineCamera,
+          }
+        },
       },
-    ),
+    }),
     defineArrayMember({
       name: 'imageCollection',
       type: 'object',
@@ -91,7 +116,8 @@ export default defineType({
       fields: [
         {
           name: 'imageCollection',
-          description: 'If you add images here, they will display within the text block together as part of a collection. You can add as many images as you like, and add captions indicating any connections between the images.',
+          description:
+            'If you add images here, they will display within the text block together as part of a collection. You can add as many images as you like, and add captions indicating any connections between the images.',
           title: 'Image',
           type: 'array',
           of: [
@@ -104,25 +130,28 @@ export default defineType({
           ],
         },
       ],
+      icon: () => '🖼️ ',
       preview: {
         select: {
-          title: 'Images in collection',
           imageOne: 'images.0.asset',
           captionOne: 'images.0.caption', // <- images.0 is a reference to the image, which the preview component will automatically resolve
           captionTwo: 'images.1.caption',
           captionThree: 'images.2.caption',
         },
-        prepare: ({imageOne, captionOne, captionTwo, captionThree}) => {
-          const imageCaptions = [captionOne, captionTwo, captionThree].filter(Boolean)
-          const caption = imageCaptions.length > 0 ? imageCaptions.join(', ') : ''
-          const hasMore  = Boolean(captionThree)
+        prepare: ({ imageOne, captionOne, captionTwo, captionThree }) => {
+          const imageCaptions = [captionOne, captionTwo, captionThree].filter(
+            Boolean,
+          )
+          const caption =
+            imageCaptions.length > 0 ? imageCaptions.join(', ') : ''
+          const hasMore = Boolean(captionThree)
           return {
-            title: 'Image Collection',
-            media: imageOne,
-            subtitle: hasMore  ? `${caption}…` : caption
+            title: imageOne ? 'Image Collection' : 'Image Collection (empty)',
+            media: imageOne || AiFillFileImage,
+            subtitle: hasMore ? `${caption}…` : caption,
           }
-        }
-      }
+        },
+      },
     }),
   ],
 })

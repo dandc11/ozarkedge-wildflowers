@@ -7,6 +7,7 @@ import { DOCTYPE_PATH_PREFIXES } from '../utilities/constants'
 import { getPathFromDocType } from '../utilities/helperUtil'
 import ResponsiveImage from './ResponsiveImage'
 import PortTextFigure from './PortTextFigure'
+import PortTextVideo from './PortTextVideo'
 import ThumbnailGrid from './ThumbnailGrid'
 
 const portTextComponents = {
@@ -107,6 +108,9 @@ const PortTextWrapper = React.memo((props) => {
               showCaptions
             />
           ),
+          portTextVideo: (typeProps) => (
+            <PortTextVideo portTextProps={typeProps}></PortTextVideo>
+          )
         },
       }
     },

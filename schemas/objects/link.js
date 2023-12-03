@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkRender from '../components/LinkRender';
+import IconAppender from '../components/IconAppender';
 import { DOCUMENT_TYPES } from '../constants/constants';
 import { defineField, defineType } from 'sanity'
 
@@ -34,6 +34,6 @@ export default defineType({
     ],
     blockEditor: {
         icon: () => '🔗 Link',
-        render: LinkRender,
+        render: IconAppender,
     },
 });

@@ -15,11 +15,12 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@mux/mux-player-react": "^2.2.0",
     "@portabletext/react": "^3.0.4",
-    "@sanity/client": "^6.4.0",
+    "@sanity/client": "^6.8.6",
     "@sanity/image-url": "^1.0.2",
-    "@sanity/preview-kit": "^2.4.7",
-    "@sanity/vision": "^3.14.4",
+    "@sanity/preview-kit": "^4.0.1",
+    "@sanity/vision": "^3.20.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "classnames": "^2.3.2",
     "lightbox.js-react": "^0.8.6",
@@ -28,10 +29,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
-    "sanity": "^3.14.4",
+    "sanity": "^3.20.1",
     "sanity-image": "^0.1.6",
     "sanity-plugin-iframe-pane": "^2.3.1",
     "sanity-plugin-media": "^2.2.2",
+    "sanity-plugin-mux-input": "^2.2.3",
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
