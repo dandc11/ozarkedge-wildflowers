@@ -12,16 +12,19 @@ export default defineType({
       'palette', // Default: included
     ],
   },
-  fieldsets: [
+  groups: [
+    {
+      name: 'caption',
+      title: 'Caption (optional)',
+    },
     {
       name: 'presentation',
-      title: 'Image Presensation Options (optional - only applies within text blocks)',
-      options: { collapsible: true, collapsed: true },
+      title:
+        'Image Presensation Options (optional - only applies within text blocks)',
     },
     {
       name: 'link',
       title: 'Link',
-      options: { collapsible: true, collapsed: true },
     },
   ],
   fields: [
@@ -39,17 +42,17 @@ export default defineType({
       name: 'caption',
       title: 'Caption',
       type: 'string',
-      hidden: ({ parent }) => !parent?.asset,
+      hidden: ({ parent }) => !parent?.asset || !parent?.showCaption,
       description:
         'Optional caption text for this image. If you add text here, a caption will display with this image. Leave this field blank if a caption is not desired.',
+      group: 'caption',
     }),
     defineField({
       name: 'captionPosition',
       title: 'Caption position (optional)',
       type: 'string',
-      hidden: ({ parent }) => !parent?.asset,
-      description:
-        'Position the image caption, if there is one.',
+      hidden: ({ parent }) => !parent?.asset || !parent?.showCaption,
+      description: 'Position the image caption, if there is one.',
       options: {
         list: [
           { title: 'Below Image (Default)', value: 'below' },
@@ -57,7 +60,15 @@ export default defineType({
           { title: 'Inset Right left', value: 'insetRight' },
         ],
         layout: 'radio', // <-- defaults to 'dropdown'
+        group: 'caption',
       },
+    }),
+    defineField({
+      name: 'showCaption',
+      title: 'Show Caption',
+      type: 'boolean',
+      description: 'Whether to show a caption with this image.',
+      group: 'caption',
     }),
     defineField({
       name: 'link',
@@ -65,7 +76,7 @@ export default defineType({
       type: 'link',
       description:
         'Optional link to another page or website. If you add a link here, the image will be clickable.',
-        fieldset: 'link',
+      group: 'link',
     }),
     defineField({
       name: 'imagePosition',
@@ -80,14 +91,14 @@ export default defineType({
           { title: 'Float right', value: 'right' },
         ],
       },
-      fieldset: 'presentation',
+      group: 'presentation',
     }),
     defineField({
       name: 'imageWidth',
       title: 'Image Width',
       type: 'string',
       description:
-        'Set the width of the image as a percentage of the text block\'s width.  NOTE: This setting will have no effect outside of text blocks. Images will fall back to full width on mobile.',
+        "Set the width of the image as a percentage of the text block's width.  NOTE: This setting will have no effect outside of text blocks. Images will fall back to full width on mobile.",
       options: {
         list: [
           { title: '20%', value: '20%' },
@@ -99,7 +110,7 @@ export default defineType({
           { title: '100%', value: '100%' },
         ],
       },
-      fieldset: 'presentation',
+      group: 'presentation',
     }),
   ],
   preview: {

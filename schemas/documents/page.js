@@ -4,7 +4,7 @@ export default defineType({
   name: 'nativePlantPage',
   title: 'Native Plant Page',
   type: 'document',
-  fieldsets: [
+  groups: [
     {
       title: 'SEO & metadata',
       name: 'metadata',
@@ -38,7 +38,7 @@ export default defineType({
       type: 'text',
       title: 'Description',
       description: 'This description populates meta-tags on the webpage',
-      fieldset: 'metadata',
+      group: 'metadata',
     }),
   ],
 })
