@@ -170,7 +170,7 @@ const getSectionLinks = (pageData) => {
 const NativePlantPage = (props) => {
   const { pageProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_PLANT_PAGE_DATA)
-  console.log('pageData ', pageData)
+  // console.log('pageData ', pageData)
   const {
     bannerImage,
     bloomText,

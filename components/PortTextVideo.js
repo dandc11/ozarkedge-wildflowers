@@ -4,7 +4,6 @@ import { COLORS } from './../utilities/constants'
 
 const PortTextVideo = (typeProps) => {
   const { playbackId, accentColor, videoTitle } = typeProps?.portTextProps?.value
-  console.log('playbackId', playbackId)
   return (
     <>
       {/* if playbackId ouput MuxPlayer */}
