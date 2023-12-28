@@ -644,13 +644,13 @@
   dependencies:
     "@lezer/common" "^1.0.0"
 
-"@mux/mux-player-react@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/@mux/mux-player-react/-/mux-player-react-2.2.0.tgz"
-  integrity sha512-oPkYj4a8ls/3S4nqPmpIxu7hh99mDglOnClnsetZEaVOQd5aomFExRHoDapWOeuIwTPBtz16xaIbUe+k1B1HqA==
+"@mux/mux-player-react@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/@mux/mux-player-react/-/mux-player-react-2.3.0.tgz"
+  integrity sha512-gY13YeRGMzlOBWYPGb15gq0XxAn9BPnbmKLYlWqfsb0sYwEfavm/+dlQhMWu+vCqWlIxWT4p9VeHZVbU8CHELQ==
   dependencies:
-    "@mux/mux-player" "2.2.0"
-    "@mux/playback-core" "0.21.0"
+    "@mux/mux-player" "2.3.0"
+    "@mux/playback-core" "0.22.0"
     prop-types "^15.7.2"
 
 "@mux/mux-player-react@1.11.4":
@@ -671,14 +671,14 @@
     "@mux/playback-core" "0.18.5"
     media-chrome "^1.1.4"
 
-"@mux/mux-player@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/@mux/mux-player/-/mux-player-2.2.0.tgz"
-  integrity sha512-Pju18K+z28ZJFXQevD0jU5SNaJjS6fluPAplhYDVqQ5U2FevZ8ig2PfFxbFqjQyVk1SJNwgKUNMFgfKVrnONsg==
+"@mux/mux-player@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/@mux/mux-player/-/mux-player-2.3.0.tgz"
+  integrity sha512-OhpaK1mRdUG/5fbH9opYtuhEKWOTUA8fLlSvRHv9NDcf4coi5pz4x3mII2B8XadBRAF7i/TDEc06CICwiTvlNA==
   dependencies:
-    "@mux/mux-video" "0.17.0"
-    "@mux/playback-core" "0.21.0"
-    media-chrome "^1.5.0"
+    "@mux/mux-video" "0.17.1"
+    "@mux/playback-core" "0.22.0"
+    media-chrome "~2.0.0"
 
 "@mux/mux-video@0.15.6":
   version "0.15.6"
@@ -689,15 +689,15 @@
     castable-video "0.5.2"
     custom-media-element "0.2.0"
 
-"@mux/mux-video@0.17.0":
-  version "0.17.0"
-  resolved "https://registry.npmjs.org/@mux/mux-video/-/mux-video-0.17.0.tgz"
-  integrity sha512-cTi0N/aQtQ4KRvd/DLkaTsmOrCSLnfvvzfW7MNF2AIXeuuGTCkAv7wfV5RjY0VUgl3Y8NcJxMu6eCS0FRkvMyw==
+"@mux/mux-video@0.17.1":
+  version "0.17.1"
+  resolved "https://registry.npmjs.org/@mux/mux-video/-/mux-video-0.17.1.tgz"
+  integrity sha512-YPe1E6hp6VRrHD6JjDqOx3xpfKiC9KlzKj31O2hXS78OLH1VwmoGNPHC8G9i43x/iyjnLazqGbm53VxMvrbFnA==
   dependencies:
-    "@mux/playback-core" "0.21.0"
-    castable-video "0.5.2"
-    custom-media-element "0.2.0"
-    media-tracks ">=0.2.3"
+    "@mux/playback-core" "0.22.0"
+    castable-video "1.0.3"
+    custom-media-element "1.1.0"
+    media-tracks "0.2.4"
 
 "@mux/playback-core@0.18.5":
   version "0.18.5"
@@ -707,13 +707,12 @@
     hls.js "^1.4.8"
     mux-embed "^4.24.0"
 
-"@mux/playback-core@0.21.0":
-  version "0.21.0"
-  resolved "https://registry.npmjs.org/@mux/playback-core/-/playback-core-0.21.0.tgz"
-  integrity sha512-AoswERCtLxW5fP2rkafMYjCYciBRi2TsIT48AuKvCQu4+LQ3xQEZX28MwqCNEx0VCU9yK+bSr5ngu7YBUN9HVQ==
+"@mux/playback-core@0.22.0":
+  version "0.22.0"
+  resolved "https://registry.npmjs.org/@mux/playback-core/-/playback-core-0.22.0.tgz"
+  integrity sha512-FMb5HUwmGgL2ml1DAmbwd5QbQ+4kmtDhBD+HzVk6kIFIiPzSDPl3ie/EFvzQKns6dyiZDdBWGX7oDdTmbHpilA==
   dependencies:
-    hls.js "^1.4.10"
-    media-tracks "0.2.3"
+    hls.js "^1.4.12"
     mux-embed "^4.27.0"
 
 "@mux/upchunk@^3":
@@ -1945,6 +1944,13 @@ castable-video@0.5.2:
   resolved "https://registry.npmjs.org/castable-video/-/castable-video-0.5.2.tgz"
   integrity sha512-eP19NY8AF9G+Xj87R447GMkWuUc0W3DSNx5qOypH/+mr2aaHRONaIK5H4bxMgpXZslZ2vNNvCuVuKi3VdCUGEA==
 
+castable-video@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/castable-video/-/castable-video-1.0.3.tgz"
+  integrity sha512-jFHgzt3/ivoBxdbiDht2muXEC7BpxQ7Yj4ST6QUdapYTRYlpA518bzjtIXrcip0Hgy8MBzVGaTM1IKKxWYXIpA==
+  dependencies:
+    custom-media-element "^1.0.2"
+
 chalk@^2.0.1:
   version "2.4.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz"
@@ -2251,6 +2257,11 @@ csstype@^3.0.2, csstype@^3.1.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.2.tgz"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
+
+custom-media-element@^1.0.2, custom-media-element@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/custom-media-element/-/custom-media-element-1.1.0.tgz"
+  integrity sha512-G/SLCdlrZPqboB7TvK7Vk3lAC5Q2WF2CsqSUoMD9XMwEB7X8eOH8Iy+ipPofHSCU/6wYLC3O9gHtcI1oimwoTg==
 
 custom-media-element@0.2.0:
   version "0.2.0"
@@ -3529,7 +3540,7 @@ history@^5.3.0:
   dependencies:
     "@babel/runtime" "^7.7.6"
 
-hls.js@^1.4.10, hls.js@^1.4.8:
+hls.js@^1.4.12, hls.js@^1.4.8:
   version "1.4.12"
   resolved "https://registry.npmjs.org/hls.js/-/hls.js-1.4.12.tgz"
   integrity sha512-1RBpx2VihibzE3WE9kGoVCtrhhDWTzydzElk/kyRbEOLnb1WIE+3ZabM/L8BqKFTCL3pUy4QzhXgD1Q6Igr1JA==
@@ -4273,20 +4284,20 @@ md5-o-matic@^0.1.1:
   resolved "https://registry.npmjs.org/md5-o-matic/-/md5-o-matic-0.1.1.tgz"
   integrity sha512-QBJSFpsedXUl/Lgs4ySdB2XCzUEcJ3ujpbagdZCkRaYIaC0kFnID8jhc84KEiVv6dNFtIrmW7bqow0lDxgJi6A==
 
-media-chrome@^1.1.4, media-chrome@^1.5.0:
+media-chrome@^1.1.4:
   version "1.5.3"
   resolved "https://registry.npmjs.org/media-chrome/-/media-chrome-1.5.3.tgz"
   integrity sha512-XiE29yNa9jyCMdshDLvSgXb0e/RJauMaTXT9kL9dTJmmZXz0RK+Ol/TsE2z4uO68x+rqZauoGEANUbDEyN8NLg==
 
-media-tracks@>=0.2.3:
+media-chrome@~2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/media-chrome/-/media-chrome-2.0.1.tgz"
+  integrity sha512-6hoC5OY993t4o/YKYXn7YoWUAKG1UFAhnDXNN6kRRa5mnuL+Cwct/2Md16S4jjmTSmN5XjhEWwfCVM5NLHavOA==
+
+media-tracks@0.2.4:
   version "0.2.4"
   resolved "https://registry.npmjs.org/media-tracks/-/media-tracks-0.2.4.tgz"
   integrity sha512-P/TbDCYTFH5gxpQ6r99iabXOwjsFwzKRgK7wiwo64Ii6nHXYhHtwEP7A7ufmEKxkNCoHc4j3Z2hvs+lXL4wPeQ==
-
-media-tracks@0.2.3:
-  version "0.2.3"
-  resolved "https://registry.npmjs.org/media-tracks/-/media-tracks-0.2.3.tgz"
-  integrity sha512-h5HRl1tIyeV+aF59FAmHmxChmdM/Ewf/twpxZkRme1ny46owD24uTA0BmRuPoO+uzvE0lx9ZIkZj1TbXi2VCng==
 
 memoize-one@^6.0.0:
   version "6.0.0"

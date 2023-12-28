@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ResponsiveImage from './ResponsiveImage';
 import { getCurrentMonthName, titleCase } from '../utilities/helperUtil';
 import Header from './Header';
-import Button from './Button';
-import PortTextWrapper from './PortableText';
+import PortTextWrapper from './PortTextWrapper';
 
 import cx from 'classnames';
 import Link from 'next/link';

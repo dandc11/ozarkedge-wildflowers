@@ -60,14 +60,14 @@ const PlantName = (props) => {
       )}
 
       {showBotanicalName && (
-        <h3
+        <h4
           className={cx(
             `botanical-name italic pt-1 font-normal text-base text-center bp-600:pt-1 bp-700:text-xl`,
             bottomNameClassName,
           )}
         >
           {titleCase(plantName?.botanicalName)}
-        </h3>
+        </h4>
       )}
     </div>
   )

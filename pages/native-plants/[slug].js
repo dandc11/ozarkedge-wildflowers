@@ -12,7 +12,7 @@ import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
 import PlantName from 'components/PlantName'
 import Header from 'components/Header'
 import ResponsiveImage from 'components/ResponsiveImage'
-import PortTextWrapper from 'components/PortableText'
+import PortTextWrapper from 'components/PortTextWrapper'
 import TableOfContents from 'components/TableOfContents'
 import cx from 'classnames'
 import Button from 'components/Button'
@@ -239,7 +239,7 @@ const NativePlantPage = (props) => {
             {/* <div className="max-w-md bp-1400:self-end bp-1400:pt-4 bp-1400:ml-4 bp-1600:ml-14"></div> */}
           </header>
           <main id="plantPageMainContent" className="w-full">
-            <div className={`relative plant-page-layout pb-20`}>
+            <div className={`relative plant-page pb-20`}>
               {images && (
                 <div
                   id={`images`}

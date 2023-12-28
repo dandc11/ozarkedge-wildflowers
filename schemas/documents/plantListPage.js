@@ -16,23 +16,16 @@ export default defineConfig({
   __experimental_actions: ['update', 'publish' /* 'create', 'delete' */],
   fields: [
     defineField({
-      name: 'titleText',
-      title: 'Plant List Page Title',
-      description: "This is the text for this page's main heading.",
+      name: 'pageTitle',
+      title: 'Plant List Page main header',
+      description: "Add the main header for this page.",
       type: 'string',
     }),
     defineField({
       name: 'plantListInformation',
-      title: 'Plant List Information',
+      title: 'Plant List Introduction Text',
       description: 'Add the body text for the plant list page here.',
       type: 'pageBodyPortableText',
-    }),
-    defineField({
-      name: 'plantList',
-      title: 'plantList',
-      type: 'array',
-      hidden: true,
-      of: [{ type: 'nativePlant' }],
     }),
     defineField({
       name: 'slug',

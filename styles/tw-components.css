@@ -23,4 +23,14 @@
     .header-base {
       @apply relative w-full z-10 bg-transparent mb-2 bp-400:pl-0 [&>h2]:relative [&>h2]:font-thin [&>h2]:text-xl [&>h2]:z-0 [&_span]:font-thin [&_span]:text-inherit [&_span]:uppercase [&_span]:text-3xl [&>h2]:bp-800:text-xl bp-800:[&_span]:text-3xl [&>h2]:bp-1000:text-2xl bp-1000:[&_span]:text-4xl;
     }
+
+    .image-card {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+
+      .text-container {
+        padding-block: .75rem;
+        padding-inline: .45rem;
+      }
+    }
   }
