@@ -15,7 +15,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@mux/mux-player-react": "^2.2.0",
+    "@mux/mux-player-react": "^2.3.0",
     "@portabletext/react": "^3.0.4",
     "@sanity/client": "^6.8.6",
     "@sanity/image-url": "^1.0.2",
