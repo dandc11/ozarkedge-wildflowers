@@ -38,9 +38,9 @@ const Nav = () => {
                 onClick={(e) => setIsMenuOpen(!isMenuOpen)}
                 type="button"
             >
-                <div className={`w-8 h-1 bg-slate-100`}></div>
-                <div className={`w-8 h-1 bg-slate-100`}></div>
-                <div className={`w-8 h-1 bg-slate-100`}></div>
+                <div className={`w-8 h-1 ${isMenuOpen ? 'bg-slate-100' : 'bg-oe-red-800'}`}></div>
+                <div className={`w-8 h-1 ${isMenuOpen ? 'bg-slate-100' : 'bg-oe-red-800'}`}></div>
+                <div className={`w-8 h-1 ${isMenuOpen ? 'bg-slate-100' : 'bg-oe-red-800'}`}></div>
             </button>
             <ul
                 className={`nav-links mt-16 hidden group-[.menu-active]/nav:block`}

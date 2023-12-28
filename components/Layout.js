@@ -7,7 +7,7 @@ const Layout = ({ children, ...props }) => {
     return (
         <div className={`flex flex-col`}>
             <Nav />
-            <div id={`page-content`} className={`relative min-h-screen text-base leading-normal bp-1100:text-lg`}>{children}</div>
+            <main id={`page-content`} className={`relative min-h-screen text-base leading-normal bp-1100:text-lg`}>{children}</main>
             <Footer />
         </div>
     );
