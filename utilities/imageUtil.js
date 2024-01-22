@@ -85,10 +85,11 @@ export const getImagePaletteBackgroundColor = (image, paletteType) => {
 }
 
 /**
- * Returns the image palette's foreground hex color
- * @param {Object} image
- * @param {string} paletteType
- * @returns {string} foreground
+ * Returns the foreground hex color from the image palette.
+ *
+ * @param {Object} image - The image object.
+ * @param {string} paletteType - The type of palette.
+ * @returns {string} - The foreground hex color.
  */
 export const getImagePaletteForegroundColor = (image, paletteType) => {
   let palette = getImagePalette(image, paletteType)
@@ -107,10 +108,11 @@ export const getImagePalettePopulation = (image, paletteType) => {
 }
 
 /**
- * Returns the image palette's title hex color
- * @param {Object} image
- * @param {string} paletteType
- * @returns {string} title text color
+ * Returns the title hex color from the image palette.
+ *
+ * @param {Object} image - The image object.
+ * @param {string} paletteType - The type of palette.
+ * @returns {string} - The title hex color.
  */
 export const getImagePaletteTitleColor = (image, paletteType) => {
   let palette = getImagePalette(image, paletteType)
@@ -119,59 +121,59 @@ export const getImagePaletteTitleColor = (image, paletteType) => {
 
 // CSS background image helper functions
 /*--------------------------------------*/
+
+/**
+ * Builds a background style object based on the provided parameters. For use with the <Container /> component, which uses container queries to set the background image to appropriate image size variables.
+ *
+ * @param {Object} bgParamObj - The background parameters object.
+ * @param {string} bgParamObj.bgImage - Sanity image asset object - {_type: 'image', asset: {_ref: 'image-asset-id'}}
+ * @param {string} bgParamObj.bgImageSmall - Sanity image asset object for a small-sized background image.
+ * @param {string} bgParamObj.bgColor - The background color.
+ * @param {string} bgParamObj.bgBlendMode - The background blend mode.
+ * @param {number} bgParamObj.bgOpacity - The background opacity.
+ * @param {string} bgParamObj.bgPosition - The background position.
+ * @returns {Object} - The style object representing the background style.
+ */
 export const buildBackgroundStyleObject = (bgParamObj) => {
-  const {
-    bgImage = undefined,
-    bgImageMedium = undefined,
-    bgImageSmall = undefined,
-    bgColor = undefined,
-    bgBlendMode = undefined,
-    bgOpacity = undefined,
-    // bgImageWidth = undefined,
-    // bgImageHeigth
-  } = bgParamObj
+  const { bgImage, bgImageSmall, bgColor = '', bgBlendMode = 'initial', bgPosition = 'top', bgOpacity} = bgParamObj
   let styleObject = {}
 
-  // if there's a background image...
   if (bgImage) {
     let bgImageUrl = `url('${urlForImage(bgImage)}')`
-
-    //...get url values for any responsive image sizes
-    let bgImageMediumUrl = bgImageMedium
-      ? `url('${urlForImage(bgImageMedium)}')`
-      : bgImageUrl
-
     let bgImageSmallUrl = bgImageSmall
       ? `url('${urlForImage(bgImageSmall)}')`
       : bgImageUrl
 
-    // ...set CSS variables
-    styleObject['--bg-large'] = `${bgImageUrl}`
-    styleObject['--bg-medium'] = `${bgImageMediumUrl}`
-    styleObject['--bg-small'] = `${bgImageSmallUrl}`
+    styleObject['--container-bg-image'] = `${bgImageUrl}`
+    styleObject['--container-bg-small'] = `${bgImageSmallUrl}`
+
+    // TODO - use container queries to set the background image to appropriate image size variables
   }
 
-  // accept 'palette' to get colors from Sanity's image color palette
   if (bgColor) {
-    styleObject.backgroundColor =
-      bgColor !== 'palette'
-        ? bgColor
-        : getImagePaletteBackgroundColor(bgImage, 'darkVibrant')
+    let color = bgColor !== 'palette'
+      ? bgColor
+      : getImagePaletteBackgroundColor(bgImage, 'darkVibrant')
+    styleObject['--container-bg-color'] = color
+
     if (bgOpacity) {
-      styleObject.backgroundColor = `${styleObject.backgroundColor + bgOpacity}`
+      styleObject['--container-bg-color'] = `${bgColor + bgOpacity}`
     }
   }
   if (bgBlendMode) {
-    styleObject.backgroundBlendMode = bgBlendMode
+    styleObject['--container-bg-blend-mode'] = bgBlendMode
+  }
+  if (bgPosition) {
+    styleObject['--container-bg-position'] = bgPosition
   }
   return styleObject
 }
 
 /**
- * Retrieves an array of unique image objects from the provided document data.
+ * Retrieves an array of unique image objects from the provided document data. This function is useful ensuring duplicate images in a document aren't passed to image presnetation components, such as the <ImageGallery /> or <Lightbox /> components.
  *
  * @param {Object} docData - The document data object.
- * @param {Array} excludedKeys- An optional array of keys to exclude from the result.
+ * @param {Array} excludedKeys - An optional array of keys to exclude from the result.
  * @returns {Array} - An array of unique image objects.
  */
 export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
@@ -179,26 +181,20 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
 
   const imageIsUnique = (image) => {
     return (
-      // Check for duplicates of image asset reference, caption in the figures array, and that the image has an asset
       !figures.some((f) => f.asset._ref === image.asset._ref) &&
       !figures.some((f) => f.caption === image.caption) &&
       image.asset
     )
   }
 
-  // Iterate through each key in the document data
   for (const key in docData) {
     const value = docData[key]
 
-    // Ignore any excluded keys and verify the value is an array
     if (!excludedKeys.includes(key) && Array.isArray(value)) {
-      // Iterate through each data object in the value array
       value.forEach((dataObj) => {
-        // Check if the data object type is 'figure'
         if (dataObj._type === 'figure') {
           imageIsUnique(dataObj) ? figures.push(dataObj) : false
         }
-        // Check if the data object type is 'imageCollection'
         if (dataObj._type === 'imageCollection') {
           dataObj.imageCollection.forEach((image) => {
             imageIsUnique(image) ? figures.push(image) : false

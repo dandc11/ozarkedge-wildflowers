@@ -22,6 +22,20 @@ export default defineConfig({
       type: 'string',
     }),
     defineField({
+      name: 'headerImage',
+      title: 'Header Image',
+      description: "Add an image appear in the header for this page.",
+      type: 'image',
+      options: {
+        hotspot: true,
+        metadata: [
+          'blurhash', // Default: included
+          'lqip', // Default: included
+          'palette', // Default: included
+        ],
+      },
+    }),
+    defineField({
       name: 'plantListInformation',
       title: 'Plant List Introduction Text',
       description: 'Add the body text for the plant list page here.',

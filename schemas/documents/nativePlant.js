@@ -1,5 +1,6 @@
 import { GiFlowerEmblem } from 'react-icons/gi'
 import { defineArrayMember, defineType, defineField } from 'sanity'
+import { FLOWER_COLOR_OPTIONS, HABITAT_OPTIONS } from '../../utilities/constants'
 
 // import AssetSource from 'part:sanity-plugin-media-library/asset-source';
 
@@ -165,17 +166,7 @@ export default defineType({
       title: 'Flower Color',
       type: 'string',
       options: {
-        list: [
-          { title: 'White', value: 'white' },
-          { title: 'Blue', value: 'blue' },
-          { title: 'Purple', value: 'purple' },
-          { title: 'Pink', value: 'pink' },
-          { title: 'Red', value: 'red' },
-          { title: 'Orange', value: 'orange' },
-          { title: 'Yellow', value: 'yellow' },
-          { title: 'Brown', value: 'brown' },
-          { title: 'Green', value: 'green' },
-        ],
+        list: FLOWER_COLOR_OPTIONS,
         layout: 'radio', // <-- defaults to 'dropdown'
       },
       group: 'metadata',
@@ -227,8 +218,17 @@ export default defineType({
       group: 'description',
     }),
     defineField({
+      name: 'habitatType',
+      title: 'Habitat type',
+      type: 'string',
+      options: {
+        list: HABITAT_OPTIONS
+      },
+      group: 'growingNearby',
+    }),
+    defineField({
       name: 'habitat',
-      title: 'Habitat',
+      title: 'Habitat description',
       type: 'pageBodyPortableText',
       group: 'growingNearby',
     }),

@@ -30,6 +30,10 @@ export const getSeasonFromMonthNumber = (monthNum) => {
     }
 };
 
+export const getMonthNameFromMonthNumber = (monthNum) => {
+    return MONTH_NAMES_MAP.get(monthNum);
+};
+
 /**
  * Inserts an ellipsis at the end of a string
  * @param {string} [text = ''] a text string to be truncated
