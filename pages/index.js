@@ -5,8 +5,8 @@ import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
 
 import {
-  GET_BLOOMING_PLANTS_QUERY,
-  GET_CURRENT_SEASON_QUERY,
+  GET_BLOOMING_PLANTS_DATA_QUERY,
+  GET_CURRENT_SEASON_DATA_QUERY,
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../lib/queries'
 import { readToken } from '../lib/sanity.api'
@@ -27,10 +27,10 @@ export default function HomePage(props) {
   const [pageData] = useLiveQuery(pageProps, GET_LANDING_PAGE_DATA_QUERY)
   const [bloomingNowData] = useLiveQuery(
     bloomingProps,
-    GET_BLOOMING_PLANTS_QUERY,
+    GET_BLOOMING_PLANTS_DATA_QUERY,
   )
   // console.log(pageData)
-  const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_QUERY)
+  const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
 
   const {
     id,
@@ -127,8 +127,8 @@ export async function getStaticProps(context) {
     context?.draftMode ? { token: readToken } : undefined,
   )
   const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
-  const bloomingProps = await client.fetch(GET_BLOOMING_PLANTS_QUERY)
-  const seasonProps = await client.fetch(GET_CURRENT_SEASON_QUERY)
+  const bloomingProps = await client.fetch(GET_BLOOMING_PLANTS_DATA_QUERY)
+  const seasonProps = await client.fetch(GET_CURRENT_SEASON_DATA_QUERY)
   return {
     props: {
       pageProps,

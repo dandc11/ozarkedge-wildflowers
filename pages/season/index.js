@@ -3,7 +3,7 @@ import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
 
-import { GET_ALL_NATIVE_PLANTS_QUERY } from '../../lib/queries'
+import { GET_NATIVE_PLANT_LIST_DATA_QUERY } from '../../lib/queries'
 import { readToken } from '../../lib/sanity.api'
 import { getClient } from '../../lib/sanity.client'
 
@@ -11,7 +11,7 @@ export default function SeasonListPage(props) {
 //   const { nativePlantPageProps = null } = props;
 //   const [nativePlantPageData] = useLiveQuery(
 //     nativePlantPageProps,
-//     GET_ALL_NATIVE_PLANTS_QUERY
+//     GET_NATIVE_PLANT_LIST_DATA_QUERY
 //   )
   return (
     <>
@@ -34,7 +34,7 @@ export default function SeasonListPage(props) {
 
 // export const getStaticProps = async ({ draftMode = false }) => {
 //   const client = getClient(draftMode ? { token: readToken } : undefined)
-//   const nativePlantPageProps = await client.fetch(GET_ALL_NATIVE_PLANTS_QUERY)
+//   const nativePlantPageProps = await client.fetch(GET_NATIVE_PLANT_LIST_DATA_QUERY)
 //   return {
 //     props: {
 //       draftMode,
