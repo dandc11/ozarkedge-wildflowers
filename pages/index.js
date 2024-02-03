@@ -106,7 +106,7 @@ export default function HomePage(props) {
               ></div>
               <div
                 id={`beneathFoldContent`}
-                className={`w-full bg-yellow-100 bp-1100:bg-transparent`}
+                className={`w-full bg-yellow-100 bp-1100:bg-[#f1f0caeb]`}
                 tag={'section'}
               >
                 <Blooming

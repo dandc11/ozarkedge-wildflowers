@@ -18,14 +18,16 @@ export default defineConfig({
     defineField({
       name: 'pageTitle',
       title: 'Plant List Page main header',
-      description: "Add the main header for this page.",
+      description: 'Add the main header for this page.',
+      validation: (Rule) => Rule.required(),
       type: 'string',
     }),
     defineField({
       name: 'headerImage',
       title: 'Header Image',
-      description: "Add an image appear in the header for this page.",
+      description: 'Add an image appear in the header for this page.',
       type: 'image',
+      validation: (Rule) => Rule.required(),
       options: {
         hotspot: true,
         metadata: [
@@ -44,6 +46,7 @@ export default defineConfig({
     defineField({
       name: 'slug',
       type: 'slug',
+      validation: (Rule) => Rule.required(),
       description:
         'The URL slug for this page (read-only since changing will break links under this path).',
       readOnly: true,

@@ -23,19 +23,18 @@ export const MONTH_NAMES_MAP = new Map([
 ])
 
 export const MONTH_OPTIONS = [
-  { title: '- Any -', value: '' },
-  { title: 'January', value: 1 },
-  { title: 'February', value: 2 },
-  { title: 'March', value: 3 },
-  { title: 'April', value: 4 },
-  { title: 'May', value: 5 },
-  { title: 'June', value: 6 },
-  { title: 'July', value: 7 },
-  { title: 'August', value: 8 },
-  { title: 'September', value: 9 },
-  { title: 'October', value: 10 },
-  { title: 'November', value: 11 },
-  { title: 'December', value: 12 },
+  { label: 'January', value: 1 },
+  { label: 'February', value: 2 },
+  { label: 'March', value: 3 },
+  { label: 'April', value: 4 },
+  { label: 'May', value: 5 },
+  { label: 'June', value: 6 },
+  { label: 'July', value: 7 },
+  { label: 'August', value: 8 },
+  { label: 'September', value: 9 },
+  { label: 'October', value: 10 },
+  { label: 'November', value: 11 },
+  { label: 'December', value: 12 },
 ]
 
 export const SEASONS = {
@@ -74,25 +73,23 @@ export const PLANT_PAGE_SECTIONS = {
 }
 
 export const HABITAT_OPTIONS = [
-  { title: '- Any -', value: '' },
-  { title: 'Glade', value: 'Glade' },
-  { title: 'Woodland', value: 'Woodland' },
-  { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
-  { title: 'Savannah', value: 'Savannah' },
-  { title: 'Wetland', value: 'Wetland' },
+  { label: 'Glade', value: 'Glade' },
+  { label: 'Woodland', value: 'Woodland' },
+  { label: 'Grassland/Prairie', value: 'Grassland/Prairie' },
+  { label: 'Savannah', value: 'Savannah' },
+  { label: 'Wetland', value: 'Wetland' },
 ]
 
 export const FLOWER_COLOR_OPTIONS = [
-  { title: '- Any -', value: '' },
-  { title: 'White', value: 'white' },
-  { title: 'Blue', value: 'blue' },
-  { title: 'Purple', value: 'purple' },
-  { title: 'Pink', value: 'pink' },
-  { title: 'Red', value: 'red' },
-  { title: 'Orange', value: 'orange' },
-  { title: 'Yellow', value: 'yellow' },
-  { title: 'Brown', value: 'brown' },
-  { title: 'Green', value: 'green' },
+  { label: 'White', value: 'white' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Purple', value: 'purple' },
+  { label: 'Pink', value: 'pink' },
+  { label: 'Red', value: 'red' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Yellow', value: 'yellow' },
+  { label: 'Brown', value: 'brown' },
+  { label: 'Green', value: 'green' },
 ]
 
 export const COLORS = {

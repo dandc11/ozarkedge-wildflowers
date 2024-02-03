@@ -1,11 +1,6 @@
 import React from 'react'
-
 import cx from 'classnames'
 import { titleCase } from '../utilities/helperUtil'
-
-const TopHeader = (headingLevel, children, classnames) => {
-  return <></>
-}
 
 const PlantName = (props) => {
   const {
@@ -48,7 +43,7 @@ const PlantName = (props) => {
     }
   }
   return (
-    <div className={cx(`py-3 mx-0 inline text-center`, className)}>
+    <div className={cx(`mx-0 inline text-center`, className)}>
       {showCommonName && (
         <>{getHeadingElement(headingLevel, headingClassNames, plantName)}</>
       )}

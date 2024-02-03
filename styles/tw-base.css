@@ -1,6 +1,6 @@
 @layer base {
   html {
-    font-family: Raleway, system-ui, sans-serif;
+    font-family: var(--font-raleway), system-ui, sans-serif;
     font-weight: 300;
     /* font-size: 16px; */
 
@@ -11,12 +11,12 @@
 
     /* Landing Page */
     #landingImageContainer {
-      background-image: var(--bg-small);
+      background-image: var(--container-bg-small);
     }
 
     @media screen and (min-width: 900px) {
       #landingImageContainer {
-        background-image: var(--bg-large);
+        background-image: var(--container-bg-image);
       }
     }
 
@@ -43,7 +43,7 @@
       }
     }
 
-    .plant-list-page {
+    .plant-list-page-body {
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -5,7 +5,10 @@ import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
 import Button from '../../components/Button'
-import Select from '../../components/Select'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
+import cx from 'classnames'
+
 import {
   HABITAT_OPTIONS,
   FLOWER_COLOR_OPTIONS,
@@ -24,7 +27,6 @@ import PortTextWrapper from 'components/PortTextWrapper'
 import ImageCard from 'components/ImageCard'
 import ResponsiveImage from '../../components/ResponsiveImage'
 import Container from '../../components/Container'
-import { buildLegacyTheme } from 'sanity'
 
 export default function PlantListPage(props) {
   const { nativePlantPageProps = null, nativePlantListProps = null } = props
@@ -39,89 +41,170 @@ export default function PlantListPage(props) {
   const { pageTitle, headerImage, plantListInformation } =
     nativePlantPageData[0]
   const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
-  const [habitatMatch, setHabitatMatch] = useState('')
-  const [floweringMonthMatch, setFloweringMonthMatch] = useState('')
-  const [flowerColorMatch, setFlowerColorMatch] = useState('')
+  const [habitatsSelected, setHabitatsSelected] = useState('')
+  const [floweringMonthsSelected, setFloweringMonthsSelected] = useState('')
+  const [flowerColorsSelected, setFlowerColorsSelected] = useState('')
+  const animatedComponents = makeAnimated()
   const handleFloweringMonthChange = (newValue) => {
     const numberValues = newValue.map(Number)
-    setFloweringMonthMatch(numberValues)
+    setFloweringMonthsSelected(numberValues)
   }
 
+  const getFloweringMonthMatched = (plant) => {
+    if (floweringMonthsSelected.length < 1) {
+      return true
+    }
+    const floweringMonths = plant.floweringMonths.map(Number)
+    // create an array from the value key (month numbers) of the floweringMonthsSelected array
+    const floweringMonthNumbers = floweringMonthsSelected.map(
+      (item) => item.value,
+    )
+    const floweringMonthsMatched = floweringMonthNumbers.some((month) =>
+      floweringMonths.includes(month),
+    )
+    return floweringMonthsMatched
+  }
+
+  const getMatched = (selectedItems, plantProperty) => {
+    if (selectedItems.length < 1) {
+      return true
+    }
+
+    const plantValues = Array.isArray(plantProperty)
+      ? plantProperty.map(Number)
+      : [plantProperty]
+    const selectedValues = selectedItems.map((item) => item.value)
+    const isMatched = selectedValues.some((value) =>
+      plantValues.includes(value),
+    )
+
+    return isMatched
+  }
+
+  // Filter the plant list based on the selected options
   const filteredNativePlantList = nativePlantList.filter((plant) => {
-    const habitatMatched =
-      habitatMatch.length < 1 ||
-      (habitatMatch.length === 1 && habitatMatch[0] === '') ||
-      habitatMatch.some((habitat) => plant.habitatType === habitat)
-    const floweringMonthMatched =
-      floweringMonthMatch.length < 1 ||
-      (floweringMonthMatch.length === 1 && floweringMonthMatch[0] === 0) ||
-      floweringMonthMatch.some((month) => plant.floweringMonths.includes(month))
-    const flowerColorMatched =
-      flowerColorMatch.length < 1 ||
-      (flowerColorMatch.length === 1 && flowerColorMatch[0] === '') ||
-      flowerColorMatch.some((color) => plant.flowerColor.includes(color))
-    console.log('plant.floweringMonths:', plant.floweringMonths)
-    console.log('floweringMonthMatch:', floweringMonthMatch)
-    return habitatMatched && floweringMonthMatched && flowerColorMatched
+    const isFloweringMonthMatched = getMatched(
+      floweringMonthsSelected,
+      plant.floweringMonths,
+    )
+    const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
+    const isFlowerColorMatched = getMatched(
+      flowerColorsSelected,
+      plant.flowerColor,
+    )
+    return (
+      isHabitatTypeMatched && isFloweringMonthMatched && isFlowerColorMatched
+    )
   })
 
-  console.log('nativePlantPageData', nativePlantPageData)
-  console.log('nativePlantList', nativePlantList)
+  // console.log('nativePlantPageData', nativePlantPageData)
+  // console.log('nativePlantList', nativePlantList)
   return (
     <>
-      <div className="plant-list-page px-10 py-20 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
+      <div className="relative h-full w-full ">
+        <Header
+          showCircle={true}
+          className={'content-center px-8 pt-20 mb-12'}
+          circleColorClass={'bg-oe-pink-700'}
+          headerClassName={'text-black'}
+        >
+          {pageTitle}
+        </Header>
+        <PortTextWrapper
+          className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
+          value={plantListInformation}
+        ></PortTextWrapper>
+      <ResponsiveImage
+        image={headerImage}
+        alt={pageTitle}
+        disableHover
+        loading="eager"
+        figureClassName="h-full w-full"
+        wrapperClassName="absolute opacity-40 top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+        className="rounded-none object-cover w-full h-full "
+      />
+      </div>
+      <ResponsiveImage
+        image={headerImage}
+        alt={pageTitle}
+        disableHover
+        loading="eager"
+        figureClassName="h-full w-full"
+        wrapperClassName="hidden absolute top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+        className="rounded-none object-cover w-full h-full "
+      />
+      {/* <div className="absolute top-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-gray-900 bp-900:order-2 bp-900:rounded-none"></div> */}
+      <div className="plant-list-page-body relative px-8 py-10 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
         {nativePlantPageData && (
           <>
-            <Header
-              showCircle={true}
-              className={'mb-8 content-center'}
-              headerClassName={'text-black '}
-            >
-              {pageTitle}
-            </Header>
-            <section id={'infoSection'}>
-              <div className="flex flex-col w-full bp-900:flex-row">
-                {' '}
-                {headerImage && (
-                  <ResponsiveImage
-                    image={headerImage}
-                    alt={pageTitle}
-                    wrapperClassName="rounded-md mb-4 bp-900:order-2"
-                  />
-                )}{' '}
-              </div>
+            <section id={'infoSection'} className={`flex flex-col w-full bp-900:flex-row bp-900:justify-start bp-900:align-middle`}>
               <PortTextWrapper
-                className={`order-2 self-start pb-1 mb-4 max-w-[40rem] text-black bp-900:order-1`}
+                className={`order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1`}
                 value={plantListInformation}
               ></PortTextWrapper>
-            </section>
-            <div className="layout-grid">
-              <fieldset className="flex flex-wrap justify-center mb-4 px-8 py-2 max-w-sm rounded-md border-solid border-2 border-oe-green-700 bp-1000:max-w-3xl">
+              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md bg-oe-green-200 border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
                 <legend className="text-left text-oe-green-800 italic">
                   Filter Options
                 </legend>
-                <Select
-                  className="w-1/2 bp-600:w-1/3"
-                  label={`Flowering Month`}
-                  placeholder="Flowering Months"
-                  options={MONTH_OPTIONS}
-                  onChange={handleFloweringMonthChange}
-                />
-                <Select
-                  className="w-1/2 bp-600:w-1/3"
-                  label={`Flower Color`}
-                  placeholder="Flower Color"
-                  options={FLOWER_COLOR_OPTIONS}
-                  onChange={setFlowerColorMatch}
-                />
-                <Select
-                  className="w-1/2 bp-600:w-1/3"
-                  label={`Habitat`}
-                  placeholder="Habitat"
-                  options={HABITAT_OPTIONS}
-                  onChange={setHabitatMatch}
-                />
+                <div className="label-containter">
+                  <label
+                    className=""
+                    id="floweringMonthLabel"
+                    htmlFor="floweringMonth"
+                  >
+                    Flowering Month
+                  </label>
+                  <Select
+                    className="w-full min-w-14 bp-400:min-w-16"
+                    aria-labelledby="floweringMonthLabel"
+                    name="floweringMonth"
+                    instanceId={'floweringMonth'}
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    isMulti
+                    options={MONTH_OPTIONS}
+                    onChange={setFloweringMonthsSelected}
+                  />
+                </div>
+                <div className="label-containter">
+                  <label
+                    className=""
+                    id="flowerColorLabel"
+                    htmlFor="flowerColor"
+                  >
+                    Flower Color
+                  </label>
+                  <Select
+                    className="w-full min-w-14 bp-400:min-w-16"
+                    aria-labelledby="flowerColorLabel"
+                    name="flowerColor"
+                    instanceId={'flowerColor'}
+                    components={animatedComponents}
+                    isMulti
+                    label={`Flower Color`}
+                    options={FLOWER_COLOR_OPTIONS}
+                    onChange={setFlowerColorsSelected}
+                  />
+                </div>
+                <div className="label-containter">
+                  <label className="" id="habitatLabel" htmlFor="habitat">
+                    Habitat
+                  </label>
+                  <Select
+                    aria-labelledby="habitatLabel"
+                    name="habitat"
+                    instanceId={'habitat'}
+                    className="w-full min-w-14 bp-400:min-w-16"
+                    components={animatedComponents}
+                    label={`Habitat`}
+                    isMulti
+                    options={HABITAT_OPTIONS}
+                    onChange={setHabitatsSelected}
+                  />
+                </div>
               </fieldset>
+            </section>
+            <div className="layout-grid">
               {/* </section> */}
               <section id={'plantListSection'}>
                 <div className="flex flex-wrap w-full gap-4 justify-center">

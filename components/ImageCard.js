@@ -15,7 +15,6 @@ const ImageCard = ({
   imagePosition,
   plantName,
 }) => {
-  console.log('image', image)
   const imageComponent = (
     <div className="aspect-w-4 aspect-h-4 w-28">
       <ResponsiveImage
@@ -47,7 +46,7 @@ const ImageCard = ({
         {/* <h2 className='text-base font-display mb-2'>{titleText}</h2> */}
         <PlantName
           className="text-base font-display py-1"
-          topNameClassName="text-base font-display text-left bp-700:text-base"
+          topNameClassName="text-base font-display pb-1 text-left bp-700:text-base"
           plantName={plantName}
           headingLevel={3}
           showBotanicalName={false}

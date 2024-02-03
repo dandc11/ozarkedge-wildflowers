@@ -12,7 +12,7 @@ export const getPathFromDocType = (docytype = '', slug = '') => {
 
 export const getCurrentMonthName = () => {
     const CURRENT_MONTH_NAME = new Date(Date.now()).getMonth() + 1;
-    return MONTH_NAMES_MAP.get(CURRENT_MONTH_NAME);
+    return MONTH_NAMES_MAP.get(CURRENT_MONTH_NAME).fullName;
 };
 
 export const getCurrentMonthNumber = () => {

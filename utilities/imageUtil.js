@@ -135,7 +135,7 @@ export const getImagePaletteTitleColor = (image, paletteType) => {
  * @returns {Object} - The style object representing the background style.
  */
 export const buildBackgroundStyleObject = (bgParamObj) => {
-  const { bgImage, bgImageSmall, bgColor = '', bgBlendMode = 'initial', bgPosition = 'top', bgOpacity} = bgParamObj
+  const { bgImage, bgImageSmall, bgColor, bgBlendMode, bgPosition, bgOpacity} = bgParamObj
   let styleObject = {}
 
   if (bgImage) {

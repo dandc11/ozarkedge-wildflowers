@@ -166,7 +166,17 @@ export default defineType({
       title: 'Flower Color',
       type: 'string',
       options: {
-        list: FLOWER_COLOR_OPTIONS,
+        list: [
+          { title: 'White', value: 'white' },
+          { title: 'Blue', value: 'blue' },
+          { title: 'Purple', value: 'purple' },
+          { title: 'Pink', value: 'pink' },
+          { title: 'Red', value: 'red' },
+          { title: 'Orange', value: 'orange' },
+          { title: 'Yellow', value: 'yellow' },
+          { title: 'Brown', value: 'brown' },
+          { title: 'Green', value: 'green' },
+        ],
         layout: 'radio', // <-- defaults to 'dropdown'
       },
       group: 'metadata',

@@ -20,6 +20,7 @@ export const Image = (props) => {
     imagePosition = '',
     imageWidth = '',
     lightboxIdentifier,
+    loading = 'lazy',
     mode = 'cover',
     preview = '',
     priority = false,
@@ -40,6 +41,7 @@ export const Image = (props) => {
       crop={crop}
       hotspot={hotspot}
       alt={alt}
+      loading={loading}
       width={width}
       height={height}
       mode={mode}
@@ -94,6 +96,7 @@ const ResponsiveImage = ({
   figureClassName = '',
   image = '',
   lightboxIdentifier,
+  loading = 'lazy',
   mobileWidth = '',
   mobileImage = false,
   onClick = () => {},
@@ -143,8 +146,9 @@ const ResponsiveImage = ({
                 { 'hover:scale-95': !disableHover },
                 className,
               )}
-              preview={lqip}
               lightboxIdentifier={lightboxIdentifier}
+              loading={loading}
+              preview={lqip}
               width={width}
             />
 
