@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cx from 'classNames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { React,useEffect, useState } from 'react';
@@ -45,7 +45,7 @@ const Nav = () => {
             <ul
                 className={`nav-links mt-16 hidden group-[.menu-active]/nav:block`}
             >
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -60,9 +60,9 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/">Home</Link>
+                    <Link href="/" className='text-white'>Home</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -77,9 +77,9 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/about">About Ozarkedge</Link>
+                    <Link href="/about"  className="text-white">About Ozarkedge</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -94,9 +94,9 @@ const Nav = () => {
                     image={menuImage.asset}
                     alt={menuImage.alt}
                 /> */}
-                    <Link href="/native-plants">Ozarkedge Native Plants</Link>
+                    <Link href="/native-plants" className="text-white">Ozarkedge Native Plants</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -111,9 +111,9 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/pollinators">Pollinators</Link>
+                    <Link href="/pollinators" className="text-white">Pollinators</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -128,9 +128,9 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/season/spring">Spring</Link>
+                    <Link href="/season/spring" className="text-white">Spring</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -145,9 +145,9 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/season/summer">Summer</Link>
+                    <Link href="/season/summer" className="text-white">Summer</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -162,9 +162,9 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/season/fall">Fall</Link>
+                    <Link href="/season/fall" className="text-white">Fall</Link>
                 </li>
-                <li className={`nav-list-item text-slate-100 pb-2 flex`}>
+                <li className={`nav-list-item pb-2 flex`}>
                     {/* <ResponsiveImage
                     className={`featured-image h-auto rounded-full bp-800:rounded-md bp-1100:px-4 bp-1100:pt-2`}
                     wrapperClasses={`season-img`}
@@ -179,7 +179,7 @@ const Nav = () => {
                     image={mainImage.asset}
                     alt={mainImage.alt}
                 /> */}
-                    <Link href="/season/winter">Winter</Link>
+                    <Link href="/season/winter" className="text-white">Winter</Link>
                 </li>
             </ul>
         </nav>
