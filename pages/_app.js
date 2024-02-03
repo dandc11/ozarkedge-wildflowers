@@ -22,11 +22,17 @@ const PreviewProvider = lazy(() => import('../components/PreviewProvider'))
 function OzarkedgeApp({ Component, pageProps }) {
   const { draftMode, token } = pageProps
   return (
-    <div className={`${PLAYFAIR_DISPLAY.variable} ${RALEWAY.variable}`}>
+    <div>
       <Head>
         <title>Ozarkedge Wildflowers</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      <style jsx global>{`
+        :root {
+          --font-raleway: ${RALEWAY.style.fontFamily};
+          --font-playfair-display: ${PLAYFAIR_DISPLAY.style.fontFamily};
+        }
+      `}</style>
       {draftMode ? (
         <PreviewProvider token={token}>
           <Layout>

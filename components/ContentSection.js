@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import Header from './Header';
-import PortTextWrapper from './PortableText';
+import PortTextWrapper from './PortTextWrapper';
 
 /**
  * ContentSection component - renders a content section containing a Header and (portable) text. Accepts table of contents props for Header.
@@ -19,6 +19,7 @@ const ContentSection = ({
     portableText,
     tocLinks,
     sectionId = '',
+    showCircle = true,
     headerTitle = '',
     lightboxIdentifier = '',
     toggleLightboxCallback = () => {},
@@ -33,7 +34,7 @@ const ContentSection = ({
                         id={sectionId}
                         title={headerTitle}
                         className={``}
-                        showCircle
+                        showCircle={showCircle}
                         tocLinks={tocLinks}
                     >
                         {headerTitle}

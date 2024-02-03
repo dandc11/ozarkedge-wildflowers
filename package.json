@@ -15,7 +15,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@mux/mux-player-react": "^2.2.0",
+    "@mux/mux-player-react": "^2.3.0",
     "@portabletext/react": "^3.0.4",
     "@sanity/client": "^6.8.6",
     "@sanity/image-url": "^1.0.2",
@@ -29,6 +29,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
+    "react-select": "^5.8.0",
     "sanity": "^3.20.1",
     "sanity-image": "^0.1.6",
     "sanity-plugin-iframe-pane": "^2.3.1",

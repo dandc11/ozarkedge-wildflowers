@@ -41,8 +41,8 @@ const Header = (props) => {
     ? `${circleColorClass}`
     : currentSeason.ACCENT_COLOR_CLASS
   const circleClassName = cx(
-    'header-circle absolute font-normal w-16 h-16 rounded-full -z-10 opacity-60 bg-oe-red-200 transition-all ease-in duration-150 -top-[1rem] -left-6 bp-600:left-[-2rem] bp-900:w-20 bp-900:h-20 bp-900:top-[-1.5rem] bp-900:left-[-2.7rem] hover:bg-oe-red-300 hover:opacity-70 hover:scale-110',
-    { 'cursor-pointer': tocLinks != null, 'z-50': tableOfContentsOpen },
+    'header-circle absolute font-normal w-16 h-16 rounded-full -z-10 opacity-60 bg-oe-red-200 transition-all ease-in duration-150 -top-[1rem] -left-6 bp-600:left-[-2rem] bp-900:w-20 bp-900:h-20 bp-900:top-[-1.5rem] bp-900:left-[-2.7rem]',
+    { 'cursor-pointer hover:bg-oe-red-300 hover:opacity-70 hover:scale-110': tocLinks != null, 'z-50': tocLinks != null && tableOfContentsOpen },
     circleColor,
   )
 

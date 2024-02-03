@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MONTH_NAMES } from './constants';
+import { MONTH_NAMES_MAP } from './constants';
 import { SEASONS } from './constants';
 import { DOCTYPE_PATH_PREFIXES } from './constants';
 
@@ -12,7 +12,7 @@ export const getPathFromDocType = (docytype = '', slug = '') => {
 
 export const getCurrentMonthName = () => {
     const CURRENT_MONTH_NAME = new Date(Date.now()).getMonth() + 1;
-    return MONTH_NAMES[CURRENT_MONTH_NAME - 1];
+    return MONTH_NAMES_MAP.get(CURRENT_MONTH_NAME).fullName;
 };
 
 export const getCurrentMonthNumber = () => {
@@ -28,6 +28,10 @@ export const getSeasonFromMonthNumber = (monthNum) => {
             return season;
         }
     }
+};
+
+export const getMonthNameFromMonthNumber = (monthNum) => {
+    return MONTH_NAMES_MAP.get(monthNum);
 };
 
 /**

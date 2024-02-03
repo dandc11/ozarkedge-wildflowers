@@ -1,32 +1,247 @@
+import { useState } from 'react'
 import CustomLink from 'components/CustomLink'
+import Header from 'components/Header'
 import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
+import Button from '../../components/Button'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
+import cx from 'classnames'
 
-import { GET_ALL_NATIVE_PLANTS_QUERY } from '../../lib/queries'
+import {
+  HABITAT_OPTIONS,
+  FLOWER_COLOR_OPTIONS,
+  MONTH_NAMES_MAP,
+  MONTH_OPTIONS,
+  COLORS,
+} from '../../utilities/constants'
+
+import {
+  GET_PLANT_LIST_PAGE_DATA_QUERY,
+  GET_NATIVE_PLANT_LIST_DATA_QUERY,
+} from '../../lib/queries'
 import { readToken } from '../../lib/sanity.api'
 import { getClient } from '../../lib/sanity.client'
+import PortTextWrapper from 'components/PortTextWrapper'
+import ImageCard from 'components/ImageCard'
+import ResponsiveImage from '../../components/ResponsiveImage'
+import Container from '../../components/Container'
 
 export default function PlantListPage(props) {
-  const { nativePlantPageProps = null } = props;
+  const { nativePlantPageProps = null, nativePlantListProps = null } = props
   const [nativePlantPageData] = useLiveQuery(
     nativePlantPageProps,
-    GET_ALL_NATIVE_PLANTS_QUERY
+    GET_PLANT_LIST_PAGE_DATA_QUERY,
   )
+  const [nativePlantList] = useLiveQuery(
+    nativePlantListProps,
+    GET_NATIVE_PLANT_LIST_DATA_QUERY,
+  )
+  const { pageTitle, headerImage, plantListInformation } =
+    nativePlantPageData[0]
+  const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
+  const [habitatsSelected, setHabitatsSelected] = useState('')
+  const [floweringMonthsSelected, setFloweringMonthsSelected] = useState('')
+  const [flowerColorsSelected, setFlowerColorsSelected] = useState('')
+  const animatedComponents = makeAnimated()
+  const handleFloweringMonthChange = (newValue) => {
+    const numberValues = newValue.map(Number)
+    setFloweringMonthsSelected(numberValues)
+  }
+
+  const getFloweringMonthMatched = (plant) => {
+    if (floweringMonthsSelected.length < 1) {
+      return true
+    }
+    const floweringMonths = plant.floweringMonths.map(Number)
+    // create an array from the value key (month numbers) of the floweringMonthsSelected array
+    const floweringMonthNumbers = floweringMonthsSelected.map(
+      (item) => item.value,
+    )
+    const floweringMonthsMatched = floweringMonthNumbers.some((month) =>
+      floweringMonths.includes(month),
+    )
+    return floweringMonthsMatched
+  }
+
+  const getMatched = (selectedItems, plantProperty) => {
+    if (selectedItems.length < 1) {
+      return true
+    }
+
+    const plantValues = Array.isArray(plantProperty)
+      ? plantProperty.map(Number)
+      : [plantProperty]
+    const selectedValues = selectedItems.map((item) => item.value)
+    const isMatched = selectedValues.some((value) =>
+      plantValues.includes(value),
+    )
+
+    return isMatched
+  }
+
+  // Filter the plant list based on the selected options
+  const filteredNativePlantList = nativePlantList.filter((plant) => {
+    const isFloweringMonthMatched = getMatched(
+      floweringMonthsSelected,
+      plant.floweringMonths,
+    )
+    const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
+    const isFlowerColorMatched = getMatched(
+      flowerColorsSelected,
+      plant.flowerColor,
+    )
+    return (
+      isHabitatTypeMatched && isFloweringMonthMatched && isFlowerColorMatched
+    )
+  })
+
+  // console.log('nativePlantPageData', nativePlantPageData)
+  // console.log('nativePlantList', nativePlantList)
   return (
     <>
-      <div>
-        <h1>Ozerkedge Native Plants</h1>
-        {nativePlantPageData &&
-          nativePlantPageData.map((plant, index) => (
-            <CustomLink docType={'nativePlant'} href={plant.slug.current} key={plant.plantName.botanicalName}>
-              <PlantName
-                plantName={plant.plantName}
-                showSeparator={false}
-                showBotanicalName={false}
-              ></PlantName>
-            </CustomLink>
-          ))}
+      <div className="relative h-full w-full ">
+        <Header
+          showCircle={true}
+          className={'content-center px-8 pt-20 mb-12'}
+          circleColorClass={'bg-oe-pink-700'}
+          headerClassName={'text-black'}
+        >
+          {pageTitle}
+        </Header>
+        <PortTextWrapper
+          className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
+          value={plantListInformation}
+        ></PortTextWrapper>
+      <ResponsiveImage
+        image={headerImage}
+        alt={pageTitle}
+        disableHover
+        loading="eager"
+        figureClassName="h-full w-full"
+        wrapperClassName="absolute opacity-40 top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+        className="rounded-none object-cover w-full h-full "
+      />
+      </div>
+      <ResponsiveImage
+        image={headerImage}
+        alt={pageTitle}
+        disableHover
+        loading="eager"
+        figureClassName="h-full w-full"
+        wrapperClassName="hidden absolute top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+        className="rounded-none object-cover w-full h-full "
+      />
+      {/* <div className="absolute top-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-gray-900 bp-900:order-2 bp-900:rounded-none"></div> */}
+      <div className="plant-list-page-body relative px-8 py-10 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
+        {nativePlantPageData && (
+          <>
+            <section id={'infoSection'} className={`flex flex-col w-full bp-900:flex-row bp-900:justify-start bp-900:align-middle`}>
+              <PortTextWrapper
+                className={`order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1`}
+                value={plantListInformation}
+              ></PortTextWrapper>
+              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md bg-oe-green-200 border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
+                <legend className="text-left text-oe-green-800 italic">
+                  Filter Options
+                </legend>
+                <div className="label-containter">
+                  <label
+                    className=""
+                    id="floweringMonthLabel"
+                    htmlFor="floweringMonth"
+                  >
+                    Flowering Month
+                  </label>
+                  <Select
+                    className="w-full min-w-14 bp-400:min-w-16"
+                    aria-labelledby="floweringMonthLabel"
+                    name="floweringMonth"
+                    instanceId={'floweringMonth'}
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    isMulti
+                    options={MONTH_OPTIONS}
+                    onChange={setFloweringMonthsSelected}
+                  />
+                </div>
+                <div className="label-containter">
+                  <label
+                    className=""
+                    id="flowerColorLabel"
+                    htmlFor="flowerColor"
+                  >
+                    Flower Color
+                  </label>
+                  <Select
+                    className="w-full min-w-14 bp-400:min-w-16"
+                    aria-labelledby="flowerColorLabel"
+                    name="flowerColor"
+                    instanceId={'flowerColor'}
+                    components={animatedComponents}
+                    isMulti
+                    label={`Flower Color`}
+                    options={FLOWER_COLOR_OPTIONS}
+                    onChange={setFlowerColorsSelected}
+                  />
+                </div>
+                <div className="label-containter">
+                  <label className="" id="habitatLabel" htmlFor="habitat">
+                    Habitat
+                  </label>
+                  <Select
+                    aria-labelledby="habitatLabel"
+                    name="habitat"
+                    instanceId={'habitat'}
+                    className="w-full min-w-14 bp-400:min-w-16"
+                    components={animatedComponents}
+                    label={`Habitat`}
+                    isMulti
+                    options={HABITAT_OPTIONS}
+                    onChange={setHabitatsSelected}
+                  />
+                </div>
+              </fieldset>
+            </section>
+            <div className="layout-grid">
+              {/* </section> */}
+              <section id={'plantListSection'}>
+                <div className="flex flex-wrap w-full gap-4 justify-center">
+                  {filteredNativePlantList
+                    .slice(0, maxItemsDisplayed)
+                    .map((plant, index) => (
+                      <CustomLink
+                        docType={'nativePlant'}
+                        href={plant.slug.current}
+                        key={plant.plantName.botanicalName}
+                      >
+                        <ImageCard
+                          className="max-w-xs bg-gradient-to-br from-oe-green-yellow-400  to-oe-green-yellow-500 "
+                          image={plant.previewImage}
+                          plantName={plant.plantName}
+                          floweringMonths={plant.floweringMonths}
+                          flowerColor={plant.flowerColor}
+                          habitatType={plant.habitatType}
+                          imagePosition="left"
+                        />
+                      </CustomLink>
+                    ))}
+                </div>
+                {maxItemsDisplayed < nativePlantList.length && (
+                  <Button
+                    className={`btn-secondary mt-8 bp-900:mb-6`}
+                    callBack={() =>
+                      setMaxItemsDisplayed(maxItemsDisplayed + 20)
+                    }
+                  >
+                    Show More
+                  </Button>
+                )}
+              </section>
+            </div>
+          </>
+        )}
       </div>
     </>
   )
@@ -34,12 +249,18 @@ export default function PlantListPage(props) {
 
 export const getStaticProps = async ({ draftMode = false }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const nativePlantPageProps = await client.fetch(GET_ALL_NATIVE_PLANTS_QUERY)
+  const nativePlantPageProps = await client.fetch(
+    GET_PLANT_LIST_PAGE_DATA_QUERY,
+  )
+  const nativePlantListProps = await client.fetch(
+    GET_NATIVE_PLANT_LIST_DATA_QUERY,
+  )
   return {
     props: {
       draftMode,
       token: draftMode ? readToken : '',
       nativePlantPageProps,
+      nativePlantListProps,
     },
   }
 }
