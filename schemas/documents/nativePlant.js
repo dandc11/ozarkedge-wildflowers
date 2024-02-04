@@ -97,7 +97,7 @@ export default defineType({
         (Rule) => Rule.min(40),
       ],
       description:
-        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now".',
+        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now". Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."', 
       group: 'metadata',
     }),
     defineField({
@@ -164,7 +164,8 @@ export default defineType({
     defineField({
       name: 'flowerColor',
       title: 'Flower Color',
-      type: 'string',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
       options: {
         list: [
           { title: 'White', value: 'white' },
@@ -177,7 +178,6 @@ export default defineType({
           { title: 'Brown', value: 'brown' },
           { title: 'Green', value: 'green' },
         ],
-        layout: 'radio', // <-- defaults to 'dropdown'
       },
       group: 'metadata',
     }),
@@ -230,9 +230,16 @@ export default defineType({
     defineField({
       name: 'habitatType',
       title: 'Habitat type',
-      type: 'string',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
       options: {
-        list: HABITAT_OPTIONS
+        list: [
+          { title: 'Glade', value: 'Glade' },
+          { title: 'Woodland', value: 'Woodland' },
+          { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
+          { title: 'Savannah', value: 'Savannah' },
+          { title: 'Wetland', value: 'Wetland' },
+        ]
       },
       group: 'growingNearby',
     }),

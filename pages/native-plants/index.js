@@ -24,7 +24,7 @@ import {
 import { readToken } from '../../lib/sanity.api'
 import { getClient } from '../../lib/sanity.client'
 import PortTextWrapper from 'components/PortTextWrapper'
-import ImageCard from 'components/ImageCard'
+import PlantImageCard from 'components/PlantImageCard'
 import ResponsiveImage from '../../components/ResponsiveImage'
 import Container from '../../components/Container'
 
@@ -50,39 +50,39 @@ export default function PlantListPage(props) {
     setFloweringMonthsSelected(numberValues)
   }
 
-  const getFloweringMonthMatched = (plant) => {
-    if (floweringMonthsSelected.length < 1) {
-      return true
-    }
-    const floweringMonths = plant.floweringMonths.map(Number)
-    // create an array from the value key (month numbers) of the floweringMonthsSelected array
-    const floweringMonthNumbers = floweringMonthsSelected.map(
-      (item) => item.value,
-    )
-    const floweringMonthsMatched = floweringMonthNumbers.some((month) =>
-      floweringMonths.includes(month),
-    )
-    return floweringMonthsMatched
-  }
-
   const getMatched = (selectedItems, plantProperty) => {
     if (selectedItems.length < 1) {
       return true
     }
+console.log('selectedItems', selectedItems)
+console.log('plantProp ', plantProperty)
 
-    const plantValues = Array.isArray(plantProperty)
-      ? plantProperty.map(Number)
-      : [plantProperty]
+    let plantValues;
+    if (Array.isArray(plantProperty)) {
+      if (plantProperty.every((item) => typeof item === 'number')) {
+        plantValues = plantProperty.map(Number);
+      } else {
+        plantValues = plantProperty.map(String);
+      }
+    } else if (typeof plantProperty === 'number') {
+      plantValues = [plantProperty];
+    } else {
+      plantValues = [plantProperty];
+    }
+      console.log('plantValues', plantValues)
     const selectedValues = selectedItems.map((item) => item.value)
+    console.log('selectedValues', selectedValues)
     const isMatched = selectedValues.some((value) =>
       plantValues.includes(value),
     )
+    console.log('isMatched', isMatched)
 
     return isMatched
   }
 
   // Filter the plant list based on the selected options
   const filteredNativePlantList = nativePlantList.filter((plant) => {
+    console.log('plant name', plant.plantName.botanicalName)
     const isFloweringMonthMatched = getMatched(
       floweringMonthsSelected,
       plant.floweringMonths,
@@ -98,7 +98,7 @@ export default function PlantListPage(props) {
   })
 
   // console.log('nativePlantPageData', nativePlantPageData)
-  // console.log('nativePlantList', nativePlantList)
+  console.log('nativePlantList', nativePlantList)
   return (
     <>
       <div className="relative h-full w-full ">
@@ -142,7 +142,7 @@ export default function PlantListPage(props) {
                 className={`order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1`}
                 value={plantListInformation}
               ></PortTextWrapper>
-              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md bg-oe-green-200 border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
+              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
                 <legend className="text-left text-oe-green-800 italic">
                   Filter Options
                 </legend>
@@ -216,8 +216,8 @@ export default function PlantListPage(props) {
                         href={plant.slug.current}
                         key={plant.plantName.botanicalName}
                       >
-                        <ImageCard
-                          className="max-w-xs bg-gradient-to-br from-oe-green-yellow-400  to-oe-green-yellow-500 "
+                        <PlantImageCard
+                          className="max-w-xs bg-oe-green-200"
                           image={plant.previewImage}
                           plantName={plant.plantName}
                           floweringMonths={plant.floweringMonths}

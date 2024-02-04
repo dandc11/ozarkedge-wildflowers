@@ -5,7 +5,7 @@ import PlantName from './PlantName'
 import { MONTH_NAMES_MAP } from '../utilities/constants'
 import cx from 'classnames'
 
-const ImageCard = ({
+const PlantImageCard = ({
   className = '',
   image,
   titleText,
@@ -60,7 +60,7 @@ const ImageCard = ({
         </p>
         <p className="text-sm font-body">
           <span className="uppercase text-xs">habitat: </span>{' '}
-          {habitatType}
+          {Array.isArray(habitatType) ? habitatType.join(', ') : habitatType}
         </p>
         </div>
       </div>
@@ -69,4 +69,4 @@ const ImageCard = ({
   )
 }
 
-export default ImageCard
+export default PlantImageCard
