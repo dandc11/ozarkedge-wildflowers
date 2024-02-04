@@ -164,7 +164,8 @@ export default defineType({
     defineField({
       name: 'flowerColor',
       title: 'Flower Color',
-      type: 'string',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
       options: {
         list: [
           { title: 'White', value: 'white' },
@@ -177,7 +178,6 @@ export default defineType({
           { title: 'Brown', value: 'brown' },
           { title: 'Green', value: 'green' },
         ],
-        layout: 'radio', // <-- defaults to 'dropdown'
       },
       group: 'metadata',
     }),
@@ -230,9 +230,16 @@ export default defineType({
     defineField({
       name: 'habitatType',
       title: 'Habitat type',
-      type: 'string',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
       options: {
-        list: HABITAT_OPTIONS
+        list: [
+          { title: 'Glade', value: 'Glade' },
+          { title: 'Woodland', value: 'Woodland' },
+          { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
+          { title: 'Savannah', value: 'Savannah' },
+          { title: 'Wetland', value: 'Wetland' },
+        ]
       },
       group: 'growingNearby',
     }),
