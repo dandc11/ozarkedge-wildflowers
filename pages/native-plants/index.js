@@ -142,7 +142,7 @@ export default function PlantListPage(props) {
                 className={`order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1`}
                 value={plantListInformation}
               ></PortTextWrapper>
-              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md bg-oe-green-200 border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
+              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
                 <legend className="text-left text-oe-green-800 italic">
                   Filter Options
                 </legend>
@@ -217,7 +217,7 @@ export default function PlantListPage(props) {
                         key={plant.plantName.botanicalName}
                       >
                         <ImageCard
-                          className="max-w-xs bg-gradient-to-br from-oe-green-yellow-400  to-oe-green-yellow-500 "
+                          className="max-w-xs bg-oe-green-200"
                           image={plant.previewImage}
                           plantName={plant.plantName}
                           floweringMonths={plant.floweringMonths}
