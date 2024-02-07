@@ -67,7 +67,7 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
         )}
       </div>
       <div
-        className={`flex flex-col justify-center bp-900:py-8 transition-all duration-500 ease-in-out`}
+        className={`flex flex-col justify-center bp-900:py-8 transition-all duration-500 ease-in-out bp-1000:justify-start bp-1000:mt-[.5rem]`}
       >
         <Button
           className={`bg-transparent w-auto self-center text-lg font-light not-italic uppercase antialiased flex justify-center items-center gap-2 mb-6 bp-1000:hidden`}
@@ -236,17 +236,14 @@ const NativePlantPage = (props) => {
               tocLinks={sectionLinks}
               lightboxImgClass={`w-12`}
             />
-            {/* <div className="max-w-md bp-1400:self-end bp-1400:pt-4 bp-1400:ml-4 bp-1600:ml-14"></div> */}
           </header>
           <main id="plantPageMainContent" className="w-full">
             <div className={`relative plant-page pb-20`}>
-              {images && (
+              {fullImageArray && (
                 <div
                   id={`images`}
                   className="flex flex-col items-center right-sidebar bp-1400:mt-14"
                 >
-                  {images && (
-                    // lightbox opens upon clicking any page image
                     <LightboxGallery
                       className={`px-4`}
                       cols={3}
@@ -259,7 +256,6 @@ const NativePlantPage = (props) => {
                       showImageGrid={false}
                       startingSlideIndex={startingSlideIndex}
                     />
-                  )}
                   <div className="relative py-6 px-8 bp-1400:sticky top-10 flex flex-col items-center">
                     <Button
                       className={`btn-secondary my-8 max-w-[14rem]`}
