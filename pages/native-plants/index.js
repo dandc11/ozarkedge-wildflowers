@@ -104,7 +104,7 @@ console.log('plantProp ', plantProperty)
       <div className="relative h-full w-full ">
         <Header
           showCircle={true}
-          className={'content-center px-8 pt-20 mb-12'}
+          className={'content-center px-10 pt-20 mb-12 bp-900:pl-20'}
           circleColorClass={'bg-oe-pink-700'}
           headerClassName={'text-black'}
         >

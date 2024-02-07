@@ -53,7 +53,7 @@ export default function HomePage(props) {
               key={id}
             >
               <div
-                className={`-z-10 w-full h-[100svh] bg-center bg-cover bp-900:absolute bp-900:top-0 bp-900:left-0 bp-900:bg-cover bp-900:bg-scroll bp-1100:fixed `}
+                className={`-z-10 w-full h-full bg-center bg-cover bp-900:absolute bp-900:top-0 bp-900:left-0 bp-900:bg-cover bp-900:bg-scroll bp-1100:fixed `}
                 id={`landingImageContainer`}
                 style={bgStyle}
               ></div>

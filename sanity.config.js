@@ -56,7 +56,8 @@ export default defineConfig({
     deskTool({ defaultDocumentNode }),
     visionTool({ defaultApiVersion: apiVersion }),
     media(),
-    muxInput()
+    muxInput({mp4_support: 'standard'})
+
   ],
   form: {
     // Don't use this plugin when selecting files only (but allow all other enabled asset sources)
