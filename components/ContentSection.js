@@ -10,12 +10,17 @@ import PortTextWrapper from './PortTextWrapper';
  * @param {array} tocLinks - array of objects with link and text for table of contents
  * @param {string} sectionId - id of section (for section ID and ToC)
  * @param {string} headerTitle - title of section (for display)
+ * @param {string} className - class name for section
+ * @param {string} headerClassName - class name for header
+ * @param {string} bodyClassName - class name for body
  * @param {string} lightboxIdentifier - identifier for lightbox.js
  * @param {function} toggleLightboxCallback - function to toggle lightbox
  * @returns {JSX} - returns jsx of content section
  */
 const ContentSection = ({
     className = '',
+    headerClassName = '',
+    bodyClassName = '',
     portableText,
     tocLinks,
     sectionId = '',
@@ -33,7 +38,7 @@ const ContentSection = ({
                     <Header
                         id={sectionId}
                         title={headerTitle}
-                        className={``}
+                        className={cx('', headerClassName)}
                         showCircle={showCircle}
                         tocLinks={tocLinks}
                     >
@@ -43,7 +48,7 @@ const ContentSection = ({
                         <PortTextWrapper
                             lightboxCallback={toggleLightboxCallback}
                             lightboxIdentifier={lightboxIdentifier}
-                            className={className}
+                            className={cx('', bodyClassName)}
                             value={portableText}
                         ></PortTextWrapper>
                         <br></br>

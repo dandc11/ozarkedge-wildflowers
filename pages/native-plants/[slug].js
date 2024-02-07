@@ -212,8 +212,8 @@ const NativePlantPage = (props) => {
           {(previewImage || bannerImage) && (
             <div id="bannerImage" className="relative">
               <ResponsiveImage
-                className={`relative w-full h-full object-cover rounded-none cursor-auto bp-1200:object-center bp-1200:h-full`}
-                figureClassName={`h-[50vh] bp-900:h-[60vh] bp-1600:h-[80vh]`}
+                className={`relative w-full h-full object-cover rounded-none cursor-auto bp-1200:object-[50%_35%] bp-1200:h-full`}
+                figureClassName={`h-[36vh] bp-700:h-[60vh] bp-1600:h-[80vh]`}
                 image={bannerImage}
                 mobileImage={previewImage}
                 breakpoint={'500'}
@@ -283,6 +283,7 @@ const NativePlantPage = (props) => {
               <article className="content-well">
                 <ContentSection
                   className={`z-[10]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={plantName.nameInformation}
                   tocLinks={sectionLinks}
                   sectionId={`plantName`}
@@ -292,6 +293,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[9]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={bloomText}
                   tocLinks={sectionLinks}
                   sectionId={`bloomText`}
@@ -301,6 +303,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[8]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={description}
                   tocLinks={sectionLinks}
                   sectionId={`description`}
@@ -310,6 +313,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[7]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={pollinators}
                   tocLinks={sectionLinks}
                   sectionId={`pollinators`}
@@ -319,6 +323,7 @@ const NativePlantPage = (props) => {
                 />
                 <GrowingNearby
                   className={`z-[6]`}
+                  headerClassName={`bp-900:mb-8`}
                   growingNearbyPlantImages={growingNearbyPlantList}
                   growingNearbyText={growingNearbyText}
                   sectionId={`growingNearby`}
@@ -328,6 +333,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[5]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={habitat}
                   tocLinks={sectionLinks}
                   sectionId={`habitat`}
@@ -337,6 +343,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[4]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={conservationStatus}
                   tocLinks={sectionLinks}
                   sectionId={`conservationStatus`}
@@ -346,6 +353,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[3]`}
+                  headerClassName={`bp-900:mb-8`}
                   portableText={tidbits}
                   tocLinks={sectionLinks}
                   sectionId={`tidbits`}

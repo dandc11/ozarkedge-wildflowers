@@ -33,6 +33,7 @@ const LightboxGallery = ({
   onOpenCallback,
   onCloseCallback,
   showImageGrid = true,
+  showCaptions = true,
   startingSlideIndex = 0,
   useNextImage = false,
 }) => {
@@ -63,6 +64,7 @@ const LightboxGallery = ({
         src: urlFor(image.asset).width(100).url(),
         original: urlFor(image.asset).fit('max').width(2000).url(),
         alt: image.alt,
+        caption: showCaptions ? image.caption : '',
       }
     })
   } 
