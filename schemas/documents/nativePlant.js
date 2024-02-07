@@ -144,16 +144,6 @@ export default defineType({
       group: 'description',
     }),
     defineField({
-      name: 'pollinatorImages',
-      type: 'array',
-      title: 'Pollinator Image Gallery',
-      description:
-        "Upload or select images of pollinators associated with ths plant to appear in the pollinator section on this plant's page.",
-      of: [defineArrayMember({ type: 'figure' })],
-      // options: { sources: [AssetSource] },
-      group: 'description',
-    }),
-    defineField({
       name: 'description',
       title: 'Plant Description',
       description:

@@ -35,7 +35,7 @@ const PortTextFigure = ({
 
   const widthClass = portTextProps.value?.imageWidth
     ? widths[portTextProps.value?.imageWidth]
-    : 'w-full bp-600:w-1/2'
+    : 'w-full bp-600:w-2/3'
   const positions = {
     left: `my-5 bp-600:float-left bp-600:mr-4 bp-600:my-0 ${
       portTextProps.value?.imageWidth
