@@ -1,6 +1,8 @@
 import { GiFlowerEmblem } from 'react-icons/gi'
 import { defineArrayMember, defineType, defineField } from 'sanity'
-import { FLOWER_COLOR_OPTIONS, HABITAT_OPTIONS } from '../../utilities/constants'
+import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
+import { NativePlantSlugField } from '../components/NativePlantSlugField'
+
 
 // import AssetSource from 'part:sanity-plugin-media-library/asset-source';
 
@@ -11,15 +13,15 @@ export default defineType({
   type: 'document',
   groups: [
     {
-      name: 'name',
-      title: 'Plant Name',
-      despcription: 'Add the common and botanical names for this plant.',
-    },
-    {
       name: 'metadata',
       title: 'Plant Metadata',
       despcription:
         'Add metadescription, tags and a thumbnail image for this plant.',
+    },
+    {
+      name: 'name',
+      title: 'Plant Name',
+      despcription: 'Add the common and botanical names for this plant.',
     },
     {
       name: 'description',
@@ -38,15 +40,19 @@ export default defineType({
     select: {
       title: 'plantName.botanicalName',
       media: 'previewImage', // Use the previewImage field as thumbnail
+      commonName: 'plantName.commonName',
+      botanicalName: 'plantName.botanicalName',
     },
+    prepare(selection) {
+      const {commonName, botanicalName} = selection;
+      const slug = `${commonName}-${botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200);
+      return {
+        ...selection,
+        subtitle: `/${slug}`
+      }
+    }
   },
   fields: [
-    defineField({
-      name: 'plantName',
-      title: 'Name',
-      type: 'plantName',
-      group: 'name',
-    }),
     defineField({
       name: 'bannerImage',
       title: 'Banner Image',
@@ -60,56 +66,18 @@ export default defineType({
       group: 'name',
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      description:
-        'A short, hyphenated version of the plant name for use in URLs. Generated slugs will have the format of common-name-botanical-name. Keep in mind that changing the slug of a published page will break any existing links to it both on the site and elswewhere.',
-      type: 'slug',
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: (doc) =>
-          `${doc.plantName.commonName}-${doc.plantName.botanicalName}`,
-        validation: (Rule) => [Rule.unique()],
-        slugify: (input) =>
-          input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
-      },
-      group: 'metadata',
+      name: 'plantName',
+      title: 'Name',
+      type: 'plantName',
+      group: 'name',
     }),
     defineField({
-      name: 'plantIdentificationTags',
-      type: 'array',
-      title: 'Plant Identification Tags',
+      name: 'lede',
+      title: 'Plant Lede',
       description:
-        'Add one or more features by which to identify this plant. Keep it short (hit Enter for each one). ',
-      of: [defineArrayMember({ type: 'string' })],
-      options: {
-        layout: 'tags',
-      },
-      group: 'metadata',
-    }),
-    defineField({
-      name: 'metaDescription',
-      type: 'text',
-      title: 'Meta-description',
-      validation: [
-        (Rule) => Rule.required(),
-        (Rule) => Rule.max(200),
-        (Rule) => Rule.min(40),
-      ],
-      description:
-        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now". Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."', 
-      group: 'metadata',
-    }),
-    defineField({
-      name: 'previewImage',
-      title: 'Plant Thumbnail Image',
-      description:
-        'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
-      type: 'mainImage',
-      options: {
-        hotspot: true, // <-- Defaults to false
-      },
-      group: 'metadata',
+        "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
+      type: 'pageBodyPortableText',
+      group: 'description',
     }),
     defineField({
       name: 'images',
@@ -122,17 +90,17 @@ export default defineType({
       group: 'description',
     }),
     defineField({
-      name: 'lede',
-      title: 'Plant Lede',
-      description:
-        "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
+      name: 'bloomText',
+      title: 'Bloom description',
+      description: "Add any information about the plant's bloom.",
       type: 'pageBodyPortableText',
       group: 'description',
     }),
     defineField({
-      name: 'bloomText',
-      title: 'Bloom description',
-      description: "Add any information about the plant's bloom.",
+      name: 'description',
+      title: 'Plant Description',
+      description:
+        "Add a plant description to serve as the main text content on this plant's page. Images and other content can also be embedded.",
       type: 'pageBodyPortableText',
       group: 'description',
     }),
@@ -144,12 +112,85 @@ export default defineType({
       group: 'description',
     }),
     defineField({
-      name: 'description',
-      title: 'Plant Description',
+      name: 'growingNearbyPlantList',
+      title: 'Native plants growing nearby',
+      type: 'array',
       description:
-        "Add a plant description to serve as the main text content on this plant's page. Images and other content can also be embedded.",
+        'Select or upload image(s) of plants growing near this one. For captions, provide the name of the plant. If this plant has its own page, provide a link to it. ',
+      of: [
+        defineArrayMember({
+          type: 'figure',
+        }),
+      ],
+      group: 'growingNearby',
+    }),
+    defineField({
+      name: 'growingNearbyText',
+      title: "What's growing nearby?",
+      description:
+        "Add any additional information about what's growing near this plant.",
+      type: 'pageBodyPortableText',
+      group: 'growingNearby',
+    }),
+    defineField({
+      name: 'habitatType',
+      title: 'Habitat type',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
+      options: {
+        list: [
+          { title: 'Glade', value: 'Glade' },
+          { title: 'Woodland', value: 'Woodland' },
+          { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
+          { title: 'Savannah', value: 'Savannah' },
+          { title: 'Wetland', value: 'Wetland' },
+        ]
+      },
+      group: 'growingNearby',
+    }),
+    defineField({
+      name: 'habitat',
+      title: 'Habitat description',
+      type: 'pageBodyPortableText',
+      group: 'growingNearby',
+    }),
+    defineField({
+      name: 'conservationStatus',
+      title: 'Conservation Status',
+      description: "Add any information about the plant's conservation status.",
       type: 'pageBodyPortableText',
       group: 'description',
+    }),
+    defineField({
+      name: 'tidbits',
+      title: 'Interesting Tidbits',
+      type: 'pageBodyPortableText',
+      group: 'description',
+    }),
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      readOnly: true, // This makes the field not editable
+      description:
+      'A short, hyphenated version of the plant name for use in URLs. For native plant pages, these will be generated in the format: /native-plants/{common-name}-{botanical-name}. Slugs are not to be changed once generated, since changing the slug of a published page will break existing links to it both on the site and elswewhere.',
+      inputComponent: NativePlantSlugField, 
+      options: {
+        maxLength: 96,
+      },
+      validation: Rule => Rule.required(),
+    },
+    defineField({
+      name: 'plantIdentificationTags',
+      type: 'array',
+      title: 'Plant Identification Tags',
+      description:
+        'Add one or more features by which to identify this plant. Keep it short (hit Enter for each one). ',
+      of: [defineArrayMember({ type: 'string' })],
+      options: {
+        layout: 'tags',
+      },
+      group: 'metadata',
     }),
     defineField({
       name: 'flowerColor',
@@ -168,6 +209,22 @@ export default defineType({
           { title: 'Brown', value: 'brown' },
           { title: 'Green', value: 'green' },
         ],
+      },
+      group: 'metadata',
+    }),
+    defineField({
+      name: 'floweringSeason',
+      title: 'Flowering Season',
+      description:
+        'Choose a season to associate this plant with. This will determine the season page it appears on.',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Spring', value: 'spring' },
+          { title: 'Summer', value: 'summer' },
+          { title: 'Fall', value: 'fall' },
+          { title: 'Winter', value: 'winter' },
+        ], // <-- predefined values
       },
       group: 'metadata',
     }),
@@ -195,76 +252,31 @@ export default defineType({
       group: 'metadata',
     }),
     defineField({
-      name: 'floweringSeason',
-      title: 'Flowering Season',
-      description:
-        'Choose a season to associate this plant with. This will determine the season page it appears on.',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Spring', value: 'spring' },
-          { title: 'Summer', value: 'summer' },
-          { title: 'Fall', value: 'fall' },
-          { title: 'Winter', value: 'winter' },
-        ], // <-- predefined values
+      name: 'metaDescription',
+      type: 'text',
+      title: 'Meta-description',
+      components: {
+        input: TextInputWithCharCount,
       },
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.max(200),
+        (Rule) => Rule.min(40),
+      ],
+      description:
+        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now". Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."', 
       group: 'metadata',
     }),
     defineField({
-      name: 'conservationStatus',
-      title: 'Conservation Status',
-      description: "Add any information about the plant's conservation status.",
-      type: 'pageBodyPortableText',
-      group: 'description',
-    }),
-    defineField({
-      name: 'habitatType',
-      title: 'Habitat type',
-      type: 'array',
-      of: [defineArrayMember({ type: 'string' })],
+      name: 'previewImage',
+      title: 'Plant Thumbnail Image',
+      description:
+        'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
+      type: 'mainImage',
       options: {
-        list: [
-          { title: 'Glade', value: 'Glade' },
-          { title: 'Woodland', value: 'Woodland' },
-          { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
-          { title: 'Savannah', value: 'Savannah' },
-          { title: 'Wetland', value: 'Wetland' },
-        ]
+        hotspot: true, // <-- Defaults to false
       },
-      group: 'growingNearby',
-    }),
-    defineField({
-      name: 'habitat',
-      title: 'Habitat description',
-      type: 'pageBodyPortableText',
-      group: 'growingNearby',
-    }),
-    defineField({
-      name: 'growingNearbyPlantList',
-      title: 'Native plants growing nearby',
-      type: 'array',
-      description:
-        'Select or upload image(s) of plants growing near this one. For captions, provide the name of the plant. If this plant has its own page, provide a link to it. ',
-      of: [
-        defineArrayMember({
-          type: 'figure',
-        }),
-      ],
-      group: 'growingNearby',
-    }),
-    defineField({
-      name: 'growingNearbyText',
-      title: "What's growing nearby?",
-      description:
-        "Add any additional information about what's growing near this plant.",
-      type: 'pageBodyPortableText',
-      group: 'growingNearby',
-    }),
-    defineField({
-      name: 'tidbits',
-      title: 'Interesting Tidbits',
-      type: 'pageBodyPortableText',
-      group: 'description',
+      group: 'metadata',
     }),
   ],
 })
