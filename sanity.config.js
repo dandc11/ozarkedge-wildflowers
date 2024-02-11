@@ -84,11 +84,12 @@ export default defineConfig({
     '--brand-primary': COLORS['oe-blue-green-dark-200'],
 
     // Default button
-    '--default-button-color': '#666',
+    '--default-button-color': '#79bfb0',
     '--default-button-primary-color': COLORS['oe-blue-green-dark-200'],
     '--default-button-success-color': COLORS['oe-green-500'],
     '--default-button-warning-color': COLORS['oe-green-yellow-500'],
     '--default-button-danger-color': COLORS['oe-red-500'],
+    '--card-bg-color': COLORS['oe-green-yellow-100'],
 
     /* State */
     '--state-info-color': COLORS['oe-blue-green-dark-200'],

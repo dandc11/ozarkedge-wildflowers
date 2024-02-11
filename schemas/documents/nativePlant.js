@@ -1,7 +1,6 @@
 import { GiFlowerEmblem } from 'react-icons/gi'
 import { defineArrayMember, defineType, defineField } from 'sanity'
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
-import { NativePlantSlugField } from '../components/NativePlantSlugField'
 
 
 // import AssetSource from 'part:sanity-plugin-media-library/asset-source';
@@ -171,12 +170,21 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      readOnly: true, // This makes the field not editable
-      description:
-      'A short, hyphenated version of the plant name for use in URLs. For native plant pages, these will be generated in the format: /native-plants/{common-name}-{botanical-name}. Slugs are not to be changed once generated, since changing the slug of a published page will break existing links to it both on the site and elswewhere.',
-      inputComponent: NativePlantSlugField, 
+      readOnly: true,
       options: {
-        maxLength: 96,
+        source: doc => `${doc.plantName.commonName}-${doc.plantName.botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+      },
+      preview: {
+        select: {
+          title: 'plantName.commonName',
+          subtitle: 'plantName.botanicalName',
+        },
+        prepare(selection) {
+          const {title, subtitle} = selection
+          return {
+            title: `${title}-${subtitle}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+          }
+        },
       },
       validation: Rule => Rule.required(),
     },
