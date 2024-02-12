@@ -54,35 +54,29 @@ export default function PlantListPage(props) {
     if (selectedItems.length < 1) {
       return true
     }
-console.log('selectedItems', selectedItems)
-console.log('plantProp ', plantProperty)
 
-    let plantValues;
+    let plantValues
     if (Array.isArray(plantProperty)) {
       if (plantProperty.every((item) => typeof item === 'number')) {
-        plantValues = plantProperty.map(Number);
+        plantValues = plantProperty.map(Number)
       } else {
-        plantValues = plantProperty.map(String);
+        plantValues = plantProperty.map(String)
       }
     } else if (typeof plantProperty === 'number') {
-      plantValues = [plantProperty];
+      plantValues = [plantProperty]
     } else {
-      plantValues = [plantProperty];
+      plantValues = [plantProperty]
     }
-      console.log('plantValues', plantValues)
     const selectedValues = selectedItems.map((item) => item.value)
-    console.log('selectedValues', selectedValues)
     const isMatched = selectedValues.some((value) =>
       plantValues.includes(value),
     )
-    console.log('isMatched', isMatched)
 
     return isMatched
   }
 
   // Filter the plant list based on the selected options
   const filteredNativePlantList = nativePlantList.filter((plant) => {
-    console.log('plant name', plant.plantName.botanicalName)
     const isFloweringMonthMatched = getMatched(
       floweringMonthsSelected,
       plant.floweringMonths,
@@ -97,8 +91,6 @@ console.log('plantProp ', plantProperty)
     )
   })
 
-  // console.log('nativePlantPageData', nativePlantPageData)
-  console.log('nativePlantList', nativePlantList)
   return (
     <>
       <div className="relative h-full w-full ">
@@ -114,15 +106,15 @@ console.log('plantProp ', plantProperty)
           className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
           value={plantListInformation}
         ></PortTextWrapper>
-      <ResponsiveImage
-        image={headerImage}
-        alt={pageTitle}
-        disableHover
-        loading="eager"
-        figureClassName="h-full w-full"
-        wrapperClassName="absolute opacity-40 top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
-        className="rounded-none object-cover w-full h-full "
-      />
+        <ResponsiveImage
+          image={headerImage}
+          alt={pageTitle}
+          disableHover
+          loading="eager"
+          figureClassName="h-full w-full"
+          wrapperClassName="absolute opacity-40 top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+          className="rounded-none object-cover w-full h-full "
+        />
       </div>
       <ResponsiveImage
         image={headerImage}
@@ -134,15 +126,18 @@ console.log('plantProp ', plantProperty)
         className="rounded-none object-cover w-full h-full "
       />
       {/* <div className="absolute top-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-gray-900 bp-900:order-2 bp-900:rounded-none"></div> */}
-      <div className="plant-list-page-body relative px-8 py-10 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
+      <div className="plant-list-layout-grid relative px-8 py-10 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
         {nativePlantPageData && (
           <>
-            <section id={'infoSection'} className={`flex flex-col w-full bp-900:flex-row bp-900:justify-start bp-900:align-middle`}>
+            <section
+              id={'infoSection'}
+              className={`flex flex-col w-full bp-800:items-start bp-800:sticky`}
+            >
               <PortTextWrapper
-                className={`order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1`}
+                className={`description order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1 bp-900:self-start`}
                 value={plantListInformation}
               ></PortTextWrapper>
-              <fieldset className="order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:ml-14 bp-900:mr-0">
+              <fieldset className="filters order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:mx-0">
                 <legend className="text-left text-oe-green-800 italic">
                   Filter Options
                 </legend>
@@ -204,42 +199,37 @@ console.log('plantProp ', plantProperty)
                 </div>
               </fieldset>
             </section>
-            <div className="layout-grid">
-              {/* </section> */}
-              <section id={'plantListSection'}>
-                <div className="flex flex-wrap w-full gap-4 justify-center">
-                  {filteredNativePlantList
-                    .slice(0, maxItemsDisplayed)
-                    .map((plant, index) => (
-                      <CustomLink
-                        docType={'nativePlant'}
-                        href={plant.slug.current}
-                        key={plant.plantName.botanicalName}
-                      >
-                        <PlantImageCard
-                          className="max-w-xs bg-oe-green-200"
-                          image={plant.previewImage}
-                          plantName={plant.plantName}
-                          floweringMonths={plant.floweringMonths}
-                          flowerColor={plant.flowerColor}
-                          habitatType={plant.habitatType}
-                          imagePosition="left"
-                        />
-                      </CustomLink>
-                    ))}
-                </div>
-                {maxItemsDisplayed < nativePlantList.length && (
-                  <Button
-                    className={`btn-secondary mt-8 bp-900:mb-6`}
-                    callBack={() =>
-                      setMaxItemsDisplayed(maxItemsDisplayed + 20)
-                    }
-                  >
-                    Show More
-                  </Button>
-                )}
-              </section>
-            </div>
+            <section id={'plantListSection'} className="plant-grid">
+              <div className="flex flex-wrap w-full gap-4 justify-center bp-800:justify-end">
+                {filteredNativePlantList
+                  .slice(0, maxItemsDisplayed)
+                  .map((plant, index) => (
+                    <CustomLink
+                      docType={'nativePlant'}
+                      href={plant.slug.current}
+                      key={plant.plantName.botanicalName}
+                    >
+                      <PlantImageCard
+                        className="max-w-xs bg-oe-green-200"
+                        image={plant.previewImage}
+                        plantName={plant.plantName}
+                        floweringMonths={plant.floweringMonths}
+                        flowerColor={plant.flowerColor}
+                        habitatType={plant.habitatType}
+                        imagePosition="left"
+                      />
+                    </CustomLink>
+                  ))}
+              </div>
+              {maxItemsDisplayed < nativePlantList.length && (
+                <Button
+                  className={`btn-secondary mt-8 bp-900:mb-6`}
+                  callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}
+                >
+                  Show More
+                </Button>
+              )}
+            </section>
           </>
         )}
       </div>
