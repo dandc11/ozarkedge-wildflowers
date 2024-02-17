@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CustomLink from 'components/CustomLink'
 import Header from 'components/Header'
 import PlantName from 'components/PlantName'
@@ -45,11 +45,27 @@ export default function PlantListPage(props) {
   const [floweringMonthsSelected, setFloweringMonthsSelected] = useState('')
   const [flowerColorsSelected, setFlowerColorsSelected] = useState('')
   const animatedComponents = makeAnimated()
-  const handleFloweringMonthChange = (newValue) => {
-    const numberValues = newValue.map(Number)
-    setFloweringMonthsSelected(numberValues)
-  }
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+  useEffect(() => {
+    scrollToTop();
+  }, [flowerColorsSelected, floweringMonthsSelected, habitatsSelected]);
+
+
+
+
+  // JS Doc for getMatched
+  /**
+   * @param {Array} selectedItems - The selected options from the filter
+   * @param {Array|String|Number} plantProperty - The property of the plant to compare to the selected options
+   * @returns {Boolean} - Whether the plant matches the selected options
+   * @description - This function compares the selected options to the plant property and returns a boolean value
+   */
   const getMatched = (selectedItems, plantProperty) => {
     if (selectedItems.length < 1) {
       return true
@@ -96,9 +112,9 @@ export default function PlantListPage(props) {
       <div className="relative h-full w-full ">
         <Header
           showCircle={true}
-          className={'content-center px-10 pt-20 mb-12 bp-900:pl-20'}
+          className={'absolute content-center px-10 pt-20 mb-0 bp-900:pl-20'}
           circleColorClass={'bg-oe-pink-700'}
-          headerClassName={'text-black'}
+          headerClassName={'text-white'}
         >
           {pageTitle}
         </Header>
@@ -112,8 +128,8 @@ export default function PlantListPage(props) {
           disableHover
           loading="eager"
           figureClassName="h-full w-full"
-          wrapperClassName="absolute opacity-40 top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
-          className="rounded-none object-cover w-full h-full "
+          wrapperClassName="w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+          className="rounded-none object-cover object-[80%_50%] w-full h-full "
         />
       </div>
       <ResponsiveImage
