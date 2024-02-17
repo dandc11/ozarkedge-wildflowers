@@ -179,6 +179,7 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
 export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
   const figures = []
 
+  // checks if the image is unique and adds it to the figures array
   const imageIsUnique = (image) => {
     return (
       !figures.some((f) => f.asset._ref === image.asset._ref) &&
