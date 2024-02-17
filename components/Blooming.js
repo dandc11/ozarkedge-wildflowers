@@ -11,7 +11,6 @@ import ImageSlider from './ImageSlider'
 const Blooming = (props) => {
   const { bloomingList, seasonData, className = '' } = props
   const thisMonth = getCurrentMonthName()
-  console.log(seasonData)
 
   return (
     <>

@@ -1,19 +1,42 @@
 import { SanityImage } from 'sanity-image'
+import { useEffect } from 'react';
 import cx from 'classnames'
 import { projectId, dataset } from '../lib/sanity.api'
 
-const baseUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
-
-export const Image = (props) => {
+/**
+ * @typedef {Object} SanityImageWrappwerProps
+ * @property {string} [alt=''] - The alt text for the image
+ * @property {Object} [asset={}] - The asset object
+ * @property {string} [className=''] - The class name of the
+ * @property {string} [crop=''] - The crop of the image
+ * @property {boolean} [fill=false] - Whether to fill the image
+ * @property {string} [fit=''] - The fit of the image
+ * @property {string} [focus=''] - The focus of the image
+ * @property {string} [height=''] - The height of the image
+ * @property {string} [hotspot=''] - The hotspot of the image
+ * @property {string} [id=''] - The id of the image
+ * @property {string} [imagePosition=''] - The position of the image
+ * @property {string} [imageWidth=''] - The width of the image
+ * @property {string} [lightboxIdentifier] - The identifier for the lightbox
+ * @property {string} [loading='lazy'] - The loading attribute for the image
+ * @property {string} [mode='cover'] - The mode of the image
+ * @property {string} [preview=''] - The preview of the image
+ * @property {boolean} [priority=false] - Whether to prioritize the image
+ * @property {string} [quality='100'] - The quality of the image
+ * @property {string} [sizes=''] - The sizes of the image
+ * @property {string} [src=''] - The src of the image
+ * @property {string} [srcSet=''] - The srcSet of the image
+ * @property {string} [style=''] - The style of the image
+ * @property {string} [width=''] - The width of the image
+ * @returns {JSX.Element} - The rendered component
+ * */
+export const SanityImageWrappwer = (props) => {
   // destrucrture all props and set defaults
   const {
     alt = '',
     asset = {},
     className = '',
     crop = '',
-    fill = false,
-    fit = '',
-    focus = '',
     height = '',
     hotspot = '',
     id = props.id || props.asset?._ref,
@@ -26,12 +49,10 @@ export const Image = (props) => {
     priority = false,
     quality = `100`,
     sizes = '',
-    src = '',
-    srcSet = '',
-    style = '',
     width = '',
     ...rest
   } = props
+
   return (
     <SanityImage
       projectId={projectId}
@@ -123,14 +144,20 @@ const ResponsiveImage = ({
     'relative text-center italic text-sm pt-1': captionStyle === 'below',
   })
 
-    // call onClick callback with key of image clicked
-    const handleClick = (e) => {
-      onClick(e.currentTarget.dataset.key)
+  // call onClick callback with key of image clicked
+  const handleClick = (e) => {
+    onClick(e.currentTarget.dataset.key)
+  }
+
+  useEffect(() => {
+    if (image && !(image.id || (image.asset && image.asset._ref))) {
+      console.warn('Image without an id was used:', image);
     }
+  }, [image]);
 
   return (
     <>
-      {image && (
+      {(image && (image.id || (image.asset && image.asset._ref))) && (
         <div id={id} className={cx('', wrapperClassName)}>
           <figure
             className={cx(figureClassName)}
@@ -138,7 +165,7 @@ const ResponsiveImage = ({
             data-lightboxjs={lightboxIdentifier}
             data-key={id}
           >
-            <Image
+            <SanityImageWrappwer
               {...image}
               alt={alt || ''}
               className={cx(
