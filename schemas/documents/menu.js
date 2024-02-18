@@ -13,6 +13,12 @@ export default defineType({
       readOnly: true,
     }),
     defineField({
+      name: 'menuBackgroundImage',
+      type: 'image',
+      title: 'Menu Background Image',
+      description: 'Add an image for the background of the menu.',
+    }),
+    defineField({
       name: 'menuItems',
       title: 'Menu Items',
       description: 'Add a title and image for each link in the menu.',

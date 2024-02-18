@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { projectId, dataset } from '../lib/sanity.api'
 
 /**
- * @typedef {Object} SanityImageWrappwerProps
+ * @typedef {Object} SanityImageWrapperProps
  * @property {string} [alt=''] - The alt text for the image
  * @property {Object} [asset={}] - The asset object
  * @property {string} [className=''] - The class name of the
@@ -30,7 +30,7 @@ import { projectId, dataset } from '../lib/sanity.api'
  * @property {string} [width=''] - The width of the image
  * @returns {JSX.Element} - The rendered component
  * */
-export const SanityImageWrappwer = (props) => {
+const SanityImageWrapper = (props) => {
   // destrucrture all props and set defaults
   const {
     alt = '',
@@ -165,7 +165,7 @@ const ResponsiveImage = ({
             data-lightboxjs={lightboxIdentifier}
             data-key={id}
           >
-            <SanityImageWrappwer
+            <SanityImageWrapper
               {...image}
               alt={alt || ''}
               className={cx(
@@ -192,4 +192,4 @@ const ResponsiveImage = ({
   )
 }
 
-export default ResponsiveImage
+export default ResponsiveImage;
