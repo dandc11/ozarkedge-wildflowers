@@ -170,7 +170,6 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      readOnly: true,
       options: {
         source: doc => `${doc.plantName.commonName}-${doc.plantName.botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
       },
