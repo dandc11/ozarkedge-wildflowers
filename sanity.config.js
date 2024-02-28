@@ -2,24 +2,28 @@
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { buildLegacyTheme } from 'sanity'
-import { deskTool } from 'sanity/desk'
-import {muxInput} from 'sanity-plugin-mux-input'
+import { structureTool } from 'sanity/structure'
+import { muxInput } from 'sanity-plugin-mux-input'
 import Iframe from 'sanity-plugin-iframe-pane'
 import { media, mediaAssetSource } from 'sanity-plugin-media'
 import { apiVersion, dataset, projectId } from './lib/sanity.api'
 import { schema } from './schemas/schema'
 import { COLORS } from './utilities/constants'
 
-// build a preview url
+// Build a preview URL for the given document
 async function getPreviewUrl(doc) {
   if (!doc) {
     return ''
   }
-  const url = new URL('', location.origin)
-  doc?.slug?.current
-    ? url.searchParams.set('slug', doc?.slug?.current)
-    : url.searchParams.set('slug', '')
 
+  const isLocalhost = window.location.host.includes('localhost')
+  const protocol = isLocalhost ? 'http://' : 'https://'
+  const host = window.location.host
+
+  const url = new URL('/api/preview', protocol + host)
+  url.searchParams.set('slug', doc?.slug?.current || '')
+
+  console.log('Preview URL:', url.href)
   return url.href
 }
 
@@ -49,18 +53,17 @@ export default defineConfig({
   dataset,
   schema,
   plugins: [
-    deskTool({ defaultDocumentNode }),
+    structureTool({ defaultDocumentNode }),
     visionTool({ defaultApiVersion: apiVersion }),
     media(),
-    muxInput({mp4_support: 'standard'})
-
+    muxInput({ mp4_support: 'standard' }),
   ],
   form: {
     // Don't use this plugin when selecting files only (but allow all other enabled asset sources)
     file: {
       assetSources: (previousAssetSources) => {
         return previousAssetSources.filter(
-          (assetSource) => assetSource !== mediaAssetSource
+          (assetSource) => assetSource !== mediaAssetSource,
         )
       },
     },
