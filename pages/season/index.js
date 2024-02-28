@@ -19,7 +19,7 @@ export default function SeasonListPage(props) {
         {/* <h1>Ozerkedge Native Plants</h1>
         {nativePlantPageData &&
           nativePlantPageData.map((plant, index) => (
-            <CustomLink docType={'nativePlant'} href={plant.slug.current} key={plant.plantName.botanicalName}>
+            <CustomLink docType={'nativePlant'} slug={plant.slug.current} key={plant.plantName.botanicalName}>
               <PlantName
                 plantName={plant.plantName}
                 showSeparator={false}

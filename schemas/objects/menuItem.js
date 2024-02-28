@@ -18,12 +18,5 @@ export default defineType({
       type: 'link',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      description: 'This image will appear next to this item in the menu.',
-      validation: (Rule) => Rule.required(),
-    }),
   ],
 })

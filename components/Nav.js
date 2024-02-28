@@ -3,6 +3,14 @@ import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
 import cx from 'classnames'
 
+/**
+ * The Nav (Menu) component
+ * @returns the Nav component
+ * @category Components
+ * @example
+ * <Nav />
+ * 
+ */
 const Nav = () => {
   const [menuItems, setMenuItems] = useState([])
   const [menuBgImage, setMenuBgImage] = useState('')
@@ -53,15 +61,12 @@ const Nav = () => {
           wrapperClassName="min-w-8 w-32 h-32 mr-4"
         /> */}
         <CustomLink
-          docType="menu"
-          href={item.menuItemLink}
+          docType={item.menuItemLink.docType}
+          slug={item.menuItemLink.slug}
           className="menu-link text-white"
         >
           {item.title}
         </CustomLink>
-        {/* <Link href={item.link} >
-          {item.title}
-        </Link> */}
       </li>
     )
   })
