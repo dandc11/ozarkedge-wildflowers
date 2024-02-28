@@ -4,22 +4,46 @@ import { MONTH_NAMES_MAP } from './constants';
 import { SEASONS } from './constants';
 import { DOCTYPE_PATH_PREFIXES } from './constants';
 
+// JS Doc
+/**
+ * Returns the path for a given document type and slug
+ * @param {string} [docytype = ''] - the document type
+ * @param {string} [slug = ''] - the slug
+ * @returns the path for the given document type and slug
+ */
 export const getPathFromDocType = (docytype = '', slug = '') => {
+    // console.log('getPathFromDocType', docytype, slug);
     return DOCTYPE_PATH_PREFIXES[docytype]
     ? DOCTYPE_PATH_PREFIXES[docytype] + slug
     : slug;
 };
 
+// JS Doc
+/**
+ * Returns the full name of the current month
+ * @returns the full name of the current month
+ */
 export const getCurrentMonthName = () => {
     const CURRENT_MONTH_NAME = new Date(Date.now()).getMonth() + 1;
     return MONTH_NAMES_MAP.get(CURRENT_MONTH_NAME).fullName;
 };
 
+// JS Doc
+/**
+ * Returns the current month number
+ * @returns the current month number
+ */
 export const getCurrentMonthNumber = () => {
     const CURRENT_MONTH_NUMBER = new Date(Date.now()).getMonth() + 1;
     return CURRENT_MONTH_NUMBER;
 };
 
+// JS Doc
+/**
+ * Returns the season for a given month number
+ * @param {number} [monthNum = 0] - the month number
+ * @returns the season for the given month number
+ */
 export const getSeasonFromMonthNumber = (monthNum) => {
     let season;
     for (const testSeason in SEASONS) {
@@ -30,6 +54,12 @@ export const getSeasonFromMonthNumber = (monthNum) => {
     }
 };
 
+// JS Doc
+/**
+ * Returns the full name of a month from its number
+ * @param {number} [monthNum = 0] - the month number
+ * @returns the full name of the month
+ */
 export const getMonthNameFromMonthNumber = (monthNum) => {
     return MONTH_NAMES_MAP.get(monthNum);
 };

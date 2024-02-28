@@ -82,7 +82,7 @@ const ImageSlider = ({
   return (
     <div
       className={cx(
-        `relative overflow-x-auto snap-x snap-mandatory w-full pt-2 hide-scroll`,
+        `relative overflow-x-auto snap-x snap-mandatory w-full pt-2 hide-scroll max-h-fit`,
         className,
       )}
     >

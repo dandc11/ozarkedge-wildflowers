@@ -31,6 +31,6 @@ export default async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors)
 
-  const menu = await client.fetch('*[_type == "menu" && !(_id in path("drafts.**"))]{menuBackgroundImage, mobileMenuBackgroundImage, menuItems[]{title, "menuItemLink": link.internalLink->slug.current, image}}')
+  const menu = await client.fetch('*[_type == "menu" && !(_id in path("drafts.**"))]{menuBackgroundImage, mobileMenuBackgroundImage, menuItems[]{title,"menuItemLink": {"docType": link.internalLink->_type, "slug": link.internalLink->slug.current}}}')
   res.status(200).json(menu)
 }
