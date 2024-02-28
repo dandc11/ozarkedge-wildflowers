@@ -25,10 +25,6 @@ import { getPathFromDocType } from '../utilities/helperUtil'
 const CustomLink = ({ docType = undefined, slug = '', href, children, className = '' }) => {
 
   const fullPath = docType ? getPathFromDocType(docType, slug) : ''
-  console.log('CustomLink slug ', slug)
-  console.log('CustomLink docType ', docType)
-  console.log('CustomLink fullPath ', fullPath)
-
   return (
     <>
       {href ? (
