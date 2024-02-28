@@ -15,7 +15,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@mux/mux-player-react": "^2.3.0",
+    "@mux/mux-player-react": "^2.3.3",
     "@portabletext/react": "^3.0.4",
     "@sanity/client": "^6.8.6",
     "@sanity/image-url": "^1.0.2",
@@ -23,6 +23,7 @@
     "@sanity/vision": "^3.20.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "classnames": "^2.3.2",
+    "cors": "^2.8.5",
     "lightbox.js-react": "^0.8.6",
     "next": "^13.5.6",
     "next-sanity": "^5.1.2",

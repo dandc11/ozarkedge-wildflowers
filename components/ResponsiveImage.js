@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { projectId, dataset } from '../lib/sanity.api'
 
 /**
- * @typedef {Object} SanityImageWrappwerProps
+ * @typedef {Object} SanityImageWrapperProps
  * @property {string} [alt=''] - The alt text for the image
  * @property {Object} [asset={}] - The asset object
  * @property {string} [className=''] - The class name of the
@@ -30,7 +30,7 @@ import { projectId, dataset } from '../lib/sanity.api'
  * @property {string} [width=''] - The width of the image
  * @returns {JSX.Element} - The rendered component
  * */
-export const SanityImageWrappwer = (props) => {
+const SanityImageWrapper = (props) => {
   // destrucrture all props and set defaults
   const {
     alt = '',
@@ -120,7 +120,7 @@ const ResponsiveImage = ({
   loading = 'lazy',
   mobileWidth = '',
   mobileImage = false,
-  onClick = () => {},
+  onClick = '',
   queryParams = '',
   showCaption = true,
   width = '',
@@ -146,7 +146,7 @@ const ResponsiveImage = ({
 
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
-    onClick(e.currentTarget.dataset.key)
+    onClick !== '' ? onClick(e.currentTarget.dataset.key) : null;
   }
 
   useEffect(() => {
@@ -165,12 +165,13 @@ const ResponsiveImage = ({
             data-lightboxjs={lightboxIdentifier}
             data-key={id}
           >
-            <SanityImageWrappwer
+            <SanityImageWrapper
               {...image}
               alt={alt || ''}
               className={cx(
-                'cursor-pointer transition delay-100 duration-200',
+                'transition delay-100 duration-200',
                 { 'hover:scale-95': !disableHover },
+                { 'cursor-pointer ': onClick !== '' },
                 className,
               )}
               lightboxIdentifier={lightboxIdentifier}
@@ -192,4 +193,4 @@ const ResponsiveImage = ({
   )
 }
 
-export default ResponsiveImage
+export default ResponsiveImage;

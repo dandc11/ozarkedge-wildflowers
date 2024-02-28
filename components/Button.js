@@ -89,7 +89,7 @@ const ChevronUp = () => {
 const Button = (
   {
     buttonIcon = '',
-    callBack = null,
+    callBack,
     children,
     className,
     expanded = '',

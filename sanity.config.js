@@ -16,10 +16,6 @@ async function getPreviewUrl(doc) {
     return ''
   }
   const url = new URL('', location.origin)
-  const host = window.location.host.includes('localhost')
-    ? `http://${window.location.host}}`
-    : `https://${window.location.host}}`
-  url.pathname = `/api/preview`
   doc?.slug?.current
     ? url.searchParams.set('slug', doc?.slug?.current)
     : url.searchParams.set('slug', '')

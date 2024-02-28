@@ -37,17 +37,17 @@ const PortTextFigure = ({
     ? widths[portTextProps.value?.imageWidth]
     : 'w-full bp-600:w-2/3'
   const positions = {
-    left: `my-5 bp-600:float-left bp-600:mr-4 bp-600:my-0 ${
+    left: `my-7 bp-600:float-left bp-600:mr-4 bp-600:my-0 ${
       portTextProps.value?.imageWidth
         ? widths[portTextProps.value?.imageWidth]
         : 'bp-600:w-[20%]'
     }`,
-    right: `my-5 bp-600:float-right bp-600:ml-4 bp-600:my-0 ${
+    right: `my-7 bp-600:float-right bp-600:ml-4 bp-600:my-0 ${
       portTextProps.value?.imageWidth
         ? widths[portTextProps.value?.imageWidth]
         : 'bp-600:w-[20%]'
     }`,
-    center: `flex justify-center my-5`,
+    center: `flex justify-center my-7`,
   }
   const positionClass = portTextProps.value?.imagePosition
     ? positions[portTextProps.value?.imagePosition]
