@@ -216,7 +216,7 @@ export default function PlantListPage(props) {
               </fieldset>
             </section>
             <section id={'plantListSection'} className="plant-grid">
-              <div className="flex flex-wrap w-full gap-4 justify-center bp-800:justify-end">
+              <div className="flex flex-wrap w-full gap-4 justify-center bp-800:justify-start">
                 {filteredNativePlantList
                   .slice(0, maxItemsDisplayed)
                   .map((plant, index) => (

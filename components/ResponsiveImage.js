@@ -120,7 +120,7 @@ const ResponsiveImage = ({
   loading = 'lazy',
   mobileWidth = '',
   mobileImage = false,
-  onClick = () => {},
+  onClick = '',
   queryParams = '',
   showCaption = true,
   width = '',
@@ -146,7 +146,7 @@ const ResponsiveImage = ({
 
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
-    onClick(e.currentTarget.dataset.key)
+    onClick !== '' ? onClick(e.currentTarget.dataset.key) : null;
   }
 
   useEffect(() => {
@@ -169,8 +169,9 @@ const ResponsiveImage = ({
               {...image}
               alt={alt || ''}
               className={cx(
-                'cursor-pointer transition delay-100 duration-200',
+                'transition delay-100 duration-200',
                 { 'hover:scale-95': !disableHover },
+                { 'cursor-pointer ': onClick !== '' },
                 className,
               )}
               lightboxIdentifier={lightboxIdentifier}

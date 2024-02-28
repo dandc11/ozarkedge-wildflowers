@@ -6,6 +6,7 @@ const CustomLink = ({ docType = undefined, href = '', children, className = '' }
   // if the href value passed has an internal link slug, check to see if it needs a path prefix, e.g. /native-plants/
   const slug = href.internal ? href.internal : href
   const path = docType ? getPathFromDocType(docType, slug) : ''
+
   return (
     <>
       {href?.external && (

@@ -6,7 +6,7 @@ import Cors from 'cors'
 // Initializing the cors middleware
 const cors = Cors({
   methods: ['GET', 'HEAD'],
-  origin: ['https:localhost', 'https://ozarkedge-wildflowers-staging.vercel.app/', 'https://ozarkedgewildflowers.com'], // replace with your allowed origins
+  origin: ['https:localhost', 'https://ozarkedge-wildflowers-staging.vercel.app/', 'https://ozarkedgewildflowers.com'],
 })
 
 // Helper method to wait for a middleware to execute before continuing
@@ -31,6 +31,6 @@ export default async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors)
 
-  const menu = await client.fetch('*[_type == "menu"]{menuBackgroundImage, menuItems[]{title, link, image}}')
+  const menu = await client.fetch('*[_type == "menu" && !(_id in path("drafts.**"))]{menuBackgroundImage, mobileMenuBackgroundImage, menuItems[]{title, "menuItemLink": link.internalLink->slug.current, image}}')
   res.status(200).json(menu)
 }
