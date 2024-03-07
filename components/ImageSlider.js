@@ -104,7 +104,7 @@ const ImageSlider = ({
         startingSlideIndex={startingSlideIndex}
         onCloseCallback={closeLightbox}
         open={isLightboxOpen}
-      ></LightboxGallery>
+      />
       <ul className={`flex flex-nowrap gap-3 h-full`}>{listItems}</ul>
     </div>
   )

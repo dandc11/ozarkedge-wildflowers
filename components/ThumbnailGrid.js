@@ -1,5 +1,4 @@
 import React from 'react'
-import { SlideshowLightbox } from 'lightbox.js-react'
 import cx from 'classnames'
 import ResponsiveImage from './ResponsiveImage'
 
