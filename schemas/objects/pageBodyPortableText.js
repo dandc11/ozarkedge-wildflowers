@@ -1,10 +1,9 @@
 import React from 'react'
-import { AiFillPlayCircle } from 'react-icons/ai'
 import { AiOutlineCamera } from 'react-icons/ai'
-import { AiFillFileImage } from 'react-icons/ai'
 import { DOCUMENT_TYPES } from '../constants/constants'
 import IconAppender from '../components/IconAppender'
 import { defineArrayMember, defineType } from 'sanity'
+import { ImageCollectionPreview } from '../components/ImageCollectionPreview'
 
 export default defineType({
   name: 'pageBodyPortableText',
@@ -130,27 +129,16 @@ export default defineType({
           ],
         },
       ],
-      icon: () => '🖼️ ',
+      components: {preview: ImageCollectionPreview},
       preview: {
         select: {
-          imageOne: 'images.0.asset',
-          captionOne: 'images.0.caption', // <- images.0 is a reference to the image, which the preview component will automatically resolve
-          captionTwo: 'images.1.caption',
-          captionThree: 'images.2.caption',
+          collection: 'imageCollection',
         },
-        prepare: ({ imageOne, captionOne, captionTwo, captionThree }) => {
-          const imageCaptions = [captionOne, captionTwo, captionThree].filter(
-            Boolean,
-          )
-          const caption =
-            imageCaptions.length > 0 ? imageCaptions.join(', ') : ''
-          const hasMore = Boolean(captionThree)
+        prepare(selection) {
           return {
-            title: imageOne ? 'Image Collection' : 'Image Collection (empty)',
-            media: imageOne || AiFillFileImage,
-            subtitle: hasMore ? `${caption}…` : caption,
+            ...selection,
           }
-        },
+        }
       },
     }),
   ],

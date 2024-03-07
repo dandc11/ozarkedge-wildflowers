@@ -120,7 +120,7 @@ const ResponsiveImage = ({
   loading = 'lazy',
   mobileWidth = '',
   mobileImage = false,
-  onClick = '',
+  onClick,
   queryParams = '',
   showCaption = true,
   width = '',
@@ -146,7 +146,7 @@ const ResponsiveImage = ({
 
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
-    onClick !== '' ? onClick(e.currentTarget.dataset.key) : null;
+    onClick ? onClick(e.currentTarget.dataset.key) : null;
   }
 
   useEffect(() => {
