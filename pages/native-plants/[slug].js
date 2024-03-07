@@ -36,7 +36,7 @@ import ContentSection from 'components/ContentSection'
  *    tocLinks={tocLinks}
  *  />
  */
-const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
+const IntroSection = ({ lede, plantName, closeToC, tocLinks, lightboxCallback, lightboxIdentifier }) => {
   const [isTableOfContentsOpen, setIsTableOfContentsOpen] = useState(false)
   closeToC = () => {
     setIsTableOfContentsOpen(!isTableOfContentsOpen)
@@ -61,6 +61,8 @@ const IntroSection = ({ lede, plantName, closeToC, tocLinks }) => {
             <PortTextWrapper
               className={`plant-pg-port-text`}
               value={lede}
+              lightboxCallback={lightboxCallback}
+              lightboxIdentifier={lightboxIdentifier}
             ></PortTextWrapper>
             <br></br>
           </div>
@@ -131,7 +133,7 @@ const GrowingNearby = ({
             {growingNearbyPlantImages && (
               <ImageSlider
                 sliderImages={growingNearbyPlantImages}
-                lightboxIdentifier={lightboxIdentifier}
+                lightboxIdentifier={'growingNearby'}
                 useLinks
               />
             )}
@@ -235,6 +237,7 @@ const NativePlantPage = (props) => {
               plantName={plantName}
               tocLinks={sectionLinks}
               lightboxImgClass={`w-12`}
+              lightboxCallback={toggleLightbox}
             />
           </header>
           <main id="plantPageMainContent" className="w-full">
