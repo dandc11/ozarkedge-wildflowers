@@ -27,6 +27,13 @@ export default defineType({
       title: 'Link',
     },
   ],
+  preview: {
+    select: {
+      media: 'asset',
+      imageUrl: 'asset.url',
+      title: 'caption',
+    },
+  },
   fields: [
     defineField({
       name: 'alt',
@@ -113,10 +120,4 @@ export default defineType({
       group: 'presentation',
     }),
   ],
-  preview: {
-    select: {
-      imageUrl: 'asset.url',
-      title: 'caption',
-    },
-  },
 })

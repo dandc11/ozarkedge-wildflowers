@@ -128,7 +128,7 @@ export default function PlantListPage(props) {
           disableHover
           loading="eager"
           figureClassName="h-full w-full"
-          wrapperClassName="w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
+          wrapperClassName="w-full h-[30rem] bg-oe-green-yellow-200  bp-900:order-2"
           className="rounded-none object-cover object-[80%_50%] w-full h-full "
         />
       </div>
