@@ -11,6 +11,7 @@ import ImageSlider from './ImageSlider'
 const Blooming = (props) => {
   const { bloomingList, seasonData, className = '' } = props
   const thisMonth = getCurrentMonthName()
+  const sliderImages = bloomingList.map((plant) => plant.image);
 
   return (
     <>
@@ -31,11 +32,14 @@ const Blooming = (props) => {
               <span className="text-3xl">BLOOMING</span> in
               {` ${titleCase(thisMonth)}`}
             </Header>
-            <ImageSlider
-              className={`bp-800:hidden`}
-              sliderItems={bloomingList}
-              useLinks
-            />
+            {sliderImages.length > 0 && (
+              <ImageSlider
+                className={`bp-800:hidden`}
+                sliderImages={sliderImages}
+                lightboxIdentifier={`bloomingNow`}
+                useLinks
+              />
+            )}
             {seasonData?.description && (
               <div className={``}>
                 <PortTextWrapper
