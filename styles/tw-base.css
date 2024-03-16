@@ -1,7 +1,7 @@
 @layer base {
   html {
     font-family: var(--font-raleway), system-ui, sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 16px;
     height: 100%;
 
@@ -44,7 +44,6 @@
         display: none;
         grid-template: 1fr / minmax(23rem, 1fr) 4fr;
         grid-template-areas: 'sidebar image';
-
       }
 
       .menu-items {
@@ -69,10 +68,11 @@
           object-position: 30% 100%;
         }
 
-        .lg-img, .mobile-img {
+        .lg-img,
+        .mobile-img {
           opacity: 0;
           animation: fadeIn 1s ease-in forwards;
-          animation-delay: .3s;
+          animation-delay: 0.3s;
         }
 
         .lg-img {
@@ -87,7 +87,7 @@
       .nav-links > li {
         opacity: 0;
       }
-      
+
       &.menu-active .nav-links > li {
         animation: fadeIn 1s ease-in forwards;
       }
@@ -127,31 +127,60 @@
 
     @media screen and (min-width: 1200px) {
       #mainNav {
-    
         .menu-items {
           grid-area: sidebar;
 
           .overlay {
             display: block;
-          } 
+          }
         }
-    
+
         .menu-image {
           grid-area: image;
-    
+
           .lg-img {
             display: block;
-            
+
             img {
               object-position: 100% 60%;
             }
           }
-    
+
           .mobile-img {
             display: none;
           }
         }
       }
+    }
+
+    .blooming-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'heading'
+        'blooming-slider'
+        'description';
+
+      .blooming-heading {
+        grid-area: heading;
+      }
+
+      .description {
+        grid-area: description;
+      }
+
+      .blooming-slider {
+        grid-area: blooming-slider;
+      }
+
+      @media screen and (min-width: 800px) {
+        grid-template-columns: 1fr 1.5fr;
+        grid-template-rows: auto max-content;
+        grid-template-areas:
+          'heading blooming-slider'
+          'description blooming-slider';
+      }
+
     }
 
     /* Plant Page *********************************/
@@ -243,12 +272,6 @@
       @media screen and (min-width: 850px) {
         margin-top: 2rem;
       }
-    }
-
-    .auto-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 330px));
-      gap: 0.25rem;
     }
 
     .bg-topography {
