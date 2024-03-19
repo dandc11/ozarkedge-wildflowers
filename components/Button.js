@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { getPathFromDocType } from '../utilities/helperUtil'
 import cx from 'classnames'
 
-const ChevronDown = ({ strokeWidth }) => {
+const ChevronDown = ({ strokeWidth = 1}) => {
   return (
     <>
       <svg
@@ -24,7 +24,7 @@ const ChevronDown = ({ strokeWidth }) => {
   )
 }
 
-const PlusCircle = ({ strokeWidth }) => {
+const PlusCircle = ({ strokeWidth = 1 }) => {
   return (
     <>
       <svg
@@ -45,7 +45,7 @@ const PlusCircle = ({ strokeWidth }) => {
   )
 }
 
-const MinusCircle = ({ strokeWidth }) => {
+const MinusCircle = ({ strokeWidth = 1 }) => {
   return (
     <>
       <svg
@@ -66,7 +66,7 @@ const MinusCircle = ({ strokeWidth }) => {
   )
 }
 
-const ChevronUp = () => {
+const ChevronUp = (strokeWidth = 1) => {
   return (
     <>
       <svg
@@ -86,6 +86,49 @@ const ChevronUp = () => {
     </>
   )
 }
+
+const ChevronRight = (strokeWidth = 1) => {
+  return (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={strokeWidth}
+        stroke="currentColor"
+        className="w-10 h-10"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9.75 4.5l7.5 7.5-7.5 7.5"
+        />
+      </svg>
+    </>
+  )
+}
+
+const ChevronLeft = (strokeWidth = 1) => {
+  return (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={strokeWidth}
+        stroke="currentColor"
+        className="w-10 h-10"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M14.25 19.5l-7.5-7.5 7.5-7.5"
+        />
+      </svg>
+    </>
+  )
+}
+
 const Button = (
   {
     buttonIcon = '',
@@ -122,12 +165,22 @@ const Button = (
       onClick={() => clickHandler()}
     >
       {buttonIcon === 'expand' && !expanded && (
-          <PlusCircle strokeWidth={strokeWidth} />
-          )}
+        <PlusCircle strokeWidth={strokeWidth} />
+      )}
       {buttonIcon === 'expand' && expanded && (
-          <MinusCircle strokeWidth={strokeWidth} />
-          )}
-          {children}
+        <MinusCircle strokeWidth={strokeWidth} />
+      )}
+      {buttonIcon === 'chevron-down' && (
+        <ChevronDown strokeWidth={strokeWidth} />
+      )}
+      {buttonIcon === 'chevron-up' && <ChevronUp strokeWidth={strokeWidth} />}
+      {buttonIcon === 'chevron-right' && (
+        <ChevronRight strokeWidth={strokeWidth} />
+      )}
+      {buttonIcon === 'chevron-left' && (
+        <ChevronLeft strokeWidth={strokeWidth} />
+      )}
+      {children}
     </button>
   )
 }
