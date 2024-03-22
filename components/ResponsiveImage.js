@@ -141,7 +141,7 @@ const ResponsiveImage = ({
       captionStyle === 'insetLeft',
     'absolute bottom-3 right-0 rounded-l-md z-10 py-[.15rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
       captionStyle === 'insetRight',
-    'relative text-center italic text-sm pt-1': captionStyle === 'below',
+    'relative text-center italic text-sm pt-2': captionStyle === 'below',
   })
 
   // call onClick callback with key of image clicked
