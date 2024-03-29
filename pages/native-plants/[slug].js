@@ -134,6 +134,7 @@ const GrowingNearby = ({
               <ImageSlider
                 sliderImages={growingNearbyPlantImages}
                 lightboxIdentifier={'growingNearby'}
+                showArrows
                 useLinks
               />
             )}
