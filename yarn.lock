@@ -1480,15 +1480,15 @@
     csstype "^3.0.2"
 
 "@types/react@^16.9.1":
-  version "16.14.59"
-  resolved "https://registry.npmjs.org/@types/react/-/react-16.14.59.tgz"
-  integrity sha512-tOV7Za9TpBGi0jyi/fjsUmuFM1svfInVsBCkpQcwNDkVL8MEN1aV3FxjI4wYaASMlVE6NZXXx06zaN4rtRPwyQ==
+  version "16.14.60"
+  resolved "https://registry.npmjs.org/@types/react/-/react-16.14.60.tgz"
+  integrity sha512-wIFmnczGsTcgwCBeIYOuy2mdXEiKZ5znU/jNOnMZPQyCcIxauMGWlX0TNG4lZ7NxRKj7YUIZRneJQSSdB2jKgg==
   dependencies:
     "@types/prop-types" "*"
-    "@types/scheduler" "*"
+    "@types/scheduler" "^0.16"
     csstype "^3.0.2"
 
-"@types/scheduler@*":
+"@types/scheduler@*", "@types/scheduler@^0.16":
   version "0.16.3"
   resolved "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.3.tgz"
   integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
@@ -4264,10 +4264,10 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lightbox.js-react@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/lightbox.js-react/-/lightbox.js-react-1.0.3.tgz"
-  integrity sha512-W/4NefnJuWwrW4ndjcUJZBsRh0TW+7TfWD56LsF1EGLmgG1PR11UUxb04ro6RnjC+K515kAXvUh7IelcQPJ4Sw==
+lightbox.js-react@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/lightbox.js-react/-/lightbox.js-react-1.0.4.tgz"
+  integrity sha512-AM9GxriQLmmWirTSI9X/K5cj0xIcCta+R4ImDTjfwaCsd36ZG32fjQ/1GHJ2ht+ooo4BaCRZ6l8xedu2f0ePnQ==
   dependencies:
     "@react-hook/resize-observer" "^1.2.6"
     "@types/file-saver" "^2.0.5"
