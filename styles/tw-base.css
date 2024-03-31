@@ -14,20 +14,8 @@
       border-style: none;
     }
 
-    /* Landing Page ********************************/
-    #landingImageContainer {
-      background-image: var(--container-bg-small);
-    }
 
-    @media screen and (min-width: 900px) {
-      #landingImageContainer {
-        background-image: var(--container-bg-image);
-      }
-    }
-
-    *.hide-scroll::-webkit-scrollbar {
-      display: none;
-    }
+    /* Main Navigation ********************************/
 
     #mainNav {
       &.menu-active {
@@ -153,6 +141,21 @@
       }
     }
 
+    /* Landing Page ********************************/
+    #landingImageContainer {
+      background-image: var(--container-bg-small);
+    }
+
+    @media screen and (min-width: 900px) {
+      #landingImageContainer {
+        background-image: var(--container-bg-image);
+      }
+    }
+
+    *.hide-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
     .blooming-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -257,7 +260,7 @@
       }
     }
 
-    /* recommended img base styles for <SanityImage> - https://github.com/coreyward/sanity-image#styling-your-images */
+    /* <SanityImage> - https://github.com/coreyward/sanity-image#styling-your-images */
     img {
       display: block;
       max-width: 100%;
@@ -266,11 +269,18 @@
       border-radius: 0.375rem;
     }
 
-    #lightboxContainer p {
-      color: #ffffff !important;
+    #lightboxContainer  {
+      p {
+        color: #ffffff !important;
+  
+        @media screen and (min-width: 850px) {
+          margin-top: 2rem;
+        }
+      }
 
-      @media screen and (min-width: 850px) {
-        margin-top: 2rem;
+      img {
+        object-fit: contain;
+        align-self: flex-start;
       }
     }
 
