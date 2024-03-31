@@ -46,7 +46,7 @@ const ThumbnailGrid = (props) => {
     )
   })
   return (
-    <ul className={cx(`grid ${gridColumns[cols]} gap-[1.5rem_1rem]`, className)}>
+    <ul className={cx(`grid ${gridColumns[cols]} gap-3`, className)}>
       {galleryImages}
     </ul>
   )

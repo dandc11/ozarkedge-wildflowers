@@ -97,7 +97,7 @@ const PortTextWrapper = React.memo((props) => {
           imageCollection: (typeProps) => (
             <ThumbnailGrid
               assets={typeProps.value?.imageCollection}
-              className={`my-7 bp-900:mx-6 bp-1200:mx-10`}
+              className={`my-7 bp-900:mx-6 bp-1200:mx-10 gap-[1.5rem_1rem]`}
               cols={2}
               maxItems={12}
               lightboxIdentifier={lightboxIdentifier}

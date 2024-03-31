@@ -1,6 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import ResponsiveImage from './ResponsiveImage'
+import Button from './Button'
 import { getPathFromDocType } from '../utilities/helperUtil'
 import LightboxGallery from 'components/LightboxGallery'
 import cx from 'classnames'
@@ -13,6 +14,7 @@ import cx from 'classnames'
  * @property {boolean} useLightbox - Whether to use lightbox
  * @property {boolean} useLinks - Whether to use links
  * @property {string} lightboxIdentifier - The lightbox identifier
+ * @property {boolean} showArrows - Whether to show arrows
  * @property {Array} sliderImages - The image slider images
  */
 const ImageSlider = ({
@@ -22,6 +24,7 @@ const ImageSlider = ({
   useLightbox = false,
   useLinks = false,
   lightboxIdentifier = '',
+  showArrows = false,
 } = props) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
@@ -48,7 +51,10 @@ const ImageSlider = ({
 
   const listItems = sliderImages?.map((image, index) => {
     return (
-      <li key={index} className={`relative flex flex-col h-full snap-center`}>
+      <li
+        key={index}
+        className={`relative flex-none flex flex-col h-full snap-center`}
+      >
         {useLinks && image.link !== null ? (
           // if the image has a link, wrap it in a link
           <Link href={`${getPathFromDocType(image.docType, image.link)}`}>
@@ -87,12 +93,7 @@ const ImageSlider = ({
   })
 
   return (
-    <div
-      className={cx(
-        `relative overflow-x-auto snap-x snap-mandatory w-full pt-2 hide-scroll max-h-fit`,
-        className,
-      )}
-    >
+    <>
       <LightboxGallery
         className={`px-4`}
         lightboxImgClass={`h-[80vh]`}
@@ -105,8 +106,34 @@ const ImageSlider = ({
         onCloseCallback={closeLightbox}
         open={isLightboxOpen}
       />
-      <ul className={`flex flex-nowrap gap-3 h-full`}>{listItems}</ul>
-    </div>
+      <div
+        className={cx(`image-slider relative w-full pt-2 max-h-fit`, className)}
+      >
+        {/* {showArrows && (
+        <Button
+          className={`absolute top-[33%] left-0 z-10`}
+          buttonIcon="chevron-left"
+          callBack={() => {
+            console.log('left')
+          }}
+        />
+      )} */}
+        <ul
+          className={`overflow-x-auto snap-x snap-mandatory flex flex-nowrap gap-3 h-full`}
+        >
+          {listItems}
+        </ul>
+        {/* {showArrows && (
+        <Button
+          className={`absolute top-[50%] right-0 z-10`}
+          buttonIcon="chevron-right"
+          callBack={() => {
+            console.log('right')
+          }}
+        />
+      )} */}
+      </div>
+    </>
   )
 }
 
