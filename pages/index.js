@@ -29,7 +29,7 @@ export default function HomePage(props) {
     bloomingProps,
     GET_BLOOMING_PLANTS_DATA_QUERY,
   )
-  // console.log(pageData)
+
   const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
 
   const {

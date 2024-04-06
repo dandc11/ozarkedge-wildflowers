@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import Link from 'next/link'
+import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
 import Button from './Button'
-import { getPathFromDocType } from '../utilities/helperUtil'
 import LightboxGallery from 'components/LightboxGallery'
 import cx from 'classnames'
 
@@ -39,8 +38,6 @@ const ImageSlider = ({
   const toggleLightbox = (key) => {
     if (key) {
       const index = sliderImages.findIndex((e) => e.asset._ref === key)
-      console.log('slider images', sliderImages)
-      console.log('starting index found ', index)
       setStartingSlideIndex(index)
     }
     setIsLightboxOpen(!isLightboxOpen)
@@ -55,9 +52,9 @@ const ImageSlider = ({
         key={index}
         className={`relative flex-none flex flex-col h-full snap-center`}
       >
-        {useLinks && image.link !== null ? (
+        {useLinks && image.slug ? (
           // if the image has a link, wrap it in a link
-          <Link href={`${getPathFromDocType(image.docType, image.link)}`}>
+          <CustomLink docType={image.docType}  slug={image.slug}>
             <ResponsiveImage
               className={`w-full h-auto rounded-md aspect-[3/4] object-cover`}
               figureClassName={`img w-36 relative mb-5 bp-800:w-[15rem] bp-800:h-auto`}
@@ -70,7 +67,7 @@ const ImageSlider = ({
               showCaption={true}
               captionBgClassName={captionBgClassName}
             />
-          </Link>
+          </CustomLink>
         ) : (
           // if the image has no link, open it in the lightbox when clicked
           <ResponsiveImage

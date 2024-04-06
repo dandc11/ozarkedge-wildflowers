@@ -156,6 +156,10 @@
       display: none;
     }
 
+    .blooming-now {
+      container: blooming / inline-size
+    }
+
     .blooming-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -176,12 +180,16 @@
         grid-area: blooming-slider;
       }
 
-      @media screen and (min-width: 800px) {
+      @container blooming (width > 800px) {
+        padding-inline: 3rem;
         grid-template-columns: 1fr 1.5fr;
         grid-template-rows: auto max-content;
         grid-template-areas:
-          'heading blooming-slider'
+          'heading heading'
+          'description blooming-slider'
           'description blooming-slider';
+          gap: 0 1.5rem;
+
       }
 
     }

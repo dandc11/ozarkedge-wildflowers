@@ -134,7 +134,6 @@ const GrowingNearby = ({
               <ImageSlider
                 sliderImages={growingNearbyPlantImages}
                 lightboxIdentifier={'growingNearby'}
-                showArrows
                 useLinks
               />
             )}
@@ -215,12 +214,13 @@ const NativePlantPage = (props) => {
           {(previewImage || bannerImage) && (
             <div id="bannerImage" className="relative">
               <ResponsiveImage
-                className={`relative w-full h-full object-cover rounded-none cursor-auto bp-1200:object-[50%_35%] bp-1200:h-full`}
+                className={`relative w-full h-full object-cover rounded-none bp-1200:object-[50%_35%] bp-1200:h-full`}
                 figureClassName={`h-[36vh] bp-700:h-[60vh] bp-1600:h-[80vh]`}
                 image={bannerImage}
                 mobileImage={previewImage}
                 breakpoint={'500'}
                 disableHover
+                disablePointer
                 priority={true}
                 placeholder={``}
                 loading={`eager`}

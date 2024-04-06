@@ -145,7 +145,7 @@ const Button = (
   ...props
 ) => {
   const clickHandler = () => {
-    if (callBack !== null) {
+    if (callBack) {
       callBack()
     }
     if (internalLink !== '') {

@@ -1,6 +1,22 @@
 import React from 'react';
 
-// react functional arrow component for rendering links in the studio
-const IconAppender = ({children}) => <span>{children} 🔗</span>
+const IconAppender = ({children, iconType}) => {
+    let icon;
+    switch(iconType) {
+        case 'internalLink':
+            icon = '🔗';
+            break;
+        case 'hightlight':
+            icon = '🖌️';
+            break;
+        case 'externalLink':
+            icon = '🌐';
+            break;
+        default:
+            icon = '🔗';
+    }
+
+    return <span>{children} {icon}</span>
+}
                 
 export default IconAppender;

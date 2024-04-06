@@ -114,6 +114,7 @@ const ResponsiveImage = ({
   children,
   className = '',
   disableHover = false,
+  disablePointer = false,
   figureClassName = '',
   image = '',
   lightboxIdentifier,
@@ -171,7 +172,7 @@ const ResponsiveImage = ({
               className={cx(
                 'transition delay-100 duration-200',
                 { 'hover:scale-95': !disableHover },
-                { 'cursor-pointer ': onClick !== '' },
+                { 'cursor-pointer ': onClick !== '' && !disablePointer},
                 className,
               )}
               lightboxIdentifier={lightboxIdentifier}

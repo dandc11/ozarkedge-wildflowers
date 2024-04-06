@@ -2616,22 +2616,22 @@ electron-to-chromium@^1.4.648:
   integrity sha512-UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==
 
 embla-carousel-react@^8.0.0-rc14:
-  version "8.0.0"
-  resolved "https://registry.npmjs.org/embla-carousel-react/-/embla-carousel-react-8.0.0.tgz"
-  integrity sha512-qT0dii8ZwoCtEIBE6ogjqU2+5IwnGfdt2teKjCzW88JRErflhlCpz8KjWnW8xoRZOP8g0clRtsMEFoAgS/elfA==
+  version "8.0.1"
+  resolved "https://registry.npmjs.org/embla-carousel-react/-/embla-carousel-react-8.0.1.tgz"
+  integrity sha512-cpFQ/HwCsjBjzpu9Z9IHmZ9DaCSf/wo4q+qUTcRW3SsNv+1Q8IY7Y8J2QIyTmz0vOWY7tliu3uE2gqRH7ZDwOQ==
   dependencies:
-    embla-carousel "8.0.0"
-    embla-carousel-reactive-utils "8.0.0"
+    embla-carousel "8.0.1"
+    embla-carousel-reactive-utils "8.0.1"
 
-embla-carousel-reactive-utils@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.npmjs.org/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.0.0.tgz"
-  integrity sha512-JCw0CqCXI7tbHDRogBb9PoeMLyjEC1vpN0lDOzUjmlfVgtfF+ffLaOK8bVtXVUEbNs/3guGe3NSzA5J5aYzLzw==
+embla-carousel-reactive-utils@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.npmjs.org/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.0.1.tgz"
+  integrity sha512-KBSkz2h9LwVFkOrwzIJKgXbmEDlIShkreeOHnV8Cph09AdBMzb412nRkcctbeDcuG9x3CVsqLzJrSXnZeYhFPQ==
 
-embla-carousel@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.npmjs.org/embla-carousel/-/embla-carousel-8.0.0.tgz"
-  integrity sha512-ecixcyqS6oKD2nh5Nj5MObcgoSILWNI/GtBxkidn5ytFaCCmwVHo2SecksaQZHcARMMpIR2dWOlSIdA1LkZFUA==
+embla-carousel@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.npmjs.org/embla-carousel/-/embla-carousel-8.0.1.tgz"
+  integrity sha512-RsaMRyBCd144N95gb3XoI+H9zj3RI4y0qcfvKYEh2tIAIEenL9CW9vwzltCeoYkWYipGdkvup+HGT9ewG1YTEw==
 
 emoji-regex@^8.0.0:
   version "8.0.0"

@@ -21,7 +21,7 @@ const Nav = () => {
     try {
       const res = await fetch('/api/menuMiddleware')
       const data = await res.json()
-      console.log('Fetched menu items:', data)
+      
       if (data && data.length > 0) {
         let menuItems = data[0].menuItems
         let menuBgImage = data[0].menuBackgroundImage

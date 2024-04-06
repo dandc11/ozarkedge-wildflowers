@@ -29,12 +29,6 @@ export default defineType({
       ],
       // Marks let you mark up inline text in the block editor.
       marks: {
-        // Decorators usually describe a single property – e.g. a typographic
-        // preference or highlighting by editors.
-        decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
-        ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
           {
@@ -49,8 +43,7 @@ export default defineType({
                 to: DOCUMENT_TYPES,
               },
             ],
-            components: <IconAppender icon={`🔗`} />,
-            icon: () => '🔗 ',
+            icon: <IconAppender iconType={`internalLink`} />,
           },
           {
             name: 'externalLink',
@@ -69,9 +62,14 @@ export default defineType({
                 type: 'boolean',
               },
             ],
-            icon: () => '🌐 ',
-            components: <IconAppender icon={`🌐`} />,
+            icon: <IconAppender iconType={`externalLink`} />,
           },
+        ],
+        // Decorators usually describe a single property – e.g. a typographic
+        // preference or highlighting by editors.
+        decorators: [
+          { title: 'Strong', value: 'strong' },
+          { title: 'Emphasis', value: 'em' },
         ],
       },
     }),

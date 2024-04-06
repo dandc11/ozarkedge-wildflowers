@@ -23,7 +23,6 @@ import { getPathFromDocType } from '../utilities/helperUtil'
  * <CustomLink href='https://www.google.com' className='text-blue-500'>Google</CustomLink>
  */
 const CustomLink = ({ docType = undefined, slug = '', href, children, className = '' }) => {
-
   const fullPath = docType ? getPathFromDocType(docType, slug) : ''
   return (
     <>

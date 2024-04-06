@@ -12,7 +12,6 @@ import { DOCTYPE_PATH_PREFIXES } from './constants';
  * @returns the path for the given document type and slug
  */
 export const getPathFromDocType = (docytype = '', slug = '') => {
-    // console.log('getPathFromDocType', docytype, slug);
     return DOCTYPE_PATH_PREFIXES[docytype]
     ? DOCTYPE_PATH_PREFIXES[docytype] + slug
     : slug;
