@@ -4264,10 +4264,10 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lightbox.js-react@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/lightbox.js-react/-/lightbox.js-react-1.0.4.tgz"
-  integrity sha512-AM9GxriQLmmWirTSI9X/K5cj0xIcCta+R4ImDTjfwaCsd36ZG32fjQ/1GHJ2ht+ooo4BaCRZ6l8xedu2f0ePnQ==
+lightbox.js-react@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/lightbox.js-react/-/lightbox.js-react-1.0.5.tgz"
+  integrity sha512-UuMnccVISzpMTEfEH20T4GaHovBr7LzKNpsW63yJPTh2S7qg4oeH/0eCpSohOcxnxB1QQ/0v4DFHLggTvs7+xA==
   dependencies:
     "@react-hook/resize-observer" "^1.2.6"
     "@types/file-saver" "^2.0.5"

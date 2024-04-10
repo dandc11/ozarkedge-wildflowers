@@ -24,7 +24,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "classnames": "^2.3.2",
     "cors": "^2.8.5",
-    "lightbox.js-react": "^1.0.4",
+    "lightbox.js-react": "^1.0.5",
     "next": "^13.5.6",
     "next-sanity": "^5.1.2",
     "react": "^18.2.0",

@@ -287,7 +287,6 @@
       }
 
       img {
-        object-fit: contain;
         align-self: flex-start;
       }
     }
