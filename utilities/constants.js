@@ -40,22 +40,22 @@ export const MONTH_OPTIONS = [
 export const SEASONS = {
   SPRING: {
     SEASON_NAME: 'spring',
-    SEASON_MONTHS: [4, 5, 6],
+    SEASON_MONTHS: [3, 4, 5],
     ACCENT_COLOR_CLASS: 'bg-oe-blue-dark-200',
   },
   SUMMER: {
     SEASON_NAME: 'summer',
-    SEASON_MONTHS: [7, 8, 9],
+    SEASON_MONTHS: [6, 7, 8],
     ACCENT_COLOR_CLASS: 'bg-oe-green-500',
   },
   FALL: {
     SEASON_NAME: 'fall',
-    SEASON_MONTHS: [10, 11, 12],
+    SEASON_MONTHS: [9, 10, 11],
     ACCENT_COLOR_CLASS: 'bg-oe-red-300',
   },
   WINTER: {
     SEASON_NAME: 'winter',
-    SEASON_MONTHS: [1, 2, 3],
+    SEASON_MONTHS: [12, 1, 2],
     ACCENT_COLOR_CLASS: 'bg-oe-blue-dark-200',
   },
 }
