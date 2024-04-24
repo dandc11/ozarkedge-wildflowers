@@ -2616,22 +2616,22 @@ electron-to-chromium@^1.4.648:
   integrity sha512-UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==
 
 embla-carousel-react@^8.0.0-rc14:
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/embla-carousel-react/-/embla-carousel-react-8.0.1.tgz"
-  integrity sha512-cpFQ/HwCsjBjzpu9Z9IHmZ9DaCSf/wo4q+qUTcRW3SsNv+1Q8IY7Y8J2QIyTmz0vOWY7tliu3uE2gqRH7ZDwOQ==
+  version "8.0.2"
+  resolved "https://registry.npmjs.org/embla-carousel-react/-/embla-carousel-react-8.0.2.tgz"
+  integrity sha512-RHe1GKLulOW8EDN+cJgbFbVVfRXcaLT2/89dyVw3ONGgVpZjD19wB87I1LUZ1aCzOSrTccx0PFSQanK4OOfGPA==
   dependencies:
-    embla-carousel "8.0.1"
-    embla-carousel-reactive-utils "8.0.1"
+    embla-carousel "8.0.2"
+    embla-carousel-reactive-utils "8.0.2"
 
-embla-carousel-reactive-utils@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.0.1.tgz"
-  integrity sha512-KBSkz2h9LwVFkOrwzIJKgXbmEDlIShkreeOHnV8Cph09AdBMzb412nRkcctbeDcuG9x3CVsqLzJrSXnZeYhFPQ==
+embla-carousel-reactive-utils@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.npmjs.org/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.0.2.tgz"
+  integrity sha512-nLZqDkQdO0hvOP49/dUwjkkepMnUXgIzhyRuDjwGqswpB4Ibnc5M+w7rSQQAM+uMj0cPaXnYOTlv8XD7I/zVNw==
 
-embla-carousel@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/embla-carousel/-/embla-carousel-8.0.1.tgz"
-  integrity sha512-RsaMRyBCd144N95gb3XoI+H9zj3RI4y0qcfvKYEh2tIAIEenL9CW9vwzltCeoYkWYipGdkvup+HGT9ewG1YTEw==
+embla-carousel@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.npmjs.org/embla-carousel/-/embla-carousel-8.0.2.tgz"
+  integrity sha512-bogsDO8xosuh/l3PxIvA5AMl3+BnRVAse9sDW/60amzj4MbGS5re4WH5eVEXiuH8G1/3G7QUAX2QNr3Yx8z5rA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -4264,10 +4264,10 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lightbox.js-react@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/lightbox.js-react/-/lightbox.js-react-1.0.4.tgz"
-  integrity sha512-AM9GxriQLmmWirTSI9X/K5cj0xIcCta+R4ImDTjfwaCsd36ZG32fjQ/1GHJ2ht+ooo4BaCRZ6l8xedu2f0ePnQ==
+lightbox.js-react@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/lightbox.js-react/-/lightbox.js-react-1.0.6.tgz"
+  integrity sha512-OAj9Rc/yRn1X8w26xVGHTKb9tf6qbGiBqYoFc8GvDZB/8g132q2vaWi2Fmx3o5YLZSCGhVyyLZKptyr/HFV8ZQ==
   dependencies:
     "@react-hook/resize-observer" "^1.2.6"
     "@types/file-saver" "^2.0.5"
@@ -5205,9 +5205,9 @@ raf@^3.4.1:
     performance-now "^2.1.0"
 
 react-bootstrap-icons@^1.8.1:
-  version "1.11.3"
-  resolved "https://registry.npmjs.org/react-bootstrap-icons/-/react-bootstrap-icons-1.11.3.tgz"
-  integrity sha512-f/DAy4UXnjdbaZyUcZKR2I3xim56uCznb9t+u3ojwzDG1p2RUrua/d8R4xplAQ8Bj/LVZwHVSrvO+npvp3l3pw==
+  version "1.11.4"
+  resolved "https://registry.npmjs.org/react-bootstrap-icons/-/react-bootstrap-icons-1.11.4.tgz"
+  integrity sha512-lnkOpNEZ/Zr7mNxvjA9efuarCPSgtOuGA55XiRj7ASJnBjb1wEAdtJOd2Aiv9t07r7FLI1IgyZPg9P6jqWD/IA==
   dependencies:
     prop-types "^15.7.2"
 
