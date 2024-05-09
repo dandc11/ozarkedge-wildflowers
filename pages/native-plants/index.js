@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import CustomLink from 'components/CustomLink'
-import Header from 'components/Header'
+import Heading from 'components/Heading'
 import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
@@ -110,14 +110,14 @@ export default function PlantListPage(props) {
   return (
     <>
       <div className="relative h-full w-full ">
-        <Header
+        <Heading
           showCircle={true}
           className={'absolute content-center px-10 pt-20 mb-0 bp-900:pl-20'}
           circleColorClass={'bg-oe-pink-700'}
-          headerClassName={'text-white'}
+          headingClassName={'text-white'}
         >
           {pageTitle}
-        </Header>
+        </Heading>
         <PortTextWrapper
           className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
           value={plantListInformation}
