@@ -8,7 +8,7 @@ export default function Document() {
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <body className={`text-gray-800`}>
+            <body className={``}>
                 <Main />
                 <NextScript />
             </body>

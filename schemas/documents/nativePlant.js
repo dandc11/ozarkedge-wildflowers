@@ -63,6 +63,7 @@ export default defineType({
         hotspot: true,
       },
       group: 'name',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'plantName',
@@ -77,6 +78,7 @@ export default defineType({
         "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
       type: 'pageBodyPortableText',
       group: 'description',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'images',
@@ -154,6 +156,25 @@ export default defineType({
       group: 'growingNearby',
     }),
     defineField({
+      name: 'conservationRanking',
+      title: 'Conservation Ranking (NatureServe)',
+      description: 'Add the NatureServe conservation ranking for this plant.',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Presumed Extirpated', value: 'presumedExtirpated' },
+          { title: 'Possibly Extirpated', value: 'possiblyExtirpated' },
+          { title: 'Critically Imperiled', value: 'criticallyImperiled' },
+          { title: 'Imperiled', value: 'imperiled' },
+          { title: 'Vulnerable', value: 'vulnerable' },
+          { title: 'Apparently Secure', value: 'apparentlySecure'},
+          { title: 'Secure', value: 'secure' },
+          { title: 'Not Ranked', value: 'notRanked'}
+        ]
+      },
+      group: 'description',
+    }),
+    defineField({
       name: 'conservationStatus',
       title: 'Conservation Status',
       description: "Add any information about the plant's conservation status.",
@@ -218,6 +239,7 @@ export default defineType({
         ],
       },
       group: 'metadata',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'floweringSeason',
@@ -234,6 +256,7 @@ export default defineType({
         ], // <-- predefined values
       },
       group: 'metadata',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'floweringMonths',
@@ -257,6 +280,7 @@ export default defineType({
         ], // <-- predefined values
       },
       group: 'metadata',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'metaDescription',
@@ -284,6 +308,7 @@ export default defineType({
         hotspot: true, // <-- Defaults to false
       },
       group: 'metadata',
+      validation: Rule => Rule.required(),
     }),
   ],
 })

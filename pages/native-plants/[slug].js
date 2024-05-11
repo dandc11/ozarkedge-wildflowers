@@ -6,17 +6,18 @@ import {
   GET_ALL_NATIVE_PLANT_PATHS_QUERY,
   GET_PLANT_PAGE_DATA,
 } from '../../lib/queries'
-
 import { PLANT_PAGE_SECTIONS } from '../../utilities/constants'
 import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
 import PlantName from 'components/PlantName'
-import Header from 'components/Header'
+import Heading from 'components/Heading'
 import ResponsiveImage from 'components/ResponsiveImage'
 import PortTextWrapper from 'components/PortTextWrapper'
 import TableOfContents from 'components/TableOfContents'
 import cx from 'classnames'
 import Button from 'components/Button'
 import LightboxGallery from 'components/LightboxGallery'
+import NatureServeMessage from 'components/NatureServeMessage'
+import NatureServeBadge  from 'components/NatureServeBadge'
 import ThumbnailGrid from 'components/ThumbnailGrid'
 import ImageSlider from 'components/ImageSlider'
 import ContentSection from 'components/ContentSection'
@@ -36,7 +37,14 @@ import ContentSection from 'components/ContentSection'
  *    tocLinks={tocLinks}
  *  />
  */
-const IntroSection = ({ lede, plantName, closeToC, tocLinks, lightboxCallback, lightboxIdentifier }) => {
+const IntroSection = ({
+  lede,
+  plantName,
+  closeToC,
+  tocLinks,
+  lightboxCallback,
+  lightboxIdentifier,
+}) => {
   const [isTableOfContentsOpen, setIsTableOfContentsOpen] = useState(false)
   closeToC = () => {
     setIsTableOfContentsOpen(!isTableOfContentsOpen)
@@ -122,14 +130,14 @@ const GrowingNearby = ({
           className={cx('relative bg-oe-green-yelow-400', className)}
         >
           <div className="max-w-7xl m-auto">
-            <Header
+            <Heading
               id={'growingNearbyText'}
               className={``}
               showCircle
               tocLinks={tocLinks}
             >
               <span>{PLANT_PAGE_SECTIONS.growingNearbyText}</span>
-            </Header>
+            </Heading>
             {growingNearbyPlantImages && (
               <ImageSlider
                 sliderImages={growingNearbyPlantImages}
@@ -172,11 +180,12 @@ const getSectionLinks = (pageData) => {
 const NativePlantPage = (props) => {
   const { pageProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_PLANT_PAGE_DATA)
-  // console.log('pageData ', pageData)
+  console.log('pageData ', pageData)
   const {
     bannerImage,
     bloomText,
     conservationStatus,
+    conservationRanking,
     description,
     flowerColor,
     floweringMonths,
@@ -194,7 +203,17 @@ const NativePlantPage = (props) => {
   const sectionLinks = getSectionLinks(pageData)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
-  const fullImageArray = getUniqueImagesFromDocument(pageData, ['growingNearbyPlantList'])
+  const fullImageArray = getUniqueImagesFromDocument(pageData, [
+    'growingNearbyPlantList',
+  ])
+  const nsBadge = 
+    <NatureServeBadge
+      plantName={plantName.botanicalName}
+      conservationRanking={conservationRanking}
+      className={'inline-flex text-lg'}
+    />
+  
+  const nsMessage = <NatureServeMessage conservationRanking={conservationRanking} />
 
   // toggle lightbox, set starting slide index if opening
   const toggleLightbox = (key) => {
@@ -248,18 +267,18 @@ const NativePlantPage = (props) => {
                   id={`images`}
                   className="flex flex-col items-center right-sidebar bp-1400:mt-14"
                 >
-                    <LightboxGallery
-                      className={`px-4`}
-                      cols={3}
-                      lightboxImgClass={`h-[80vh]`}
-                      images={fullImageArray}
-                      lightboxIdentifier="plantPage"
-                      onCloseCallback={closeLightbox}
-                      open={isLightboxOpen}
-                      slideshow={true}
-                      showImageGrid={false}
-                      startingSlideIndex={startingSlideIndex}
-                    />
+                  <LightboxGallery
+                    className={`px-4`}
+                    cols={3}
+                    lightboxImgClass={`h-[80vh]`}
+                    images={fullImageArray}
+                    lightboxIdentifier="plantPage"
+                    onCloseCallback={closeLightbox}
+                    open={isLightboxOpen}
+                    slideshow={true}
+                    showImageGrid={false}
+                    startingSlideIndex={startingSlideIndex}
+                  />
                   <div className="relative py-6 px-8 bp-1400:sticky top-10 flex flex-col items-center">
                     <Button
                       className={`btn-secondary my-8 max-w-[14rem]`}
@@ -283,7 +302,7 @@ const NativePlantPage = (props) => {
               <article className="content-well">
                 <ContentSection
                   className={`z-[10]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   portableText={plantName.nameInformation}
                   tocLinks={sectionLinks}
                   sectionId={`plantName`}
@@ -293,7 +312,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[9]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   portableText={bloomText}
                   tocLinks={sectionLinks}
                   sectionId={`bloomText`}
@@ -303,7 +322,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[8]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   portableText={description}
                   tocLinks={sectionLinks}
                   sectionId={`description`}
@@ -313,7 +332,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[7]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   portableText={pollinators}
                   tocLinks={sectionLinks}
                   sectionId={`pollinators`}
@@ -323,7 +342,7 @@ const NativePlantPage = (props) => {
                 />
                 <GrowingNearby
                   className={`z-[6]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   growingNearbyPlantImages={growingNearbyPlantList}
                   growingNearbyText={growingNearbyText}
                   sectionId={`growingNearby`}
@@ -333,7 +352,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[5]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   portableText={habitat}
                   tocLinks={sectionLinks}
                   sectionId={`habitat`}
@@ -341,19 +360,22 @@ const NativePlantPage = (props) => {
                   lightboxIdentifier={`plantPage`}
                   toggleLightboxCallback={toggleLightbox}
                 />
+
                 <ContentSection
                   className={`z-[4]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`mr-10 bp-900:mb-8`}
+                  badge={nsBadge}
+                  pretextComponent={nsMessage}
                   portableText={conservationStatus}
                   tocLinks={sectionLinks}
                   sectionId={`conservationStatus`}
                   headerTitle={`CONSERVATION STATUS`}
                   lightboxIdentifier={`plantPage`}
                   toggleLightboxCallback={toggleLightbox}
-                />
+                ></ContentSection>
                 <ContentSection
                   className={`z-[3]`}
-                  headerClassName={`bp-900:mb-8`}
+                  headingClassName={`bp-900:mb-8`}
                   portableText={tidbits}
                   tocLinks={sectionLinks}
                   sectionId={`tidbits`}
