@@ -208,7 +208,6 @@ const NativePlantPage = (props) => {
   ])
   const nsBadge = 
     <NatureServeBadge
-      plantName={plantName.botanicalName}
       conservationRanking={conservationRanking}
       className={'inline-flex text-lg'}
     />
