@@ -1,3 +1,4 @@
+
 @layer base {
   html {
     font-family: var(--font-raleway), system-ui, sans-serif;
@@ -10,7 +11,7 @@
     }
 
     * {
-      color: #272827;
+      color: var(--oe-text-body);
       border-style: none;
     }
 

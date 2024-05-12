@@ -158,4 +158,12 @@ export const COLORS = {
   'oe-pink-700': '#9E2564',
   'oe-pink-800': '#731B49',
   'oe-pink-900': '#390E24',
+  'oe-presumed-extirpated': '#666666',
+  'oe-possibly-extirpated': '#99928b',
+  'oe-critically-imperiled': '#ed7b76',
+  'oe-imperiled': '#f8ae80',
+  'oe-vulnerable': '#f7d48b',
+  'oe-apparently-secure': '#a6d8b8',
+  'oe-secure': '#668bb3',
+
 }

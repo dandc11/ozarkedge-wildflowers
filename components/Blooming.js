@@ -1,6 +1,6 @@
 import React from 'react'
 import { getCurrentMonthName, titleCase } from '../utilities/helperUtil'
-import Header from './Header'
+import Heading from './Heading'
 import PortTextWrapper from './PortTextWrapper'
 import cx from 'classnames'
 import ImageSlider from './ImageSlider'
@@ -28,14 +28,14 @@ const Blooming = (props) => {
           )}
         >
           <div className="blooming-grid px-4 py-4 w-full">
-            <Header
+            <Heading
               id={`bloomingHeader`}
               className={`blooming-heading w-full p-0 text-xl`}
-              headerClassName={`text-xl font-bold`}
+              headingClassName={`text-xl font-bold`}
             >
               <span className="text-3xl">BLOOMING</span> in
               {` ${titleCase(thisMonth)}`}
-            </Header>
+            </Heading>
             {sliderPlants.length > 0 && (
               <ImageSlider
                 className={`blooming-slider overflow-hidden`}

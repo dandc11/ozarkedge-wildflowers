@@ -1,5 +1,5 @@
 /* CSS imports must be at the top of the file */
-
+@import "./colors.css";
 @import "tailwindcss/base";
 @import "./tw-base.css";
 

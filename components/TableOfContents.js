@@ -6,7 +6,7 @@ import cx from 'classnames'
 const TableOfContents = (props) => {
   const {
     className,
-    headerClassName = '',
+    headingClassName = '',
     headerText='Things to know',
     shadow = true,
     links,
@@ -39,7 +39,7 @@ const TableOfContents = (props) => {
             <h4
               className={cx(
                 `relative z-10 text-3xl font-extralight not-italic uppercase antialiased`,
-                headerClassName,
+                headingClassName,
               )}
             >
               {showCircle && <div className={circleClassNames}></div>}

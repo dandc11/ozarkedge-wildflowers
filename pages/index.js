@@ -31,6 +31,7 @@ export default function HomePage(props) {
   )
 
   const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
+  console.log('seasonData', seasonData)
 
   const {
     id,
