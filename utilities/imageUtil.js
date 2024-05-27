@@ -170,7 +170,9 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
 }
 
 /**
- * Retrieves an array of unique image objects from the provided document data. This function is useful ensuring duplicate images in a document aren't passed to image presnetation components, such as the <ImageGallery /> or <Lightbox /> components.
+ * Retrieves an array of unique image objects from the provided document data. 
+ * This function is useful for ensuring duplicate images in a document aren't passed to image presentation components, 
+ * such as the <ImageGallery /> or <Lightbox /> components.
  *
  * @param {Object} docData - The document data object.
  * @param {Array} excludedKeys - An optional array of keys to exclude from the result.
@@ -178,12 +180,21 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
  */
 export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
   const figures = []
+  const uniqueImageRefs = new Set() // Set to store unique image references
+  const uniqueImageCaptions = new Set() // Set to store unique image captions
 
-  // checks if the image is unique and adds it to the figures array
+  // Function to add unique image to figures and update Sets
+  const addUniqueImage = (image) => {
+    figures.push(image)
+    uniqueImageRefs.add(image.asset._ref) // Add image reference to the Set
+    uniqueImageCaptions.add(image.caption) // Add image caption to the Set
+  }
+
+  // checks if the image is unique
   const imageIsUnique = (image) => {
     return (
-      !figures.some((f) => f.asset._ref === image.asset._ref) &&
-      !figures.some((f) => f.caption === image.caption) &&
+      !uniqueImageRefs.has(image.asset._ref) && // Check if image reference is unique
+      !uniqueImageCaptions.has(image.caption) && // Check if image caption is unique
       image.asset
     )
   }
@@ -191,14 +202,16 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
   for (const key in docData) {
     const value = docData[key]
 
-    if (!excludedKeys.includes(key) && Array.isArray(value)) {
+    if (value.length > 1 && !excludedKeys.includes(key) && Array.isArray(value)) {
       value.forEach((dataObj) => {
-        if (dataObj._type === 'figure') {
-          imageIsUnique(dataObj) ? figures.push(dataObj) : false
+        if (dataObj._type === 'figure' && imageIsUnique(dataObj)) {
+          addUniqueImage(dataObj)
         }
         if (dataObj._type === 'imageCollection') {
           dataObj.imageCollection.forEach((image) => {
-            imageIsUnique(image) ? figures.push(image) : false
+            if (imageIsUnique(image)) {
+              addUniqueImage(image)
+            }
           })
         }
       })
