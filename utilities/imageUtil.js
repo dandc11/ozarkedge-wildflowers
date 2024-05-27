@@ -202,7 +202,7 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
   for (const key in docData) {
     const value = docData[key]
 
-    if (value.length > 1 && !excludedKeys.includes(key) && Array.isArray(value)) {
+    if (value && !excludedKeys.includes(key) && Array.isArray(value)) {
       value.forEach((dataObj) => {
         if (dataObj._type === 'figure' && imageIsUnique(dataObj)) {
           addUniqueImage(dataObj)
