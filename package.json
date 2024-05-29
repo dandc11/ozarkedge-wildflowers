@@ -8,6 +8,7 @@
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint -- --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
+    "migrate": "sanity exec migrations/rename-pagebodyportabletext-objects/index.ts --with-user-token",
     "start": "next start"
   },
   "prettier": {
@@ -16,8 +17,9 @@
   },
   "dependencies": {
     "@mux/mux-player-react": "^2.3.3",
+    "@next/env": "^14.2.3",
     "@portabletext/react": "^3.0.4",
-    "@sanity/client": "^6.8.6",
+    "@sanity/client": "^6.18.2",
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-kit": "^4.0.1",
     "@sanity/vision": "^3.20.1",

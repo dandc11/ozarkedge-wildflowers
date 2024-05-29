@@ -4,7 +4,7 @@ import ResponsiveImage from './ResponsiveImage'
 
 const ThumbnailGrid = (props) => {
   const {
-    assets,
+    assets = [],
     className,
     cols = 3,
     maxItems = 12,
@@ -24,27 +24,29 @@ const ThumbnailGrid = (props) => {
   const handleClick = (e) => {
     onClick(e.currentTarget.dataset.key)
   }
-  const galleryImages = assets.map((image, index) => {
-    const key = image.asset?._ref || index
-    return (
-      <li
-        key={key}
-        data-key={key}
-        className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}
-        onClick={handleClick}
-      >
-        <ResponsiveImage
-          className="aspect-5/4 object-cover"
-          // disableHover
-          figureClassName=""
-          image={image}
-          lightboxIdentifier={lightboxIdentifier}
-          mobileImage={false}
-          showCaption={showCaptions}
-        />
-      </li>
-    )
-  })
+  let galleryImages = []
+    galleryImages = assets.map((image, index) => {
+      const key = image.asset?._ref || index
+      return (
+        <li
+          key={key}
+          data-key={key}
+          className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}
+          onClick={handleClick}
+        >
+          <ResponsiveImage
+            className="aspect-5/4 object-cover"
+            // disableHover
+            figureClassName=""
+            image={image}
+            lightboxIdentifier={lightboxIdentifier}
+            mobileImage={false}
+            showCaption={showCaptions}
+          />
+        </li>
+      )
+    })
+  
   return (
     <ul className={cx(`grid ${gridColumns[cols]} gap-3`, className)}>
       {galleryImages}

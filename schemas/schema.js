@@ -13,6 +13,8 @@ import pollinator from './documents/pollinator';
 import link from './objects/link';
 import button from './objects/button';
 import season from './documents/season';
+import portTextVideo from './objects/portTextVideo';
+import imageCollection from './objects/imageCollection';
 
 export const schema = {
     types: [
@@ -23,6 +25,8 @@ export const schema = {
         figure,
         pageBodyPortableText,
         plantName,
+        portTextVideo,
+        imageCollection,
         season,
         nativePlant,
         pollinator,
