@@ -206,6 +206,7 @@ const NativePlantPage = (props) => {
   const fullImageArray = getUniqueImagesFromDocument(pageData, [
     'growingNearbyPlantList',
   ])
+  console.log('fullImageArray ', fullImageArray)
   const nsBadge = 
     <NatureServeBadge
       conservationRanking={conservationRanking}

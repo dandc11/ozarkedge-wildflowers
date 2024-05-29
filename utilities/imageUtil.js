@@ -180,30 +180,30 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
   const figures = []
 
   // checks if the image is unique and adds it to the figures array
-  const imageIsUnique = (image) => {
-    return (
-      !figures.some((f) => f.asset._ref === image.asset._ref) &&
-      !figures.some((f) => f.caption === image.caption) &&
-      image.asset
-    )
-  }
+  // const imageIsUnique = (image) => {
+  //   return (
+  //     !figures.some((f) => f.asset._ref === image.asset._ref) &&
+  //     !figures.some((f) => f.caption === image.caption) &&
+  //     image.asset
+  //   )
+  // }
 
-  for (const key in docData) {
-    const value = docData[key]
+  // for (const key in docData) {
+  //   const value = docData[key]
 
-    if (!excludedKeys.includes(key) && Array.isArray(value)) {
-      value.forEach((dataObj) => {
-        if (dataObj._type === 'figure') {
-          imageIsUnique(dataObj) ? figures.push(dataObj) : false
-        }
-        if (dataObj._type === 'imageCollection') {
-          dataObj.imageCollection.forEach((image) => {
-            imageIsUnique(image) ? figures.push(image) : false
-          })
-        }
-      })
-    }
-  }
+  //   if (!excludedKeys.includes(key) && Array.isArray(value)) {
+  //     value.forEach((dataObj) => {
+  //       if (dataObj._type === 'figure') {
+  //         imageIsUnique(dataObj) ? figures.push(dataObj) : false
+  //       }
+  //       if (dataObj._type === 'imageCollection') {
+  //         dataObj.imageCollection.forEach((image) => {
+  //           imageIsUnique(image) ? figures.push(image) : false
+  //         })
+  //       }
+  //     })
+  //   }
+  // }
 
   return figures
 }
