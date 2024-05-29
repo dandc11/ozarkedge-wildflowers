@@ -170,40 +170,52 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
 }
 
 /**
- * Retrieves an array of unique image objects from the provided document data. This function is useful ensuring duplicate images in a document aren't passed to image presnetation components, such as the <ImageGallery /> or <Lightbox /> components.
+ * Retrieves an array of unique image objects from the provided document data. 
+ * This function is useful for ensuring duplicate images in a document aren't passed to image presentation components, 
+ * such as the <ImageGallery /> or <Lightbox /> components.
  *
  * @param {Object} docData - The document data object.
  * @param {Array} excludedKeys - An optional array of keys to exclude from the result.
  * @returns {Array} - An array of unique image objects.
  */
 export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
-  const figures = []
+  const images = []
+  const uniqueImageRefs = new Set() // Set to store unique image references
+  const uniqueImageCaptions = new Set() // Set to store unique image captions
 
-  // checks if the image is unique and adds it to the figures array
-  // const imageIsUnique = (image) => {
-  //   return (
-  //     !figures.some((f) => f.asset._ref === image.asset._ref) &&
-  //     !figures.some((f) => f.caption === image.caption) &&
-  //     image.asset
-  //   )
-  // }
+  // Function to add unique image to images and update Sets
+  const addUniqueImage = (image) => {
+    images.push(image)
+    uniqueImageRefs.add(image.asset._ref) // Add image reference to the Set
+    uniqueImageCaptions.add(image.caption) // Add image caption to the Set
+  }
 
-  // for (const key in docData) {
-  //   const value = docData[key]
+  // checks if the image is unique
+  const imageIsUnique = (image) => {
+    return (
+      !uniqueImageRefs.has(image.asset._ref) && // Check if image reference is unique
+      !uniqueImageCaptions.has(image.caption) && // Check if image caption is unique
+      image.asset
+    )
+  }
 
-  //   if (!excludedKeys.includes(key) && Array.isArray(value)) {
-  //     value.forEach((dataObj) => {
-  //       if (dataObj._type === 'figure') {
-  //         imageIsUnique(dataObj) ? figures.push(dataObj) : false
-  //       }
-  //       if (dataObj._type === 'imageCollection') {
-  //         dataObj.imageCollection.forEach((image) => {
-  //           imageIsUnique(image) ? figures.push(image) : false
-  //         })
-  //       }
-  //     })
-  //   }
-  // }
+  for (const key in docData) {
+    const value = docData[key]
+    if (value && !excludedKeys.includes(key) && Array.isArray(value)) {
+      value.forEach((dataObj) => {
+        if (dataObj._type === 'figure' && imageIsUnique(dataObj)) {
+          addUniqueImage(dataObj)
+        }
+        if (dataObj._type === 'imageCollection' && dataObj.imageCollection && Array.isArray(dataObj.imageCollection)) {
+          dataObj.imageCollection.forEach((image) => {
+            if (imageIsUnique(image)) {
+              addUniqueImage(image)
+            }
+          })
+        }
+      })
+    }
+  }
 
-  return figures
+  return images
 }
