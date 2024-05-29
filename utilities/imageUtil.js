@@ -179,13 +179,13 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
  * @returns {Array} - An array of unique image objects.
  */
 export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
-  const figures = []
+  const images = []
   const uniqueImageRefs = new Set() // Set to store unique image references
   const uniqueImageCaptions = new Set() // Set to store unique image captions
 
-  // Function to add unique image to figures and update Sets
+  // Function to add unique image to images and update Sets
   const addUniqueImage = (image) => {
-    figures.push(image)
+    images.push(image)
     uniqueImageRefs.add(image.asset._ref) // Add image reference to the Set
     uniqueImageCaptions.add(image.caption) // Add image caption to the Set
   }
@@ -201,13 +201,12 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
 
   for (const key in docData) {
     const value = docData[key]
-
     if (value && !excludedKeys.includes(key) && Array.isArray(value)) {
       value.forEach((dataObj) => {
         if (dataObj._type === 'figure' && imageIsUnique(dataObj)) {
           addUniqueImage(dataObj)
         }
-        if (dataObj._type === 'imageCollection') {
+        if (dataObj._type === 'imageCollection' && dataObj.imageCollection && Array.isArray(dataObj.imageCollection)) {
           dataObj.imageCollection.forEach((image) => {
             if (imageIsUnique(image)) {
               addUniqueImage(image)
@@ -218,5 +217,5 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
     }
   }
 
-  return figures
+  return images
 }
