@@ -281,11 +281,12 @@ const NativePlantPage = (props) => {
                   />
                   <div className="relative py-6 px-8 bp-1400:sticky top-10 flex flex-col items-center">
                     <Button
-                      className={`btn-secondary my-8 max-w-[14rem]`}
+                      className={`btn-secondary my-8 max-w-[14rem] bp-1400:hidden`}
                       callBack={toggleLightbox}
                     >
                       View Image Gallery
                     </Button>
+                    <p className='text-lg my-4 max-bp-1400:hidden'>More Images of {plantName.botanicalName}</p>
                     <ThumbnailGrid
                       assets={fullImageArray}
                       className={`max-bp-1400:hidden`}
