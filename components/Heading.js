@@ -3,6 +3,49 @@ import React, { useState, useEffect, useRef } from 'react'
 import { getCurrentSeason } from '../utilities/helperUtil'
 import TableOfContents from './TableOfContents'
 
+const HeadingElement = ({ headingChildren, headingLevel, headingCSS, children }) => {
+  let Heading;
+  switch (headingLevel) {
+    case 1:
+      Heading = 'h1';
+      break;
+    case 2:
+      Heading = 'h2';
+      break;
+    case 3:
+      Heading = 'h3';
+      break;
+    case 4:
+      Heading = 'h4';
+      break;
+    case 5:
+      Heading = 'h5';
+      break;
+    case 6:
+      Heading = 'h6';
+      break;
+    default:
+      Heading = 'h2';
+  }
+  return <Heading className={headingCSS}>{children}</Heading>;
+}
+
+/**
+ * Represents a heading component with optional table of contents and circle.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} [props.absolute=false] - Whether the heading is positioned absolutely.
+ * @param {React.ReactNode} props.children - The content of the heading.
+ * @param {string} [props.circleColorClass] - The CSS class for the circle element.
+ * @param {string} [props.className=''] - The CSS class for the heading container.
+ * @param {string} [props.headingClassName=''] - The CSS class for the heading element.
+ * @param {number} [props.headingLevel=2] - The level of the heading (1-6).
+ * @param {string} [props.id] - The ID of the heading element.
+ * @param {boolean} [props.showCircle=false] - Whether to show the circle element.
+ * @param {Array} [props.tocLinks=null] - The table of contents links.
+ * @returns {JSX.Element} The rendered heading component.
+ */
 const Heading = (props) => {
   const {
     absolute = false,
@@ -53,33 +96,14 @@ const Heading = (props) => {
     circleColor,
   )
 
-  let HeadingElement
-  switch (headingLevel) {
-    case 1:
-      HeadingElement = <h1 className={headingCSS}>{children}</h1>
-    case 2:
-      HeadingElement = <h2 className={headingCSS}>{children}</h2>
-    case 3:
-      HeadingElement = <h3 className={headingCSS}>{children}</h3>
-    case 4:
-      HeadingElement = <h4 className={headingCSS}>{children}</h4>
-    case 5:
-      HeadingElement = <h5 className={headingCSS}>{children}</h5>
-    case 6:
-      HeadingElement = <h6 className={headingCSS}>{children}</h6>
-    default:
-      HeadingElement = <h2 className={headingCSS}>{children}</h2>
-  }
+  
 
   return (
     <div
       id={id}
-      className={cx('header-base relative', { absolute: absolute }, className)}
+      className={cx('header-base', { absolute: absolute }, className)}
     >
       {' '}
-      {showCircle && (
-        <div className={circleClassName} onClick={toggleTableOfContents}></div>
-      )}
       {tocLinks && (
         <div
           ref={tableOfContentsRef}
@@ -96,7 +120,15 @@ const Heading = (props) => {
           </div>
         </div>
       )}
-      {HeadingElement}
+      <HeadingElement headingLevel={headingLevel} headingCSS={headingCSS} headingChildren={children}>
+        {showCircle && (
+          <div
+            className={circleClassName}
+            onClick={toggleTableOfContents}
+          ></div>
+        )}
+        {children}
+      </HeadingElement>
     </div>
   )
 }
