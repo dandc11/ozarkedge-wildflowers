@@ -33,7 +33,7 @@ const Blooming = (props) => {
               className={`blooming-heading w-full p-0 text-xl`}
               headingClassName={`text-xl font-bold`}
             >
-              <span className="text-3xl">BLOOMING</span> in
+              <span className="">BLOOMING</span> in
               {` ${titleCase(thisMonth)}`}
             </Heading>
             {sliderPlants.length > 0 && (

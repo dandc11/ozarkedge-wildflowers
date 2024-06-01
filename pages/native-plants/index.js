@@ -26,7 +26,69 @@ import { getClient } from '../../lib/sanity.client'
 import PortTextWrapper from 'components/PortTextWrapper'
 import PlantImageCard from 'components/PlantImageCard'
 import ResponsiveImage from '../../components/ResponsiveImage'
-import Container from '../../components/Container'
+
+const Fieldset = ({
+  animatedComponents,
+  monthsChangeHandler,
+  colorChangeHandler,
+  habitatChangeHandler,
+}) => {
+  return (
+    <fieldset className="filters order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:mx-0">
+      <legend className="text-left text-oe-green-800 italic">
+        Filter Options
+      </legend>
+      <div className="label-containter">
+        <label className="" id="floweringMonthLabel" htmlFor="floweringMonth">
+          Flowering Month
+        </label>
+        <Select
+          className="w-full min-w-14 bp-400:min-w-16"
+          aria-labelledby="floweringMonthLabel"
+          name="floweringMonth"
+          instanceId={'floweringMonth'}
+          closeMenuOnSelect={false}
+          components={animatedComponents}
+          isMulti
+          options={MONTH_OPTIONS}
+          onChange={monthsChangeHandler}
+        />
+      </div>
+      <div className="label-containter">
+        <label className="" id="flowerColorLabel" htmlFor="flowerColor">
+          Flower Color
+        </label>
+        <Select
+          className="w-full min-w-14 bp-400:min-w-16"
+          aria-labelledby="flowerColorLabel"
+          name="flowerColor"
+          instanceId={'flowerColor'}
+          components={animatedComponents}
+          isMulti
+          label={`Flower Color`}
+          options={FLOWER_COLOR_OPTIONS}
+          onChange={colorChangeHandler}
+        />
+      </div>
+      <div className="label-containter">
+        <label className="" id="habitatLabel" htmlFor="habitat">
+          Habitat
+        </label>
+        <Select
+          aria-labelledby="habitatLabel"
+          name="habitat"
+          instanceId={'habitat'}
+          className="w-full min-w-14 bp-400:min-w-16"
+          components={animatedComponents}
+          label={`Habitat`}
+          isMulti
+          options={HABITAT_OPTIONS}
+          onChange={habitatChangeHandler}
+        />
+      </div>
+    </fieldset>
+  )
+}
 
 export default function PlantListPage(props) {
   const { nativePlantPageProps = null, nativePlantListProps = null } = props
@@ -53,11 +115,8 @@ export default function PlantListPage(props) {
     })
   }
   useEffect(() => {
-    scrollToTop();
-  }, [flowerColorsSelected, floweringMonthsSelected, habitatsSelected]);
-
-
-
+    scrollToTop()
+  }, [flowerColorsSelected, floweringMonthsSelected, habitatsSelected])
 
   // JS Doc for getMatched
   /**
@@ -112,8 +171,9 @@ export default function PlantListPage(props) {
       <div className="relative h-full w-full ">
         <Heading
           showCircle={true}
-          className={'absolute content-center px-10 pt-20 mb-0 bp-900:pl-20'}
-          circleColorClass={'bg-oe-pink-700'}
+          className={'content-center px-10 pt-20 mb-0 bp-900:pl-20'}
+          absolute
+          circleColorClass={'bg-oe-pink-900'}
           headingClassName={'text-white'}
         >
           {pageTitle}
@@ -153,67 +213,12 @@ export default function PlantListPage(props) {
                 className={`description order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1 bp-900:self-start`}
                 value={plantListInformation}
               ></PortTextWrapper>
-              <fieldset className="filters order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:mx-0">
-                <legend className="text-left text-oe-green-800 italic">
-                  Filter Options
-                </legend>
-                <div className="label-containter">
-                  <label
-                    className=""
-                    id="floweringMonthLabel"
-                    htmlFor="floweringMonth"
-                  >
-                    Flowering Month
-                  </label>
-                  <Select
-                    className="w-full min-w-14 bp-400:min-w-16"
-                    aria-labelledby="floweringMonthLabel"
-                    name="floweringMonth"
-                    instanceId={'floweringMonth'}
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}
-                    isMulti
-                    options={MONTH_OPTIONS}
-                    onChange={setFloweringMonthsSelected}
-                  />
-                </div>
-                <div className="label-containter">
-                  <label
-                    className=""
-                    id="flowerColorLabel"
-                    htmlFor="flowerColor"
-                  >
-                    Flower Color
-                  </label>
-                  <Select
-                    className="w-full min-w-14 bp-400:min-w-16"
-                    aria-labelledby="flowerColorLabel"
-                    name="flowerColor"
-                    instanceId={'flowerColor'}
-                    components={animatedComponents}
-                    isMulti
-                    label={`Flower Color`}
-                    options={FLOWER_COLOR_OPTIONS}
-                    onChange={setFlowerColorsSelected}
-                  />
-                </div>
-                <div className="label-containter">
-                  <label className="" id="habitatLabel" htmlFor="habitat">
-                    Habitat
-                  </label>
-                  <Select
-                    aria-labelledby="habitatLabel"
-                    name="habitat"
-                    instanceId={'habitat'}
-                    className="w-full min-w-14 bp-400:min-w-16"
-                    components={animatedComponents}
-                    label={`Habitat`}
-                    isMulti
-                    options={HABITAT_OPTIONS}
-                    onChange={setHabitatsSelected}
-                  />
-                </div>
-              </fieldset>
+              <Fieldset
+                animatedComponents={animatedComponents}
+                monthsChangeHandler={setFloweringMonthsSelected}
+                colorChangeHandler={setFlowerColorsSelected}
+                habitatChangeHandler={setHabitatsSelected}
+              />
             </section>
             <section id={'plantListSection'} className="plant-grid">
               <div className="flex flex-wrap w-full gap-4 justify-center bp-800:justify-start">
