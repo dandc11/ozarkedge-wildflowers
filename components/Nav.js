@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
 import cx from 'classnames'
+import { NavButtonColorContext } from '../contexts/NavButtonColorContext'
 
 /**
  * The Nav (Menu) component
@@ -16,6 +17,7 @@ const Nav = () => {
   const [menuBgImage, setMenuBgImage] = useState('')
   const [mobileMenuBgImage, setMobileMenuBgImage] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [navButtonColor] = useContext(NavButtonColorContext)
 
   const fetchMenuItems = async () => {
     try {
@@ -48,18 +50,6 @@ const Nav = () => {
         className="nav-list-item mb-4 flex justify-start items-center"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        {/* <ResponsiveImage
-          className={`menu-image h-full rounded-full`}
-          captionBgClassName=""
-          disableHover
-          figureClassName="h-full"
-          image={item.image}
-          lightboxIdentifier
-          loading="lazy"
-          showCaption={false}
-          width=""
-          wrapperClassName="min-w-8 w-32 h-32 mr-4"
-        /> */}
         <CustomLink
           docType={item.menuItemLink.docType}
           slug={item.menuItemLink.slug}
@@ -85,14 +75,15 @@ const Nav = () => {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <div
-          className={`w-8 h-1 ${isMenuOpen ? 'bg-slate-100' : 'bg-oe-red-800'}`}
+          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
         ></div>
         <div
-          className={`w-8 h-1 ${isMenuOpen ? 'bg-slate-100' : 'bg-oe-red-800'}`}
+          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
         ></div>
         <div
-          className={`w-8 h-1 ${isMenuOpen ? 'bg-slate-100' : 'bg-oe-red-800'}`}
+          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
         ></div>
+
       </button>
       <div className={cx(`menu-container w-full`)}>
         <div id="menuItemsContainer" className="menu-items">

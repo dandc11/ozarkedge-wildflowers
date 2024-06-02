@@ -1,5 +1,5 @@
 import PlantName from 'components/PlantName'
-import React from 'react'
+import React, { useContext } from 'react'
 import { getClient } from '../../lib/sanity.client'
 import { readToken } from '../../lib/sanity.api'
 import { useLiveQuery } from 'next-sanity/preview'
@@ -8,6 +8,7 @@ import {
   GET_SEASON_PAGE_DATA_QUERY,
 } from '../../lib/queries'
 import cx from 'classnames'
+import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 
 const SeasonPage = (props) => {
   const { pageProps = null } = props
@@ -21,10 +22,14 @@ const SeasonPage = (props) => {
   //     growingNearbyText,
   //     habitat,
   //     images,
+  //      menuButtonColor = 'light',
   //     plantName,
   //     previewImage,
   //     tidbits,
   // } = plantPageData;
+  // const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
   return <div>{JSON.stringify(pageData)}</div>
 }
 

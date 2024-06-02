@@ -17,16 +17,40 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'pageBodyPortableText',
+      name: 'mainImage',
+      title: 'Main Image',
+      description: 'Provide an image for the background of the landing page.',
+      type: 'mainImage',
     }),
     defineField({
-      name: 'fullPathFromRoot',
-      title: 'Full Path From Root',
+      name: 'mobileImage',
+      title: 'Mobile Image',
       description:
-        'This is the extension from https://ozarkedgewildflowers.com at which this page can be found.',
+        'Optional - Provide an image cropped for mobile viewports. If blank, the main image will be used.',
+      type: 'image',
+      options: {
+        hotspot: true,
+        metadata: [
+          'blurhash', // Default: included
+          'lqip', // Default: included
+          'palette', // Default: included
+        ],
+      },
+    }),
+    defineField({
+      name: 'menuButtonColor',
+      title: 'Menu Button Color',
+      description: 'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
+      options: {
+        list: ['light', 'dark'],
+      },
+    }),
+    defineField({
+      name: 'body',
+      title: 'Page Body Text',
+      description: 'This is the text for the body of the page.',
+      type: 'pageBodyPortableText',
     }),
     defineField({
       name: 'slug',

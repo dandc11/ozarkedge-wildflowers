@@ -42,6 +42,21 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'mainImage',
+      title: 'Main Image',
+      description: 'Add an image to depict this season in the page banner.',
+      type: 'figure',
+    }),
+    defineField({
+      name: 'menuButtonColor',
+      title: 'Menu Button Color',
+      description: 'Choose light when using a dark image and dark when using a light image.',
+      type: 'string',
+      options: {
+        list: ['light', 'dark'],
+      },
+    }),
+    defineField({
       // Hidden field to store the months of the season as numbers - set to read-only to prevent accidental changes
       // SPRING: 4, 5, 6 - SUMMER: 7, 8, 9 - FALL: 10, 11, 12 - WINTER: 1, 2, 3
       name: 'monthNumbers',
@@ -75,12 +90,6 @@ export default defineType({
       title: 'Season Description',
       description: 'Add body text content about this season here.',
       type: 'pageBodyPortableText',
-    }),
-    defineField({
-      name: 'mainImage',
-      title: 'Main Image',
-      description: 'Add an image to depict this season in the page banner.',
-      type: 'figure',
     }),
   ],
 })

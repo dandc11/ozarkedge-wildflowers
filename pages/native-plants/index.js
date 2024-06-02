@@ -8,6 +8,7 @@ import Button from '../../components/Button'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import cx from 'classnames'
+import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 
 import {
   HABITAT_OPTIONS,
@@ -100,8 +101,12 @@ export default function PlantListPage(props) {
     nativePlantListProps,
     GET_NATIVE_PLANT_LIST_DATA_QUERY,
   )
-  const { pageTitle, headerImage, plantListInformation } =
+  const { pageTitle, menuButtonColor = 'light', headerImage, plantListInformation } =
     nativePlantPageData[0]
+  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  console.log('menuButtonColor', menuButtonColor) 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
   const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
   const [habitatsSelected, setHabitatsSelected] = useState('')
   const [floweringMonthsSelected, setFloweringMonthsSelected] = useState('')
@@ -168,7 +173,7 @@ export default function PlantListPage(props) {
 
   return (
     <>
-      <div className="relative h-full w-full ">
+      <div className="plant-list-content relative h-full w-full ">
         <Heading
           showCircle={true}
           className={'content-center px-10 pt-20 mb-0 bp-900:pl-20'}
