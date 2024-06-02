@@ -47,24 +47,18 @@ const AboutPage = (props) => {
       {pageData &&
         pageData.map(() => (
           <div
-            className={`about-content overflow-hidden flex flex-col relative`}
+            className={`about-content overflow-hidden flex flex-col items-center relative`}
             key={id}
           >
-            <Heading
-              className={'content-center px-10 pt-20 mb-0 bp-900:pl-20'}
-              showCircle={false}
-              headingClassName={''}
-            >
-              About Ozarkedge
-            </Heading>
+            <section className="header-section relative w-full h-full">
             <ResponsiveImage
               image={mainImage}
               alt={mainImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
               loading="eager"
               figureClassName="h-full w-full"
-              wrapperClassName="hidden w-full bg-oe-green-yellow-200 bp-900:block"
-              className="rounded-none "
+              wrapperClassName="hidden w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[70vh] "
+              className="object-cover object-[50%_10%] rounded-none w-full h-full"
             />
             <ResponsiveImage
               image={mobileImage}
@@ -72,11 +66,21 @@ const AboutPage = (props) => {
               disableHover
               loading="eager"
               figureClassName="h-full w-full"
-              wrapperClassName="w-full  bg-oe-green-yellow-200 bp-900:hidden"
-              className="rounded-none "
+              wrapperClassName="w-full bg-oe-green-yellow-200 bp-900:hidden"
+              className="object-cover rounded-none bp-1200:object-[50%_35%] "
             />
+            <Heading
+              className={'content-center font-display -bottom-4 pl-6 pb-1 bg-oe-blue-green-dark-500 mb-0 whitespace-nowrap w-[18rem] bp-900:w-[30rem] bp-900:text-right bp-900:px-8 bp-900:py-3 shadow-md'}
+              showCircle={false}
+              absolute 
+              textTypeClass={'display bp-900:text-3xl'}
+              headingClassName={' text-white'}
+            >
+              About Ozarkedge
+            </Heading>
+            </section>
             <PortTextWrapper
-              className={`relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
+              className={`relative z-10 order-2 mt-10 px-8 pb-6 max-w-5xl text-black`}
               lightboxCallback={toggleLightbox}
               value={bodyPortableText}
             />

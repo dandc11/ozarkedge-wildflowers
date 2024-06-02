@@ -33,25 +33,39 @@
 
     .heading {
       position: relative;
-      font-weight: 200;
-      font-size: 1.5rem;
-      text-transform: uppercase;
       z-index: 0;
-    }
 
-    @container header-base (width > 400px) {
+      &.thin {
+        font-weight: 200;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-family: var(--font-raleway);
+      }
+
+      &.display {
+        font-weight: 400;
+        font-size: 2rem;
+        font-family: var(--font-playfair-display);
+      }
+    }
+    
+    /* @container header-base (width > 400px) {
       .heading {
         font-size: 1.875rem;
         padding-left: 0;
         z-index: 0;
       }
     }
-
+    
     @container header-base (width > 1000px) {
       .heading {
         font-size: 2.25rem;
+
+        &.display {
+          font-size: 3rem;
+        }
       }
-    }
+    } */
   }
 
   .bg-container {

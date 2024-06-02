@@ -57,13 +57,14 @@ const Heading = (props) => {
     id,
     showCircle = false,
     tocLinks = null,
+    textTypeClass = 'thin'
   } = props
   const tableOfContentsRef = useRef(null)
   const [tableOfContentsOpen, setTableOfContentsOpen] = useState(false)
   const toggleTableOfContents = () => {
     setTableOfContentsOpen(!tableOfContentsOpen)
   }
-  const headingCSS = cx('heading', headingClassName)
+  const headingCSS = cx('heading', textTypeClass, headingClassName)
 
   // Closes table of contents if clicked outside
   const onClickOutside = (e) => {
