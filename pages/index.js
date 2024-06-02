@@ -2,7 +2,8 @@ import cx from 'classnames'
 import Blooming from 'components/Blooming'
 import Button from 'components/Button'
 import { useLiveQuery } from 'next-sanity/preview'
-import React from 'react'
+import React, { useContext } from 'react'
+import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 
 import {
   GET_BLOOMING_PLANTS_DATA_QUERY,
@@ -38,10 +39,14 @@ export default function HomePage(props) {
     titleText,
     subtitleText,
     mainImage: bgImage,
+    menuButtonColor = 'light',
     mobileImage: bgImageSmall,
     buttonOne,
     buttonTwo,
   } = pageData[0]
+  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
   const aboveFoldBackground = { bgImage, bgImageSmall }
   const bgStyle = buildBackgroundStyleObject(aboveFoldBackground)
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { getClient } from '../../lib/sanity.client'
 import { readToken } from '../../lib/sanity.api'
 import { useLiveQuery } from 'next-sanity/preview'
@@ -21,6 +21,7 @@ import NatureServeBadge  from 'components/NatureServeBadge'
 import ThumbnailGrid from 'components/ThumbnailGrid'
 import ImageSlider from 'components/ImageSlider'
 import ContentSection from 'components/ContentSection'
+import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 
 /**
  * IntroSection component - 1st section of plant page (intro text)
@@ -180,7 +181,6 @@ const getSectionLinks = (pageData) => {
 const NativePlantPage = (props) => {
   const { pageProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_PLANT_PAGE_DATA)
-  console.log('pageData ', pageData)
   const {
     bannerImage,
     bloomText,
@@ -195,18 +195,23 @@ const NativePlantPage = (props) => {
     habitat,
     images,
     lede,
+    menuButtonColor,
     plantName,
     pollinators,
     previewImage,
     tidbits,
   } = { ...pageData }
+
+
+  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
   const sectionLinks = getSectionLinks(pageData)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
   const fullImageArray = getUniqueImagesFromDocument(pageData, [
     'growingNearbyPlantList',
   ])
-  console.log('fullImageArray ', fullImageArray)
   const nsBadge = 
     <NatureServeBadge
       conservationRanking={conservationRanking}

@@ -38,6 +38,15 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'menuButtonColor',
+      title: 'Menu Button Color',
+      description: 'Choose light when using a dark image and dark when using a light image.',
+      type: 'string',
+      options: {
+        list: ['light', 'dark'],
+      },
+    }),
+    defineField({
       name: 'body',
       title: 'Page Body Text',
       description: 'This is the text for the body of the page.',

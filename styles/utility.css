@@ -1,0 +1,27 @@
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}   
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.menu-light {
+    background-color: var(--oe-white);
+}
+
+.menu-dark {
+    background-color: var(--oe-red-800);
+}

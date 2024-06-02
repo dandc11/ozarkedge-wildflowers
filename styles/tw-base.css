@@ -7,6 +7,11 @@
 
     body {
       height: 100%;
+
+      &:has(#mainNav.menu-active) {
+        /* prevent scroll when the menu is open */
+        overflow: hidden;
+      }
     }
 
     * {
@@ -17,8 +22,17 @@
     /* Main Navigation ********************************/
 
     #mainNav {
+
+      /* .nav-btn-bar {
+        background-color: var(--menu-btn-color);
+      } */
+      
       &.menu-active {
         display: block;
+        
+        .nav-btn-bar {
+          background-color: var(--oe-white);
+        }
 
         .menu-container {
           display: grid;
@@ -290,8 +304,12 @@
     }
 
     /* About Page ********************************/
-    .aboutpage-content {
+    .about-content {
       container: aboutpage-content / inline-size;
+      width: 100%;
+      height: auto;
+      padding: 0; 
+      background-color: var(--oe-green-yellow-300);
       
       .content-well > * {
         width: clamp(8rem, 90cqi, 60rem);
