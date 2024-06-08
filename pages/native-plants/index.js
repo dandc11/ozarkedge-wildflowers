@@ -232,7 +232,7 @@ export default function PlantListPage(props) {
                   .map((plant, index) => (
                     <CustomLink
                       docType={'nativePlant'}
-                      slug={plant.slug.current}
+                      slug={plant.slug?.current}
                       key={plant.plantName.botanicalName}
                     >
                       <PlantImageCard

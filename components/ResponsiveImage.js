@@ -171,7 +171,7 @@ const ResponsiveImage = ({
               alt={alt || ''}
               className={cx(
                 'transition delay-100 duration-200',
-                { 'hover:scale-95': !disableHover },
+                { 'hover:scale-[.99]': !disableHover },
                 { 'cursor-pointer ': onClick !== '' && !disablePointer},
                 className,
               )}

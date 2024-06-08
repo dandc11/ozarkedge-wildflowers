@@ -10,7 +10,7 @@ const PlantImageCard = ({
   image,
   titleText,
   flowerColor,
-  floweringMonths,
+  floweringMonths = [],
   habitatType,
   imagePosition,
   plantName,
@@ -56,7 +56,7 @@ const PlantImageCard = ({
 
         <p className="text-sm font-body">
           <span className="uppercase text-xs">flowering months: </span>{' '}
-          {getMonthNames()}
+          {floweringMonths && getMonthNames()}
         </p>
         <p className="text-sm font-body">
           <span className="uppercase text-xs">habitat: </span>{' '}

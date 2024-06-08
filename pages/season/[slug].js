@@ -12,31 +12,24 @@ import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 
 const SeasonPage = (props) => {
   const { pageProps = null } = props
-  const [pageData] = useLiveQuery(pageProps, GET_ALL_SEASON_PATHS_QUERY)
-  // const {
-  //     conservationStatus,
-  //     description,
-  //     floweringColor,
-  //     floweringMonths,
-  //     floweringSeason,
-  //     growingNearbyText,
-  //     habitat,
-  //     images,
-  //      menuButtonColor = 'light',
-  //     plantName,
-  //     previewImage,
-  //     tidbits,
-  // } = plantPageData;
-  // const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
-  return <div>{JSON.stringify(pageData)}</div>
+  const [seasonPageData] = useLiveQuery(pageProps, GET_ALL_SEASON_PATHS_QUERY)
+  const {
+      seasonName,
+      description,
+      mainImage,
+      monthNumbers,
+      menuButtonColor,
+  } = seasonPageData;
+  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
+  return <div>{JSON.stringify(seasonPageData)}</div>
 }
 
 export async function getStaticPaths() {
   const client = getClient()
-  const plantPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
-  const paths = plantPagePaths.map((slug) => ({
+  const seasonPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
+  const paths = seasonPagePaths.map((slug) => ({
     params: { slug },
   }))
   return {
