@@ -1,6 +1,7 @@
 import { GiOakLeaf } from 'react-icons/gi'
 import {defineField, defineType} from 'sanity'
 import { defineUrlResolver } from 'sanity-plugin-iframe-pane'
+import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
 export default defineType({
   name: 'aboutPage',
@@ -19,7 +20,7 @@ export default defineType({
     defineField({
       name: 'mainImage',
       title: 'Main Image',
-      description: 'Provide an image for the background of the landing page.',
+      description: 'Provide an image for the background of the landing page. This will display on desktop (wide) screen sizes. Aspect ratio 2:1, is roughly appropriate.',
       type: 'mainImage',
     }),
     defineField({
@@ -51,6 +52,21 @@ export default defineType({
       title: 'Page Body Text',
       description: 'This is the text for the body of the page.',
       type: 'pageBodyPortableText',
+    }),
+    defineField({
+      name: 'aboutTeaserText',
+      title: 'Meta-description',
+      components: {
+        input: TextInputWithCharCount,
+      },
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.max(200),
+        (Rule) => Rule.min(40),
+      ],
+      description:
+      'Add very brief description (one or two sentences) for search engines and teaser sections on the site. Should be between 40 and 200 characters.',
+      type: 'text',
     }),
     defineField({
       name: 'slug',

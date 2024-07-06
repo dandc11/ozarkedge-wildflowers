@@ -116,7 +116,7 @@ const ImageSlider = ({
         />
       )} */}
         <ul
-          className={`overflow-x-auto snap-x snap-mandatory flex flex-nowrap gap-3 h-full`}
+          className={`slider overflow-x-auto snap-x snap-mandatory flex flex-nowrap gap-3 h-full`}
         >
           {listItems}
         </ul>

@@ -5,6 +5,7 @@ import {
   defineField,
   defineConfig,
 } from 'sanity'
+import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
 export default defineConfig({
   name: 'plantListPage',
@@ -23,11 +24,41 @@ export default defineConfig({
       type: 'string',
     }),
     defineField({
-      name: 'headerImage',
+      name: 'metaDescription',
+      type: 'text',
+      title: 'Meta-description',
+      components: {
+        input: TextInputWithCharCount,
+      },
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.max(200),
+        (Rule) => Rule.min(40),
+      ],
+      description:
+        'Add very brief description (one or two sentences) for search engines and teaser sections on the site. Should be between 40 and 200 characters.',
+    }),
+    defineField({
+      name: 'mainImage',
       title: 'Header Image',
+      type: 'mainImage',
       description: 'Add an image appear in the header for this page.',
-      type: 'image',
       validation: (Rule) => Rule.required(),
+      options: {
+        hotspot: true,
+        metadata: [
+          'blurhash', // Default: included
+          'lqip', // Default: included
+          'palette', // Default: included
+        ],
+      },
+    }),
+    defineField({
+      name: 'mobileImage',
+      title: 'Mobile Image',
+      description:
+        'Optional - Provide an image cropped for mobile viewports. If blank, the main image will be used.',
+      type: 'mainImage',
       options: {
         hotspot: true,
         metadata: [
@@ -40,7 +71,8 @@ export default defineConfig({
     defineField({
       name: 'menuButtonColor',
       title: 'Menu Button Color',
-      description: 'Choose light when using a dark image and dark when using a light image.',
+      description:
+        'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
       options: {
         list: ['light', 'dark'],

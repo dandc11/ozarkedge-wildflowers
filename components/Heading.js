@@ -3,31 +3,41 @@ import React, { useState, useEffect, useRef } from 'react'
 import { getCurrentSeason } from '../utilities/helperUtil'
 import TableOfContents from './TableOfContents'
 
-const HeadingElement = ({ headingChildren, headingLevel, headingCSS, children }) => {
-  let Heading;
+const HeadingElement = ({
+  headingChildren,
+  headingLevel,
+  headingCSS,
+  styleObject,
+  children,
+}) => {
+  let Heading
   switch (headingLevel) {
     case 1:
-      Heading = 'h1';
-      break;
+      Heading = 'h1'
+      break
     case 2:
-      Heading = 'h2';
-      break;
+      Heading = 'h2'
+      break
     case 3:
-      Heading = 'h3';
-      break;
+      Heading = 'h3'
+      break
     case 4:
-      Heading = 'h4';
-      break;
+      Heading = 'h4'
+      break
     case 5:
-      Heading = 'h5';
-      break;
+      Heading = 'h5'
+      break
     case 6:
-      Heading = 'h6';
-      break;
+      Heading = 'h6'
+      break
     default:
-      Heading = 'h2';
+      Heading = 'h2'
   }
-  return <Heading className={headingCSS}>{children}</Heading>;
+  return (
+    <Heading style={styleObject} className={headingCSS}>
+      {children}
+    </Heading>
+  )
 }
 
 /**
@@ -57,14 +67,14 @@ const Heading = (props) => {
     id,
     showCircle = false,
     tocLinks = null,
-    textTypeClass = 'thin'
+    textTypeClass = 'thin',
   } = props
   const tableOfContentsRef = useRef(null)
   const [tableOfContentsOpen, setTableOfContentsOpen] = useState(false)
   const toggleTableOfContents = () => {
     setTableOfContentsOpen(!tableOfContentsOpen)
   }
-  const headingCSS = cx('heading', textTypeClass, headingClassName)
+  const headingCSS = cx('heading-title', {'relative': showCircle}, textTypeClass, headingClassName)
 
   // Closes table of contents if clicked outside
   const onClickOutside = (e) => {
@@ -86,7 +96,7 @@ const Heading = (props) => {
   const currentSeason = getCurrentSeason()
   const circleColor = circleColorClass
     ? `${circleColorClass}`
-    : currentSeason.ACCENT_COLOR_CLASS
+    : currentSeason.ACCENT_COLOR_VAR
   const circleClassName = cx(
     'header-circle absolute font-normal w-16 h-16 rounded-full -z-10 opacity-60 bg-oe-red-200 transition-all ease-in duration-150 -top-[1rem] -left-6 bp-600:left-[-2rem] bp-900:w-20 bp-900:h-20 bp-900:top-[-1.5rem] bp-900:left-[-2.7rem]',
     {
@@ -97,14 +107,11 @@ const Heading = (props) => {
     circleColor,
   )
 
-  
-
   return (
     <div
       id={id}
-      className={cx('header-base', { absolute: absolute }, className)}
+      className={cx('heading-base', { absolute: absolute }, className)}
     >
-      {' '}
       {tocLinks && (
         <div
           ref={tableOfContentsRef}
@@ -121,7 +128,11 @@ const Heading = (props) => {
           </div>
         </div>
       )}
-      <HeadingElement headingLevel={headingLevel} headingCSS={headingCSS} headingChildren={children}>
+      <HeadingElement
+        headingLevel={headingLevel}
+        headingCSS={headingCSS}
+        headingChildren={children}
+      >
         {showCircle && (
           <div
             className={circleClassName}

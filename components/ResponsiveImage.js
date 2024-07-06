@@ -138,9 +138,9 @@ const ResponsiveImage = ({
   } = image ? image : {}
   const id = asset?._ref || ''
   const captionClassName = cx({
-    'absolute bottom-3 left-0 rounded-r-md z-10 py-[.15rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
+    'absolute left-0 bottom-0 bg-[#ffffffb5] z-10 py-[.05rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
       captionStyle === 'insetLeft',
-    'absolute bottom-3 right-0 rounded-l-md z-10 py-[.15rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
+    'absolute right-0 bottom-0 bg-[#ffffffb5] z-10 py-[.05rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
       captionStyle === 'insetRight',
     'relative text-center italic text-sm pt-2': captionStyle === 'below',
   })
@@ -161,7 +161,7 @@ const ResponsiveImage = ({
       {(image && (image.id || (image.asset && image.asset._ref))) && (
         <div id={id} className={cx('', wrapperClassName)}>
           <figure
-            className={cx(figureClassName)}
+            className={cx('relative', figureClassName)}
             onClick={handleClick}
             data-lightboxjs={lightboxIdentifier}
             data-key={id}
