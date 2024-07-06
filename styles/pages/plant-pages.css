@@ -1,0 +1,72 @@
+/* Plant Page *********************************/
+.plant-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  grid-template-areas:
+    'right-sidebar'
+    'content-well';
+
+  .content-well {
+    container: content-well / inline-size;
+    grid-area: content-well;
+  }
+
+  .heading-title {
+    font-size: var(--fs-2xl);
+  }
+
+  @container content-well ( width > 800px) {
+    .heading-base .heading-title {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+  }
+
+  .right-sidebar {
+    container: right-sidebar / inline-size;
+    grid-area: right-sidebar;
+  }
+}
+
+/* Media query for screens above 1400px */
+@media (min-width: 1400px) {
+  .plant-page {
+    grid-template-columns: 7fr minmax(200px, 2.5fr);
+    grid-template-areas: 'content-well right-sidebar';
+
+    .content-well {
+      grid-area: auto;
+      grid-column: 1/2;
+    }
+
+    .right-sidebar {
+      grid-area: right-sidebar;
+      grid-row: 1 / -1;
+    }
+  }
+}
+
+/* Plant List Page *********************************/
+.plant-list-layout-grid {
+  @media screen and (min-width: 800px) {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1.5rem;
+    align-items: start;
+    justify-items: start;
+    grid-template-areas:
+      'description plant-list'
+      'filters plant-list';
+  }
+  .description {
+    grid-area: description;
+  }
+
+  .filters {
+    grid-area: filters;
+  }
+
+  .plant-grid {
+    grid-area: plant-list;
+  }
+}
