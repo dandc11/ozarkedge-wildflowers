@@ -8,7 +8,7 @@ export default function Document() {
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <body className={``}>
+            <body className={`oe-site-body`}>
                 <Main />
                 <NextScript />
             </body>

@@ -101,7 +101,7 @@ export default function PlantListPage(props) {
     nativePlantListProps,
     GET_NATIVE_PLANT_LIST_DATA_QUERY,
   )
-  const { pageTitle, menuButtonColor = 'light', headerImage, plantListInformation } =
+  const { pageTitle, menuButtonColor = 'light', mainImage, plantListInformation } =
     nativePlantPageData[0]
   const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
   console.log('menuButtonColor', menuButtonColor) 
@@ -188,7 +188,7 @@ export default function PlantListPage(props) {
           value={plantListInformation}
         ></PortTextWrapper>
         <ResponsiveImage
-          image={headerImage}
+          image={mainImage}
           alt={pageTitle}
           disableHover
           loading="eager"
@@ -198,7 +198,7 @@ export default function PlantListPage(props) {
         />
       </div>
       <ResponsiveImage
-        image={headerImage}
+        image={mainImage}
         alt={pageTitle}
         disableHover
         loading="eager"

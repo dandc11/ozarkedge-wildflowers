@@ -308,7 +308,7 @@ const NativePlantPage = (props) => {
               <article className="content-well">
                 <ContentSection
                   className={`z-[10]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   portableText={plantName.nameInformation}
                   tocLinks={sectionLinks}
                   sectionId={`plantName`}
@@ -318,7 +318,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[9]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   portableText={bloomText}
                   tocLinks={sectionLinks}
                   sectionId={`bloomText`}
@@ -328,7 +328,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[8]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   portableText={description}
                   tocLinks={sectionLinks}
                   sectionId={`description`}
@@ -338,7 +338,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[7]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   portableText={pollinators}
                   tocLinks={sectionLinks}
                   sectionId={`pollinators`}
@@ -348,7 +348,7 @@ const NativePlantPage = (props) => {
                 />
                 <GrowingNearby
                   className={`z-[6]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   growingNearbyPlantImages={growingNearbyPlantList}
                   growingNearbyText={growingNearbyText}
                   sectionId={`growingNearby`}
@@ -358,7 +358,7 @@ const NativePlantPage = (props) => {
                 />
                 <ContentSection
                   className={`z-[5]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   portableText={habitat}
                   tocLinks={sectionLinks}
                   sectionId={`habitat`}
@@ -369,7 +369,7 @@ const NativePlantPage = (props) => {
 
                 <ContentSection
                   className={`z-[4]`}
-                  headingClassName={`mr-10 bp-900:mb-8`}
+                  headingClassName={`mr-10 `}
                   badge={nsBadge}
                   pretextComponent={nsMessage}
                   portableText={conservationStatus}
@@ -381,7 +381,7 @@ const NativePlantPage = (props) => {
                 ></ContentSection>
                 <ContentSection
                   className={`z-[3]`}
-                  headingClassName={`bp-900:mb-8`}
+                  headingClassName={``}
                   portableText={tidbits}
                   tocLinks={sectionLinks}
                   sectionId={`tidbits`}

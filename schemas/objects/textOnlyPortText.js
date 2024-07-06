@@ -4,7 +4,7 @@ import IconAppender from '../components/IconAppender'
 import { defineArrayMember, defineType } from 'sanity'
 
 export default defineType({
-  name: 'pageBodyPortableText',
+  name: 'textOnlyPortText',
   type: 'array',
   title: 'Rich Text',
   of: [
@@ -70,28 +70,6 @@ export default defineType({
           { title: 'Emphasis', value: 'em' },
         ],
       },
-    }),
-    defineArrayMember({
-      type: 'figure',
-      title: 'Image',
-      description: 'Add an image to the page.',
-      options: { hotspot: true },
-      icon: () => '📸 ',
-    }),
-    defineArrayMember({
-      title: 'Video',
-      name: 'portTextVideo',
-      type: 'portTextVideo',
-    }),
-    defineArrayMember({
-      name: 'imageCollection',
-      type: 'imageCollection',
-      title: 'Image Collection',
-    }),
-    defineArrayMember({
-      name: 'teaserSection',
-      type: 'teaserSection',
-      title: 'Teaser Section',
     }),
   ],
 })

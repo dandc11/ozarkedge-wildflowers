@@ -1,11 +1,29 @@
 import { GiSunCloud } from 'react-icons/gi'
 import { defineField, defineArrayMember, defineType } from 'sanity'
+import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
 export default defineType({
   name: 'season',
   title: 'Seasons',
   icon: GiSunCloud,
   type: 'document',
+  groups: [
+    {
+      name: 'metadata',
+      title: 'Season Metadata',
+      despcription: 'Select the season, metadescription, tags and a slug.',
+    },
+    {
+      name: 'images',
+      title: 'Season Main Images',
+      despcription: 'Add the main images this season.',
+    },
+    {
+      name: 'text',
+      title: 'Season Text',
+      despcription: 'Add text for the seaons description and teaser content.',
+    },
+  ],
   preview: {
     select: {
       title: 'seasonName',
@@ -25,6 +43,7 @@ export default defineType({
           { title: 'Winter', value: 'winter' },
         ],
       },
+      group: 'metadata',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -34,6 +53,8 @@ export default defineType({
         "How this page's name will appear in the url. Keep it short and avoid spaces.",
       type: 'slug',
       validation: (Rule) => Rule.required(),
+      group: 'metadata',
+      readOnly: true,
       options: {
         source: 'seasonName',
         validation: (Rule) => [Rule.unique()],
@@ -42,29 +63,69 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'mainImage',
-      title: 'Main Image',
-      description: 'Add an image to depict this season in the page banner.',
-      type: 'figure',
+      name: 'metaDescription',
+      title: 'Meta-description',
+      components: {
+        input: TextInputWithCharCount,
+      },
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.max(200),
+        (Rule) => Rule.min(40),
+      ],
+      group: 'metadata',
+      description:
+        'Add very brief description (one or two sentences) for search engines and teaser sections on the site. Should be between 40 and 200 characters.',
+      type: 'text',
     }),
     defineField({
       name: 'menuButtonColor',
       title: 'Menu Button Color',
-      description: 'Choose light when using a dark image and dark when using a light image.',
+      description:
+        'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
+      group: 'images',
       options: {
         list: ['light', 'dark'],
       },
     }),
     defineField({
+      name: 'mainImage',
+      title: 'Main Image',
+      description:
+        'Add an image to depict this season in the page banner.  A crop with an 8/5 is preferrable.',
+      type: 'mainImage',
+      options: {
+        validation: (Rule) => [Rule.required()],
+        hotspot: true,
+      },
+      group: 'images',
+    }),
+    defineField({
+      name: 'mobileImage',
+      title: 'Mobile Image',
+      description:
+        'Optional - Provide an image cropped for mobile viewports. If blank, the main image will be used.',
+      type: 'mainImage',
+      group: 'images',
+      options: {
+        hotspot: true,
+        metadata: [
+          'blurhash', // Default: included
+          'lqip', // Default: included
+          'palette', // Default: included
+        ],
+      },
+    }),
+    defineField({
       // Hidden field to store the months of the season as numbers - set to read-only to prevent accidental changes
-      // SPRING: 4, 5, 6 - SUMMER: 7, 8, 9 - FALL: 10, 11, 12 - WINTER: 1, 2, 3
       name: 'monthNumbers',
       title: 'Season Months',
       description:
         "These are the months used for this season. Plants' flowering months will be matched to these to determine the season the plant corresponds to. This field is read-only to prevent accidental changes.",
       hidden: true,
       readOnly: true,
+      group: 'metadata',
       type: 'array',
       of: [defineArrayMember({ type: 'number' })],
       options: {
@@ -85,10 +146,30 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    // defineField({
+    //   name: 'plantListTeaserText',
+    //   title: 'Plant List Page Teaser Text',
+    //   description:
+    //     'This text populates the short section that will invite users to visit the full plant list page where they can see and sort individual plants blooming in this season and others. Aim for brevity—a few sentences at most.',
+    //   group: 'text',
+    //   type: 'textOnlyPortText',
+    // }),
+    // defineField({
+    //   name: 'seasonPlantImages',
+    //   type: 'array',
+    //   title: 'Season Plants Preview Images',
+    //   description:
+    //     "Upload or select a few images of this season's plants to appear in the teaser section which will invite visitors to the plant list page.",
+    //   of: [defineArrayMember({ type: 'figure' })],
+    //   validation: (Rule) => Rule.max(5),
+    //   // options: { sources: [AssetSource] },
+    //   group: 'text',
+    // }),
     defineField({
       name: 'description',
       title: 'Season Description',
       description: 'Add body text content about this season here.',
+      group: 'text',
       type: 'pageBodyPortableText',
     }),
   ],

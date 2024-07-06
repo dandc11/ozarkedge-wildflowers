@@ -20,7 +20,7 @@ const TableOfContents = (props) => {
   const currentSeason = getCurrentSeason()
   const circleColor = circleColorClass
     ? `${circleColorClass}`
-    : currentSeason.ACCENT_COLOR_CLASS
+    : currentSeason.ACCENT_COLOR_VAR
   const circleClassNames = cx(
     'group max-[700px]:hidden absolute -z-10 font-normal w-[40px] h-[40px] hover:scale-110 rounded-full -z-10 bp-800:hover:scale-110 ease-in duration-150 -top-4 -left-7 bp-800:-top-4 bp-800:-left-7',
     circleColor,

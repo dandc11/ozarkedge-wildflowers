@@ -58,8 +58,8 @@ export default defineType({
       name: 'captionPosition',
       title: 'Caption position (optional)',
       type: 'string',
-      hidden: ({ parent }) => !parent?.asset || !parent?.showCaption,
       description: 'Position the image caption, if there is one.',
+      hidden: ({ parent }) => !parent?.asset || !parent?.showCaption,
       options: {
         list: [
           { title: 'Below Image (Default)', value: 'below' },
@@ -67,8 +67,8 @@ export default defineType({
           { title: 'Inset Right left', value: 'insetRight' },
         ],
         layout: 'radio', // <-- defaults to 'dropdown'
-        group: 'caption',
       },
+      group: 'caption',
     }),
     defineField({
       name: 'showCaption',

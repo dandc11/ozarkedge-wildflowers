@@ -4,6 +4,7 @@ import mainImage from './objects/mainImage';
 import menuItem from './objects/menuItem';
 import figure from './objects/figure';
 import pageBodyPortableText from './objects/pageBodyPortableText';
+import textOnlyPortText from './objects/textOnlyPortText';
 import plantName from './objects/plantName';
 import aboutPage from './documents/aboutPage';
 import nativePlant from './documents/nativePlant';
@@ -15,6 +16,8 @@ import button from './objects/button';
 import season from './documents/season';
 import portTextVideo from './objects/portTextVideo';
 import imageCollection from './objects/imageCollection';
+import teaserSection from './objects/teaserSection';
+import thumbnailImage from './objects/thumbnailImage';
 
 export const schema = {
     types: [
@@ -24,6 +27,7 @@ export const schema = {
         mainImage,
         figure,
         pageBodyPortableText,
+        textOnlyPortText,
         plantName,
         portTextVideo,
         imageCollection,
@@ -35,5 +39,7 @@ export const schema = {
         landingPage,
         menu,
         menuItem,
+        teaserSection,
+        thumbnailImage
     ]
 }
