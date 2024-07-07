@@ -38,9 +38,16 @@ export default defineType({
     defineField({
       name: 'link',
       description:
-        'Select the page that this teaser section should direct the visitor toward.',
+      'Select the page that this teaser section should direct the visitor toward.',
       type: 'reference',
       to: DOCUMENT_TYPES,
+      group: 'text',
+    }),
+    defineField({
+      name: 'buttonText',
+      description: 'Text to appear in the button (which is a link to the page selected in the link field). No more than 25 characters. If left blank, the default value is "See more".',
+      validation: (Rule) => Rule.max(25),
+      type: 'string',
       group: 'text',
     }),
     // defineField({
