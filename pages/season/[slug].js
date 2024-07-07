@@ -18,7 +18,7 @@ import { getUniqueImagesFromDocument } from 'utilities/imageUtil'
 const SeasonPage = (props) => {
   const { pageProps = null } = props
   const [seasonPageData] = useLiveQuery(pageProps, GET_ALL_SEASON_PATHS_QUERY)
-  console.log('seasonPageData', seasonPageData)
+  // console.log('seasonPageData', seasonPageData)
   const {
     seasonName = 'spring',
     description = [],
@@ -27,7 +27,7 @@ const SeasonPage = (props) => {
     monthNumbers = [],
     menuButtonColor = 'light',
     teaserSectionText = '',
-} = seasonPageData
+} = {...seasonPageData}
 
   const [navButtonColor, setNavButtonColor] = React.useContext(
     NavButtonColorContext,
