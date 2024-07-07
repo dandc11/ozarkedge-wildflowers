@@ -11,26 +11,23 @@ import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 import LightboxGallery from '../../components/LightboxGallery'
 import PortTextWrapper from '../../components/PortTextWrapper'
 import ResponsiveImage from '../../components/ResponsiveImage'
-import Heading from '../../components/Heading'
 import HeadingDisplay from '../../components/HeadingDisplay'
 import { getUniqueImagesFromDocument } from 'utilities/imageUtil'
-import { SEASONS } from 'utilities/constants'
-import TeaserSection from '../../components/TeaserSection'
-import TeaserSlider from '../../components/TeaserSlider'
+
 
 const SeasonPage = (props) => {
   const { pageProps = null } = props
   const [seasonPageData] = useLiveQuery(pageProps, GET_ALL_SEASON_PATHS_QUERY)
   console.log('seasonPageData', seasonPageData)
   const {
-    seasonName = 'season',
-    description,
+    seasonName = 'spring',
+    description = [],
     mainImage,
     mobileImage,
-    monthNumbers,
+    monthNumbers = [],
     menuButtonColor = 'light',
-    teaserSectionText,
-  } = seasonPageData
+    teaserSectionText = '',
+} = seasonPageData
 
   const [navButtonColor, setNavButtonColor] = React.useContext(
     NavButtonColorContext,
