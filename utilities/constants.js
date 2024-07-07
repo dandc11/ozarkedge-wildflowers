@@ -7,6 +7,8 @@ export const DOCTYPE_PATH_PREFIXES = {
   pollinator: '/pollinator/',
 }
 
+export const CURRENT_MONTH_NUMBER = new Date(Date.now()).getMonth() + 1
+
 export const MONTH_NAMES_MAP = new Map([
   [1, { fullName: 'January', abbreviation: 'Jan' }],
   [2, { fullName: 'February', abbreviation: 'Feb' }],
@@ -41,22 +43,30 @@ export const SEASONS = {
   SPRING: {
     SEASON_NAME: 'spring',
     SEASON_MONTHS: [3, 4, 5],
-    ACCENT_COLOR_CLASS: 'bg-oe-blue-dark-200',
+    ACCENT_COLOR_VAR: '--spring-accent',
+    BG_COLOR_VAR: '--oe-green-300',
+    BG_GRADIENT_VAR: '--spring-gradient',
   },
   SUMMER: {
     SEASON_NAME: 'summer',
     SEASON_MONTHS: [6, 7, 8],
-    ACCENT_COLOR_CLASS: 'bg-oe-green-500',
+    ACCENT_COLOR_VAR: '--summer-accent',
+    BG_COLOR_VAR: '--summer-bg-color',
+    BG_GRADIENT_VAR: '--summer-gradient',
   },
   FALL: {
     SEASON_NAME: 'fall',
     SEASON_MONTHS: [9, 10, 11],
-    ACCENT_COLOR_CLASS: 'bg-oe-red-300',
+    ACCENT_COLOR_VAR: '--fall-accent',
+    BG_COLOR_VAR: '--fall-bg-color',
+    BG_GRADIENT_VAR: '--fall-gradient',
   },
   WINTER: {
     SEASON_NAME: 'winter',
     SEASON_MONTHS: [12, 1, 2],
-    ACCENT_COLOR_CLASS: 'bg-oe-blue-dark-200',
+    ACCENT_COLOR_VAR: '--winter-accent',
+    BG_COLOR_VAR: '  --oe-blue-dark-100',
+    BG_GRADIENT_VAR: '--winter-gradient',
   },
 }
 

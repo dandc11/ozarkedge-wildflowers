@@ -1,20 +1,27 @@
 import cx from 'classnames'
-import Blooming from 'components/Blooming'
+import TeaserSlider from 'components/TeaserSlider'
 import Button from 'components/Button'
 import { useLiveQuery } from 'next-sanity/preview'
 import React, { useContext } from 'react'
 import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
-
 import {
-  GET_BLOOMING_PLANTS_DATA_QUERY,
+  getCurrentMonthName,
+  titleCase,
+  getCurrentSeason,
+} from 'utilities/helperUtil'
+import {
+  CURRENT_MONTH_NUMBER,
+  DOCTYPE_PATH_PREFIXES,
+} from 'utilities/constants'
+import {
+  GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   GET_CURRENT_SEASON_DATA_QUERY,
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../lib/queries'
 import { readToken } from '../lib/sanity.api'
 import { getClient } from '../lib/sanity.client'
-import {
-  buildBackgroundStyleObject,
-} from '../utilities/imageUtil'
+import { buildBackgroundStyleObject } from '../utilities/imageUtil'
+import { groq } from 'next-sanity'
 
 /**
  * @param {object} pageProps - props for the page
@@ -26,13 +33,10 @@ import {
 export default function HomePage(props) {
   const { pageProps = null, bloomingProps = null, seasonProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_LANDING_PAGE_DATA_QUERY)
-  const [bloomingNowData] = useLiveQuery(
+  const [bloomingPlantImages] = useLiveQuery(
     bloomingProps,
-    GET_BLOOMING_PLANTS_DATA_QUERY,
+    GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   )
-
-  const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
-  console.log('seasonData', seasonData)
 
   const {
     id,
@@ -44,11 +48,25 @@ export default function HomePage(props) {
     buttonOne,
     buttonTwo,
   } = pageData[0]
-  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  const [navButtonColor, setNavButtonColor] = React.useContext(
+    NavButtonColorContext,
+  )
+
+  const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
+  const teaserBodyText = seasonData[0]?.metaDescription
+  const currentSeason = getCurrentSeason()?.SEASON_NAME
+  console.log('seasonData', seasonData)
+  console.log('bloomingPlantImages', bloomingPlantImages)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
+  React.useEffect(() => {
+    setNavButtonColor(menuButtonColor)
+  }, [menuButtonColor])
   const aboveFoldBackground = { bgImage, bgImageSmall }
   const bgStyle = buildBackgroundStyleObject(aboveFoldBackground)
+  const thisMonth = getCurrentMonthName()
+  const BloomingHeadingText = ({ thisMonth }) => (
+    <span className="">BLOOMING in {titleCase(thisMonth)}</span>
+  )
   return (
     <>
       <div>
@@ -115,10 +133,20 @@ export default function HomePage(props) {
                 className={`w-full bg-yellow-100 bp-1100:bg-[#f1f0caeb]`}
                 tag={'section'}
               >
-                <Blooming
-                  bloomingList={bloomingNowData}
-                  seasonData={seasonData[0]}
-                  className={``}
+                <TeaserSlider
+                  id={`bloomingNow`}
+                  images={bloomingPlantImages}
+                  headingChildren={
+                    <BloomingHeadingText thisMonth={thisMonth} />
+                  }
+                  headingId={`bloomingHeading`}
+                  headingClassName={`blooming-heading`}
+                  bodyText={teaserBodyText}
+                  buttonLink={`${currentSeason}`}
+                  buttonLinkDocType={'season'}
+                  buttonLinkText={`More about ${thisMonth} flowers`}
+                  lightboxIdentifier={`bloomingNow`}
+                  className={`blooming-now`}
                 />
               </div>
             </div>
@@ -133,8 +161,14 @@ export async function getStaticProps(context) {
     context?.draftMode ? { token: readToken } : undefined,
   )
   const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
-  const bloomingProps = await client.fetch(GET_BLOOMING_PLANTS_DATA_QUERY)
-  const seasonProps = await client.fetch(GET_CURRENT_SEASON_DATA_QUERY)
+  const bloomingProps = await client.fetch(
+    GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
+  )
+  const seasonProps =
+    await client.fetch(groq`*[!(_id in path('drafts.**')) && _type == "season" && ${CURRENT_MONTH_NUMBER}  in monthNumbers]
+    {
+      metaDescription,
+    }`)
   return {
     props: {
       pageProps,

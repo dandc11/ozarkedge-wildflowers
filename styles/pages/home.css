@@ -1,0 +1,15 @@
+/* Landing Page ********************************/
+.oe-site-body {
+  container: oe-site-body / inline-size;
+  overflow-y: scroll;
+}
+
+#landingImageContainer {
+  background-image: var(--container-bg-small);
+}
+
+@media screen and (min-width: 900px) {
+  #landingImageContainer {
+    background-image: var(--container-bg-image);
+  }
+}

@@ -1,0 +1,136 @@
+.season-page-content {
+  --season-accent-color: var(--oe-green-800);
+  --season-bg-color: #fff;
+  --season-gradient: var(--spring-gradient);
+  container: season-page-content / inline-size;
+  position: relative;
+
+  &.spring {
+    --season-bg-color: var(--spring-bg-color);
+    --season-accent-color: var(--spring-accent);
+    --season-gradient: var(--spring-gradient);
+    background-color: var(--season-bg-color);
+  }
+
+  &.summer {
+    --season-bg-color: var(--summer-bg-color);
+    --season-accent-color: var(--summer-accent);
+    --season-gradient: var(--summer-gradient);
+    background-color: var(--season-bg-color);
+  }
+
+  &.fall {
+    --season-bg-color: var(--fall-bg-color);
+    --season-accent-color: var(--fall-accent);
+    --season-gradient: var(--fall-gradient);
+    background-color: var(--season-bg-color);
+  }
+
+  &.winter {
+    --season-bg-color: var(--winter-bg-color);
+    --season-accent-color: var(--winter-accent);
+    --season-gradient: var(--winter-gradient);
+    background-color: var(--season-bg-color);
+  }
+
+  .season-header {
+    grid-area: header;
+    container: season-header / inline-size;
+
+    .heading-display {
+      bottom: -3.8rem;
+      margin-right: var(--sp-lg);
+    }
+
+    .heading-title {
+      background: var(--season-gradient);
+      background-clip: text;
+      color: transparent;
+      font-size: var(--fs-5xl);
+
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    .season-header-img svg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--season-bg-color);
+    }
+  }
+
+  .season-body {
+    grid-area: content;
+    container: season-body / inline-size;
+    margin-block: var(--sp-3xl);
+    margin-inline: auto;
+    width: 100%;
+
+    > .port-text > *:not(.full-width) {
+      max-width: 50rem;
+      margin-inline: auto;
+      padding-inline: var(--sp-xl);
+    }
+  }
+  
+  @container season-page-content (width > 600px) {
+    .season-header .heading-display {
+      margin-right: var(--sp-xl);
+      bottom: -4.25rem;
+    }
+    
+    .season-header .heading-title {
+      font-size: var(--fs-6xl);
+    }
+  }
+  
+  @container season-page-content (width > 900px) {
+    .season-body {
+      padding-inline: 0;
+    }
+    .heading-display .heading-title.display {
+      font-size: var(--fs-8xl);
+      font-weight: var(--fw-900);
+    }
+  }
+
+  @container season-page-content (width > 1200px) {
+    .season-header .heading-display {
+      bottom: -5.25rem;
+
+      .heading-title.display {
+        margin-right: var(--sp-3xl);
+        font-size: var(--fs-9xl);
+      }
+    }
+  }
+
+
+  /* Season Page Teaser Sections */
+  .teaser-section {
+    .teaser-section-grid {
+      padding: 0;
+    }
+
+    .heading-base {
+      background-color: var(--season-bg-color);
+    } 
+
+    .teaser-body, .teaser-img {
+      background-color: var(--oe-blue-green-light-900);
+
+      .port-text * {
+        color: var(--oe-white);
+      }
+    }
+
+    @container teaser-section (width > 800px) {
+      .heading-base {
+
+      }
+    }
+  }
+}

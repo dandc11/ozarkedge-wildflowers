@@ -304,7 +304,7 @@ export default defineType({
         (Rule) => Rule.min(40),
       ],
       description:
-        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "Blooming Now". Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."', 
+        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "TeaserSlider Now". Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."', 
       group: 'metadata',
     }),
     defineField({

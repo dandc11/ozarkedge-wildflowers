@@ -1,3 +1,5 @@
+@import 'variables.css';
+
 @layer components {
   .btn-primary {
     @apply py-5 px-8 w-auto min-w-10 text-slate-50 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 bg-gradient-to-r from-oe-pink-500 to-oe-pink-600;
@@ -14,60 +16,59 @@
   .btn-arrow-left {
     @apply relative bg-oe-pink-200 rounded-full w-16 h-16 z-10 before:absolute before:w-4 before:h-4 before:top-[38%] before:left-[42%] before:border-black before:border-solid before:border-spacing-1 before:rotate-[135deg] before:border-b-[5px] before:border-r-[5px] before:border-l-0 before:border-t-0;
   }
-  .btn-expand {
-    @apply w-full;
-  }
   .img-base {
     @apply relative w-fit z-0 overflow-hidden cursor-pointer bp-800:rounded-md;
   }
 
-  /* Heading Component****************************/
-  .header-base {
-    container: header-base / inline-size;
+  /* Button Components ****************************/
+  .btn-expand {
+    width: 100%;
+  }
+
+  /* Heading Components ****************************/
+  .heading-base {
+    container: heading-base / inline-size;
     position: relative;
     width: 100%;
     z-index: 10;
     background-color: transparent;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--sp-md);
     color: inherit;
 
-    .heading {
-      position: relative;
-      z-index: 0;
+    &:has(.heading-display) {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      bottom: -3rem;
+    }
+
+    .heading-title {
+      /*  clamp funtion for responsive font-size using container units (cqi) */
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      /* font-size: var(--fs-xl); */
+      font-weight: var(--fw-300);
 
       &.thin {
-        font-weight: 200;
-        font-size: 1.5rem;
-        text-transform: uppercase;
-        font-family: var(--font-raleway);
-      }
-
-      &.display {
-        font-weight: 400;
-        font-size: 2rem;
-        font-family: var(--font-playfair-display);
+        font-weight: var(--fw-100);
       }
     }
-    
-    /* @container header-base (width > 400px) {
-      .heading {
-        font-size: 1.875rem;
-        padding-left: 0;
-        z-index: 0;
-      }
-    }
-    
-    @container header-base (width > 1000px) {
-      .heading {
-        font-size: 2.25rem;
-
-        &.display {
-          font-size: 3rem;
-        }
-      }
-    } */
   }
 
+  .heading-display {
+    container: heading-display / inline-size;
+    position: relative;
+    width: 100%;
+    right: 0;
+    z-index: 10;
+    margin-bottom: var(--sp-md);
+
+    .heading-title {
+      font-size: var(--fs-5xl);
+      font-weight: var(--fw-900);
+    }
+  }
+
+  /* Background Container */
   .bg-container {
     container: container / inline-size;
     background-image: var(--container-bg-image);
@@ -78,6 +79,7 @@
     background-size: cover;
   }
 
+  /* Image Card */
   .image-card {
     display: grid;
     grid-template-columns: 1fr 2fr;

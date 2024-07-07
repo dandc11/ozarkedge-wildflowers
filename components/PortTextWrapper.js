@@ -5,6 +5,7 @@ import React, { useMemo } from 'react'
 import { getPathFromDocType } from '../utilities/helperUtil'
 import PortTextFigure from './PortTextFigure'
 import PortTextVideo from './PortTextVideo'
+import PortTextTeaser from './PortTextTeaser'
 import ThumbnailGrid from './ThumbnailGrid'
 
 const portTextComponents = {
@@ -107,6 +108,9 @@ const PortTextWrapper = React.memo((props) => {
           ),
           portTextVideo: (typeProps) => (
             <PortTextVideo portTextProps={typeProps}></PortTextVideo>
+          ),
+          teaserSection: (typeProps) => (
+            <PortTextTeaser portTextProps={typeProps?.value}></PortTextTeaser>
           )
         },
       }
