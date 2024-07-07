@@ -14,28 +14,34 @@ import ResponsiveImage from './ResponsiveImage'
 const TeaserSection = (props) => {
   const {
     bodyText = '',
-    buttonLinkDocType,
-    buttonLinkText = 'Learn More',
+    buttonText = 'See More',
+    gridClassName = '',
+    headingClassName = '',
+    sectionClassName = '',
     teaserBodyClassName = '',
     id = '',
     images = [],
-    gridClassName = '',
     headingId = '',
     headingChildren,
-    headingClassName = '',
-    link,
+    linkItems,
     showButton = true,
     maxImages,
     pullTextFromLink,
     pullImagesFromLink,
-    sectionClassName = '',
     titleText,
     useLightBox,
     usePortText = true,
   } = props
   const currentMonth = getCurrentMonthName()
+  const { itemId, itemType, itemSlug, itemMetaDescription, itemMainImage } =
+    linkItems
   const client = getClient()
-  const headingText = headingChildren ? headingChildren : titleText ? titleText : ''
+  const hasImages = Array.isArray(images) && images.length > 0
+  const headingText = headingChildren
+    ? headingChildren
+    : titleText
+    ? titleText
+    : ''
   let sliderImages
   let imagesQuery
 
@@ -69,9 +75,7 @@ const TeaserSection = (props) => {
           sectionClassName,
         )}
       >
-        <div
-          className={cx('teaser-section-grid w-full', gridClassName)}
-        >
+        <div className={cx('teaser-section-grid w-full', gridClassName)}>
           {headingText && (
             <Heading
               id={headingId}
@@ -82,18 +86,16 @@ const TeaserSection = (props) => {
               {headingText}
             </Heading>
           )}
-          {images && (
+          {hasImages && (
             <ResponsiveImage
               image={images[0]}
               priority={false}
               disableHover
               showCaption={true}
-              captionStyle='insetLeft'
-              figureClassName={cx(
-                `w-full`
-              )}
+              captionStyle="insetLeft"
+              figureClassName={cx(`w-full`)}
               width={560}
-              wrapperClassName={cx(`port-text-img teaser-img z-10` )}
+              wrapperClassName={cx(`port-text-img teaser-img z-10`)}
             />
           )}
           <div className="teaser-bg"></div>
@@ -103,19 +105,17 @@ const TeaserSection = (props) => {
             ) : (
               <p>{bodyText}</p>
             )}
-            {link && showButton && (
+            {itemType && showButton && (
               <Button
                 className={`btn-primary m-bk-5`}
-                internalLink={link ? link : `/native-plants`}
-                linkDocType={
-                  buttonLinkDocType ? buttonLinkDocType : 'plantListPage'
-                }
+                linkDocType={itemType}
+                slug={itemSlug}
               >
-                {buttonLinkText}
+                {buttonText}
               </Button>
             )}
           </div>
-        </div> 
+        </div>
       </section>
     </>
   )

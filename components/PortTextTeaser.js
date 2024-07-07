@@ -22,18 +22,19 @@ import classNames from 'classnames'
  * />
  */
 const PortTextTeaser = (props) => {
-  const { bodyText, images, link, titleText } = props?.portTextProps
+  const { bodyText, buttonText, images, titleText, linkItems } = props?.portTextProps
+  
   return (
     <>
       <TeaserSection
         bodyText={bodyText}
+        buttonText={buttonText}
         images={images}
-        link={link}
+        linkItems={linkItems}
         titleText={titleText}
         headingClassName={'p-in-4'}
         teaserBodyClassName={'p-bk-3 p-in-6'}
         sectionClassName={'full-width'}
-        buttonLinkText={'Learn More'}
       />
       {/* <TeaserSlider
         id={id}

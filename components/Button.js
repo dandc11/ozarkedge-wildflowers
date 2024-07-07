@@ -136,24 +136,22 @@ const Button = (
     children,
     className,
     expanded = '',
-    externalLink = '',
-    internalLink = '',
     linkDocType = '',
     strokeWidth = 1.5,
+    slug = '',
     type = 'button',
   },
   ...props
 ) => {
+  const router = useRouter()
+  const path = getPathFromDocType(linkDocType, slug)
   const clickHandler = () => {
     if (callBack) {
       callBack()
-    }
-    if (internalLink !== '') {
+    } else {
       router.push(path)
     }
   }
-  const router = useRouter()
-  const path = getPathFromDocType(linkDocType, internalLink)
   return (
     <button
       className={cx(

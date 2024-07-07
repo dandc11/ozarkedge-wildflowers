@@ -106,14 +106,14 @@ export default function HomePage(props) {
                       {buttonOne && (
                         <Button
                           className={`btn-primary bp-900:mb-6`}
-                          internalLink={buttonOne.slug}
+                          slug={buttonOne.slug}
                           linkDocType={buttonOne.docType}
                         ></Button>
                       )}
                       {buttonTwo && (
                         <Button
                           className={`btn-secondary bp-900:ml-8`}
-                          internalLink={buttonTwo.slug}
+                          slug={buttonTwo.slug}
                           linkDocType={buttonTwo.docType}
                         >
                           Explore native wildflowers
@@ -142,7 +142,7 @@ export default function HomePage(props) {
                   headingId={`bloomingHeading`}
                   headingClassName={`blooming-heading`}
                   bodyText={teaserBodyText}
-                  buttonLink={`${currentSeason}`}
+                  buttonLinkSlug={`${currentSeason}`}
                   buttonLinkDocType={'season'}
                   buttonLinkText={`More about ${thisMonth} flowers`}
                   lightboxIdentifier={`bloomingNow`}

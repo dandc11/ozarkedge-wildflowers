@@ -27,7 +27,7 @@ const TeaserSlider = (props) => {
     images,
     headingChildren,
     bodyText,
-    buttonLink,
+    buttonLinkSlug,
     buttonLinkText,
     buttonLinkDocType,
     id = '',
@@ -88,7 +88,7 @@ const TeaserSlider = (props) => {
               )}
               <Button
                 className={`btn-primary m-bk-6`}
-                internalLink={buttonLink ? buttonLink : `/native-plants`}
+                slug={buttonLinkSlug}
                 linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
               >
                 {buttonLinkText}
