@@ -40,6 +40,7 @@ const SeasonPage = (props) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
   const fullImageArray = getUniqueImagesFromDocument(seasonPageData)
+  const wrapperClassName = cx(`season-header-img relative w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[85vh]`, { 'hidden': !mobileImage })
   const toggleLightbox = (key) => {
     // toggle lightbox, set starting slide index if opening
     if (key) {
@@ -61,14 +62,14 @@ const SeasonPage = (props) => {
           <section id={'sesaonHeader'} className="season-header relative w-full h-full">
             <ResponsiveImage
               image={mainImage}
-              alt={mainImage?.alt || `A picture of ${seasonName} Ozarkedge `}
+              alt={mainImage?.alt || `${seasonName} at Ozarkedge `}
               disableHover
               disablePointer
               loading="eager"
               showCaption={false}
               figureClassName="h-full w-full"
-              wrapperClassName="season-header-img relative hidden w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[70vh] "
-              className="object-cover object-[50%_10%] rounded-none w-full h-full"
+              wrapperClassName={wrapperClassName}
+              className="object-cover rounded-none w-full h-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -82,11 +83,12 @@ const SeasonPage = (props) => {
               image={mobileImage ? mobileImage : mainImage}
               alt={mobileImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
+              disablePointer
               loading="eager"
               showCaption={false}
               figureClassName="h-full w-full"
               wrapperClassName="season-header-img relative w-full bg-oe-green-yellow-200 bp-900:hidden"
-              className="object-cover rounded-none bp-1200:object-[50%_35%] "
+              className="object-cover rounded-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,16 +112,6 @@ const SeasonPage = (props) => {
               lightboxCallback={toggleLightbox}
               value={description}
             />
-            {/* {teaserSectionText && (
-            <TeaserSection
-              id={`plantListTeaser`}
-              images={teaserImages}
-              // headingChildren={<BloomingHeadingText thisMonth={thisMonth} />}
-              headingId={`bloomingHeading`}
-              headingClassName={`blooming-heading`}
-              bodyText={teaserSectionText}
-            />
-          )} */}
             <LightboxGallery
               className={`px-4`}
               cols={3}

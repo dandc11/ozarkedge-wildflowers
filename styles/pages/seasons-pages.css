@@ -10,13 +10,21 @@
     --season-accent-color: var(--spring-accent);
     --season-gradient: var(--spring-gradient);
     background-color: var(--season-bg-color);
-  }
 
+    .season-header-img img {
+      object-position: top;
+    }
+  }
+  
   &.summer {
     --season-bg-color: var(--summer-bg-color);
     --season-accent-color: var(--summer-accent);
     --season-gradient: var(--summer-gradient);
     background-color: var(--season-bg-color);
+
+    .season-header-img img {
+      object-position: center;
+    }
   }
 
   &.fall {
@@ -24,6 +32,11 @@
     --season-accent-color: var(--fall-accent);
     --season-gradient: var(--fall-gradient);
     background-color: var(--season-bg-color);
+
+
+    .season-header-img img {
+      object-position: 100% 15%;
+    }
   }
 
   &.winter {
@@ -31,6 +44,10 @@
     --season-accent-color: var(--winter-accent);
     --season-gradient: var(--winter-gradient);
     background-color: var(--season-bg-color);
+
+    .season-header-img img {
+      object-position: top;
+    }
   }
 
   .season-header {
@@ -68,7 +85,7 @@
     margin-block: var(--sp-3xl);
     margin-inline: auto;
     width: 100%;
-
+    
     > .port-text > *:not(.full-width) {
       max-width: 50rem;
       margin-inline: auto;
@@ -77,6 +94,10 @@
   }
   
   @container season-page-content (width > 600px) {
+    .season-body {
+      margin-block: var(--sp-4xl);
+    }
+
     .season-header .heading-display {
       margin-right: var(--sp-xl);
       bottom: -4.25rem;
@@ -98,12 +119,20 @@
   }
 
   @container season-page-content (width > 1200px) {
+    .season-body {
+      margin-block: var(--sp-6xl);
+
+      > .port-text > .img-grid {
+        max-width: 60rem;
+      }
+    }
+
     .season-header .heading-display {
-      bottom: -5.25rem;
+      bottom: -7.25rem;
 
       .heading-title.display {
-        margin-right: var(--sp-3xl);
-        font-size: var(--fs-9xl);
+        margin-right: 13%;
+        font-size: 10rem;
       }
     }
   }
@@ -113,24 +142,6 @@
   .teaser-section {
     .teaser-section-grid {
       padding: 0;
-    }
-
-    .heading-base {
-      background-color: var(--season-bg-color);
-    } 
-
-    .teaser-body, .teaser-img {
-      background-color: var(--oe-blue-green-light-900);
-
-      .port-text * {
-        color: var(--oe-white);
-      }
-    }
-
-    @container teaser-section (width > 800px) {
-      .heading-base {
-
-      }
     }
   }
 }

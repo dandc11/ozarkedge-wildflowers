@@ -28,6 +28,7 @@ const TeaserSection = (props) => {
     maxImages,
     pullTextFromLink,
     pullImagesFromLink,
+    teaserTheme = 'spring',
     titleText,
     useLightBox,
     usePortText = true,
@@ -55,7 +56,6 @@ const TeaserSection = (props) => {
   //       console.error('Oh no, error occured: ', err)
   //     })
   // }, [])
-  console.log('plantTeaserImages', images)
 
   sliderImages = images
     .filter((img) => img.image)
@@ -73,6 +73,7 @@ const TeaserSection = (props) => {
         className={cx(
           `teaser-section bp-800:flex justify-center w-full`,
           sectionClassName,
+          teaserTheme,
         )}
       >
         <div className={cx('teaser-section-grid w-full', gridClassName)}>
@@ -91,6 +92,7 @@ const TeaserSection = (props) => {
               image={images[0]}
               priority={false}
               disableHover
+              disablePointer
               showCaption={true}
               captionStyle="insetLeft"
               figureClassName={cx(`w-full`)}
