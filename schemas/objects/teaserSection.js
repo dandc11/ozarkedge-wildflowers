@@ -12,8 +12,8 @@ export default defineType({
   validation: (rule) =>
     rule.custom((fields) => {
       if (
-        (fields.pullTextFromLink ||
-        fields.pullImagesFromLink) && !fields.link
+        (fields.pullTextFromLink || fields.pullImagesFromLink) &&
+        !fields.link
       )
         return `A teaser section is trying to pull resources from a link, but no link has been added. You must either add a link to pull resources from, or add body text and images yourself.`
       return true
@@ -33,6 +33,20 @@ export default defineType({
       name: 'titleText',
       description: 'A headline title for this teaser section.',
       type: 'string',
+      group: 'text',
+    }),
+    defineField({
+      name: 'teaserTheme',
+      description: 'Sets the color theme for this teaser section.',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Spring', value: 'spring' },
+          { title: 'Summer', value: 'summer' },
+          { title: 'Fall', value: 'fall' },
+          { title: 'Winer', value: 'winter' },
+        ],
+      },
       group: 'text',
     }),
     defineField({

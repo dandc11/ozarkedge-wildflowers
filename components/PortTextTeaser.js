@@ -22,7 +22,7 @@ import classNames from 'classnames'
  * />
  */
 const PortTextTeaser = (props) => {
-  const { bodyText, buttonText, images, titleText, linkItems } = props?.portTextProps
+  const { bodyText, buttonText, images, titleText, linkItems, teaserTheme} = props?.portTextProps
   
   return (
     <>
@@ -31,6 +31,7 @@ const PortTextTeaser = (props) => {
         buttonText={buttonText}
         images={images}
         linkItems={linkItems}
+        teaserTheme={teaserTheme}
         titleText={titleText}
         headingClassName={'p-in-4'}
         teaserBodyClassName={'p-bk-3 p-in-6'}
