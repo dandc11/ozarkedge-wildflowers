@@ -28,7 +28,7 @@ const SeasonPage = (props) => {
     menuButtonColor = 'light',
     teaserSectionText = '',
 } = {...seasonPageData}
-  console.log('mobile image', mainImage)
+
   const [navButtonColor, setNavButtonColor] = React.useContext(
     NavButtonColorContext,
   )
