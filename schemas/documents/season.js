@@ -93,7 +93,7 @@ export default defineType({
       name: 'mainImage',
       title: 'Main Image',
       description:
-        'Add an image to depict this season in the page banner.  A crop with an 8/5 is preferrable.',
+        'Add an image for the page banner that will display on screen sizes 900px and above.',
       type: 'mainImage',
       options: {
         validation: (Rule) => [Rule.required()],
@@ -105,7 +105,7 @@ export default defineType({
       name: 'mobileImage',
       title: 'Mobile Image',
       description:
-        'Optional - Provide an image cropped for mobile viewports. If blank, the main image will be used.',
+        'Optional - Provide an cropped for mobile and tablet devices which will display on screen sizes below 900px. If not provided, the main image will be used.',
       type: 'mainImage',
       group: 'images',
       options: {
