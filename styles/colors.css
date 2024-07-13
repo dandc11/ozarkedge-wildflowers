@@ -143,14 +143,13 @@
   );
   --summer-gradient: linear-gradient(
     180deg,
-    var(--oe-purple-400) 60%,
+    var(--oe-purple-300) 60%,
     var(--oe-purple-700) 100%
-      /* var(--oe-green-900) 100% */
   );
   --fall-gradient: linear-gradient(
     175deg,
-    var(--oe-red-500) 60%,
-    var(--oe-green-yellow-500) 100%
+    var(--oe-brown-700) 60%,
+    var(--oe-yellow-800) 100%
   );
   --winter-gradient: linear-gradient(
     140deg,

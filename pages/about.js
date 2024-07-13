@@ -70,11 +70,11 @@ const AboutPage = (props) => {
               className="object-cover rounded-none bp-1200:object-[50%_35%] "
             />
             <Heading
-              className={'content-center font-display -bottom-4 pl-6 pb-1 bg-oe-blue-green-dark-500 mb-0 whitespace-nowrap w-[18rem] bp-900:w-[30rem] bp-900:text-right bp-900:px-8 bp-900:py-3 shadow-md'}
+              className={'content-center font-display -bottom-8 whitespace-nowrap bp-900:text-right bp-900:px-8 bp-900:py-3 bp-900:-bottom-12'}
               showCircle={false}
               absolute 
               textTypeClass={'display bp-900:text-3xl'}
-              headingClassName={' text-white'}
+              headingClassName={'w-fit text-white bg-oe-blue-dark-500 shadow-md px-6 pb-1 mb-0'}
             >
               About Ozarkedge
             </Heading>
