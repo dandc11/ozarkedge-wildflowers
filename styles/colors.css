@@ -143,8 +143,8 @@
   );
   --summer-gradient: linear-gradient(
     180deg,
-    hsl(99, 54%, 45%) 0%,
-    hsl(90, 49%, 22%) 100% /* var(--oe-blue-green-dark-400) 30%, */
+    var(--oe-purple-400) 60%,
+    var(--oe-purple-700) 100%
       /* var(--oe-green-900) 100% */
   );
   --fall-gradient: linear-gradient(
