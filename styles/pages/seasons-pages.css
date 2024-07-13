@@ -70,6 +70,11 @@
       }
     }
 
+    .season-header-img:not(.mobile) {
+      display: none;
+    }
+
+
     .season-header-img svg {
       position: absolute;
       bottom: 0;
@@ -109,6 +114,10 @@
   }
   
   @container season-page-content (width > 900px) {
+
+    .season-header .season-header-img:not(.mobile) {
+      display: block;
+    }
     .season-body {
       padding-inline: 0;
     }
