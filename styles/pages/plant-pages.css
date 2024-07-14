@@ -46,27 +46,4 @@
   }
 }
 
-/* Plant List Page *********************************/
-.plant-list-layout-grid {
-  @media screen and (min-width: 800px) {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 1.5rem;
-    align-items: start;
-    justify-items: start;
-    grid-template-areas:
-      'description plant-list'
-      'filters plant-list';
-  }
-  .description {
-    grid-area: description;
-  }
 
-  .filters {
-    grid-area: filters;
-  }
-
-  .plant-grid {
-    grid-area: plant-list;
-  }
-}

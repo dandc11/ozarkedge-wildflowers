@@ -2,7 +2,10 @@
 
 .hidden {
   display: none;
+}
 
+.no-wrap {
+  white-space: nowrap;
 }
 
 .relative {

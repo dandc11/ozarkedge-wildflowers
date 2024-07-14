@@ -25,49 +25,6 @@
     width: 100%;
   }
 
-  /* Heading Components ****************************/
-  .heading-base {
-    container: heading-base / inline-size;
-    position: relative;
-    width: 100%;
-    z-index: 10;
-    background-color: transparent;
-    margin-bottom: var(--sp-md);
-    color: inherit;
-
-    &:has(.heading-display) {
-      display: flex;
-      justify-content: center;
-      align-content: center;
-      bottom: -3rem;
-    }
-
-    .heading-title {
-      /*  clamp funtion for responsive font-size using container units (cqi) */
-      font-size: clamp(1.5rem, 5vw, 3rem);
-      /* font-size: var(--fs-xl); */
-      font-weight: var(--fw-300);
-
-      &.thin {
-        font-weight: var(--fw-100);
-      }
-    }
-  }
-
-  .heading-display {
-    container: heading-display / inline-size;
-    position: relative;
-    width: 100%;
-    right: 0;
-    z-index: 10;
-    margin-bottom: var(--sp-md);
-
-    .heading-title {
-      font-size: var(--fs-5xl);
-      font-weight: var(--fw-900);
-    }
-  }
-
   /* Background Container */
   .bg-container {
     container: container / inline-size;

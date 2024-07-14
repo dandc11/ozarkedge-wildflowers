@@ -40,7 +40,7 @@ const SeasonPage = (props) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
   const fullImageArray = getUniqueImagesFromDocument(seasonPageData)
-  const wrapperClassName = cx(`season-header-img relative w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[85vh]`)
+  const wrapperClassName = cx(`banner-img relative w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[85vh]`)
   const toggleLightbox = (key) => {
     // toggle lightbox, set starting slide index if opening
     if (key) {
@@ -87,7 +87,7 @@ const SeasonPage = (props) => {
               loading="eager"
               showCaption={false}
               figureClassName="h-full w-full"
-              wrapperClassName="season-header-img mobile relative w-full bg-oe-green-yellow-200 bp-900:hidden"
+              wrapperClassName="banner-img mobile relative w-full bg-oe-green-yellow-200 bp-900:hidden"
               className="object-cover rounded-none"
             >
               <svg
