@@ -3,9 +3,11 @@
 @import "./variables.css";
 @import "./colors.css";
 @import "./utility.css";
+@import "./components/heading.css";
 @import "./components/teaser.css";
 @import "./pages/home.css";
 @import "./pages/plant-pages.css";
+@import "./pages/plant-list.css";
 @import "./pages/seasons-pages.css";
 @import "./pages/about.css";
 @import "tailwindcss/base";
@@ -15,6 +17,20 @@
 @import "./tw-components.css";
 
 @import "tailwindcss/utilities";
+
+.banner-img:not(.mobile) {
+  display: none;
+}
+
+@container oe-site-body (width > 900px) {
+  .banner-img:not(.mobile) {
+    display: block;
+  }
+
+  .banner-img.mobile {
+    display: none;
+  }
+}
 
 @keyframes fadeIn {
     0% { opacity: 0; }

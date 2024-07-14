@@ -11,7 +11,7 @@
     --season-gradient: var(--spring-gradient);
     background-color: var(--season-bg-color);
 
-    .season-header-img img {
+    .banner-img img {
       object-position: top;
     }
   }
@@ -22,7 +22,7 @@
     --season-gradient: var(--summer-gradient);
     background-color: var(--season-bg-color);
 
-    .season-header-img img {
+    .banner-img img {
       object-position: center;
     }
   }
@@ -34,7 +34,7 @@
     background-color: var(--season-bg-color);
 
 
-    .season-header-img img {
+    .banner-img img {
       object-position: 100% 15%;
     }
   }
@@ -45,7 +45,7 @@
     --season-gradient: var(--winter-gradient);
     background-color: var(--season-bg-color);
 
-    .season-header-img img {
+    .banner-img img {
       object-position: top;
     }
   }
@@ -70,12 +70,7 @@
       }
     }
 
-    .season-header-img:not(.mobile) {
-      display: none;
-    }
-
-
-    .season-header-img svg {
+    .banner-img svg {
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -114,10 +109,6 @@
   }
   
   @container season-page-content (width > 900px) {
-
-    .season-header .season-header-img:not(.mobile) {
-      display: block;
-    }
     .season-body {
       padding-inline: 0;
     }

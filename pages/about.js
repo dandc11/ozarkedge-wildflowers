@@ -55,6 +55,7 @@ const AboutPage = (props) => {
               image={mainImage}
               alt={mainImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
+              disablePointer
               loading="eager"
               figureClassName="h-full w-full"
               wrapperClassName="hidden w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[70vh] "
@@ -64,6 +65,7 @@ const AboutPage = (props) => {
               image={mobileImage}
               alt={mobileImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
+              disablePointer
               loading="eager"
               figureClassName="h-full w-full"
               wrapperClassName="w-full bg-oe-green-yellow-200 bp-900:hidden"

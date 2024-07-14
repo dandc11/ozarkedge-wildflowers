@@ -1,0 +1,102 @@
+.plant-list-page-content {
+  container: plant-list-page-content / inline-size;
+
+  .plant-list-header {
+    width: 100%;
+    height: 100%;
+
+    .heading-display {
+      padding-left: var(--sp-md);
+      margin-top: var(--sp-4xl);
+      margin-bottom: 0;
+    }
+
+    .heading-title {
+      max-width: 70cqi;
+    }
+
+    .banner-img {
+      img {
+        object-position: 16% top;
+      }
+
+      &.mobile {
+        height: 26rem;
+      }
+    }
+  }
+
+  /* Plant List Page *********************************/
+  .plant-list-layout-grid {
+    @media screen and (min-width: 800px) {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      justify-items: start;
+      grid-template-areas:
+        'plant-list description '
+        'plant-list filters';
+    }
+    .description {
+      grid-area: description;
+    }
+
+    .filters {
+      grid-area: filters;
+    }
+
+    .plant-grid {
+      grid-area: plant-list;
+    }
+  }
+
+  @container plant-list-page-content (width > 600px) {
+    .plant-list-header {
+      .heading-title {
+        font-size: var(--fs-2xl);
+        max-width: 150cqi;
+      }
+    }
+  }
+
+  @container plant-list-page-content (width > 900px) {
+    .plant-list-header {
+      .heading-display {
+        padding-left: var(--sp-lg);
+      }
+
+      .heading-title {
+        font-size: var(--fs-2xl);
+        max-width: 150cqi;
+      }
+      .banner-img {
+        img {
+          object-position: 16% 80%;
+        }
+      }
+    }
+  }
+
+  @container plant-list-page-content (width > 1400px) {
+    .plant-list-header {
+      .heading-title {
+        font-size: var(--fs-4xl);
+      }
+
+    }
+  }
+}
+
+/* Swap out the images at 600px instead of 900px */
+@container oe-site-body (width > 600px) {
+  .plant-list-page-content {
+    .banner-img:not(.mobile) {
+      display: block;
+    }
+
+    .banner-img.mobile {
+      display: none;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import CustomLink from 'components/CustomLink'
-import Heading from 'components/Heading'
+import HeadingDisplay from 'components/HeadingDisplay'
 import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
@@ -101,12 +101,21 @@ export default function PlantListPage(props) {
     nativePlantListProps,
     GET_NATIVE_PLANT_LIST_DATA_QUERY,
   )
-  const { pageTitle, menuButtonColor = 'light', mainImage, plantListInformation } =
-    nativePlantPageData[0]
-  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
-  console.log('menuButtonColor', menuButtonColor) 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
+  const {
+    pageTitle,
+    menuButtonColor = 'light',
+    mainImage,
+    mobileImage,
+    plantListInformation,
+  } = nativePlantPageData[0]
+  const [navButtonColor, setNavButtonColor] = React.useContext(
+    NavButtonColorContext,
+  )
+  console.log('mobileImage', mobileImage)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => {
+    setNavButtonColor(menuButtonColor)
+  }, [menuButtonColor])
   const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
   const [habitatsSelected, setHabitatsSelected] = useState('')
   const [floweringMonthsSelected, setFloweringMonthsSelected] = useState('')
@@ -172,17 +181,16 @@ export default function PlantListPage(props) {
   })
 
   return (
-    <>
-      <div className="plant-list-content relative h-full w-full ">
-        <Heading
+    <div className='plant-list-page-content'>
+      <div className="plant-list-header relative ">
+        <HeadingDisplay
           showCircle={true}
-          className={'content-center px-10 pt-20 mb-0 bp-900:pl-20'}
           absolute
           circleColorClass={'bg-oe-pink-900'}
-          headingClassName={'text-white'}
+          headingClassName={'text-oe-white display'}
         >
-          {pageTitle}
-        </Heading>
+          <span className='no-wrap text-oe-white'>Native Wildflowers</span> <span className='no-wrap text-oe-white'>at Ozarkedge</span>
+        </HeadingDisplay>
         <PortTextWrapper
           className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
           value={plantListInformation}
@@ -191,22 +199,23 @@ export default function PlantListPage(props) {
           image={mainImage}
           alt={pageTitle}
           disableHover
+          disablePointer
           loading="eager"
           figureClassName="h-full w-full"
-          wrapperClassName="w-full h-[30rem] bg-oe-green-yellow-200  bp-900:order-2"
+          wrapperClassName="banner-img w-full h-[30rem] bg-oe-green-yellow-200  bp-900:order-2"
+          className="rounded-none object-cover object-[80%_50%] w-full h-full "
+        />
+        <ResponsiveImage
+          image={mobileImage ? mobileImage : mainImage}
+          alt={pageTitle}
+          disableHover
+          disablePointer
+          loading="eager"
+          figureClassName="h-full w-full"
+          wrapperClassName="banner-img mobile w-full h-[30rem] bg-oe-green-yellow-200  bp-900:order-2"
           className="rounded-none object-cover object-[80%_50%] w-full h-full "
         />
       </div>
-      <ResponsiveImage
-        image={mainImage}
-        alt={pageTitle}
-        disableHover
-        loading="eager"
-        figureClassName="h-full w-full"
-        wrapperClassName="hidden absolute top-0 w-full h-[30rem] bg-gradient-to-b from-oe-green-400 to-slate-900 bp-900:order-2"
-        className="rounded-none object-cover w-full h-full "
-      />
-      {/* <div className="absolute top-0 w-full h-full z-10 bg-gradient-to-b from-transparent to-gray-900 bp-900:order-2 bp-900:rounded-none"></div> */}
       <div className="plant-list-layout-grid relative px-8 py-10 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
         {nativePlantPageData && (
           <>
@@ -259,7 +268,7 @@ export default function PlantListPage(props) {
           </>
         )}
       </div>
-    </>
+    </div>
   )
 }
 
