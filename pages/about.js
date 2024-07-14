@@ -14,7 +14,6 @@ import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 const AboutPage = (props) => {
   const { pageProps = null } = props
   const [pageData] = useLiveQuery(pageProps, GET_ABOUT_PAGE_DATA_QUERY)
-  console.log('pageData', pageData)
 
   const {
     _id: id,

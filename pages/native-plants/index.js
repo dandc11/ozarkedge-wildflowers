@@ -111,7 +111,6 @@ export default function PlantListPage(props) {
   const [navButtonColor, setNavButtonColor] = React.useContext(
     NavButtonColorContext,
   )
-  console.log('mobileImage', mobileImage)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
     setNavButtonColor(menuButtonColor)
