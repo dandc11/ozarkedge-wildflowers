@@ -12,12 +12,10 @@ export default defineMigration({
         const value = document[key];
         if (Array.isArray(value)) {
           value.forEach((block: any, index: number) => {
-              console.log('block', block.name);
-              if (block.name === 'imageCollection') {
-                console.log('imageCollection', block);
+
+              if (block.name === 'imageCollection') {             
                 patches.push(at([key, index, '_type'], set('')));
               } else if (block.name === 'portTextVideo') {
-                console.log('portTextVideo', block);
                 patches.push(at([key, index, '_type'], set('portTextVideo')));
                 patches.push(at([key, index, 'title'], set('portTextVideo')));
               }

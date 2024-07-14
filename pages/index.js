@@ -55,8 +55,6 @@ export default function HomePage(props) {
   const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
   const teaserBodyText = seasonData[0]?.metaDescription
   const currentSeason = getCurrentSeason()?.SEASON_NAME
-  console.log('seasonData', seasonData)
-  console.log('bloomingPlantImages', bloomingPlantImages)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
     setNavButtonColor(menuButtonColor)

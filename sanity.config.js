@@ -23,7 +23,6 @@ async function getPreviewUrl(doc) {
   const url = new URL('/api/preview', protocol + host)
   url.searchParams.set('slug', doc?.slug?.current || '')
 
-  console.log('Preview URL:', url.href)
   return url.href
 }
 
