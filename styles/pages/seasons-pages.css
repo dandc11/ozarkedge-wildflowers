@@ -72,10 +72,11 @@
 
     .banner-img svg {
       position: absolute;
-      bottom: -4px;
+      bottom: -1px;
       width: 100%;
       height: 80px;
       fill: var(--season-bg-color);
+      /* border-bottom: 3px solid var(--season-bg-color); */
     }
   }
 

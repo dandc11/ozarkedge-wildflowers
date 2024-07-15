@@ -22,7 +22,7 @@
       font-weight: var(--fw-300);
       
       &.thin {
-        font-weight: var(--fw-100);
+        font-weight: var(--fw-200);
       }
     }
   }
