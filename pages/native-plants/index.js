@@ -49,6 +49,7 @@ const Fieldset = ({
           closeMenuOnSelect={false}
           components={animatedComponents}
           isMulti
+          isClearable
           options={MONTH_OPTIONS}
           onChange={monthsChangeHandler}
           value={monthsValue}
@@ -65,6 +66,7 @@ const Fieldset = ({
           instanceId={'flowerColor'}
           components={animatedComponents}
           isMulti
+          isClearable
           label={`Flower Color`}
           options={FLOWER_COLOR_OPTIONS}
           onChange={colorChangeHandler}
@@ -82,6 +84,7 @@ const Fieldset = ({
           components={animatedComponents}
           label={`Habitat`}
           isMulti
+          isClearable
           options={HABITAT_OPTIONS}
           onChange={habitatChangeHandler}
         />
@@ -144,7 +147,8 @@ export default function PlantListPage(props) {
         setMonthsSelected(selectedMonths);
       }
     }
-  }, [router.query.months, monthsSelected]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.months]);
 
 
 
