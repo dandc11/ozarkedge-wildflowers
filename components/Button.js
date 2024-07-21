@@ -140,6 +140,7 @@ const Button = (
     strokeWidth = 1.5,
     slug = '',
     type = 'button',
+    urlParams
   },
   ...props
 ) => {
@@ -149,7 +150,11 @@ const Button = (
     if (callBack) {
       callBack()
     } else {
-      router.push(path)
+      const query = urlParams ? { query: urlParams } : {};
+      router.push({
+        pathname: path,
+        ...query// Include query parameters here
+      });
     }
   }
   return (
