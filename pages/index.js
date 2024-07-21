@@ -142,7 +142,7 @@ export default function HomePage(props) {
                   bodyText={teaserBodyText}
                   buttonLinkSlug={`${currentSeason}`}
                   buttonLinkDocType={'season'}
-                  buttonLinkText={`More about ${thisMonth} flowers`}
+                  buttonLinkText={`More about ${currentSeason} flowers`}
                   lightboxIdentifier={`bloomingNow`}
                   className={`blooming-now`}
                 />
