@@ -89,7 +89,7 @@
 }
 
 /* Swap out the images at 600px instead of 900px */
-@container oe-site-body (width > 600px) {
+@media screen and (min-width: 600px) {
   .plant-list-page-content {
     .banner-img:not(.mobile) {
       display: block;
