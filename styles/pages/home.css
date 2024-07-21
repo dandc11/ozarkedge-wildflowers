@@ -1,15 +1,62 @@
 /* Landing Page ********************************/
-.oe-site-body {
-  container: oe-site-body / inline-size;
-  overflow-y: scroll;
-}
+.homepage-content {
+  container: homepage-content / inline-size;
 
-#landingImageContainer {
-  background-image: var(--container-bg-small);
-}
-
-@media screen and (min-width: 900px) {
   #landingImageContainer {
-    background-image: var(--container-bg-image);
+    background-image: var(--container-bg-small);
+  }
+
+  @media screen and (min-width: 900px) {
+    #landingImageContainer {
+      background-image: var(--container-bg-image);
+    }
+  }
+
+  .homepage-cta {
+    .btn-secondary {
+      background: var(--btn-gradient-5);
+    }
+  }
+
+  @container homepage-content (width > 600px) {
+    .homepage-cta {
+      display: flex;
+      justify-content: center;
+
+      .btn-primary,
+      .btn-secondary {
+        width: auto;
+      }
+    }
+  }
+
+  @container homepage-content (width >= 900px) {
+    .homepage-cta {
+      display: flex;
+      justify-content: end;
+
+      .btn-primary,
+      .btn-secondary {
+        width: auto;
+      }
+    }
+
+    .blooming-now {
+      padding-left: var(--sp-lg);
+    }
+  }
+
+  .description {
+    container: description / inline-size;
+
+    .btn-primary {
+      width: 100%;
+    }
+
+    @container description (width > 600px) {
+      .btn-primary {
+        width: auto;
+      }
+    }
   }
 }

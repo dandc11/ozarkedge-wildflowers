@@ -1,6 +1,5 @@
 import React from 'react'
 import ResponsiveImage from './ResponsiveImage'
-import PortTextWrapper from './PortTextWrapper'
 import PlantName from './PlantName'
 import { MONTH_NAMES_MAP } from '../utilities/constants'
 import cx from 'classnames'
@@ -36,7 +35,11 @@ const PlantImageCard = ({
     const monthNames = floweringMonths.map((monthIndex) =>
       MONTH_NAMES_MAP.get(monthIndex).abbreviation,
     )
-    return monthNames.join(', ')
+    if (monthNames.length > 2) {
+      return `${monthNames[0]}—${monthNames[monthNames.length-1]}`
+    } else {
+      return monthNames.join(', ')
+    }
   }
 
   return (

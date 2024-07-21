@@ -50,6 +50,22 @@ export const getSeasonFromMonthNumber = (monthNum) => {
 };
 
 /**
+ * Returns the month numbers for a given season
+ * @param {string} [season=''] - The season
+ * @returns {array|undefined} The month numbers for the given season, or undefined if not found
+ * */
+export const getMonthNumbersFromSeason = (season) => {
+    let currentTestSeason;
+    for (const testSeason in SEASONS) {
+        currentTestSeason = SEASONS[testSeason];
+        if (currentTestSeason.SEASON_NAME === season) {
+            return currentTestSeason.SEASON_MONTHS;
+        }
+    }
+    return [];
+}
+
+/**
  * Returns the full name of a month from its number
  * @param {number} [monthNum=0] - The month number
  * @returns {string|undefined} The full name of the month, or undefined if not found

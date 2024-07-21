@@ -48,7 +48,8 @@ const TeaserSlider = (props) => {
       plant.image.slug = plant.slug
       return plant.image
     })
-
+    // TODO: update this with dynamic params for more use cases
+  const teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
   return (
     <>
       {images && (
@@ -90,6 +91,7 @@ const TeaserSlider = (props) => {
                 className={`btn-primary m-bk-6`}
                 slug={buttonLinkSlug}
                 linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
+                urlParams={teaserUrlParams}
               >
                 {buttonLinkText}
               </Button>

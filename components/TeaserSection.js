@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import PortTextWrapper from './PortTextWrapper'
-import { getCurrentMonthName } from '../utilities/helperUtil'
-import { SEASONS } from '../utilities/constants'
+import { getCurrentMonthName, getMonthNumbersFromSeason } from '../utilities/helperUtil'
 import { getClient } from '../lib/sanity.client'
 import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../lib/queries'
-import Link from 'next/link'
 import Heading from './Heading'
 import Button from './Button'
-import ImageSlider from './ImageSlider'
 import ResponsiveImage from './ResponsiveImage'
 
 const TeaserSection = (props) => {
@@ -33,6 +30,7 @@ const TeaserSection = (props) => {
     useLightBox,
     usePortText = true,
   } = props
+  const [urlParams, setUrlParams] = useState({})
   const currentMonth = getCurrentMonthName()
   const { itemId, itemType, itemSlug, itemMetaDescription, itemMainImage } =
     linkItems
@@ -43,9 +41,8 @@ const TeaserSection = (props) => {
     : titleText
     ? titleText
     : ''
-  let sliderImages
-  let imagesQuery
-
+  const SEASON_MONTHS = getMonthNumbersFromSeason(teaserTheme)
+  const teaserUrlParams = { months: SEASON_MONTHS }
   // useEffect(() => {
   //   client
   //     .fetch(GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY)
@@ -57,14 +54,14 @@ const TeaserSection = (props) => {
   //     })
   // }, [])
 
-  sliderImages = images
-    .filter((img) => img.image)
-    .map((img) => {
-      img.image.caption = img.plantName?.commonName
-      img.image.docType = 'nativePlant'
-      img.image.slug = img.slug
-      return img.image
-    })
+  // sliderImages = images
+  //   .filter((img) => img.image)
+  //   .map((img) => {
+  //     img.image.caption = img.plantName?.commonName
+  //     img.image.docType = 'nativePlant'
+  //     img.image.slug = img.slug
+  //     return img.image
+  //   })
 
   return (
     <>
@@ -112,6 +109,7 @@ const TeaserSection = (props) => {
                 className={`btn-primary m-bk-5`}
                 linkDocType={itemType}
                 slug={itemSlug}
+                urlParams={teaserUrlParams}
               >
                 {buttonText}
               </Button>

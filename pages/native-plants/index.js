@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useRouter } from 'next/router';
 import CustomLink from 'components/CustomLink'
 import HeadingDisplay from 'components/HeadingDisplay'
 import PlantName from 'components/PlantName'
@@ -9,15 +10,11 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import cx from 'classnames'
 import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
-
 import {
   HABITAT_OPTIONS,
   FLOWER_COLOR_OPTIONS,
-  MONTH_NAMES_MAP,
   MONTH_OPTIONS,
-  COLORS,
 } from '../../utilities/constants'
-
 import {
   GET_PLANT_LIST_PAGE_DATA_QUERY,
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
@@ -30,6 +27,7 @@ import ResponsiveImage from '../../components/ResponsiveImage'
 
 const Fieldset = ({
   animatedComponents,
+  monthsValue,
   monthsChangeHandler,
   colorChangeHandler,
   habitatChangeHandler,
@@ -53,6 +51,7 @@ const Fieldset = ({
           isMulti
           options={MONTH_OPTIONS}
           onChange={monthsChangeHandler}
+          value={monthsValue}
         />
       </div>
       <div className="label-containter">
@@ -117,19 +116,40 @@ export default function PlantListPage(props) {
   }, [menuButtonColor])
   const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
   const [habitatsSelected, setHabitatsSelected] = useState('')
-  const [floweringMonthsSelected, setFloweringMonthsSelected] = useState('')
-  const [flowerColorsSelected, setFlowerColorsSelected] = useState('')
+  const [monthsSelected, setMonthsSelected] = useState('')
+  const [colorsSelected, setColorsSelected] = useState('')
   const animatedComponents = makeAnimated()
+  const router = useRouter();
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }
+  const monthsChangeHandler = useCallback((selectedOptions) => {
+    setMonthsSelected(selectedOptions);
+  }, []);
+
+  const colorChangeHandler = useCallback((selectedOptions) => {
+    setColorsSelected(selectedOptions);
+  }, []);
+
+  const habitatChangeHandler = useCallback((selectedOptions) => {
+    setHabitatsSelected(selectedOptions);
+  }, []);
+
   useEffect(() => {
-    scrollToTop()
-  }, [flowerColorsSelected, floweringMonthsSelected, habitatsSelected])
+    if (router.query.months) {
+      const months = Array.isArray(router.query.months)
+        ? router.query.months.map(Number)
+        : [Number(router.query.months)];
+
+      const selectedMonths = months.map(month => MONTH_OPTIONS.find(option => option.value === month));
+      if (JSON.stringify(selectedMonths) !== JSON.stringify(monthsSelected)) {
+        setMonthsSelected(selectedMonths);
+      }
+    }
+  }, [router.query.months, monthsSelected]);
+
+
+
+  // useEffect(() => {
+  // }, [colorsSelected, monthsSelected, habitatsSelected])
 
   // JS Doc for getMatched
   /**
@@ -166,12 +186,12 @@ export default function PlantListPage(props) {
   // Filter the plant list based on the selected options
   const filteredNativePlantList = nativePlantList.filter((plant) => {
     const isFloweringMonthMatched = getMatched(
-      floweringMonthsSelected,
+      monthsSelected,
       plant.floweringMonths,
     )
     const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
     const isFlowerColorMatched = getMatched(
-      flowerColorsSelected,
+      colorsSelected,
       plant.flowerColor,
     )
     return (
@@ -228,9 +248,10 @@ export default function PlantListPage(props) {
               ></PortTextWrapper>
               <Fieldset
                 animatedComponents={animatedComponents}
-                monthsChangeHandler={setFloweringMonthsSelected}
-                colorChangeHandler={setFlowerColorsSelected}
-                habitatChangeHandler={setHabitatsSelected}
+                monthsChangeHandler={monthsChangeHandler}
+                colorChangeHandler={colorChangeHandler}
+                habitatChangeHandler={habitatChangeHandler}
+                monthsValue={monthsSelected} 
               />
             </section>
             <section id={'plantListSection'} className="plant-grid">

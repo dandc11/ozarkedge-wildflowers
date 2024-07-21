@@ -2,13 +2,13 @@
 
 @layer components {
   .btn-primary {
-    @apply py-5 px-8 w-auto min-w-10 text-slate-50 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 bg-gradient-to-r from-oe-pink-500 to-oe-pink-600;
+    @apply min-w-10 text-slate-50 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 bg-gradient-to-r from-oe-pink-500 to-oe-pink-600;
   }
   .btn-secondary {
-    @apply py-5 px-8 w-auto min-w-10 text-slate-50 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 bg-gradient-to-r from-oe-green-800 to-oe-green-900;
+    @apply min-w-10 text-slate-50 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-none shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
   }
   .btn-hollow-primary {
-    @apply py-5 px-8 w-auto min-w-10 text-pink-500 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-pink-500 border-2 border-solid shadow-md bg-transparent cursor-pointer focus:outline-none focus:text-white focus:bg-pink-500 focus:border-none;
+    @apply min-w-10 text-pink-500 text-base font-normal tracking-[.8px] rounded-lg mb-4 border-pink-500 border-2 border-solid shadow-md bg-transparent cursor-pointer focus:outline-none focus:text-white focus:bg-pink-500 focus:border-none;
   }
   .btn-arrow-right {
     @apply relative bg-oe-pink-200 rounded-full w-16 h-16 z-10 before:absolute before:w-4 before:h-4 before:top-[38%] before:left-[36%] before:border-black before:border-solid before:border-spacing-1 before:rotate-[315deg] before:border-b-[5px] before:border-r-[5px] before:border-l-0 before:border-t-0;
