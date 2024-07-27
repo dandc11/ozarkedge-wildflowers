@@ -82,8 +82,6 @@ const SanityImageWrapper = (props) => {
  * @property {string} [figureClassName=''] - The class name of the figure
  * @property {Object} [image] - The image object
  * @property {string} [lightboxIdentifier] - The identifier for the lightbox
- * @property {string} [mobileWidth=''] - The width of the image on mobile
- * @property {boolean} [mobileImage=false] - Whether to use the mobile image
  * @property {Function} [onClick=() => {}] - The click handler
  * @property {string} [queryParams=''] - The query parameters for the image
  * @property {boolean} [showCaption=true] - Whether to show the caption
@@ -100,8 +98,6 @@ const SanityImageWrapper = (props) => {
  *  figureClassName=''
  *  image=''
  *  lightboxIdentifier=''
- *  mobileWidth=''
- *  mobileImage={false}
  *  onClick={() => {}}
  *  queryParams=''
  *  showCaption={true}
@@ -119,8 +115,6 @@ const ResponsiveImage = ({
   image = '',
   lightboxIdentifier,
   loading = 'lazy',
-  mobileWidth = '',
-  mobileImage = false,
   onClick,
   queryParams = '',
   showCaption = true,
