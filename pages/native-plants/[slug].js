@@ -196,6 +196,7 @@ const NativePlantPage = (props) => {
     images,
     lede,
     menuButtonColor,
+    mobileImage,
     plantName,
     pollinators,
     previewImage,
@@ -235,13 +236,12 @@ const NativePlantPage = (props) => {
     <div className="bg-topography">
       {pageData && (
         <>
-          {(previewImage || bannerImage) && (
+          {(bannerImage) && (
             <div id="bannerImage" className="relative">
               <ResponsiveImage
                 className={`relative w-full h-full object-cover rounded-none bp-1200:object-[50%_35%] bp-1200:h-full`}
                 figureClassName={`h-[36vh] bp-700:h-[60vh] bp-1400:h-[90vh]`}
                 image={bannerImage}
-                mobileImage={previewImage}
                 breakpoint={'500'}
                 disableHover
                 disablePointer
@@ -251,7 +251,22 @@ const NativePlantPage = (props) => {
                 quality={`100`}
                 showCaption={false}
                 sizes={`100vw`}
-                wrapperClassName={`w-full`}
+                wrapperClassName={`banner-img w-full`}
+              />
+              <ResponsiveImage
+                className={`relative w-full h-full object-cover rounded-none`}
+                figureClassName={`h-[36vh] bp-700:h-[60vh] bp-1400:h-[90vh]`}
+                image={mobileImage ? mobileImage : bannerImage}
+                breakpoint={'500'}
+                disableHover
+                disablePointer
+                priority={true}
+                placeholder={``}
+                loading={`eager`}
+                quality={`100`}
+                showCaption={false}
+                sizes={`100vw`}
+                wrapperClassName={`banner-img mobile w-full`}
               />
             </div>
           )}

@@ -54,7 +54,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'bannerImage',
-      title: 'Banner Image',
+      title: 'Header Image',
       type: 'mainImage',
       description:
         'Add a wide-cropped image to use as the banner image on wider screens. A crop with an 8/5 is preferrable.',
@@ -64,6 +64,17 @@ export default defineType({
       },
       group: 'name',
       validation: Rule => Rule.required(),
+    }),
+    defineField({
+      name: 'mobileImage',
+      title: 'Mobile Image (optional)',
+      type: 'mainImage',
+      description:
+        'Add an image cropped for mobile for screen widths below 900px. If one is not provided, the header image will be used.',
+      options: {
+        hotspot: true,
+      },
+      group: 'name',
     }),
     defineField({
       name: 'menuButtonColor',
