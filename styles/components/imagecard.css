@@ -1,0 +1,43 @@
+/* Image Card Component*/
+.img-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  .text-container {
+    padding-block: 0.75rem;
+    padding-inline: 0.45rem;
+    text-align: left;
+    margin-left: var(--sp-xxs);
+  }
+
+  .name-container {
+    margin-inline: 0;
+    display: inline;
+    text-align: center;
+    padding-right: var(--sp-xs);
+  }
+
+  .flowering,
+  .habitats {
+    span {
+      margin-right: var(--sp-xxs);
+    }
+  }
+}
+
+.img-card-name {
+  .common-name {
+    padding-bottom: var(--sp-xxs);
+    line-height: var(--sp-md);
+  }
+
+  .botanical-name {
+    line-height: var(--sp-md);
+    padding-top: var(--sp-xxs);
+    font-size: var(--fs-xs);
+    font-style: normal;
+    font-weight: 100;
+    color: var(--color-slate-50);
+    text-align: left;
+  }
+}

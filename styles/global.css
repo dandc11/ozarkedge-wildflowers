@@ -6,6 +6,7 @@
 @import "./components/button.css";
 @import "./components/heading.css";
 @import "./components/teaser.css";
+@import "./components/imagecard.css";
 @import "./pages/home.css";
 @import "./pages/plant-pages.css";
 @import "./pages/plant-list.css";
