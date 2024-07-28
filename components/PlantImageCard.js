@@ -27,16 +27,16 @@ const PlantImageCard = ({
   )
 
   const containerClasses = cx(
-    'image-card shadow-md rounded-md overflow-clip hover:scale-105 transform transition-all duration-300 ease-in-out ',
+    'img-card shadow-md rounded-md overflow-clip hover:scale-105 transform transition-all duration-300 ease-in-out ',
     className,
   )
 
   const getMonthNames = () => {
-    const monthNames = floweringMonths.map((monthIndex) =>
-      MONTH_NAMES_MAP.get(monthIndex).abbreviation,
+    const monthNames = floweringMonths.map(
+      (monthIndex) => MONTH_NAMES_MAP.get(monthIndex).abbreviation,
     )
     if (monthNames.length > 2) {
-      return `${monthNames[0]}—${monthNames[monthNames.length-1]}`
+      return `${monthNames[0]}—${monthNames[monthNames.length - 1]}`
     } else {
       return monthNames.join(', ')
     }
@@ -45,26 +45,30 @@ const PlantImageCard = ({
   return (
     <div className={containerClasses}>
       {imagePosition !== 'right' && imageComponent}
-      <div className="text-container text-left flex flex-col justify-between ml-2">
+      <div className="text-container flex flex-col justify-between">
         {/* <h2 className='text-base font-display mb-2'>{titleText}</h2> */}
         <PlantName
-          className="text-base font-display py-1"
+          className="img-card-name text-base font-display py-1"
           topNameClassName="text-base font-display pb-1 text-left bp-700:text-base"
           plantName={plantName}
           headingLevel={3}
-          showBotanicalName={false}
-          showSeparator={false}
+          showBotanicalName={true}
+          showSeparator={true}
         />
         <div className="flex flex-wrap">
-
-        <p className="text-sm font-body">
-          <span className="uppercase text-xs">flowering months: </span>{' '}
-          {floweringMonths && getMonthNames()}
-        </p>
-        <p className="text-sm font-body">
-          <span className="uppercase text-xs">habitat: </span>{' '}
-          {Array.isArray(habitatType) ? habitatType.join(', ') : habitatType}
-        </p>
+          <p className="plant-data text-sm font-body">
+            <span className="flowering uppercase text-xs">
+              {' '}
+              {floweringMonths && getMonthNames()}{' '}
+            </span>{' '}
+            |{' '}
+            <span className="uppercase text-xs">
+              {' '}
+              {Array.isArray(habitatType)
+                ? habitatType.join(', ')
+                : habitatType}{' '}
+            </span>
+          </p>
         </div>
       </div>
       {imagePosition === 'right' && imageComponent}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 import CustomLink from 'components/CustomLink'
 import HeadingDisplay from 'components/HeadingDisplay'
 import PlantName from 'components/PlantName'
@@ -27,6 +27,9 @@ import ResponsiveImage from '../../components/ResponsiveImage'
 
 const Fieldset = ({
   animatedComponents,
+  nameValue,
+  nameChangeHandler,
+  nameOptions,
   monthsValue,
   monthsChangeHandler,
   colorChangeHandler,
@@ -37,6 +40,24 @@ const Fieldset = ({
       <legend className="text-left text-oe-green-800 italic">
         Filter Options
       </legend>
+      <div className="label-containter">
+        <label className="" id="nameLabel" htmlFor="name">
+          Common or Botanical Name
+        </label>
+        <Select
+          className="w-full min-w-14 bp-400:min-w-16"
+          aria-labelledby="nameLabel"
+          name="name"
+          instanceId={'name'}
+          closeMenuOnSelect={false}
+          components={animatedComponents}
+          isMulti
+          isClearable
+          options={nameOptions}
+          onChange={nameChangeHandler}
+          value={nameValue ? nameValue : ''}
+        />
+      </div>
       <div className="label-containter">
         <label className="" id="floweringMonthLabel" htmlFor="floweringMonth">
           Flowering Month
@@ -118,39 +139,75 @@ export default function PlantListPage(props) {
     setNavButtonColor(menuButtonColor)
   }, [menuButtonColor])
   const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
+  const [nameSelected, setNameSelected] = useState('')
   const [habitatsSelected, setHabitatsSelected] = useState('')
   const [monthsSelected, setMonthsSelected] = useState('')
   const [colorsSelected, setColorsSelected] = useState('')
   const animatedComponents = makeAnimated()
-  const router = useRouter();
+  const router = useRouter()
+
+  const nameChangeHandler = useCallback((selectedOptions) => {
+    setNameSelected(selectedOptions)
+  }, [])
 
   const monthsChangeHandler = useCallback((selectedOptions) => {
-    setMonthsSelected(selectedOptions);
-  }, []);
+    setMonthsSelected(selectedOptions)
+  }, [])
 
   const colorChangeHandler = useCallback((selectedOptions) => {
-    setColorsSelected(selectedOptions);
-  }, []);
+    setColorsSelected(selectedOptions)
+  }, [])
 
   const habitatChangeHandler = useCallback((selectedOptions) => {
-    setHabitatsSelected(selectedOptions);
-  }, []);
+    setHabitatsSelected(selectedOptions)
+  }, [])
 
   useEffect(() => {
     if (router.query.months) {
       const months = Array.isArray(router.query.months)
         ? router.query.months.map(Number)
-        : [Number(router.query.months)];
+        : [Number(router.query.months)]
 
-      const selectedMonths = months.map(month => MONTH_OPTIONS.find(option => option.value === month));
+      const selectedMonths = months.map((month) =>
+        MONTH_OPTIONS.find((option) => option.value === month),
+      )
       if (JSON.stringify(selectedMonths) !== JSON.stringify(monthsSelected)) {
-        setMonthsSelected(selectedMonths);
+        setMonthsSelected(selectedMonths)
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.months]);
 
+    if (router.query.names) {
+      const names = Array.isArray(router.query.names)
+        ? router.query.names.map(String)
+        : [String(router.query.names)]
 
+      const selectedNames = names.map((name) => ({ value: name, label: name }))
+      if (JSON.stringify(selectedNames) !== JSON.stringify(nameSelected)) {
+        setNameSelected(selectedNames)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.months, router.query.names])
+
+  // Create the name options for the filter, sorted alphabetically by common name
+  const NAME_OPTIONS = useMemo(() => {
+    const names = nativePlantList.map((plant) => plant.plantName)
+    const uniqueNames = [...new Set(names)]
+    const fullNames = [
+      ...uniqueNames.map((name) => name.commonName),
+      ...uniqueNames.map((name) => name.botanicalName),
+    ].map((name) => ({ value: name, label: name }))
+    const alphaNames = fullNames.sort((a, b) => {
+      if (a.label < b.label) {
+        return -1
+      }
+      if (a.label > b.label) {
+        return 1
+      }
+      return 0
+    })
+    return alphaNames
+  }, [nativePlantList])
 
   // useEffect(() => {
   // }, [colorsSelected, monthsSelected, habitatsSelected])
@@ -168,6 +225,8 @@ export default function PlantListPage(props) {
     }
 
     let plantValues
+
+    // check whether there are multiple values to match, ensure type safety
     if (Array.isArray(plantProperty)) {
       if (plantProperty.every((item) => typeof item === 'number')) {
         plantValues = plantProperty.map(Number)
@@ -183,28 +242,45 @@ export default function PlantListPage(props) {
     const isMatched = selectedValues.some((value) =>
       plantValues.includes(value),
     )
-
     return isMatched
   }
 
-  // Filter the plant list based on the selected options
-  const filteredNativePlantList = nativePlantList.filter((plant) => {
-    const isFloweringMonthMatched = getMatched(
-      monthsSelected,
-      plant.floweringMonths,
-    )
-    const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
-    const isFlowerColorMatched = getMatched(
-      colorsSelected,
-      plant.flowerColor,
-    )
-    return (
-      isHabitatTypeMatched && isFloweringMonthMatched && isFlowerColorMatched
-    )
-  })
+  // Filter the plant list displayed based on the selected options, then sort alphabetically
+  const filteredNativePlantList = nativePlantList
+    .filter((plant) => {
+      const isFloweringMonthMatched = getMatched(
+        monthsSelected,
+        plant.floweringMonths,
+      )
+      const isHabitatTypeMatched = getMatched(
+        habitatsSelected,
+        plant.habitatType,
+      )
+      const isFlowerColorMatched = getMatched(colorsSelected, plant.flowerColor)
+      const isNameMatched = getMatched(nameSelected, [
+        plant.plantName.commonName,
+        plant.plantName.botanicalName,
+      ])
+      return (
+        isNameMatched &&
+        isHabitatTypeMatched &&
+        isFloweringMonthMatched &&
+        isFlowerColorMatched
+      )
+    })
+    .map((plant) => plant)
+    .sort((a, b) => {
+      if (a.plantName.commonName < b.plantName.commonName) {
+        return -1
+      }
+      if (a.plantName.commonName > b.plantName.commonName) {
+        return 1
+      }
+      return 0
+    })
 
   return (
-    <div className='plant-list-page-content'>
+    <div className="plant-list-page-content">
       <div className="plant-list-header relative ">
         <HeadingDisplay
           showCircle={true}
@@ -212,7 +288,8 @@ export default function PlantListPage(props) {
           circleColorClass={'bg-oe-pink-900'}
           headingClassName={'text-oe-white display'}
         >
-          <span className='no-wrap text-oe-white'>Native Wildflowers</span> <span className='no-wrap text-oe-white'>at Ozarkedge</span>
+          <span className="no-wrap text-oe-white">Native Wildflowers</span>{' '}
+          <span className="no-wrap text-oe-white">at Ozarkedge</span>
         </HeadingDisplay>
         <PortTextWrapper
           className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
@@ -253,9 +330,12 @@ export default function PlantListPage(props) {
               <Fieldset
                 animatedComponents={animatedComponents}
                 monthsChangeHandler={monthsChangeHandler}
+                nameValue={nameSelected}
+                nameOptions={NAME_OPTIONS}
+                nameChangeHandler={nameChangeHandler}
                 colorChangeHandler={colorChangeHandler}
                 habitatChangeHandler={habitatChangeHandler}
-                monthsValue={monthsSelected} 
+                monthsValue={monthsSelected}
               />
             </section>
             <section id={'plantListSection'} className="plant-grid">

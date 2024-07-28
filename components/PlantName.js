@@ -43,7 +43,7 @@ const PlantName = (props) => {
     }
   }
   return (
-    <div className={cx(`mx-0 inline text-center`, className)}>
+    <div className={cx(`name-container`, className)}>
       {showCommonName && (
         <>{getHeadingElement(headingLevel, headingClassNames, plantName)}</>
       )}

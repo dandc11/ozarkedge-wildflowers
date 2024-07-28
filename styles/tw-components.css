@@ -36,14 +36,4 @@
     background-size: cover;
   }
 
-  /* Image Card */
-  .image-card {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-
-    .text-container {
-      padding-block: 0.75rem;
-      padding-inline: 0.45rem;
-    }
-  }
 }
