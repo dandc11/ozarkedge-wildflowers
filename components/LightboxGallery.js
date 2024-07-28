@@ -34,6 +34,7 @@ const LightboxGallery = ({
   onCloseCallback,
   showImageGrid = true,
   showCaptions = true,
+  showThumbnails = true,
   startingSlideIndex = 0,
   useNextImage = false,
 }) => {
@@ -89,6 +90,7 @@ const LightboxGallery = ({
       open={open}
       rightArrowClassname={'text-white text-2xl'}
       showControls={true}
+      showThumbnails={showThumbnails}
       slideshowInterval={3500}
       startingSlideIndex={startingSlideIndex}
       theme="lightbox"
