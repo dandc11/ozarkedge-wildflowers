@@ -42,7 +42,7 @@ const Fieldset = ({
       </legend>
       <div className="label-containter">
         <label className="" id="nameLabel" htmlFor="name">
-          Name
+          Common or Botanical Name
         </label>
         <Select
           className="w-full min-w-14 bp-400:min-w-16"
@@ -189,6 +189,7 @@ export default function PlantListPage(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.months, router.query.names])
 
+  // Create the name options for the filter, sorted alphabetically by common name
   const NAME_OPTIONS = useMemo(() => {
     const names = nativePlantList.map((plant) => plant.plantName)
     const uniqueNames = [...new Set(names)]
@@ -196,7 +197,16 @@ export default function PlantListPage(props) {
       ...uniqueNames.map((name) => name.commonName),
       ...uniqueNames.map((name) => name.botanicalName),
     ].map((name) => ({ value: name, label: name }))
-    return fullNames
+    const alphaNames = fullNames.sort((a, b) => {
+      if (a.label < b.label) {
+        return -1
+      }
+      if (a.label > b.label) {
+        return 1
+      }
+      return 0
+    })
+    return alphaNames
   }, [nativePlantList])
 
   // useEffect(() => {
@@ -235,25 +245,39 @@ export default function PlantListPage(props) {
     return isMatched
   }
 
-  // Filter the plant list displayed based on the selected options
-  const filteredNativePlantList = nativePlantList.filter((plant) => {
-    const isFloweringMonthMatched = getMatched(
-      monthsSelected,
-      plant.floweringMonths,
-    )
-    const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
-    const isFlowerColorMatched = getMatched(colorsSelected, plant.flowerColor)
-    const isNameMatched = getMatched(nameSelected, [
-      plant.plantName.commonName,
-      plant.plantName.botanicalName,
-    ])
-    return (
-      isNameMatched &&
-      isHabitatTypeMatched &&
-      isFloweringMonthMatched &&
-      isFlowerColorMatched
-    )
-  })
+  // Filter the plant list displayed based on the selected options, then sort alphabetically
+  const filteredNativePlantList = nativePlantList
+    .filter((plant) => {
+      const isFloweringMonthMatched = getMatched(
+        monthsSelected,
+        plant.floweringMonths,
+      )
+      const isHabitatTypeMatched = getMatched(
+        habitatsSelected,
+        plant.habitatType,
+      )
+      const isFlowerColorMatched = getMatched(colorsSelected, plant.flowerColor)
+      const isNameMatched = getMatched(nameSelected, [
+        plant.plantName.commonName,
+        plant.plantName.botanicalName,
+      ])
+      return (
+        isNameMatched &&
+        isHabitatTypeMatched &&
+        isFloweringMonthMatched &&
+        isFlowerColorMatched
+      )
+    })
+    .map((plant) => plant)
+    .sort((a, b) => {
+      if (a.plantName.commonName < b.plantName.commonName) {
+        return -1
+      }
+      if (a.plantName.commonName > b.plantName.commonName) {
+        return 1
+      }
+      return 0
+    })
 
   return (
     <div className="plant-list-page-content">
