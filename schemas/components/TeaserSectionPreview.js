@@ -2,6 +2,7 @@
 
 import { Flex, Box, Grid, Card, Text, Heading } from '@sanity/ui'
 import Image from 'next/image'
+
 import ThumbnailGrid from '../../components/ThumbnailGrid'
 import PortTextWrapper from '../../components/PortTextWrapper'
 

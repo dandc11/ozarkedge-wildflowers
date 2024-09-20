@@ -1,9 +1,11 @@
 import React from 'react'
-import ResponsiveImage from './ResponsiveImage'
 import cx from 'classnames'
+import classNames from 'classnames'
+
+import ResponsiveImage from './ResponsiveImage'
 import TeaserSlider from './TeaserSlider'
 import TeaserSection from './TeaserSection'
-import classNames from 'classnames'
+
 
 // JSDoc definitions
 /**

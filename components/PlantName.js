@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+
 import { titleCase } from '../utilities/helperUtil'
 
 const PlantName = (props) => {

@@ -1,8 +1,9 @@
 import React from 'react'
+import cx from 'classnames'
+
 import { getCurrentMonthName, titleCase } from '../utilities/helperUtil'
 import Heading from './Heading'
 import PortTextWrapper from './PortTextWrapper'
-import cx from 'classnames'
 import ImageSlider from './ImageSlider'
 import Button from './Button'
 import { CURRENT_MONTH_NUMBER } from '../utilities/constants'

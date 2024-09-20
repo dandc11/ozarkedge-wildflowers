@@ -1,5 +1,6 @@
 import { GiSunCloud } from 'react-icons/gi'
 import { defineField, defineArrayMember, defineType } from 'sanity'
+
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
 export default defineType({

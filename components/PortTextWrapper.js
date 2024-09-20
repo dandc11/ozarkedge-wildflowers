@@ -1,7 +1,10 @@
+"use client";
+
 import { PortableText } from '@portabletext/react'
 import cx from 'classnames'
 import Link from 'next/link'
 import React, { useMemo } from 'react'
+
 import { getPathFromDocType } from '../utilities/helperUtil'
 import PortTextFigure from './PortTextFigure'
 import PortTextVideo from './PortTextVideo'

@@ -1,7 +1,8 @@
 // pages/api/menu.js
+import Cors from 'cors'
+
 import { readToken } from '../../lib/sanity.api'
 import { getClient } from '../../lib/sanity.client'
-import Cors from 'cors'
 
 // Initializing the cors middleware
 const cors = Cors({

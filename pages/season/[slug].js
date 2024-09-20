@@ -1,18 +1,20 @@
 import React, { useState, useContext } from 'react'
+import { useLiveQuery } from 'next-sanity/preview'
+import cx from 'classnames'
+
+import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
+import { NavButtonColorContext } from '../../contexts/NavButtonColorContext'
 import { getClient } from '../../lib/sanity.client'
 import { readToken } from '../../lib/sanity.api'
-import { useLiveQuery } from 'next-sanity/preview'
 import {
   GET_ALL_SEASON_PATHS_QUERY,
   GET_SEASON_PAGE_DATA_QUERY,
 } from '../../lib/queries'
-import cx from 'classnames'
-import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
 import LightboxGallery from '../../components/LightboxGallery'
 import PortTextWrapper from '../../components/PortTextWrapper'
 import ResponsiveImage from '../../components/ResponsiveImage'
 import HeadingDisplay from '../../components/HeadingDisplay'
-import { getUniqueImagesFromDocument } from 'utilities/imageUtil'
+
 
 
 const SeasonPage = (props) => {

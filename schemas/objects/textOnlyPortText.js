@@ -1,7 +1,8 @@
 import React from 'react'
+import { defineArrayMember, defineType } from 'sanity'
+
 import { DOCUMENT_TYPES } from '../constants/constants'
 import IconAppender from '../components/IconAppender'
-import { defineArrayMember, defineType } from 'sanity'
 
 export default defineType({
   name: 'textOnlyPortText',

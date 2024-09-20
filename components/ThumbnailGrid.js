@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+
 import ResponsiveImage from './ResponsiveImage'
 
 const ThumbnailGrid = (props) => {

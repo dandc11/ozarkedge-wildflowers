@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import cx from 'classnames'
+
+import LightboxGallery from './LightboxGallery'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
 import Button from './Button'
-import LightboxGallery from 'components/LightboxGallery'
-import cx from 'classnames'
 
 // JS Doc for ImageSlider
 /**

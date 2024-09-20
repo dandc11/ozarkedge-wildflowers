@@ -1,6 +1,7 @@
 import React from 'react'
-import { getNatureServeRankingColors } from '../utilities/helperUtil'
 import cx from 'classnames'
+
+import { getNatureServeRankingColors } from '../utilities/helperUtil'
 import IconInfo from './IconInfo'
 
 const NatureServeMessage = (props) => {

@@ -1,4 +1,5 @@
 import { definePlugin } from 'sanity';
+
 import { getPreviewSecret } from './previewSecret';
 
 // This plugin sets up the "Open preview (CTRL + ALT + O)" in the dropdown menu that hosts

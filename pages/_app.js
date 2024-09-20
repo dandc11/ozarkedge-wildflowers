@@ -1,9 +1,10 @@
 import '../styles/global.css'
 import 'lightbox.js-react/dist/index.css'
 import { Playfair_Display, Raleway } from 'next/font/google'
-import Layout from '../components/Layout'
 import Head from 'next/head'
 import { lazy } from 'react'
+
+import Layout from '../components/Layout'
 import { NavButtonColorProvider } from '../contexts/NavButtonColorContext'
 
 const PLAYFAIR_DISPLAY = Playfair_Display({

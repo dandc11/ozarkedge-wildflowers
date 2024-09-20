@@ -1,6 +1,7 @@
 import React from 'react'
-import { buildBackgroundStyleObject } from '../utilities/imageUtil'
 import cx from 'classnames'
+
+import { buildBackgroundStyleObject } from '../utilities/imageUtil'
 
 /**
  * A container component that wraps its children with a specified tag and applies CSS classes and background styles.

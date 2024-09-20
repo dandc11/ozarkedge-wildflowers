@@ -1,4 +1,5 @@
 const { groq } = require('next-sanity');
+
 const { createRandomUUID } = require('./uuid');
 
 // updated within the hour, if it's older it'll create a new secret or return null

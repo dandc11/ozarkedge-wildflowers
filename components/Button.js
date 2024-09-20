@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { getPathFromDocType } from '../utilities/helperUtil'
 import cx from 'classnames'
+
+import { getPathFromDocType } from '../utilities/helperUtil'
 
 const ChevronDown = ({ strokeWidth = 1}) => {
   return (

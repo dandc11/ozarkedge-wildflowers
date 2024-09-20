@@ -1,5 +1,6 @@
-import { urlForImage } from '../lib/sanity.image'
 import { SanityImage } from 'sanity-image'
+
+import { urlForImage } from '../lib/sanity.image'
 import { projectId, dataset } from '../lib/sanity.api'
 
 /**

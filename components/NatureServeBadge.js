@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
+
 import { getNatureServeRankingColors } from '../utilities/helperUtil'
 import IconInfo from './IconInfo'
 

@@ -1,18 +1,20 @@
 import cx from 'classnames'
-import TeaserSlider from 'components/TeaserSlider'
-import Button from 'components/Button'
 import { useLiveQuery } from 'next-sanity/preview'
 import React, { useContext } from 'react'
-import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
+import { groq } from 'next-sanity'
+
+import { NavButtonColorContext } from '../contexts/NavButtonColorContext'
+import TeaserSlider from '../components/TeaserSlider'
+import Button from '../components/Button'
 import {
   getCurrentMonthName,
   titleCase,
   getCurrentSeason,
-} from 'utilities/helperUtil'
+} from '../utilities/helperUtil'
 import {
   CURRENT_MONTH_NUMBER,
   DOCTYPE_PATH_PREFIXES,
-} from 'utilities/constants'
+} from '../utilities/constants'
 import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   GET_CURRENT_SEASON_DATA_QUERY,
@@ -21,7 +23,7 @@ import {
 import { readToken } from '../lib/sanity.api'
 import { getClient } from '../lib/sanity.client'
 import { buildBackgroundStyleObject } from '../utilities/imageUtil'
-import { groq } from 'next-sanity'
+
 
 /**
  * @param {object} pageProps - props for the page

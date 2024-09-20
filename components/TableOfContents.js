@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import cx from 'classnames'
 
 import { getCurrentSeason } from '../utilities/helperUtil'
-import cx from 'classnames'
 
 const TableOfContents = (props) => {
   const {

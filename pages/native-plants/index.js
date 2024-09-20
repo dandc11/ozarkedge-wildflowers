@@ -1,15 +1,18 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import CustomLink from 'components/CustomLink'
-import HeadingDisplay from 'components/HeadingDisplay'
-import PlantName from 'components/PlantName'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
-import Button from '../../components/Button'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import cx from 'classnames'
-import { NavButtonColorContext } from 'contexts/NavButtonColorContext'
+
+// eslint-disable-next-line import/no-unresolved
+import { NavButtonColorContext } from '../../contexts/NavButtonColorContext'
+import PlantName from '../../components/PlantName'
+import HeadingDisplay from '../../components/HeadingDisplay'
+import CustomLink from '../../components/CustomLink'
+import PortTextWrapper from '../../components/PortTextWrapper'
+import PlantImageCard from '../../components/PlantImageCard'
 import {
   HABITAT_OPTIONS,
   FLOWER_COLOR_OPTIONS,
@@ -21,8 +24,7 @@ import {
 } from '../../lib/queries'
 import { readToken } from '../../lib/sanity.api'
 import { getClient } from '../../lib/sanity.client'
-import PortTextWrapper from 'components/PortTextWrapper'
-import PlantImageCard from 'components/PlantImageCard'
+import Button from '../../components/Button'
 import ResponsiveImage from '../../components/ResponsiveImage'
 
 const Fieldset = ({

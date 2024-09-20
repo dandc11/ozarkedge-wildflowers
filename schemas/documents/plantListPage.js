@@ -5,6 +5,7 @@ import {
   defineField,
   defineConfig,
 } from 'sanity'
+
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
 export default defineConfig({

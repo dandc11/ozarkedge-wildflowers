@@ -1,10 +1,14 @@
+'use client';
+
 import { useEffect } from 'react'
 import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react'
 import cx from 'classnames'
-import ResponsiveImage from './ResponsiveImage'
 import imageUrlBuilder from '@sanity/image-url'
-import { getClient } from '../lib/sanity.client'
 import Image from 'next/image'
+
+import ResponsiveImage from './ResponsiveImage'
+import { getClient } from '../lib/sanity.client'
+
 
 /**
  *  Uses lightbox.js-react to display a lightbox slideshow. Accepts an array of images to display in the lightbox. Current preferred usage is to open and close the lightbox using the open prop and to display images separately using the ResponsiveImage component rather than including images in the children prop.

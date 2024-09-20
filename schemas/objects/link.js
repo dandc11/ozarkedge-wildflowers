@@ -1,7 +1,8 @@
 import React from 'react';
+import { defineField, defineType } from 'sanity'
+
 import IconAppender from '../components/IconAppender';
 import { DOCUMENT_TYPES } from '../constants/constants';
-import { defineField, defineType } from 'sanity'
 
 
 export default defineType({  

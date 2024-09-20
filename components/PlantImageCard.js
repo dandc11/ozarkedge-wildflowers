@@ -1,8 +1,9 @@
 import React from 'react'
+import cx from 'classnames'
+
 import ResponsiveImage from './ResponsiveImage'
 import PlantName from './PlantName'
 import { MONTH_NAMES_MAP } from '../utilities/constants'
-import cx from 'classnames'
 
 const PlantImageCard = ({
   className = '',

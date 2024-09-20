@@ -1,8 +1,7 @@
-import CustomLink from 'components/CustomLink'
-import PlantName from 'components/PlantName'
-import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
 
+import CustomLink from '../../components/CustomLink'
+import PlantName from '../../components/PlantName'
 import { GET_NATIVE_PLANT_LIST_DATA_QUERY } from '../../lib/queries'
 import { readToken } from '../../lib/sanity.api'
 import { getClient } from '../../lib/sanity.client'

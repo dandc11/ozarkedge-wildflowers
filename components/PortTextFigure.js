@@ -1,6 +1,7 @@
 import React from 'react'
-import ResponsiveImage from './ResponsiveImage'
 import cx from 'classnames'
+
+import ResponsiveImage from './ResponsiveImage'
 
 // JSDoc definitions
 /**
