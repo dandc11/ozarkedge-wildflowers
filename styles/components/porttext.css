@@ -1,0 +1,5 @@
+.port-text {
+    max-width: 64rem;
+    padding-inline: var(--sp-xl);
+    padding-bottom: var(--sp-lg);
+}

@@ -4,7 +4,7 @@ import { SanityImage } from 'sanity-image'
 import { useEffect } from 'react';
 import cx from 'classnames'
 
-import { projectId, dataset } from '../lib/sanity.api'
+import { projectId, dataset } from '../app/lib/sanity.api'
 
 /**
  * @typedef {Object} SanityImageWrapperProps

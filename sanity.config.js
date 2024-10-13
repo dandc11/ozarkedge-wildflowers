@@ -4,10 +4,10 @@ import { defineConfig } from 'sanity'
 import { buildLegacyTheme } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { muxInput } from 'sanity-plugin-mux-input'
-import Iframe from 'sanity-plugin-iframe-pane'
+import { Iframe } from 'sanity-plugin-iframe-pane'
 import { media, mediaAssetSource } from 'sanity-plugin-media'
 
-import { apiVersion, dataset, projectId } from './lib/sanity.api'
+import { apiVersion, dataset, projectId } from './app/lib/sanity.api'
 import { schema } from './schemas/schema'
 import { COLORS } from './utilities/constants'
 

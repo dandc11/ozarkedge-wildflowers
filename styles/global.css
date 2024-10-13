@@ -3,6 +3,7 @@
 @import "./variables.css";
 @import "./colors.css";
 @import "./utility.css";
+@import "./components/porttext.css";
 @import "./components/button.css";
 @import "./components/heading.css";
 @import "./components/teaser.css";
@@ -19,6 +20,16 @@
 @import "./tw-components.css";
 
 @import "tailwindcss/utilities";
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+main {
+  min-height: 100vh;
+  line-height: var(--sp-lg);
+}
 
 .banner-img:not(.mobile) {
   display: none;

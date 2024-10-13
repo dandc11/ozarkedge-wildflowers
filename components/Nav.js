@@ -1,8 +1,11 @@
+'use client'
+
 import React, { useState, useEffect, useContext } from 'react'
+import cx from 'classnames'
+
+import { NavContextProvider } from '../contexts/NavContext'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
-import cx from 'classnames'
-import { NavButtonColorContext } from '../contexts/NavButtonColorContext'
 
 /**
  * The Nav (Menu) component
@@ -10,20 +13,19 @@ import { NavButtonColorContext } from '../contexts/NavButtonColorContext'
  * @category Components
  * @example
  * <Nav />
- * 
+ *
  */
-const Nav = () => {
+const Nav = ({ navButtonColor }) => {
   const [menuItems, setMenuItems] = useState([])
   const [menuBgImage, setMenuBgImage] = useState('')
   const [mobileMenuBgImage, setMobileMenuBgImage] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [navButtonColor] = useContext(NavButtonColorContext)
 
   const fetchMenuItems = async () => {
     try {
       const res = await fetch('/api/menuMiddleware')
       const data = await res.json()
-      
+
       if (data && data.length > 0) {
         let menuItems = data[0].menuItems
         let menuBgImage = data[0].menuBackgroundImage
@@ -62,77 +64,72 @@ const Nav = () => {
   })
 
   return (
-    <nav
-      id="mainNav"
-      className={`group/nav fixed font-display tracking-normal bg-#181517 text-2xl flex z-50 ${
-        isMenuOpen ? 'menu-active w-full h-full overflow-hidden bg-white' : ''
-      }`}
-    >
-      <button
-        className={cx(
-          'menu-icon absolute top-5 left-5 z-30 h-6 border-none flex flex-col justify-between',
-        )}
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+    <NavContextProvider>
+      <nav
+        id="mainNav"
+        className={`group/nav fixed font-display tracking-normal bg-#181517 text-2xl flex z-50 ${
+          isMenuOpen ? 'menu-active w-full h-full overflow-hidden bg-white' : ''
+        }`}
       >
-        <div
-          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
-        ></div>
-        <div
-          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
-        ></div>
-        <div
-          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
-        ></div>
-
-      </button>
-      <div className={cx(`menu-container w-full`)}>
-        <div id="menuItemsContainer" className="menu-items">
-          <ul
-            className={`nav-links mt-24 ml-5 bp-600:mt-32 bp-600:ml-16 bp-900:mt-24 bp-900:ml-8`}
-          >
-            {menuListItems}
-          </ul>
-          <div
-            className={cx(
-              `overlay absolute h-full w-full top-0 -z-10`,
-            )}
-          ></div>
-        </div>
-        <div
-          id="menuImageContainer"
+        <button
           className={cx(
-            `menu-image w-full h-full absolute top-0 -z-20 bp-1200:relative`,
+            'menu-icon absolute top-5 left-5 z-30 h-6 border-none flex flex-col justify-between',
           )}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <ResponsiveImage
+          <div
+            className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
+          ></div>
+          <div
+            className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
+          ></div>
+          <div
+            className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
+          ></div>
+        </button>
+        <div className={cx(`menu-container w-full`)}>
+          <div id="menuItemsContainer" className="menu-items">
+            <ul
+              className={`nav-links mt-24 ml-5 bp-600:mt-32 bp-600:ml-16 bp-900:mt-24 bp-900:ml-8`}
+            >
+              {menuListItems}
+            </ul>
+            <div
+              className={cx(`overlay absolute h-full w-full top-0 -z-10`)}
+            ></div>
+          </div>
+          <div
+            id="menuImageContainer"
             className={cx(
-              `rounded-none w-full h-full`,
+              `menu-image w-full h-full absolute top-0 -z-20 bp-1200:relative`,
             )}
-            disableHover
-            figureClassName={'h-full'}
-            image={menuBgImage}
-            lightboxIdentifier
-            loading="lazy"
-            showCaption={false}
-            width=""
-            wrapperClassName="lg-img h-full"
-          />
-          <ResponsiveImage
-            className={cx(
-              `rounded-none w-full h-full`,
-            )}
-            disableHover
-            figureClassName={'h-full'}
-            image={menuBgImage}
-            lightboxIdentifier
-            loading="lazy"
-            showCaption={false}
-            width=""
-            wrapperClassName="mobile-img h-full"
-          />
+          >
+            <ResponsiveImage
+              className={cx(`rounded-none w-full h-full`)}
+              disableHover
+              figureClassName={'h-full'}
+              image={menuBgImage}
+              lightboxIdentifier
+              loading="lazy"
+              showCaption={false}
+              width=""
+              wrapperClassName="lg-img h-full"
+            />
+            <ResponsiveImage
+              className={cx(`rounded-none w-full h-full`)}
+              disableHover
+              figureClassName={'h-full'}
+              image={menuBgImage}
+              lightboxIdentifier
+              loading="lazy"
+              showCaption={false}
+              width=""
+              wrapperClassName="mobile-img h-full"
+            />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </NavContextProvider>
   )
 }
 

@@ -139,11 +139,11 @@
 }
 
 /*Font Family------------ */
-.raleway {
+.text-raleway {
   font-family: var(--font-raleway);
 }
 
-.display {
+.text-display {
   font-family: var(--font-playfair-display);
 }
 

@@ -3,8 +3,8 @@ import cx from 'classnames'
 
 import PortTextWrapper from './PortTextWrapper'
 import { getCurrentMonthName, getMonthNumbersFromSeason } from '../utilities/helperUtil'
-import { getClient } from '../lib/sanity.client'
-import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../lib/queries'
+import { client } from '../app/lib/sanity.client'
+import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../app/lib/queries'
 import Heading from './Heading'
 import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
@@ -35,7 +35,6 @@ const TeaserSection = (props) => {
   const currentMonth = getCurrentMonthName()
   const { itemId, itemType, itemSlug, itemMetaDescription, itemMainImage } =
     linkItems
-  const client = getClient()
   const hasImages = Array.isArray(images) && images.length > 0
   const headingText = headingChildren
     ? headingChildren

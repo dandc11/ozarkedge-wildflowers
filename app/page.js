@@ -1,9 +1,10 @@
+'use client'
 import cx from 'classnames'
 import { useLiveQuery } from 'next-sanity/preview'
 import React, { useContext } from 'react'
 import { groq } from 'next-sanity'
 
-import { NavButtonColorContext } from '../contexts/NavButtonColorContext'
+import { NavContext } from '../contexts/NavContext'
 import TeaserSlider from '../components/TeaserSlider'
 import Button from '../components/Button'
 import {
@@ -19,9 +20,9 @@ import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   GET_CURRENT_SEASON_DATA_QUERY,
   GET_LANDING_PAGE_DATA_QUERY,
-} from '../lib/queries'
-import { readToken } from '../lib/sanity.api'
-import { getClient } from '../lib/sanity.client'
+} from '../app/lib/queries'
+import { readToken } from '../app/lib/sanity.api'
+import { client } from '../app/lib/sanity.client'
 import { buildBackgroundStyleObject } from '../utilities/imageUtil'
 
 
@@ -50,8 +51,8 @@ export default function HomePage(props) {
     buttonOne,
     buttonTwo,
   } = pageData[0]
-  const [navButtonColor, setNavButtonColor] = React.useContext(
-    NavButtonColorContext,
+  const {navButtonColor, setNavButtonColor} = React.useContext(
+    NavContext,
   )
 
   const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
@@ -157,9 +158,6 @@ export default function HomePage(props) {
 }
 
 export async function getStaticProps(context) {
-  const client = getClient(
-    context?.draftMode ? { token: readToken } : undefined,
-  )
   const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
   const bloomingProps = await client.fetch(
     GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,

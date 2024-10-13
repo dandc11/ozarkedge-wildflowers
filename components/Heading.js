@@ -1,5 +1,8 @@
+'use client';
+
 import cx from 'classnames'
 import React, { useState, useEffect, useRef } from 'react'
+
 import { getCurrentSeason } from '../utilities/helperUtil'
 import TableOfContents from './TableOfContents'
 

@@ -1,8 +1,8 @@
 import groq from 'groq'
 
-import { getClient } from '../../lib/sanity.client'
+import { client } from '../lib/sanity.client'
 import { getPathFromDocType } from '../../utilities/helperUtil'
-import { apiVersion, previewSecretId, readToken } from '../../lib/sanity.api'
+import { apiVersion, previewSecretId, readToken } from '../lib/sanity.api'
 import { getPreviewSecret } from '../../utilities/previewSecret'
 
 // Enable Preview Mode - https://nextjs.org/docs/pages/building-your-application/configuring/draft-mode
@@ -16,11 +16,6 @@ export default async function preview(req, res) {
 
   const { query } = req
   const slug = typeof query.slug === 'string' ? query.slug : undefined
-
-  const client = getClient({ token: readToken }).withConfig({
-    useCdn: false,
-    token: readToken,
-  })
 
   // Rather than redirect to any passed slug, check the slug against existing documents 
   if (slug) {

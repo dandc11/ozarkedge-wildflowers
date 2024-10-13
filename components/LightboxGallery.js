@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react'
 import cx from 'classnames'
 import imageUrlBuilder from '@sanity/image-url'
 import Image from 'next/image'
 
+import { NavContext } from '../contexts/NavContext';
 import ResponsiveImage from './ResponsiveImage'
-import { getClient } from '../lib/sanity.client'
+import { client } from '../app/lib/sanity.client'
 
 
 /**
@@ -33,7 +34,6 @@ const LightboxGallery = ({
   images = undefined,
   lightboxIdentifier,
   lightboxImgClass,
-  open = false,
   onOpenCallback,
   onCloseCallback,
   showImageGrid = true,
@@ -48,9 +48,10 @@ const LightboxGallery = ({
       initLightboxJS(process.env.NEXT_PUBLIC_LIGHTBOX_LICENSE_KEY, 'individual')
     }
   }, [])
-  const client = getClient()
   const urlBuilder = imageUrlBuilder(client)
   const urlFor = (source) => urlBuilder.image(source)
+  const { lightBoxOpenIndex } = useContext(NavContext);
+  const open = lightBoxOpenIndex > -1;
 
   const gridColumns = {
     1: 'grid-cols-1',
@@ -96,7 +97,7 @@ const LightboxGallery = ({
       showControls={true}
       showThumbnails={showThumbnails}
       slideshowInterval={3500}
-      startingSlideIndex={startingSlideIndex}
+      startingSlideIndex={lightBoxOpenIndex}
       theme="lightbox"
       thumbnailBorder="silver"
     >

@@ -1,8 +1,8 @@
 // pages/api/menu.js
 import Cors from 'cors'
 
-import { readToken } from '../../lib/sanity.api'
-import { getClient } from '../../lib/sanity.client'
+import { readToken } from '../lib/sanity.api'
+import { client } from '../lib/sanity.client'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -23,10 +23,6 @@ function runMiddleware(req, res, fn) {
     })
   })
 }
-
-const client = getClient(
-{ token: readToken }
-)
 
 export default async function handler(req, res) {
   // Run the middleware

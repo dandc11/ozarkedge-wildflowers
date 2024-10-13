@@ -1,19 +1,20 @@
+'use client'
 import React, { useState, useContext } from 'react'
 import { useLiveQuery } from 'next-sanity/preview'
 import cx from 'classnames'
 
-import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
-import { NavButtonColorContext } from '../../contexts/NavButtonColorContext'
-import { getClient } from '../../lib/sanity.client'
+import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
+import { NavContext } from '../../../contexts/NavContext'
+import { client } from '../../lib/sanity.client'
 import { readToken } from '../../lib/sanity.api'
 import {
   GET_ALL_SEASON_PATHS_QUERY,
   GET_SEASON_PAGE_DATA_QUERY,
 } from '../../lib/queries'
-import LightboxGallery from '../../components/LightboxGallery'
-import PortTextWrapper from '../../components/PortTextWrapper'
-import ResponsiveImage from '../../components/ResponsiveImage'
-import HeadingDisplay from '../../components/HeadingDisplay'
+import LightboxGallery from '../../../components/LightboxGallery'
+import PortTextWrapper from '../../../components/PortTextWrapper'
+import ResponsiveImage from '../../../components/ResponsiveImage'
+import HeadingDisplay from '../../../components/HeadingDisplay'
 
 
 
@@ -32,7 +33,7 @@ const SeasonPage = (props) => {
 } = {...seasonPageData}
 
   const [navButtonColor, setNavButtonColor] = React.useContext(
-    NavButtonColorContext,
+    NavContext,
   )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
@@ -134,7 +135,6 @@ const SeasonPage = (props) => {
 }
 
 export async function getStaticPaths() {
-  const client = getClient()
   const seasonPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
   const paths = seasonPagePaths.map((slug) => ({
     params: { slug },
@@ -147,7 +147,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { draftMode = false, params = {} } = context
-  const client = getClient(draftMode ? { token: readToken } : undefined)
   const { slug = '' } = params
   const pageProps = await client.fetch(GET_SEASON_PAGE_DATA_QUERY, { slug })
   return {

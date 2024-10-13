@@ -2,7 +2,8 @@
   "include": [
     "./node_modules/@sanity/base/types/**/*.ts",
     "./**/*.ts",
-    "./**/*.tsx"
+    "./**/*.tsx",
+    ".next/types/**/*.ts"
   ],
   "compilerOptions": {
     "target": "esnext",
@@ -22,7 +23,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "exclude": [
     "node_modules"

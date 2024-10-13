@@ -1,10 +1,11 @@
+'use client'
 import React from 'react'
 
 import CustomLink from '../../components/CustomLink'
 import PlantName from '../../components/PlantName'
-import { GET_NATIVE_PLANT_LIST_DATA_QUERY } from '../../lib/queries'
-import { readToken } from '../../lib/sanity.api'
-import { getClient } from '../../lib/sanity.client'
+import { GET_NATIVE_PLANT_LIST_DATA_QUERY } from '../lib/queries'
+import { readToken } from '../lib/sanity.api'
+import { client } from '../lib/sanity.client'
 
 export default function SeasonListPage(props) {
 //   const { nativePlantPageProps = null } = props;
@@ -32,7 +33,7 @@ export default function SeasonListPage(props) {
 }
 
 // export const getStaticProps = async ({ draftMode = false }) => {
-//   const client = getClient(draftMode ? { token: readToken } : undefined)
+
 //   const nativePlantPageProps = await client.fetch(GET_NATIVE_PLANT_LIST_DATA_QUERY)
 //   return {
 //     props: {

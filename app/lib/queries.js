@@ -1,4 +1,4 @@
-import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
+import { CURRENT_MONTH_NUMBER } from '../../utilities/constants'
 
 // retrieves langing page data
 export const GET_LANDING_PAGE_DATA_QUERY = `

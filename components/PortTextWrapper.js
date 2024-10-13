@@ -80,7 +80,7 @@ const portTextComponents = {
  * @returns {JSX.Element} - The rendered component.
  */
 const PortTextWrapper = React.memo((props) => {
-  const { className, value, lightboxIdentifier = '', lightboxCallback } = props
+  const { className, value, lightboxIdentifier = '', lightboxCallback = () => {} } = props
 
   // callback for opening lightbox
   const componentsWithCallback = useMemo(

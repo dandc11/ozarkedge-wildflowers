@@ -3,13 +3,14 @@ import React from 'react'
 import Nav from './Nav'
 import Footer from './Footer'
 
-const Layout = ({ children, ...props }) => {
+// TODO: Retrieve navButtonColor from nav context here
+const Layout = ({ children, navButtonColor, ...props }) => {
   return (
     <div className={`flex flex-col`}>
-      <Nav />
+      <Nav  navButtonColor={navButtonColor} />
       <main
         id={`page-content`}
-        className={`relative min-h-screen text-base leading-normal bp-1100:text-lg`}
+        className={`relative`}
       >
         {children}
       </main>

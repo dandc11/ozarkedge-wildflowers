@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useLiveQuery } from 'next-sanity/preview'
@@ -7,7 +8,7 @@ import makeAnimated from 'react-select/animated'
 import cx from 'classnames'
 
 // eslint-disable-next-line import/no-unresolved
-import { NavButtonColorContext } from '../../contexts/NavButtonColorContext'
+import { NavContext } from '../../contexts/NavContext'
 import PlantName from '../../components/PlantName'
 import HeadingDisplay from '../../components/HeadingDisplay'
 import CustomLink from '../../components/CustomLink'
@@ -21,9 +22,9 @@ import {
 import {
   GET_PLANT_LIST_PAGE_DATA_QUERY,
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
-} from '../../lib/queries'
-import { readToken } from '../../lib/sanity.api'
-import { getClient } from '../../lib/sanity.client'
+} from '../lib/queries'
+import { readToken } from '../lib/sanity.api'
+import { client } from '../lib/sanity.client'
 import Button from '../../components/Button'
 import ResponsiveImage from '../../components/ResponsiveImage'
 
@@ -134,7 +135,7 @@ export default function PlantListPage(props) {
     plantListInformation,
   } = nativePlantPageData[0]
   const [navButtonColor, setNavButtonColor] = React.useContext(
-    NavButtonColorContext,
+    NavContext,
   )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
@@ -379,7 +380,7 @@ export default function PlantListPage(props) {
 }
 
 export const getStaticProps = async ({ draftMode = false }) => {
-  const client = getClient(draftMode ? { token: readToken } : undefined)
+
   const nativePlantPageProps = await client.fetch(
     GET_PLANT_LIST_PAGE_DATA_QUERY,
   )

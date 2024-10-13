@@ -1,7 +1,7 @@
 import { SanityImage } from 'sanity-image'
 
-import { urlForImage } from '../lib/sanity.image'
-import { projectId, dataset } from '../lib/sanity.api'
+import { urlForImage } from '../app/lib/sanity.image'
+import { projectId, dataset } from '../app/lib/sanity.api'
 
 /**
  * Returns a Sanity image url with the parameters applied

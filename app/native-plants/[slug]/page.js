@@ -1,28 +1,29 @@
+'use client'
 import React, { useState, useContext } from 'react'
 import { useLiveQuery } from 'next-sanity/preview'
 import cx from 'classnames'
 
-import PlantName from '../../components/PlantName'
-import Heading from '../../components/Heading'
-import ResponsiveImage from '../../components/ResponsiveImage'
-import PortTextWrapper from '../../components/PortTextWrapper'
-import TableOfContents from '../../components/TableOfContents'
-import Button from '../../components/Button'
-import LightboxGallery from '../../components/LightboxGallery'
-import NatureServeMessage from '../../components/NatureServeMessage'
-import NatureServeBadge  from '../../components/NatureServeBadge'
-import ThumbnailGrid from '../../components/ThumbnailGrid'
-import ImageSlider from '../../components/ImageSlider'
-import ContentSection from '../../components/ContentSection'
-import { NavButtonColorContext } from '../../contexts/NavButtonColorContext'
-import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
-import { PLANT_PAGE_SECTIONS } from '../../utilities/constants'
+import PlantName from '../../../components/PlantName'
+import Heading from '../../../components/Heading'
+import ResponsiveImage from '../../../components/ResponsiveImage'
+import PortTextWrapper from '../../../components/PortTextWrapper'
+import TableOfContents from '../../../components/TableOfContents'
+import Button from '../../../components/Button'
+import LightboxGallery from '../../../components/LightboxGallery'
+import NatureServeMessage from '../../../components/NatureServeMessage'
+import NatureServeBadge  from '../../../components/NatureServeBadge'
+import ThumbnailGrid from '../../../components/ThumbnailGrid'
+import ImageSlider from '../../../components/ImageSlider'
+import ContentSection from '../../../components/ContentSection'
+import { NavContext } from '../../../contexts/NavContext'
+import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
+import { PLANT_PAGE_SECTIONS } from '../../../utilities/constants'
 import {
   GET_ALL_NATIVE_PLANT_PATHS_QUERY,
   GET_PLANT_PAGE_DATA,
 } from '../../lib/queries'
 import { readToken } from '../../lib/sanity.api'
-import { getClient } from '../../lib/sanity.client'
+import { client } from '../../lib/sanity.client'
 
 /**
  * IntroSection component - 1st section of plant page (intro text)
@@ -205,7 +206,7 @@ const NativePlantPage = (props) => {
   } = { ...pageData }
 
 
-  const [navButtonColor, setNavButtonColor] = React.useContext(NavButtonColorContext)
+  const [navButtonColor, setNavButtonColor] = React.useContext(NavContext)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => { setNavButtonColor(menuButtonColor)}, [menuButtonColor])
   const sectionLinks = getSectionLinks(pageData)
@@ -415,7 +416,6 @@ const NativePlantPage = (props) => {
 }
 
 export async function getStaticPaths() {
-  const client = getClient()
   const plantPagePaths = await client.fetch(GET_ALL_NATIVE_PLANT_PATHS_QUERY)
   const paths = plantPagePaths.map((slug) => ({
     params: { slug },
@@ -429,7 +429,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { draftMode = false, params = {} } = context
-  const client = getClient(draftMode ? { token: readToken } : undefined)
   const { slug = '' } = params
   const pageProps = await client.fetch(GET_PLANT_PAGE_DATA, { slug })
   return {

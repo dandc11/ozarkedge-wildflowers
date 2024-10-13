@@ -5,5 +5,24 @@
   },
   "env": {
     "es6": true
+  },
+  "plugins": ["import"],
+  "rules": {
+    "import/no-unresolved": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external", "internal"]],
+        "newlines-between": "always"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }
