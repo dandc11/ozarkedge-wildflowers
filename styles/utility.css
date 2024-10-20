@@ -16,6 +16,15 @@
   position: absolute;
 }
 
+/* Size ------------------- */
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
 /* Flexbox ----------------- */
 .flex {
   display: flex;
@@ -27,6 +36,10 @@
 
 .flex-row {
   flex-direction: row;
+}
+
+.justify-start {
+  justify-content: start;
 }
 
 .justify-center {
@@ -214,7 +227,7 @@
   text-decoration: underline;
 }
 
-/* sp ---------------- */
+/* Spacing ---------------- */
 
 /* Margin */
 .m-0 {

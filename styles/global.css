@@ -3,6 +3,7 @@
 @import "./variables.css";
 @import "./colors.css";
 @import "./utility.css";
+@import "./components/nav.css";
 @import "./components/porttext.css";
 @import "./components/button.css";
 @import "./components/heading.css";

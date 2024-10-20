@@ -32,29 +32,29 @@ const SeasonPage = (props) => {
     teaserSectionText = '',
 } = {...seasonPageData}
 
-  const [navButtonColor, setNavButtonColor] = React.useContext(
-    NavContext,
-  )
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => {
-    setNavButtonColor(menuButtonColor)
-  }, [menuButtonColor])
+  // const [navButtonColor, setNavButtonColor] = React.useContext(
+  //   NavContext,
+  // )
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // React.useEffect(() => {
+  //   setNavButtonColor(menuButtonColor)
+  // }, [menuButtonColor])
 
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [startingSlideIndex, setStartingSlideIndex] = useState(0)
+  // const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+  // const [startingSlideIndex, setStartingSlideIndex] = useState(0)
   const fullImageArray = getUniqueImagesFromDocument(seasonPageData)
   const wrapperClassName = cx(`banner-img relative w-full bg-oe-green-yellow-200 bp-900:block bp-900:h-[85vh]`)
-  const toggleLightbox = (key) => {
-    // toggle lightbox, set starting slide index if opening
-    if (key) {
-      const index = fullImageArray.findIndex((e) => e.asset._ref === key)
-      setStartingSlideIndex(index)
-    }
-    setIsLightboxOpen(!isLightboxOpen)
-  }
-  const closeLightbox = () => {
-    setIsLightboxOpen(false)
-  }
+  // const toggleLightbox = (key) => {
+  //   // toggle lightbox, set starting slide index if opening
+  //   if (key) {
+  //     const index = fullImageArray.findIndex((e) => e.asset._ref === key)
+  //     setStartingSlideIndex(index)
+  //   }
+  //   setIsLightboxOpen(!isLightboxOpen)
+  // }
+  // const closeLightbox = () => {
+  //   setIsLightboxOpen(false)
+  // }
 
   return (
     <>
@@ -134,26 +134,26 @@ const SeasonPage = (props) => {
   )
 }
 
-export async function getStaticPaths() {
-  const seasonPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
-  const paths = seasonPagePaths.map((slug) => ({
-    params: { slug },
-  }))
-  return {
-    paths,
-    fallback: true,
-  }
-}
+// export async function getStaticPaths() {
+//   const seasonPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
+//   const paths = seasonPagePaths.map((slug) => ({
+//     params: { slug },
+//   }))
+//   return {
+//     paths,
+//     fallback: true,
+//   }
+// }
 
-export async function getStaticProps(context) {
-  const { draftMode = false, params = {} } = context
-  const { slug = '' } = params
-  const pageProps = await client.fetch(GET_SEASON_PAGE_DATA_QUERY, { slug })
-  return {
-    props: {
-      pageProps,
-    },
-  }
-}
+// export async function getStaticProps(context) {
+//   const { draftMode = false, params = {} } = context
+//   const { slug = '' } = params
+//   const pageProps = await client.fetch(GET_SEASON_PAGE_DATA_QUERY, { slug })
+//   return {
+//     props: {
+//       pageProps,
+//     },
+//   }
+// }
 
 export default SeasonPage

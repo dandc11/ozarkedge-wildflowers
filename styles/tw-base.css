@@ -29,7 +29,7 @@
           background-color: var(--oe-white);
         }
 
-        .menu-container {
+        .nav-container {
           display: grid;
         }
       }

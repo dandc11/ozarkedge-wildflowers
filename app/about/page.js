@@ -5,7 +5,6 @@ import React from 'react'
 
 import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
 import Heading from '../../components/Heading'
-import Layout from '../../components/Layout'
 import LightboxGallery from '../../components/LightboxGallery'
 import PortTextWrapper from '../../components/PortTextWrapper'
 import ResponsiveImage from '../../components/ResponsiveImage'
@@ -50,7 +49,6 @@ const AboutPage = async () => {
     <>
       {pageData &&
         pageData.map(() => (
-          <Layout key={id} navButtonColor={menuButtonColor}>
             <div
               className={`about-content overflow-hidden flex flex-col items-center relative`}
               key={id}
@@ -109,7 +107,6 @@ const AboutPage = async () => {
                 startingSlideIndex={startingSlideIndex}
               /> */}
             </div>
-          </Layout>
         ))}
     </>
   )
