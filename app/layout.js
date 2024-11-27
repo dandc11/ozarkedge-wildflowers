@@ -1,6 +1,6 @@
 import '../styles/global.css'
 import 'lightbox.js-react/dist/index.css'
-import { Playfair_Display, Raleway } from 'next/font/google'
+import { Playfair_Display, Raleway, Roboto } from 'next/font/google'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
@@ -8,7 +8,7 @@ import { groq } from 'next-sanity'
 
 import { client } from './lib/sanity.client'
 import { token } from './lib/sanity.fetch'
-import ClientProviders from '../components/ClientProviders'
+import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 
@@ -16,14 +16,18 @@ const PreviewProvider = dynamic(() => import('../components/PreviewProvider'))
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-playfair-display',
+  weight: ['400', '700', '900'],
   style: ['normal', 'italic'],
+  variable: '--font-playfair-display',
+  preload: true,
 })
 
 const raleway = Raleway({
   subsets: ['latin'],
-  variable: '--font-raleway',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
+  variable: '--font-raleway',
+  preload: true,
 })
 
 export default async function RootLayout({ children, pageProps }) {
@@ -47,29 +51,29 @@ export default async function RootLayout({ children, pageProps }) {
         <meta name="theme-color" content="#000000" />
       </Head>
       <body className="oe-site-body">
-        {draftMode ? (
+        {/* {draftMode ? (
           <PreviewProvider token={token}>
-            <ClientProviders>
-              <div className={`flex flex-col`}>
-                <Nav menuData={menuData}/>
+            <ContextProviders>
+              <div className={`flex flex-col w-full`}>
+                <Nav menuData={menuData} />
                 <main id={`page-content`} className={`relative`}>
                   {children}
                 </main>
                 <Footer />
               </div>
-            </ClientProviders>
+            </ContextProviders>
           </PreviewProvider>
-        ) : (
-          <ClientProviders>
-            <div className={`flex flex-col`}>
-              <Nav />
-              <main id={`page-content`} className={`relative`}>
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </ClientProviders>
-        )}
+        ) : ( */}
+        <ContextProviders>
+          {/* <div className={`flex flex-col`}> */}
+          <Nav menuData={menuData} />
+          <main id={`page-content`} className={`relative`}>
+            {children}
+          </main>
+          <Footer />
+          {/* </div> */}
+        </ContextProviders>
+        {/* )} */}
       </body>
     </html>
   )

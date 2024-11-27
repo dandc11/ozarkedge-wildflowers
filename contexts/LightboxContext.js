@@ -1,19 +1,19 @@
 'use client'
 
-import React, { createContext, useState } from 'react'
+import React, { useState } from 'react'
 export const LightboxContext = React.createContext()
 
 export const LightboxProvider = ({ children }) => {
-  const [lightboxImgArray, setLightboxImgArray] = useState([])
-  const [lightBoxOpenIndex, setLightBoxOpenIndex] = useState([])
+  const [lightboxOpenImgKey, setLightBoxOpenImgKey] = useState(null)
+  const [lightboxIdentifier, setLightboxIdentifier] = useState(null)
 
   return (
     <LightboxContext.Provider
       value={{
-        lightboxImgArray,
-        setLightboxImgArray,
-        lightBoxOpenIndex,
-        setLightBoxOpenIndex,
+        lightboxOpenImgKey,
+        setLightBoxOpenImgKey,
+        lightboxIdentifier,
+        setLightboxIdentifier,
       }}
     >
       {children}

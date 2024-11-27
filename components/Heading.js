@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import cx from 'classnames'
 import React, { useState, useEffect, useRef } from 'react'
@@ -8,7 +8,8 @@ import TableOfContents from './TableOfContents'
 
 const HeadingElement = ({
   headingChildren,
-  headingLevel,
+  headingLevel = 2,
+  headingBgClass,
   headingCSS,
   styleObject,
   children,
@@ -37,9 +38,12 @@ const HeadingElement = ({
       Heading = 'h2'
   }
   return (
-    <Heading style={styleObject} className={headingCSS}>
-      {children}
-    </Heading>
+    <>
+      <Heading style={styleObject} className={headingCSS}>
+        {children}
+        <div className={cx(`heading-bg`, headingBgClass)}></div>
+      </Heading>
+    </>
   )
 }
 
@@ -65,6 +69,7 @@ const Heading = (props) => {
     children,
     circleColorClass,
     className = '',
+    headingBgClass = '',
     headingClassName = '',
     headingLevel = 2,
     id,
@@ -77,7 +82,12 @@ const Heading = (props) => {
   const toggleTableOfContents = () => {
     setTableOfContentsOpen(!tableOfContentsOpen)
   }
-  const headingCSS = cx('heading-title', {'relative': showCircle}, textTypeClass, headingClassName)
+  const headingCSS = cx(
+    'heading-title',
+    { relative: showCircle },
+    textTypeClass,
+    headingClassName,
+  )
 
   // Closes table of contents if clicked outside
   const onClickOutside = (e) => {
@@ -85,7 +95,7 @@ const Heading = (props) => {
       tableOfContentsRef.current &&
       !tableOfContentsRef.current.contains(e.target) &&
       tableOfContentsRef.current !== e.target &&
-      !e.target.classList.contains('header-circle')
+      !e.target.classList.contains('heading-circle')
     ) {
       setTableOfContentsOpen(false)
     }
@@ -101,11 +111,10 @@ const Heading = (props) => {
     ? `${circleColorClass}`
     : currentSeason.ACCENT_COLOR_VAR
   const circleClassName = cx(
-    'header-circle absolute font-normal w-16 h-16 rounded-full -z-10 opacity-60 bg-oe-red-200 transition-all ease-in duration-150 -top-[1rem] -left-6 bp-600:left-[-2rem] bp-900:w-20 bp-900:h-20 bp-900:top-[-1.5rem] bp-900:left-[-2.7rem]',
+    'heading-circle',
     {
-      'cursor-pointer hover:bg-oe-red-300 hover:opacity-70 hover:scale-110':
-        tocLinks != null,
-      'z-50': tocLinks != null && tableOfContentsOpen,
+      'has-toc': tocLinks != null,
+      active: tocLinks != null && tableOfContentsOpen,
     },
     circleColor,
   )
@@ -118,13 +127,10 @@ const Heading = (props) => {
       {tocLinks && (
         <div
           ref={tableOfContentsRef}
-          className={cx(
-            'absolute grid transition-z-50 transition-all duration-500 ease-in-out',
-            {
-              'z-50 grid-rows-[1fr]': tableOfContentsOpen,
-              'grid-rows-[0fr]': !tableOfContentsOpen,
-            },
-          )}
+          className={cx('toc-wrapper', {
+            'z-50 grid-rows-[1fr]': tableOfContentsOpen,
+            'grid-rows-[0fr]': !tableOfContentsOpen,
+          })}
         >
           <div className="overflow-hidden relative">
             <TableOfContents className={cx('px-8 w-80')} links={tocLinks} />
@@ -135,6 +141,7 @@ const Heading = (props) => {
         headingLevel={headingLevel}
         headingCSS={headingCSS}
         headingChildren={children}
+        headingBgClass={headingBgClass}
       >
         {showCircle && (
           <div

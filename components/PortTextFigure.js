@@ -70,7 +70,7 @@ const PortTextFigure = ({
           }`,
         )}
         width={560}
-        wrapperClassName={cx(`port-text-img z-0 ${positionClass}`)}
+        wrapperClassName={cx(`port-text-img ${positionClass}`)}
         onClick={lightboxCallback ? lightboxCallback : null}
       />
     </>
@@ -78,4 +78,3 @@ const PortTextFigure = ({
 }
 
 export default PortTextFigure
- 

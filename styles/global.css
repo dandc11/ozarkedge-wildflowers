@@ -2,13 +2,19 @@
 
 @import './variables.css';
 @import './colors.css';
-@import './utility.css';
+@import './utility/utility.css';
+@import './utility/typography.css';
+@import './utility/spacing.css';
 @import './components/nav.css';
 @import './components/porttext.css';
 @import './components/button.css';
 @import './components/heading.css';
+@import './components/growingnearby.css';
 @import './components/teaser.css';
+@import './components/image.css';
 @import './components/imagecard.css';
+@import './components/imageslider.css';
+@import './components/natureserve.css';
 @import './pages/home.css';
 @import './pages/plant-pages.css';
 @import './pages/plant-list.css';
@@ -23,14 +29,19 @@
 @import 'tailwindcss/utilities';
 
 html {
-  font-size: 18px;
+  font-size: 16px;
   scroll-behavior: smooth;
   font-family: var(--font-raleway), system-ui, sans-serif;
   font-weight: 400;
-  height: 100%;
 
   body {
-    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &:has(#mainNav.nav-active) {
       /* prevent scroll when the menu is open */
@@ -45,7 +56,7 @@ html {
 }
 
 main {
-  min-height: 100vh;
+  height: 100%;
   line-height: var(--sp-lg);
 }
 
@@ -57,14 +68,28 @@ main {
   display: none;
 }
 
-.content-well > * {
+.content-well > *:not(.w-full) {
+  container: content-well / inline-size;
   width: clamp(8rem, 90cqi, 60rem);
-  padding-block: min(5vh, 2rem);
+  margin-block: min(5vh, 2rem);
   margin-inline: auto;
 
   @container (min-width: 600px) {
     width: clamp(35rem, 85cqi, 55rem);
-    padding-block: min(10vh, 3rem);
+    margin-block: min(10vh, 3rem);
+  }
+}
+
+.content-section {
+  position: relative;
+
+  .heading-wrapper {
+    gap: var(--sp-md);
+
+    @container content-well (min-width: 600px) {
+      gap: var(--sp-xl);
+      flex-direction: row;
+    }
   }
 }
 
@@ -72,7 +97,7 @@ main {
   .banner-img:not(.mobile) {
     display: block;
   }
-  
+
   .banner-img.mobile {
     display: none;
   }
@@ -109,9 +134,22 @@ img {
     }
   }
 
+  .lightbox-img {
+    height: 80vh;
+  }
+
   img {
     object-fit: contain;
     align-self: flex-start;
+  }
+}
+
+.plant-name-wrapper {
+  container: plant-name-wrapper / inline-size;
+
+  .common-name {
+    font-weight: 600;
+    padding-block: var(--sp-xxs);
   }
 }
 

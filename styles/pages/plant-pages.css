@@ -1,49 +1,123 @@
 /* Plant Page *********************************/
+
 .plant-page {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  grid-template-areas:
-    'right-sidebar'
-    'content-well';
-
-  .content-well {
-    container: content-well / inline-size;
-    grid-area: content-well;
+  .plant-page-header {
+    margin-block-start: -3rem;
+    transition: all 0.5s ease-in-out;
   }
 
-  .heading-title {
-    font-size: var(--fs-2xl);
-  }
-
-  @container content-well ( width > 800px) {
-    .heading-base .heading-title {
-      font-size: clamp(1.5rem, 5vw, 2rem);
+  .banner-img {
+    figure {
+      height: 36vh;
+    }
+    img {
+      border-radius: 0;
     }
   }
 
-  .right-sidebar {
-    container: right-sidebar / inline-size;
-    grid-area: right-sidebar;
+  .plant-page-header {
+    .plant-pg-port-text {
+      margin-block-start: var(--sp-md);
+    }
   }
-}
 
-/* Media query for screens above 1400px */
-@media (min-width: 1400px) {
-  .plant-page {
-    grid-template-columns: 7fr minmax(200px, 2.5fr);
-    grid-template-areas: 'content-well right-sidebar';
+  .plant-page-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    grid-template-areas:
+      'right-sidebar'
+      'content-well';
+
+    padding-block-end: var(--sp-4xl);
 
     .content-well {
-      grid-area: auto;
-      grid-column: 1/2;
+      container: content-well / inline-size;
+      grid-area: content-well;
+    }
+
+    .heading-title {
+      font-size: var(--fs-2xl);
+    }
+
+    @container content-well ( width > 800px) {
+      .heading-base .heading-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+      }
     }
 
     .right-sidebar {
+      container: right-sidebar / inline-size;
       grid-area: right-sidebar;
-      grid-row: 1 / -1;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    .banner-img {
+      figure {
+        height: 60vh;
+      }
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .banner-img {
+      img {
+        object-position: 50% 35%;
+      }
+    }
+    .plant-name-wrapper {
+      .common-name,
+      .botanical-name {
+        text-align: left;
+      }
+    }
+
+    .plant-page-header {
+      .header-title {
+        width: 30rem;
+      }
+
+      .plant-pg-port-text {
+        padding-inline: 0;
+      }
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .banner-img {
+      figure {
+        height: 90vh;
+      }
+    }
+
+    .plant-page-header {
+      flex-direction: row;
+      margin-block-start: -12rem;
+      padding-block-start: 2rem;
+      margin-inline-end: 5cqi;
+      justify-content: end;
+    }
+
+    .plant-page-grid {
+      grid-template-columns: 7fr minmax(200px, 2.5fr);
+      grid-template-areas: 'content-well right-sidebar';
+
+      .content-well {
+        grid-area: auto;
+        grid-column: 1/2;
+      }
+
+      .right-sidebar {
+        grid-area: right-sidebar;
+        grid-row: 1 / -1;
+      }
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .plant-page-header {
+      margin-block-start: -14rem;
     }
   }
 }
-
-

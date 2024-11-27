@@ -19,6 +19,11 @@ import HeadingDisplay from '../../../components/HeadingDisplay'
 
 
 const SeasonPage = (props) => {
+    /**
+   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
+   * TODO: 2. LIGHTBOX - need to set all Lightbox context properties when this page is routed to. They should be fetched the first time and thereafter cached. 
+   * TODO: 3. MENU BUTTON COLOR -need to set all nav button color context when this page is routed to. Should this be fetched the first time and thereafter cached?
+  */ 
   const { pageProps = null } = props
   const [seasonPageData] = useLiveQuery(pageProps, GET_ALL_SEASON_PATHS_QUERY)
   // console.log('seasonPageData', seasonPageData)

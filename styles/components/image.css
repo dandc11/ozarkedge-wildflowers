@@ -1,0 +1,62 @@
+.img-wrapper {
+  display: flex;
+  justify-content: center;
+
+  /* image in portable text */
+  &.port-text-img {
+    z-index: 0;
+  }
+
+  figure {
+    position: relative;
+
+    figcaption {
+      position: relative;
+      text-align: center;
+      font-style: italic;
+
+      &.inset-left,
+      &.inset-right {
+        position: absolute;
+        bottom: 0;
+        background-color: var(--color-white);
+        padding-block: 0.05rem;
+        padding-inline-start: 0.25rem;
+        padding-inline-end: 0.5rem;
+        z-index: 10;
+        color: var(--oe-black);
+        font-size: 0.65rem;
+        letter-spacing: 0.4px;
+      }
+
+      &.inset-left {
+        left: 0;
+      }
+
+      &.inset-right {
+        right: 0;
+      }
+
+      &.below {
+        position: relative;
+        font-size: var(--fs-xs);
+      }
+    }
+  }
+
+  img {
+    transition: all;
+    transition-duration: 200ms;
+    transition-delay: 100ms;
+
+    &.hover {
+      &:hover {
+        transform: scale(0.99);
+      }
+    }
+
+    &.curspor-pointer {
+      cursor: pointer;
+    }
+  }
+}

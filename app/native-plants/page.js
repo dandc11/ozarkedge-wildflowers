@@ -1,303 +1,54 @@
-'use client'
-import { useState, useEffect, useCallback, useMemo } from 'react'
-import { useRouter } from 'next/router'
-import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated'
 import cx from 'classnames'
 
-// eslint-disable-next-line import/no-unresolved
-import { NavContext } from '../../contexts/NavContext'
-import PlantName from '../../components/PlantName'
 import HeadingDisplay from '../../components/HeadingDisplay'
-import CustomLink from '../../components/CustomLink'
-import PortTextWrapper from '../../components/PortTextWrapper'
-import PlantImageCard from '../../components/PlantImageCard'
-import {
-  HABITAT_OPTIONS,
-  FLOWER_COLOR_OPTIONS,
-  MONTH_OPTIONS,
-} from '../../utilities/constants'
-import {
-  GET_PLANT_LIST_PAGE_DATA_QUERY,
-  GET_NATIVE_PLANT_LIST_DATA_QUERY,
-} from '../lib/queries'
-import { readToken } from '../lib/sanity.api'
 import { client } from '../lib/sanity.client'
-import Button from '../../components/Button'
 import ResponsiveImage from '../../components/ResponsiveImage'
+import ContextUpdater from '../../components/ContextUpdater'
+import PlantListGridWithSuspense from '../../components/PlantListGrid'
+import {
+  GET_NATIVE_PLANT_LIST_DATA_QUERY,
+  GET_PLANT_LIST_PAGE_DATA_QUERY,
+} from '../lib/queries'
 
-const Fieldset = ({
-  animatedComponents,
-  nameValue,
-  nameChangeHandler,
-  nameOptions,
-  monthsValue,
-  monthsChangeHandler,
-  colorChangeHandler,
-  habitatChangeHandler,
-}) => {
-  return (
-    <fieldset className="filters order-2 flex flex-col justify-center mx-auto mb-10 px-8 pt-2 pb-6 max-w-md rounded-md border-solid border-2 border-oe-green-700 bp-900:min-w-14 bp-900:mx-0">
-      <legend className="text-left text-oe-green-800 italic">
-        Filter Options
-      </legend>
-      <div className="label-containter">
-        <label className="" id="nameLabel" htmlFor="name">
-          Common or Botanical Name
-        </label>
-        <Select
-          className="w-full min-w-14 bp-400:min-w-16"
-          aria-labelledby="nameLabel"
-          name="name"
-          instanceId={'name'}
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          isMulti
-          isClearable
-          options={nameOptions}
-          onChange={nameChangeHandler}
-          value={nameValue ? nameValue : ''}
-        />
-      </div>
-      <div className="label-containter">
-        <label className="" id="floweringMonthLabel" htmlFor="floweringMonth">
-          Flowering Month
-        </label>
-        <Select
-          className="w-full min-w-14 bp-400:min-w-16"
-          aria-labelledby="floweringMonthLabel"
-          name="floweringMonth"
-          instanceId={'floweringMonth'}
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          isMulti
-          isClearable
-          options={MONTH_OPTIONS}
-          onChange={monthsChangeHandler}
-          value={monthsValue}
-        />
-      </div>
-      <div className="label-containter">
-        <label className="" id="flowerColorLabel" htmlFor="flowerColor">
-          Flower Color
-        </label>
-        <Select
-          className="w-full min-w-14 bp-400:min-w-16"
-          aria-labelledby="flowerColorLabel"
-          name="flowerColor"
-          instanceId={'flowerColor'}
-          components={animatedComponents}
-          isMulti
-          isClearable
-          label={`Flower Color`}
-          options={FLOWER_COLOR_OPTIONS}
-          onChange={colorChangeHandler}
-        />
-      </div>
-      <div className="label-containter">
-        <label className="" id="habitatLabel" htmlFor="habitat">
-          Habitat
-        </label>
-        <Select
-          aria-labelledby="habitatLabel"
-          name="habitat"
-          instanceId={'habitat'}
-          className="w-full min-w-14 bp-400:min-w-16"
-          components={animatedComponents}
-          label={`Habitat`}
-          isMulti
-          isClearable
-          options={HABITAT_OPTIONS}
-          onChange={habitatChangeHandler}
-        />
-      </div>
-    </fieldset>
-  )
-}
+const NativePlantPage = async () => {
+  /**
+   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
+   */
 
-export default function PlantListPage(props) {
-  const { nativePlantPageProps = null, nativePlantListProps = null } = props
-  const [nativePlantPageData] = useLiveQuery(
-    nativePlantPageProps,
-    GET_PLANT_LIST_PAGE_DATA_QUERY,
-  )
-  const [nativePlantList] = useLiveQuery(
-    nativePlantListProps,
-    GET_NATIVE_PLANT_LIST_DATA_QUERY,
-  )
+  const nativePlantPageData = await client.fetch(GET_PLANT_LIST_PAGE_DATA_QUERY)
+  const nativePlantList = await client.fetch(GET_NATIVE_PLANT_LIST_DATA_QUERY)
+
   const {
     pageTitle,
-    menuButtonColor = 'light',
+    navButtonColor = 'light',
     mainImage,
     mobileImage,
     plantListInformation,
   } = nativePlantPageData[0]
-  const [navButtonColor, setNavButtonColor] = React.useContext(
-    NavContext,
-  )
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => {
-    setNavButtonColor(menuButtonColor)
-  }, [menuButtonColor])
-  const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
-  const [nameSelected, setNameSelected] = useState('')
-  const [habitatsSelected, setHabitatsSelected] = useState('')
-  const [monthsSelected, setMonthsSelected] = useState('')
-  const [colorsSelected, setColorsSelected] = useState('')
-  const animatedComponents = makeAnimated()
-  const router = useRouter()
-
-  const nameChangeHandler = useCallback((selectedOptions) => {
-    setNameSelected(selectedOptions)
-  }, [])
-
-  const monthsChangeHandler = useCallback((selectedOptions) => {
-    setMonthsSelected(selectedOptions)
-  }, [])
-
-  const colorChangeHandler = useCallback((selectedOptions) => {
-    setColorsSelected(selectedOptions)
-  }, [])
-
-  const habitatChangeHandler = useCallback((selectedOptions) => {
-    setHabitatsSelected(selectedOptions)
-  }, [])
-
-  useEffect(() => {
-    if (router.query.months) {
-      const months = Array.isArray(router.query.months)
-        ? router.query.months.map(Number)
-        : [Number(router.query.months)]
-
-      const selectedMonths = months.map((month) =>
-        MONTH_OPTIONS.find((option) => option.value === month),
-      )
-      if (JSON.stringify(selectedMonths) !== JSON.stringify(monthsSelected)) {
-        setMonthsSelected(selectedMonths)
-      }
-    }
-
-    if (router.query.names) {
-      const names = Array.isArray(router.query.names)
-        ? router.query.names.map(String)
-        : [String(router.query.names)]
-
-      const selectedNames = names.map((name) => ({ value: name, label: name }))
-      if (JSON.stringify(selectedNames) !== JSON.stringify(nameSelected)) {
-        setNameSelected(selectedNames)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.months, router.query.names])
-
-  // Create the name options for the filter, sorted alphabetically by common name
-  const NAME_OPTIONS = useMemo(() => {
-    const names = nativePlantList.map((plant) => plant.plantName)
-    const uniqueNames = [...new Set(names)]
-    const fullNames = [
-      ...uniqueNames.map((name) => name.commonName),
-      ...uniqueNames.map((name) => name.botanicalName),
-    ].map((name) => ({ value: name, label: name }))
-    const alphaNames = fullNames.sort((a, b) => {
-      if (a.label < b.label) {
-        return -1
-      }
-      if (a.label > b.label) {
-        return 1
-      }
-      return 0
-    })
-    return alphaNames
-  }, [nativePlantList])
-
-  // useEffect(() => {
-  // }, [colorsSelected, monthsSelected, habitatsSelected])
-
-  // JS Doc for getMatched
-  /**
-   * @param {Array} selectedItems - The selected options from the filter
-   * @param {Array|String|Number} plantProperty - The property of the plant to compare to the selected options
-   * @returns {Boolean} - Whether the plant matches the selected options
-   * @description - This function compares the selected options to the plant property and returns a boolean value
-   */
-  const getMatched = (selectedItems, plantProperty) => {
-    if (selectedItems.length < 1) {
-      return true
-    }
-
-    let plantValues
-
-    // check whether there are multiple values to match, ensure type safety
-    if (Array.isArray(plantProperty)) {
-      if (plantProperty.every((item) => typeof item === 'number')) {
-        plantValues = plantProperty.map(Number)
-      } else {
-        plantValues = plantProperty.map(String)
-      }
-    } else if (typeof plantProperty === 'number') {
-      plantValues = [plantProperty]
-    } else {
-      plantValues = [plantProperty]
-    }
-    const selectedValues = selectedItems.map((item) => item.value)
-    const isMatched = selectedValues.some((value) =>
-      plantValues.includes(value),
-    )
-    return isMatched
-  }
-
-  // Filter the plant list displayed based on the selected options, then sort alphabetically
-  const filteredNativePlantList = nativePlantList
-    .filter((plant) => {
-      const isFloweringMonthMatched = getMatched(
-        monthsSelected,
-        plant.floweringMonths,
-      )
-      const isHabitatTypeMatched = getMatched(
-        habitatsSelected,
-        plant.habitatType,
-      )
-      const isFlowerColorMatched = getMatched(colorsSelected, plant.flowerColor)
-      const isNameMatched = getMatched(nameSelected, [
-        plant.plantName.commonName,
-        plant.plantName.botanicalName,
-      ])
-      return (
-        isNameMatched &&
-        isHabitatTypeMatched &&
-        isFloweringMonthMatched &&
-        isFlowerColorMatched
-      )
-    })
-    .map((plant) => plant)
-    .sort((a, b) => {
-      if (a.plantName.commonName < b.plantName.commonName) {
-        return -1
-      }
-      if (a.plantName.commonName > b.plantName.commonName) {
-        return 1
-      }
-      return 0
-    })
 
   return (
     <div className="plant-list-page-content">
       <div className="plant-list-header relative ">
-        <HeadingDisplay
-          showCircle={true}
-          absolute
-          circleColorClass={'bg-oe-pink-900'}
-          headingClassName={'text-oe-white display'}
-        >
-          <span className="no-wrap text-oe-white">Native Wildflowers</span>{' '}
-          <span className="no-wrap text-oe-white">at Ozarkedge</span>
+        <ContextUpdater navButtonColor={navButtonColor} />
+        <HeadingDisplay absolute headingClassName={'text-display'}>
+          <span
+            className={cx('no-wrap', {
+              'text-light': navButtonColor === 'light',
+              'text-dark': navButtonColor !== 'light',
+            })}
+          >
+            Native Wildflowers
+          </span>{' '}
+          <span
+            className={cx('no-wrap', {
+              'text-light': navButtonColor === 'light',
+              'text-dark': navButtonColor !== 'light',
+            })}
+          >
+            at Ozarkedge
+          </span>
         </HeadingDisplay>
-        <PortTextWrapper
-          className={`hidden relative z-10 order-2 px-8 pb-6 max-w-[30rem] text-black`}
-          value={plantListInformation}
-        ></PortTextWrapper>
         <ResponsiveImage
           image={mainImage}
           alt={pageTitle}
@@ -305,8 +56,8 @@ export default function PlantListPage(props) {
           disablePointer
           loading="eager"
           figureClassName="h-full w-full"
-          wrapperClassName="banner-img w-full h-[30rem] bg-oe-green-yellow-200  bp-900:order-2"
-          className="rounded-none object-cover object-[80%_50%] w-full h-full "
+          wrapperClassName="banner-img"
+          className="w-full h-full "
         />
         <ResponsiveImage
           image={mobileImage ? mobileImage : mainImage}
@@ -315,84 +66,17 @@ export default function PlantListPage(props) {
           disablePointer
           loading="eager"
           figureClassName="h-full w-full"
-          wrapperClassName="banner-img mobile w-full h-[30rem] bg-oe-green-yellow-200  bp-900:order-2"
-          className="rounded-none object-cover object-[80%_50%] w-full h-full "
+          wrapperClassName="banner-img mobile"
+          className="w-full h-full"
         />
       </div>
-      <div className="plant-list-layout-grid relative px-8 py-10 bg-oe-green-yellow-200 min-h-screen bp-900:px-20">
-        {nativePlantPageData && (
-          <>
-            <section
-              id={'infoSection'}
-              className={`flex flex-col w-full bp-800:items-start bp-800:sticky`}
-            >
-              <PortTextWrapper
-                className={`description order-1 self-center pb-1 mb-4 max-w-[20rem] text-black bp-900:order-1 bp-900:self-start`}
-                value={plantListInformation}
-              ></PortTextWrapper>
-              <Fieldset
-                animatedComponents={animatedComponents}
-                monthsChangeHandler={monthsChangeHandler}
-                nameValue={nameSelected}
-                nameOptions={NAME_OPTIONS}
-                nameChangeHandler={nameChangeHandler}
-                colorChangeHandler={colorChangeHandler}
-                habitatChangeHandler={habitatChangeHandler}
-                monthsValue={monthsSelected}
-              />
-            </section>
-            <section id={'plantListSection'} className="plant-grid">
-              <div className="flex flex-wrap w-full gap-4 justify-center bp-800:justify-start">
-                {filteredNativePlantList
-                  .slice(0, maxItemsDisplayed)
-                  .map((plant, index) => (
-                    <CustomLink
-                      docType={'nativePlant'}
-                      slug={plant.slug?.current}
-                      key={plant.plantName.botanicalName}
-                    >
-                      <PlantImageCard
-                        className="max-w-xs bg-oe-green-200"
-                        image={plant.previewImage}
-                        plantName={plant.plantName}
-                        floweringMonths={plant.floweringMonths}
-                        flowerColor={plant.flowerColor}
-                        habitatType={plant.habitatType}
-                        imagePosition="left"
-                      />
-                    </CustomLink>
-                  ))}
-              </div>
-              {maxItemsDisplayed < nativePlantList.length && (
-                <Button
-                  className={`btn-secondary mt-8 bp-900:mb-6`}
-                  callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}
-                >
-                  Show More
-                </Button>
-              )}
-            </section>
-          </>
-        )}
-      </div>
+      <PlantListGridWithSuspense
+        nativePlantPageData={nativePlantPageData}
+        nativePlantList={nativePlantList}
+        plantListInformation={plantListInformation}
+      />
     </div>
   )
 }
 
-export const getStaticProps = async ({ draftMode = false }) => {
-
-  const nativePlantPageProps = await client.fetch(
-    GET_PLANT_LIST_PAGE_DATA_QUERY,
-  )
-  const nativePlantListProps = await client.fetch(
-    GET_NATIVE_PLANT_LIST_DATA_QUERY,
-  )
-  return {
-    props: {
-      draftMode,
-      token: draftMode ? readToken : '',
-      nativePlantPageProps,
-      nativePlantListProps,
-    },
-  }
-}
+export default NativePlantPage

@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
@@ -24,6 +25,7 @@ const NatureServeBadge = (props) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const { bgColorVariable, textColorVariable, rankingText } =
     getNatureServeRankingColors(conservationRanking)
+
   const toggleIsExpanded = () => {
     setIsExpanded(!isExpanded)
   }
@@ -32,11 +34,7 @@ const NatureServeBadge = (props) => {
     showMoreInfoSection(isExpanded)
   }, [showMoreInfoSection, isExpanded])
 
-  let classNames = cx(
-    ` p-5 rounded-xl text-base h-8 w-fit self-start cursor-pointer bp-600:self-center bp-600:ml-6 transition-all hover:opacity-90 hover:scale-95 active:opacity-90 active:scale-95`,
-    className,
-    { expanded: isExpanded },
-  )
+  let classNames = cx('natureserve-badge', className, { expanded: isExpanded })
 
   return (
     <div
@@ -49,7 +47,7 @@ const NatureServeBadge = (props) => {
       onClick={toggleIsExpanded}
     >
       <span
-        className={`inline-flex gap-2 font-normal items-center capitalize ${textColorVariable}`}
+        className="natureserve-badge-text"
         style={{
           backgroundColor: `var(${bgColorVariable})`,
           color: `var(${textColorVariable})`,

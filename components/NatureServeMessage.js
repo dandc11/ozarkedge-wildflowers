@@ -6,46 +6,52 @@ import IconInfo from './IconInfo'
 
 const NatureServeMessage = (props) => {
   const { conservationRanking } = props
-  const { bgColorVariable, textColorVariable } =
+  const { bgColorVariable, textColorVariable, rankingText } =
     getNatureServeRankingColors(conservationRanking)
   return (
-    <div className="relative inline-flex mb-4">
-      <p
+    <div className="natureserve-message">
+      <div
         style={{
           color: `var(${textColorVariable})`,
         }}
-        className={cx(` gap-2 z-0 text-base bg-transparent rounded-md p-4`)}
-        // style={{
-        //   color: `var(${textColorVariable})`,
-        // }}
+        className="natureserve-message-text"
       >
         <IconInfo
-          className={' inline-block pr-2'}
+          className="natureserve-icon-info"
           strokeColorVariable={textColorVariable}
-          svgClassName={`inline mb-1`}
+          svgClassName="natureserve-icon-svg"
         />
-        These classifications are based on the NatureServe Global Conservation
-        Status Ranks. For more information on the rankings, visit
-        <a
-          className={`inline underline underline-offset-4 text-inherit`}
+        <p
           style={{
+            backgroundColor: `var(${bgColorVariable})`,
             color: `var(${textColorVariable})`,
           }}
-          href={
-            'https://explorer.natureserve.org/AboutTheData/DataTypes/ConservationStatusCategories'
-          }
-          target="_blank"
         >
-          {' '}NatureServe.
-        </a>
+          Classified as <strong>{rankingText}</strong> based on the NatureServe
+          Global Conservation Status Ranks. For more information on the
+          rankings, visit
+          <a
+            className="natureserve-link"
+            style={{
+              color: `var(${textColorVariable})`,
+            }}
+            href={
+              'https://explorer.natureserve.org/AboutTheData/DataTypes/ConservationStatusCategories'
+            }
+            target="_blank"
+          >
+            {' '}
+            NatureServe.
+          </a>
+        </p>
         <div
-          className="absolute w-full h-full -z-10 rounded-md top-0 left-0 "
+          className="natureserve-message-bg"
           style={{
             backgroundColor: `var(${bgColorVariable})`,
             color: `var(${textColorVariable})`,
           }}
         ></div>
-      </p>
+      </div>
     </div>
   )
 }

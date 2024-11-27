@@ -6,7 +6,6 @@
   background-color: var(--oe-green-yellow-300);
 
   .header-section {
-
     img {
       border-radius: 0;
       object-fit: cover;
@@ -17,9 +16,8 @@
   .heading-base {
     bottom: -2rem;
 
-    .heading-title {
+    .heading-bg {
       background-color: var(--oe-blue-dark-500);
-      padding-inline: var(--sp-md);
     }
   }
 

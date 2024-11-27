@@ -77,10 +77,11 @@ const portTextComponents = {
  * @param {string} props.className - The class name for the component.
  * @param {Object} props.value - The PortableText value object.
  * @param {Function} props.lightboxCallback - The callback function for opening a lightbox.
+ * @param {string} props.lightboxIdentifier - The identifier for the lightbox.
  * @returns {JSX.Element} - The rendered component.
  */
 const PortTextWrapper = React.memo((props) => {
-  const { className, value, lightboxIdentifier = '', lightboxCallback = () => {} } = props
+  const { className, value, lightboxIdentifier, lightboxCallback = () => {} } = props
 
   // callback for opening lightbox
   const componentsWithCallback = useMemo(

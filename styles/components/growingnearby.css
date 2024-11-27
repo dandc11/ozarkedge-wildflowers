@@ -1,0 +1,23 @@
+#growingNearby {
+  container: growingNearbyText / inline-size;
+  z-index: 0;
+  background-color: var(--oe-green-yellow-400);
+
+  .heading-base,
+  .plant-pg-port-text {
+    width: clamp(8rem, 90cqi, 60rem);
+    margin-inline: auto;
+
+    @container (min-width: 600px) {
+      width: clamp(35rem, 85cqi, 55rem);
+    }
+  }
+
+  .plant-pg-port-text {
+    margin-block: min(5vh, 2rem);
+
+    @container (min-width: 600px) {
+      margin-block: min(10vh, 3rem) min(10vh, 1rem);
+    }
+  }
+}

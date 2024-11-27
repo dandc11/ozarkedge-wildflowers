@@ -1,9 +1,10 @@
-"use client";
+'use client'
 
 import { SanityImage } from 'sanity-image'
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react'
 import cx from 'classnames'
 
+import { LightboxContext } from '../contexts/LightboxContext'
 import { projectId, dataset } from '../app/lib/sanity.api'
 
 /**
@@ -125,7 +126,6 @@ const ResponsiveImage = ({
   wrapperClassName = '',
   ...props
 }) => {
-
   const {
     caption = '',
     alt = '',
@@ -135,30 +135,35 @@ const ResponsiveImage = ({
   } = image ? image : {}
   const id = asset?._ref || ''
   const captionClassName = cx({
-    'absolute left-0 bottom-0 bg-[#ffffffb5] z-10 py-[.05rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
-      captionStyle === 'insetLeft',
-    'absolute right-0 bottom-0 bg-[#ffffffb5] z-10 py-[.05rem] pl-1 pr-2 text-black text-[.65rem] bp-900:py-1 bp-900:text-xs tracking-[.4px]':
-      captionStyle === 'insetRight',
-    'relative text-center italic text-sm pt-2': captionStyle === 'below',
+    'inset-left': captionStyle === 'insetLeft',
+    'inset-right': captionStyle === 'insetRight',
+    below: captionStyle === 'below',
   })
+
+  const { setLightBoxOpenImgKey, setLightboxIdentifier } =
+    useContext(LightboxContext)
 
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
-    onClick ? onClick(e.currentTarget.dataset.key) : null;
+    if (lightboxIdentifier) {
+      console.log('setting lightbox open image key')
+      setLightBoxOpenImgKey(e.currentTarget.dataset.key)
+      setLightboxIdentifier(lightboxIdentifier)
+    }
   }
 
   useEffect(() => {
     if (image && !(image.id || (image.asset && image.asset._ref))) {
-      console.warn('Image without an id was used:', image);
+      console.warn('Image without an id was used:', image)
     }
-  }, [image]);
+  }, [image])
 
   return (
     <>
-      {(image && (image.id || (image.asset && image.asset._ref))) && (
-        <div id={id} className={cx('', wrapperClassName)}>
+      {image && (image.id || (image.asset && image.asset._ref)) && (
+        <div id={id} className={cx('img-wrapper text-sm', wrapperClassName)}>
           <figure
-            className={cx('relative', figureClassName)}
+            className={cx(figureClassName)}
             onClick={handleClick}
             data-lightboxjs={lightboxIdentifier}
             data-key={id}
@@ -167,9 +172,8 @@ const ResponsiveImage = ({
               {...image}
               alt={alt || ''}
               className={cx(
-                'transition delay-100 duration-200',
-                { 'hover:scale-[.99]': !disableHover },
-                { 'cursor-pointer ': onClick !== '' && !disablePointer},
+                { hover: !disableHover },
+                { 'cursor-pointer ': onClick !== '' && !disablePointer },
                 className,
               )}
               lightboxIdentifier={lightboxIdentifier}
@@ -191,4 +195,4 @@ const ResponsiveImage = ({
   )
 }
 
-export default ResponsiveImage;
+export default ResponsiveImage

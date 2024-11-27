@@ -112,7 +112,7 @@
       background-color: var(--oe-white);
       margin: 0.25rem 0;
 
-      &.nav-dark {
+      &.nav-btn-dark {
         background-color: var(--oe-red-800);
       }
     }

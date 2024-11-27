@@ -1,7 +1,6 @@
-'use client'
 import cx from 'classnames'
 import { useLiveQuery } from 'next-sanity/preview'
-import React, { useContext } from 'react'
+import React from 'react'
 import { groq } from 'next-sanity'
 
 import { NavContext } from '../contexts/NavContext'
@@ -12,19 +11,14 @@ import {
   titleCase,
   getCurrentSeason,
 } from '../utilities/helperUtil'
-import {
-  CURRENT_MONTH_NUMBER,
-  DOCTYPE_PATH_PREFIXES,
-} from '../utilities/constants'
+import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
 import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   GET_CURRENT_SEASON_DATA_QUERY,
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../app/lib/queries'
-import { readToken } from '../app/lib/sanity.api'
 import { client } from '../app/lib/sanity.client'
 import { buildBackgroundStyleObject } from '../utilities/imageUtil'
-
 
 /**
  * @param {object} pageProps - props for the page
@@ -33,11 +27,20 @@ import { buildBackgroundStyleObject } from '../utilities/imageUtil'
  * @returns {JSX.Element} - the page
  * @category Pages
  **/
-export default function HomePage(props) {
-  const { pageProps = null, bloomingProps = null, seasonProps = null } = props
-  const [pageData] = useLiveQuery(pageProps, GET_LANDING_PAGE_DATA_QUERY)
-  const [bloomingPlantImages] = useLiveQuery(
-    bloomingProps,
+const HomePage = async () => {
+  /**
+   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
+   * TODO: 2. LIGHTBOX - need to set all Lightbox context properties when this page is routed to. They should be fetched the first time and thereafter cached. 
+   * TODO: 3. MENU BUTTON COLOR -need to set all nav button color context when this page is routed to. Should this be fetched the first time and thereafter cached?
+  */ 
+  const seasonData =
+    await client.fetch(groq`*[!(_id in path('drafts.**')) && _type == "season" && ${CURRENT_MONTH_NUMBER}  in monthNumbers]
+  {
+    metaDescription,
+  }`)
+  const pageData = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
+
+  const bloomingPlantImages = await client.fetch(
     GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   )
 
@@ -51,17 +54,16 @@ export default function HomePage(props) {
     buttonOne,
     buttonTwo,
   } = pageData[0]
-  const {navButtonColor, setNavButtonColor} = React.useContext(
-    NavContext,
-  )
 
-  const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
+  // const { setNavButtonColor } = React.useContext(NavContext)
+
+  // const [seasonData] = useLiveQuery(seasonProps, GET_CURRENT_SEASON_DATA_QUERY)
   const teaserBodyText = seasonData[0]?.metaDescription
   const currentSeason = getCurrentSeason()?.SEASON_NAME
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => {
-    setNavButtonColor(menuButtonColor)
-  }, [menuButtonColor])
+  // React.useEffect(() => {
+  //   setNavButtonColor(menuButtonColor)
+  // }, [menuButtonColor])
   const aboveFoldBackground = { bgImage, bgImageSmall }
   const bgStyle = buildBackgroundStyleObject(aboveFoldBackground)
   const thisMonth = getCurrentMonthName()
@@ -157,21 +159,19 @@ export default function HomePage(props) {
   )
 }
 
-export async function getStaticProps(context) {
-  const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
-  const bloomingProps = await client.fetch(
-    GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
-  )
-  const seasonProps =
-    await client.fetch(groq`*[!(_id in path('drafts.**')) && _type == "season" && ${CURRENT_MONTH_NUMBER}  in monthNumbers]
-    {
-      metaDescription,
-    }`)
-  return {
-    props: {
-      pageProps,
-      bloomingProps,
-      seasonProps,
-    },
-  }
-}
+// export async function getStaticProps(context) {
+//   const pageProps = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
+//   const bloomingProps = await client.fetch(
+//     GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
+//   )
+
+//   return {
+//     props: {
+//       pageProps,
+//       bloomingProps,
+//       seasonProps,
+//     },
+//   }
+// }
+
+export default HomePage

@@ -1,29 +1,28 @@
-import {defineMigration, at, set} from 'sanity/migrate'
+// import { defineMigration, at, set } from 'sanity/migrate'
 
-export default defineMigration({
-  title: 'Rename pageBodyPortableText objects',
-  documentTypes: ["nativePlant", "about", "season", "plantListPage"],
+// export default defineMigration({
+//   title: 'Rename pageBodyPortableText objects',
+//   documentTypes: ['nativePlant', 'about', 'season', 'plantListPage'],
 
-  migrate: {
-    document(document: any) {
-      const patches = [];
+//   migrate: {
+//     document(document: any) {
+//       const patches = []
 
-      Object.keys(document).forEach(key => {
-        const value = document[key];
-        if (Array.isArray(value)) {
-          value.forEach((block: any, index: number) => {
+//       Object.keys(document).forEach((key) => {
+//         const value = document[key]
+//         if (Array.isArray(value)) {
+//           value.forEach((block: any, index: number) => {
+//             if (block.name === 'imageCollection') {
+//               patches.push(at([key, index, '_type'], set('')))
+//             } else if (block.name === 'portTextVideo') {
+//               patches.push(at([key, index, '_type'], set('portTextVideo')))
+//               patches.push(at([key, index, 'title'], set('portTextVideo')))
+//             }
+//           })
+//         }
+//       })
 
-              if (block.name === 'imageCollection') {             
-                patches.push(at([key, index, '_type'], set('')));
-              } else if (block.name === 'portTextVideo') {
-                patches.push(at([key, index, '_type'], set('portTextVideo')));
-                patches.push(at([key, index, 'title'], set('portTextVideo')));
-              }
-          });
-        }
-      });
-
-      return patches;
-    }
-  }
-});
+//       return patches
+//     },
+//   },
+// })

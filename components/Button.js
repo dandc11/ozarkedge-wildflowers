@@ -1,5 +1,7 @@
+'use client'
+
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import cx from 'classnames'
 
 import { getPathFromDocType } from '../utilities/helperUtil'

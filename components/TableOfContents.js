@@ -7,7 +7,7 @@ const TableOfContents = (props) => {
   const {
     className,
     headingClassName = '',
-    headerText='Things to know',
+    headerText = '',
     shadow = true,
     links,
     listItemClassName = '',
@@ -30,7 +30,7 @@ const TableOfContents = (props) => {
       {linkHrefs?.length > 0 && (
         <div
           className={cx(
-            'flex flex-col py-8 bg-white z-30 bp-700:max-w-[23rem] bp-700:self-center',
+            'toc flex flex-col py-8 bg-white z-30 bp-700:max-w-[23rem] bp-700:self-center',
             { 'shadow-md': shadow },
             className,
           )}

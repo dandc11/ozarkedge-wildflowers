@@ -3,7 +3,7 @@
 import { NavContextProvider } from '../contexts/NavContext';
 import { LightboxProvider } from '../contexts/LightboxContext';
 
-export default function ClientProviders({ children }) {
+export default function ContextProviders({ children }) {
   return (
     <>
         <NavContextProvider>
