@@ -46,7 +46,6 @@ const HeadingElement = ({
     </>
   )
 }
-
 /**
  * Represents a heading component with optional table of contents and circle.
  *
@@ -56,11 +55,13 @@ const HeadingElement = ({
  * @param {React.ReactNode} props.children - The content of the heading.
  * @param {string} [props.circleColorClass] - The CSS class for the circle element.
  * @param {string} [props.className=''] - The CSS class for the heading container.
+ * @param {string} [props.headingBgClass=''] - The CSS class for the heading background.
  * @param {string} [props.headingClassName=''] - The CSS class for the heading element.
  * @param {number} [props.headingLevel=2] - The level of the heading (1-6).
  * @param {string} [props.id] - The ID of the heading element.
  * @param {boolean} [props.showCircle=false] - Whether to show the circle element.
  * @param {Array} [props.tocLinks=null] - The table of contents links.
+ * @param {string} [props.textTypeClass='thin'] - The CSS class for the text type.
  * @returns {JSX.Element} The rendered heading component.
  */
 const Heading = (props) => {

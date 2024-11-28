@@ -182,6 +182,7 @@ export const GET_PLANT_PAGE_DATA = `
     mobileImage,
     menuButtonColor,
     metaDescription,
+    floweringSeason,
     lede[]{
       _type == "teaserSection" => {
         _type,

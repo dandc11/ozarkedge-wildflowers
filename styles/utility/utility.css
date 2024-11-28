@@ -18,6 +18,11 @@
   position: absolute;
 }
 
+/* Transition ----------------- */
+.transition-all {
+  transition: all 0.5s ease-in-out;
+}
+
 /* Size ------------------- */
 .w-full {
   width: 100%;
@@ -58,6 +63,18 @@
 
 .block {
   display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .flex {
@@ -134,4 +151,8 @@
 
 .flex-6 {
   flex: 6;
+}
+
+.grid {
+  display: grid;
 }

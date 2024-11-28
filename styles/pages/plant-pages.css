@@ -16,6 +16,25 @@
   }
 
   .plant-page-header {
+    .plant-intro {
+      background-color: var(--oe-white);
+      max-width: 32rem;
+      width: 90%;
+      padding-block-end: var(--sp-sm);
+      padding-inline: var(--sp-md);
+      box-shadow: var(--shadow-sm);
+
+      button {
+        background-color: transparent;
+        width: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        gap: var(--sp-xxs);
+        margin-block-end: var(--sp-md);
+        align-items: center;
+      }
+    }
+
     .plant-pg-port-text {
       margin-block-start: var(--sp-md);
     }
@@ -47,12 +66,25 @@
     }
 
     .right-sidebar {
-      container: right-sidebar / inline-size;
-      grid-area: right-sidebar;
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 500px) {
+    .plant-page-header {
+      .plant-intro {
+        padding-inline: var(--sp-lg);
+      }
     }
   }
 
   @media screen and (min-width: 800px) {
+    .plant-page-header {
+      .plant-intro {
+        padding-block: var(--sp-md);
+      }
+    }
+
     .banner-img {
       figure {
         height: 60vh;
@@ -74,6 +106,20 @@
     }
 
     .plant-page-header {
+      .plant-intro {
+        z-index: 10;
+        gap: var(--sp-lg);
+        padding-block-start: var(--sp-lg);
+        padding-inline: var(--sp-xl);
+        max-width: 100%;
+        width: fit-content;
+        flex-direction: row;
+
+        button {
+          display: none;
+        }
+      }
+
       .header-title {
         width: 30rem;
       }
@@ -81,6 +127,11 @@
       .plant-pg-port-text {
         padding-inline: 0;
       }
+    }
+
+    .toc-wrapper {
+      justify-content: start;
+      margin-block-start: var(--sp-xxs);
     }
   }
 
@@ -109,8 +160,20 @@
       }
 
       .right-sidebar {
+        display: flex;
+        position: sticky;
+        top: 2.5rem; /* Adjust the offset as needed */
+        align-self: start; /* Ensure it aligns to the start of the container */
+        margin-block-start: 3.5rem;
+        container: right-sidebar / inline-size;
         grid-area: right-sidebar;
         grid-row: 1 / -1;
+      }
+
+      .sidebar-content-wrapper {
+        top: 2.5rem;
+        padding: var(--sp-lg) var(--sp-xl);
+        margin-inline-end: var(--sp-lg);
       }
     }
   }

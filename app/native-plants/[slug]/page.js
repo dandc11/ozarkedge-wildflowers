@@ -2,12 +2,12 @@ import React from 'react'
 import cx from 'classnames'
 
 import ResponsiveImage from '../../../components/ResponsiveImage'
-import Button from '../../../components/Button'
 import LightboxGallery from '../../../components/LightboxGallery'
 import NatureServeMessage from '../../../components/NatureServeMessage'
 import NatureServeBadge from '../../../components/NatureServeBadge'
 import ThumbnailGrid from '../../../components/ThumbnailGrid'
 import GrowingNearby from '../../../components/GrowingNearbySection'
+import Heading from '../../../components/Heading'
 import PlantPageIntroSection from '../../../components/PlantPageIntroSection'
 import ContentSection from '../../../components/ContentSection'
 import ContextUpdater from '../../../components/ContextUpdater'
@@ -50,6 +50,7 @@ const NativePlantPage = async ({ params }) => {
     conservationStatus,
     conservationRanking,
     description,
+    floweringSeason,
     growingNearbyText,
     growingNearbyPlantList,
     habitat,
@@ -86,7 +87,7 @@ const NativePlantPage = async ({ params }) => {
           {bannerImage && (
             <div id="bannerImage" className={`relative ${menuButtonColor}`}>
               <ResponsiveImage
-                className={`relative w-full h-full object-cover bp-1200:object-[50%_35%] bp-1200:h-full`}
+                className={`relative w-full h-full object-cover`}
                 figureClassName={`w-full`}
                 image={bannerImage}
                 breakpoint={'500'}
@@ -131,7 +132,7 @@ const NativePlantPage = async ({ params }) => {
               {fullImageArray && (
                 <div
                   id={`images`}
-                  className="flex flex-col items-center right-sidebar bp-1400:mt-14"
+                  className="right-sidebar flex flex-col items-center"
                 >
                   <LightboxGallery
                     cols={3}
@@ -141,26 +142,19 @@ const NativePlantPage = async ({ params }) => {
                     slideshow={true}
                   />
 
-                  <div className="relative py-6 px-8 bp-1400:sticky top-10 flex flex-col items-center">
-                    {/* <Button
-                      className={`btn-secondary my-8 max-w-[14rem] bp-1400:hidden`}
-                      callBack={toggleLightbox}
-                    >
-                      View Image Gallery
-                    </Button> */}
-                    <p className="text-lg my-4 max-bp-1400:hidden">
-                      More Images of {plantName.botanicalName}
-                    </p>
+                  <div className="sidebar-content-wrapper relative flex flex-col items-center">
+                    <Heading showCircle={false} headingLevel={3}>
+                      ALL IMAGES
+                    </Heading>
+                    {/* <p className="text-lg m-bk-5"></p> */}
                     <ThumbnailGrid
                       assets={fullImageArray}
-                      className={`max-bp-1400:hidden`}
                       cols={2}
-                      maxItems={8}
+                      maxItems={6}
                       thumbnailWidth={100}
                       lightboxIdentifier={`plantPage`}
                     />
                   </div>
-                  <div className="absolute top-0 h-full w-full rounded-md -z-10  bp-1400:bg-oe-green-400 opacity-70"></div>
                 </div>
               )}
               <article className="content-well">
