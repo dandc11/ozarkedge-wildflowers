@@ -6,7 +6,7 @@ import cx from 'classnames'
 
 import { getPathFromDocType } from '../utilities/helperUtil'
 
-const ChevronDown = ({ strokeWidth = 1}) => {
+const ChevronDown = ({ strokeWidth = 1 }) => {
   return (
     <>
       <svg
@@ -143,7 +143,7 @@ const Button = (
     strokeWidth = 1.5,
     slug = '',
     type = 'button',
-    urlParams
+    urlParams,
   },
   ...props
 ) => {
@@ -153,11 +153,11 @@ const Button = (
     if (callBack) {
       callBack()
     } else {
-      const query = urlParams ? { query: urlParams } : {};
+      const query = urlParams ? { query: urlParams } : {}
       router.push({
         pathname: path,
-        ...query// Include query parameters here
-      });
+        ...query, // Include query parameters here
+      })
     }
   }
   return (
@@ -165,7 +165,7 @@ const Button = (
       className={cx(
         { 'btn-expand': buttonIcon === 'expand' },
         className,
-        'flex justify-center whitespace-nowrap',
+        'flex justify-center no-wrap fs-md fw-400 m-bk-4',
       )}
       type={`${type}`}
       onClick={() => clickHandler()}

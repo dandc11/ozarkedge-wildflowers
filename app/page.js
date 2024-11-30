@@ -58,7 +58,7 @@ const HomePage = async () => {
   const currentSeason = getCurrentSeason()?.SEASON_NAME
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
-    <span className="">BLOOMING in {titleCase(thisMonth)}</span>
+    <span className="">Blooming in {titleCase(thisMonth)}</span>
   )
   return (
     <>
@@ -70,7 +70,7 @@ const HomePage = async () => {
             className={`homepage-content w-full overflow-hidden p-0`}
             key={id}
           >
-            <section className="atf relative flex flex-col justify-between">
+            <section className="atf relative flex flex-col justify-between align-center">
               <ResponsiveImage
                 image={bgImage}
                 alt={bgImage?.alt || 'A picture of the Ozarkedge property'}
@@ -91,7 +91,7 @@ const HomePage = async () => {
                 wrapperClassName="absolute bg-img mobile w-full"
                 className="w-full h-full"
               />
-              <div className={`homepage-title self-start text-center m-bk-9`}>
+              <div className={`homepage-title text-center p-in-4`}>
                 <h1 className={`title text-dynamic-title font-display`}>
                   {titleText}
                 </h1>

@@ -159,8 +159,8 @@
 
   --btn-gradient-1: linear-gradient(
     90deg,
-    var(--oe-pink-500) 0%,
-    var(--oe-pink-600) 100%
+    var(--oe-red-600) 0%,
+    var(--oe-pink-700) 100%
   );
   --btn-gradient-2: linear-gradient(
     90deg,

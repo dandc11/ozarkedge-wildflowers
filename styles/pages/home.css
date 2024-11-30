@@ -6,6 +6,7 @@
   .atf {
     min-height: 100svh;
     height: 100%;
+    padding-top: 5.5rem;
   }
 
   .bg-img {
@@ -16,6 +17,7 @@
     display: none;
 
     img {
+      border-radius: 0;
       object-fit: cover;
       object-position: 50% 100%;
     }
@@ -36,27 +38,21 @@
   .subtitle {
     color: transparent;
     background-clip: text;
+    background-image: linear-gradient(to right, #c2410c, #78350f);
   }
 
   .title {
-    background-image: linear-gradient(
-      to right,
-      var(--oe-red-500),
-      var(--oe-red-700)
-    );
     padding-bottom: 0.25rem;
     font-size: clamp(1.5rem, calc(1.5rem + 4cqi), 4rem);
     font-weight: 700;
-    line-height: 1;
     letter-spacing: 0.025em;
+    line-height: 1;
   }
 
   .subtitle {
     padding-block-start: var(--sp-xxs);
-    background-image: linear-gradient(to right, #c2410c, #78350f);
     font-weight: 500;
     line-height: 1.5;
-    color: var(--oe-black);
   }
 
   .homepage-cta {
@@ -73,11 +69,9 @@
     .homepage-cta {
       display: flex;
       justify-content: center;
-
-      .btn-primary,
-      .btn-secondary {
-        width: auto;
-      }
+    }
+    .homepage-title .title {
+      line-height: 1.25;
     }
   }
 
@@ -113,6 +107,16 @@
     @container description (width > 600px) {
       .btn-primary {
         width: auto;
+      }
+    }
+  }
+
+  @container homepage-content (width > 900px) {
+    .atf {
+      justify-content: start;
+
+      .homepage-cta {
+        padding-inline: var(--sp-md);
       }
     }
   }

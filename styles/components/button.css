@@ -2,9 +2,22 @@
   padding: var(--sp-ml) var(--sp-xl);
   width: auto;
   min-width: 10rem;
+  color: var(--oe-white);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--br-lg);
+  border: none;
+
+  &.btn-primary {
+    background: var(--btn-gradient-1);
+  }
 
   &.btn-secondary {
     background: var(--btn-gradient-2);
+  }
+
+  &.btn-expand {
+    width: 100%;
   }
 }
 

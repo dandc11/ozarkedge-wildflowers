@@ -6,7 +6,7 @@
   z-index: 10;
   background-color: transparent;
   margin-bottom: var(--sp-md);
-  color: inherit;
+  color: var(--oe-text-body);
 
   &:has(.heading-display) {
     display: flex;
