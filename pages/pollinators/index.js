@@ -1,9 +1,10 @@
-import React from 'react';
+import React from 'react'
+import Heading from '../../components/Heading'
 
-const Pollinators = props => {
+const Pollinators = (props) => {
   return (
-    <div>Pollinators</div>
+    <Heading className="m-32">Our pollinators page is coming soon!</Heading>
   )
 }
 
-export default Pollinators;
+export default Pollinators
