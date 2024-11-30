@@ -7,6 +7,11 @@
   font-family: var(--font-playfair-display);
 }
 
+/* Font Style ------------ */
+.italic {
+  font-style: italic;
+}
+
 /* Text Alignment --------- */
 .text-right {
   text-align: right;

@@ -72,13 +72,9 @@ const IntroSection = ({
           Contents
         </Button>
         <TableOfContents
-          showCircle
           shadow={false}
-          listItemClassName={`mx-4 no-wrap fs-lg`}
-          className={cx(
-            { 'max-bp-1000:hidden': !isTableOfContentsOpen },
-            'max-bp-1000:pb-8 max-bp-1000:pt-2 bp-1000:pt-4 bp-1000:pl-4 ',
-          )}
+          listItemClassName={``}
+          className={cx({ 'toc-hidden': !isTableOfContentsOpen })}
           toggleLightboxCallback={() => closeToC('intro')}
           links={tocLinks}
         />

@@ -80,7 +80,7 @@ const NativePlantPage = async ({ params }) => {
   )
 
   return (
-    <div className="plant-page bg-topography">
+    <div className="plant-page bg-topography parallax">
       {pageData && (
         <>
           <ContextUpdater navButtonColor={menuButtonColor} />
