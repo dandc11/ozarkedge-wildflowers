@@ -1,21 +1,72 @@
 /* Landing Page ********************************/
 .homepage-content {
   container: homepage-content / inline-size;
+  height: auto;
 
-  #landingImageContainer {
-    background-image: var(--container-bg-small);
+  .atf {
+    min-height: 100svh;
+    height: 100%;
   }
 
-  @media screen and (min-width: 900px) {
-    #landingImageContainer {
-      background-image: var(--container-bg-image);
+  .bg-img {
+    z-index: -10;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: none;
+
+    img {
+      object-fit: cover;
+      object-position: 50% 100%;
     }
+    &.mobile {
+      display: block;
+    }
+
+    @container homepage-content (width > 900px) {
+      display: block;
+
+      &.mobile {
+        display: none;
+      }
+    }
+  }
+
+  .title,
+  .subtitle {
+    color: transparent;
+    background-clip: text;
+  }
+
+  .title {
+    background-image: linear-gradient(
+      to right,
+      var(--oe-red-500),
+      var(--oe-red-700)
+    );
+    padding-bottom: 0.25rem;
+    font-size: clamp(1.5rem, calc(1.5rem + 4cqi), 4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.025em;
+  }
+
+  .subtitle {
+    padding-block-start: var(--sp-xxs);
+    background-image: linear-gradient(to right, #c2410c, #78350f);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--oe-black);
   }
 
   .homepage-cta {
     .btn-secondary {
       background: var(--btn-gradient-5);
     }
+  }
+
+  .btf {
+    background-color: #fef9c3;
   }
 
   @container homepage-content (width > 600px) {
@@ -31,9 +82,15 @@
   }
 
   @container homepage-content (width >= 900px) {
+    .homepage-title {
+      align-self: end;
+      text-align: right;
+    }
+
     .homepage-cta {
       display: flex;
       justify-content: end;
+      padding-block-start: var(--sp-2xl);
 
       .btn-primary,
       .btn-secondary {
@@ -57,6 +114,12 @@
       .btn-primary {
         width: auto;
       }
+    }
+  }
+
+  @container homepage-content (width > 1100px) {
+    .btf {
+      background-color: #f1f0caeb;
     }
   }
 }

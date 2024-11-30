@@ -1,10 +1,16 @@
-[class^="btn-"] {
-    padding: var(--sp-ml) var(--sp-xl);
-    width: auto;
-    min-width: 10rem;
-    
-    
-    &.btn-secondary {
-        background: var(--btn-gradient-2);
-    }
+[class^='btn-'] {
+  padding: var(--sp-ml) var(--sp-xl);
+  width: auto;
+  min-width: 10rem;
+
+  &.btn-secondary {
+    background: var(--btn-gradient-2);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  [class^='btn-'] {
+    width: 90%;
+    align-self: center;
+  }
 }

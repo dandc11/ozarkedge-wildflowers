@@ -34,6 +34,7 @@ import { projectId, dataset } from '../app/lib/sanity.api'
  * @property {string} [width=''] - The width of the image
  * @returns {JSX.Element} - The rendered component
  * */
+// https://github.com/coreyward/sanity-image
 const SanityImageWrapper = (props) => {
   // destrucrture all props and set defaults
   const {
@@ -47,7 +48,7 @@ const SanityImageWrapper = (props) => {
     imagePosition = '',
     imageWidth = '',
     lightboxIdentifier,
-    loading = 'lazy',
+    loading,
     mode = 'cover',
     preview = '',
     priority = false,
