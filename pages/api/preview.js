@@ -1,8 +1,8 @@
 import groq from 'groq'
 
-import { client } from '../lib/sanity.client'
+import { client } from '../../app/lib/sanity.client'
 import { getPathFromDocType } from '../../utilities/helperUtil'
-import { readToken } from '../lib/sanity.api'
+import { readToken } from '../../app/lib/sanity.api'
 
 // Enable Preview Mode - https://nextjs.org/docs/pages/building-your-application/configuring/draft-mode
 // TODO: Consider adding a preview secret check. Currently, anyone with the preview URL can access the preview. There is little risk in this, but it is not ideal.  See https://www.sanity.io/docs/preview-content-on-site
