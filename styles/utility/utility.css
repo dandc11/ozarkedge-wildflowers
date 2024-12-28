@@ -18,6 +18,23 @@
   position: absolute;
 }
 
+/* Border Radius -------------- */
+.rounded-none {
+  border-radius: 0;
+}
+
+.rounded-sm {
+  border-radius: var(--br-sm);
+}
+
+.rounded-md {
+  border-radius: var(--br-md);
+}
+
+.rounded-lg {
+  border-radius: var(--br-lg);
+}
+
 /* Transition ----------------- */
 .transition-all {
   transition: all 0.5s ease-in-out;
@@ -176,8 +193,16 @@
   background-attachment: fixed;
   background-position: center;
   background-repeat: repeat;
-  background-size: 40%;
+  background-size: 100%;
   overflow: hidden; /* Prevent scrolling issues */
+
+  @media screen and (min-width: 900px) {
+    background-size: 60%;
+  }
+
+  @media screen and (min-width: 1400px) {
+    background-size: 40%;
+  }
 }
 
 .bg-topography {

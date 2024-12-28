@@ -75,7 +75,7 @@
     }
 
     @container content-well ( width > 800px) {
-      .heading-base .heading-title {
+      .heading .heading-title {
         font-size: clamp(1.5rem, 5vw, 2rem);
       }
     }

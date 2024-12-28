@@ -4,7 +4,6 @@
   margin-bottom: var(--sp-md);
   max-width: 64rem;
   margin-inline: var(--sp-xl);
-  border: 1px solid var(--oe-text-body);
   border-radius: 0.375rem;
 
   .natureserve-message-text {
@@ -48,7 +47,6 @@
   padding: var(--sp-xxs) var(--sp-sm);
   text-align: center;
   border-radius: 0.75rem;
-  border: 1px solid var(--oe-text-body);
   white-space: nowrap;
   width: fit-content;
   align-self: flex-start;

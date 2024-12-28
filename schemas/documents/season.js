@@ -24,6 +24,12 @@ export default defineType({
       title: 'Season Text',
       despcription: 'Add text for the seaons description and teaser content.',
     },
+    {
+      name: 'feature',
+      title: 'Feature Section',
+      despcription:
+        'Add a section featuring related content on another part of the site (optional).',
+    },
   ],
   preview: {
     select: {
@@ -147,31 +153,20 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    // defineField({
-    //   name: 'plantListTeaserText',
-    //   title: 'Plant List Page Teaser Text',
-    //   description:
-    //     'This text populates the short section that will invite users to visit the full plant list page where they can see and sort individual plants blooming in this season and others. Aim for brevity—a few sentences at most.',
-    //   group: 'text',
-    //   type: 'textOnlyPortText',
-    // }),
-    // defineField({
-    //   name: 'seasonPlantImages',
-    //   type: 'array',
-    //   title: 'Season Plants Preview Images',
-    //   description:
-    //     "Upload or select a few images of this season's plants to appear in the teaser section which will invite visitors to the plant list page.",
-    //   of: [defineArrayMember({ type: 'figure' })],
-    //   validation: (Rule) => Rule.max(5),
-    //   // options: { sources: [AssetSource] },
-    //   group: 'text',
-    // }),
     defineField({
       name: 'description',
       title: 'Season Description',
       description: 'Add body text content about this season here.',
       group: 'text',
       type: 'pageBodyPortableText',
+    }),
+    defineField({
+      name: 'feature',
+      title: 'Feature Section',
+      description:
+        'Add a section featuring related content on another part of the site (optional).',
+      type: 'feature',
+      group: 'feature',
     }),
   ],
 })

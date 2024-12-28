@@ -69,7 +69,7 @@ const HeadingDisplay = (props) => {
     <div
       id={id}
       className={cx(
-        'heading-base heading-display',
+        'heading heading-display',
         { absolute: absolute },
         className,
       )}

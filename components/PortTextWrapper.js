@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { PortableText } from '@portabletext/react'
 import cx from 'classnames'
@@ -81,7 +81,12 @@ const portTextComponents = {
  * @returns {JSX.Element} - The rendered component.
  */
 const PortTextWrapper = React.memo((props) => {
-  const { className, value, lightboxIdentifier, lightboxCallback = () => {} } = props
+  const {
+    className,
+    value,
+    lightboxIdentifier,
+    lightboxCallback = () => {},
+  } = props
 
   // callback for opening lightbox
   const componentsWithCallback = useMemo(
@@ -102,7 +107,7 @@ const PortTextWrapper = React.memo((props) => {
           imageCollection: (typeProps) => (
             <ThumbnailGrid
               assets={typeProps.value?.imageCollection}
-              className={`my-10 bp-900:my-16 bp-900:mx-6 bp-1200:mx-10 gap-[1.5rem_1rem]`}
+              className={`my-10 bp-900:my-16 bp-900:mx-6 bp-1200:mx-10 gap-[1rem_.5rem] bp-900:gap-4`}
               cols={2}
               maxItems={12}
               lightboxIdentifier={lightboxIdentifier}
@@ -115,7 +120,7 @@ const PortTextWrapper = React.memo((props) => {
           ),
           teaserSection: (typeProps) => (
             <PortTextTeaser portTextProps={typeProps?.value}></PortTextTeaser>
-          )
+          ),
         },
       }
     },

@@ -13,7 +13,7 @@
     }
   }
 
-  .heading-base {
+  .heading {
     bottom: -2rem;
 
     .heading-bg {
@@ -26,7 +26,7 @@
       height: 70vh;
     }
 
-    .heading-base {
+    .heading {
       text-align: right;
       padding-left: var(--sp-lg);
       bottom: -2.5rem;

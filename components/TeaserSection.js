@@ -1,14 +1,41 @@
-import React, { useState } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 import PortTextWrapper from './PortTextWrapper'
-import { getCurrentMonthName, getMonthNumbersFromSeason } from '../utilities/helperUtil'
+import {
+  getCurrentMonthName,
+  getMonthNumbersFromSeason,
+} from '../utilities/helperUtil'
 import { client } from '../app/lib/sanity.client'
 import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../app/lib/queries'
 import Heading from './Heading'
 import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
 
+// JS Doc for TeaserSection
+/** 
+ * TeaserSection component - 
+ * @property {string} [bodyText] - The body text for the teaser section
+ * @property {string} [buttonText] - The text for the button
+ * @property {string} [gridClassName] - The class name for the grid
+ * @property {string} [headingClassName] - The class name for the heading
+ * @property {string} [sectionClassName] - The class name for the section
+ * @property {string} [teaserBodyClassName] - The class name for the teaser body
+ * @property {string} [id] - The id for the section
+ * @property {Array} [images] - The images for the teaser section
+ * @property {string} [headingId] - The id for the heading
+ * @property {string} [headingChildren] - The children for the heading
+ * @property {Object} [linkItems] - The link items for the teaser section
+ * @property {boolean} [showButton] - The boolean to show the button
+ * @property {number} [maxImages] - The max number of images
+ * @property {boolean} [pullTextFromLink] - The boolean to pull text from the link
+ * @property {boolean} [pullImagesFromLink] - The boolean to pull images from the link
+ * @property {string} [teaserTheme] - The theme for the teaser section
+ * @property {string} [titleText] - The title text for the teaser section
+ * @property {boolean} [useLightBox] - The boolean to use the lightbox
+ * @property {boolean} [usePortText] - The boolean to use the port text
+section
+ */
 const TeaserSection = (props) => {
   const {
     bodyText = '',
@@ -18,62 +45,43 @@ const TeaserSection = (props) => {
     sectionClassName = '',
     teaserBodyClassName = '',
     id = '',
-    images = [],
+    image,
     headingId = '',
     headingChildren,
-    linkItems,
+    linkId,
+    linkType,
+    linkSlug,
+    linkMetaDescription,
+    linkMainImage,
     showButton = true,
-    maxImages,
-    pullTextFromLink,
-    pullImagesFromLink,
     teaserTheme = 'spring',
     titleText,
-    useLightBox,
     usePortText = true,
   } = props
-  const [urlParams, setUrlParams] = useState({})
+
+  /**
+   * TODO:
+   * - Revisit Teaser/Feature components to see if they can be combined
+   * - Add support for multiple images
+   * - Add support for url params
+   * - Add support for teaser theme
+   */
+
   const currentMonth = getCurrentMonthName()
-  const { itemId, itemType, itemSlug, itemMetaDescription, itemMainImage } =
-    linkItems
-  const hasImages = Array.isArray(images) && images.length > 0
   const headingText = headingChildren
     ? headingChildren
     : titleText
-    ? titleText
-    : ''
-  const SEASON_MONTHS = getMonthNumbersFromSeason(teaserTheme)
-  const teaserUrlParams = { months: SEASON_MONTHS }
-  // useEffect(() => {
-  //   client
-  //     .fetch(GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY)
-  //     .then((plantTeaserImages) => {
-  //       setPlantTeaserImages(plantTeaserImages)
-  //     })
-  //     .catch((err) => {
-  //       console.error('Oh no, error occured: ', err)
-  //     })
-  // }, [])
-
-  // sliderImages = images
-  //   .filter((img) => img.image)
-  //   .map((img) => {
-  //     img.image.caption = img.plantName?.commonName
-  //     img.image.docType = 'nativePlant'
-  //     img.image.slug = img.slug
-  //     return img.image
-  //   })
+      ? titleText
+      : ''
+  let teaserUrlParams
 
   return (
     <>
       <section
         id={id}
-        className={cx(
-          `teaser-section bp-800:flex justify-center w-full`,
-          sectionClassName,
-          teaserTheme,
-        )}
+        className={cx(`teaser feature w-full`, sectionClassName, teaserTheme)}
       >
-        <div className={cx('teaser-section-grid w-full', gridClassName)}>
+        <div className={cx('feature-layout-grid w-full', gridClassName)}>
           {headingText && (
             <Heading
               id={headingId}
@@ -84,9 +92,9 @@ const TeaserSection = (props) => {
               {headingText}
             </Heading>
           )}
-          {hasImages && (
+          {image && (
             <ResponsiveImage
-              image={images[0]}
+              image={image}
               priority={false}
               disableHover
               disablePointer
@@ -94,21 +102,21 @@ const TeaserSection = (props) => {
               captionStyle="insetLeft"
               figureClassName={cx(`w-full`)}
               width={560}
-              wrapperClassName={cx(`port-text-img teaser-img z-10`)}
+              wrapperClassName={cx(`port-text-img teaser-img`)}
             />
           )}
           <div className="teaser-bg"></div>
           <div className={cx(`teaser-body`, teaserBodyClassName)}>
-            {bodyText && usePortText ? (
+            {bodyText && usePortText && Array.isArray(bodyText) ? (
               <PortTextWrapper value={bodyText} components={{}} />
             ) : (
               <p>{bodyText}</p>
             )}
-            {itemType && showButton && (
+            {linkType && showButton && (
               <Button
                 className={`btn-primary m-bk-5`}
-                linkDocType={itemType}
-                slug={itemSlug}
+                linkDocType={linkType}
+                slug={linkSlug}
                 urlParams={teaserUrlParams}
               >
                 {buttonText}

@@ -11,7 +11,7 @@ import {
   titleCase,
   getCurrentSeason,
 } from '../utilities/helperUtil'
-import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
+import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
 import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   GET_CURRENT_SEASON_DATA_QUERY,
@@ -36,6 +36,7 @@ const HomePage = async () => {
     await client.fetch(groq`*[!(_id in path('drafts.**')) && _type == "season" && ${CURRENT_MONTH_NUMBER}  in monthNumbers]
   {
     metaDescription,
+    mainImage
   }`)
   const pageData = await client.fetch(GET_LANDING_PAGE_DATA_QUERY)
 
@@ -55,6 +56,7 @@ const HomePage = async () => {
   } = pageData[0]
 
   const teaserBodyText = seasonData[0]?.metaDescription
+  const seasonDefaultImage = seasonData[0]?.mainImage
   const currentSeason = getCurrentSeason()?.SEASON_NAME
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
@@ -119,21 +121,23 @@ const HomePage = async () => {
               </div>
             </section>
             <div
+              data-season={currentSeason}
               className={`btf w-full bg-yellow-100 bp-1100:bg-[#f1f0caeb]`}
               tag={'section'}
             >
               <TeaserSlider
-                id={`bloomingNow`}
-                images={bloomingPlantImages}
-                headingChildren={<BloomingHeadingText thisMonth={thisMonth} />}
-                headingId={`bloomingHeading`}
-                headingClassName={`blooming-heading`}
                 bodyText={teaserBodyText}
                 buttonLinkSlug={`${currentSeason}`}
                 buttonLinkDocType={'season'}
                 buttonLinkText={`More about ${currentSeason} flowers`}
-                lightboxIdentifier={`bloomingNow`}
                 className={`blooming-now`}
+                defaultImage={seasonDefaultImage}
+                headingChildren={<BloomingHeadingText thisMonth={thisMonth} />}
+                headingClassName={`blooming-heading`}
+                headingId={`bloomingHeading`}
+                id={`bloomingNow`}
+                images={bloomingPlantImages}
+                lightboxIdentifier={`bloomingNow`}
               />
             </div>
           </div>

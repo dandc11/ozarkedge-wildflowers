@@ -6,7 +6,8 @@ import Heading from './Heading'
 import PortTextWrapper from './PortTextWrapper'
 import ImageSlider from './ImageSlider'
 import Button from './Button'
-import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
+import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
+import ResponsiveImage from './ResponsiveImage'
 
 /**
  * @param {object} props - props for the component
@@ -31,6 +32,7 @@ const TeaserSlider = (props) => {
     buttonLinkSlug,
     buttonLinkText,
     buttonLinkDocType,
+    defaultImage,
     id = '',
     headingId = '',
     headingClassName = '',
@@ -49,7 +51,8 @@ const TeaserSlider = (props) => {
       plant.image.slug = plant.slug
       return plant.image
     })
-    // TODO: update this with dynamic params for more use cases
+  console.log('defaultImage', defaultImage)
+  // TODO: update this with dynamic params for more use cases
   const teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
   return (
     <>
@@ -57,11 +60,15 @@ const TeaserSlider = (props) => {
         <section
           id={id}
           className={cx(
-            `teaser-slider bp-800:flex justify-center w-full`,
+            `teaser teaser-slider bp-800:flex justify-center w-full`,
             className,
           )}
         >
-          <div className={cx("teaser-slider-grid  px-4 py-4 w-full", gridClassName)}>
+          <div
+            className={cx('teaser-slider-grid p-4 w-full', gridClassName, {
+              'single-image': sliderPlants.length === 0,
+            })}
+          >
             {headingChildren && (
               <Heading
                 id={headingId}
@@ -71,27 +78,39 @@ const TeaserSlider = (props) => {
                 {headingChildren}
               </Heading>
             )}
-            {sliderPlants.length > 0 && (
+            {sliderPlants.length > 0 ? (
               <ImageSlider
                 className={`teaser-image-slider overflow-hidden`}
                 sliderImages={sliderPlants}
                 lightboxIdentifier={lightboxIdentifier}
                 useLinks
               />
+            ) : (
+              <ResponsiveImage
+                image={defaultImage}
+                alt={defaultImage?.alt || 'A placeholder image'}
+                disableHover
+                disablePointer
+                showCaption={false}
+                loading="eager"
+                figureClassName="h-full w-full"
+                wrapperClassName="teaser-image rounded-lg w-full mb-8 bg-oe-green-yellow-200"
+                className="w-full h-full"
+              />
             )}
+
             <div className={`description`}>
               {bodyText && usePortText ? (
-                <PortTextWrapper
-                  value={bodyText}
-                  components={{}}
-                />
+                <PortTextWrapper value={bodyText} components={{}} />
               ) : (
-                <p >{bodyText}</p>
+                <p>{bodyText}</p>
               )}
               <Button
                 className={`btn-primary m-bk-6`}
                 slug={buttonLinkSlug}
-                linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
+                linkDocType={
+                  buttonLinkDocType ? buttonLinkDocType : 'plantListPage'
+                }
                 urlParams={teaserUrlParams}
               >
                 {buttonLinkText}

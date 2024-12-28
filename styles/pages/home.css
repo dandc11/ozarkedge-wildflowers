@@ -1,5 +1,6 @@
 /* Landing Page ********************************/
 .homepage-content {
+  --btf-bg-color: #fef9c3;
   container: homepage-content / inline-size;
   height: auto;
 
@@ -62,7 +63,21 @@
   }
 
   .btf {
-    background-color: #fef9c3;
+    &[data-season='spring'] {
+      background-color: var(--spring-bg-color);
+    }
+
+    &[data-season='summer'] {
+      background-color: var(--summer-bg-color);
+    }
+
+    &[data-season='fall'] {
+      background-color: var(--fall-bg-color);
+    }
+
+    &[data-season='winter'] {
+      background: var(--winter-accent);
+    }
   }
 
   @container homepage-content (width > 600px) {
@@ -76,9 +91,15 @@
   }
 
   @container homepage-content (width >= 900px) {
+    .atf {
+      justify-content: start;
+      padding-inline: var(--sp-xl);
+    }
+
     .homepage-title {
       align-self: end;
       text-align: right;
+      padding-inline: 0;
     }
 
     .homepage-cta {
@@ -108,22 +129,6 @@
       .btn-primary {
         width: auto;
       }
-    }
-  }
-
-  @container homepage-content (width > 900px) {
-    .atf {
-      justify-content: start;
-
-      .homepage-cta {
-        padding-inline: var(--sp-md);
-      }
-    }
-  }
-
-  @container homepage-content (width > 1100px) {
-    .btf {
-      background-color: #f1f0caeb;
     }
   }
 }

@@ -121,10 +121,7 @@ const Heading = (props) => {
   )
 
   return (
-    <div
-      id={id}
-      className={cx('heading-base', { absolute: absolute }, className)}
-    >
+    <div id={id} className={cx('heading', { absolute: absolute }, className)}>
       {tocLinks && (
         <div
           ref={tableOfContentsRef}

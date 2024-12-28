@@ -1,6 +1,6 @@
 /* Heading Components ****************************/
-.heading-base {
-  container: heading-base / inline-size;
+.heading {
+  container: heading / inline-size;
   position: relative;
   width: 100%;
   z-index: 10;
@@ -81,20 +81,20 @@
     }
   }
 
-  @container heading-base (width > 500px) {
+  @container heading (width > 500px) {
     .heading-title {
       padding-inline: var(--sp-lg);
       padding-block: var(--sp-sm);
     }
   }
 
-  @container heading-base (width > 600px) {
+  @container heading (width > 600px) {
     .heading-circle {
       left: -2rem;
     }
   }
 
-  @container heading-base (width > 750px) {
+  @container heading (width > 750px) {
     .heading-title {
       padding-inline: 0;
       padding-block: var(--sp-md);

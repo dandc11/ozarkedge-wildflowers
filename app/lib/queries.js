@@ -1,7 +1,9 @@
+import { groq } from 'next-sanity'
+
 import { CURRENT_MONTH_NUMBER } from '../../utilities/constants'
 
 // retrieves langing page data
-export const GET_LANDING_PAGE_DATA_QUERY = `
+export const GET_LANDING_PAGE_DATA_QUERY = groq`
 *[_type == "landingPage" && wasDeleted != true && isDraft != true]
 {
   id,
@@ -31,7 +33,7 @@ export const GET_LANDING_PAGE_DATA_QUERY = `
   }, 
 }`
 
-export const GET_PLANT_LIST_PAGE_DATA_QUERY = `
+export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 *[_type == "plantListPage" && wasDeleted != true && isDraft != true]
 {
   id,
@@ -76,26 +78,26 @@ export const GET_PLANT_LIST_PAGE_DATA_QUERY = `
       "caption": caption,
     },
     _type == "teaserSection" => {
-      _type,
-      "bodyText": bodyText,
-      "titleText": titleText,
-      buttonText,
-      images,
-      "linkItems": 
-        link->{
-          "itemId": _id,
-          "itemType" : _type, 
-          "itemSlug": slug.current,
-          "itemMetaDescription": metaDescription,
-          "itemMainImage": mainImage 
-        },
-    },
+        _type,
+        "bodyText": bodyText,
+        "titleText": titleText,
+        buttonText,
+        image,
+        "linkItems": 
+          link->{
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
+          },
+      },
   },
   slug
 }`
 
 // retrieves native plant data for the first 7 plants blooming in the current month
-export const GET_BLOOMING_PLANTS_DATA_QUERY = `*[!(_id in path('drafts.**')) && _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
+export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
   {
     "docType": _type, plantName, "image": previewImage {...}, bannerImage, "slug": slug.current, metaDescription, description, "excerpt": array::join(string::split((pt::text(description)), "")[0..400], "") + "..."
   }`
@@ -107,7 +109,7 @@ export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = `*[!(_id in path('drafts
   }`
 
 // retrieves the season document that matches the current month
-export const GET_CURRENT_SEASON_DATA_QUERY = `*[!(_id in path('drafts.**')) && _type == "season" && ${CURRENT_MONTH_NUMBER} in monthNumbers]
+export const GET_CURRENT_SEASON_DATA_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "season" && ${CURRENT_MONTH_NUMBER} in monthNumbers]
     {
       ...,
       mainImage {
@@ -121,13 +123,13 @@ export const GET_CURRENT_SEASON_DATA_QUERY = `*[!(_id in path('drafts.**')) && _
 export const GET_ALL_SEASON_PATHS_QUERY = `*[!(_id in path('drafts.**')) && _type == "season" && defined(slug.current)][].slug.current`
 
 // retrieves all season documents
-export const GET_ALL_SEASONS_DATA_QUERY = `*[!(_id in path('drafts.**')) && _type == "season"]
+export const GET_ALL_SEASONS_DATA_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "season"]
     {
       ...
     }`
 
 // retrieves the season document based on the slug
-export const GET_SEASON_PAGE_DATA_QUERY = `*[!(_id in path('drafts.**')) && _type == "season" && slug.current == $slug][0]
+export const GET_SEASON_PAGE_DATA_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "season" && slug.current == $slug][0]
   {
     ...,
     description[]{
@@ -137,24 +139,35 @@ export const GET_SEASON_PAGE_DATA_QUERY = `*[!(_id in path('drafts.**')) && _typ
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
-    }
+    },
+      feature {
+        ...,
+        "linkItems": 
+          link->{
+            "linkId": _id,
+            "linkType": _type,
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage, 
+          },
+      }
   }`
 
 // retrieves the paths of all published native plants
-export const GET_ALL_NATIVE_PLANT_PATHS_QUERY = `*[!(_id in path('drafts.**')) && _type == "nativePlant" && defined(slug.current)][].slug.current`
+export const GET_ALL_NATIVE_PLANT_PATHS_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "nativePlant" && defined(slug.current)][].slug.current`
 
 // retrieves the document data of all published native plants
-export const GET_NATIVE_PLANT_LIST_DATA_QUERY = `*[!(_id in path('drafts.**')) && _type == "nativePlant"]{  
+export const GET_NATIVE_PLANT_LIST_DATA_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "nativePlant"]{  
   floweringMonths[],
   flowerColor[],
   habitatType, 
@@ -164,19 +177,19 @@ export const GET_NATIVE_PLANT_LIST_DATA_QUERY = `*[!(_id in path('drafts.**')) &
 }`
 
 // retrieves the document data of all published native plants
-export const GET_MENU_ITEMS_QUERY = `*[!(_id in path('drafts.**')) && _type == "menu"]
+export const GET_MENU_ITEMS_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "menu"]
 {
   ...
 }
 `
 // gets all document data for the about page
-export const GET_ABOUT_PAGE_DATA_QUERY = `*[!(_id in path('drafts.**')) && _type == "aboutPage"]
+export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[!(_id in path('drafts.**')) && _type == "aboutPage"]
 {
   ...
 }
 `
 // gets all document data for a nativePlant document based on the slug
-export const GET_PLANT_PAGE_DATA = `
+export const GET_PLANT_PAGE_DATA = groq`
 *[_type == "nativePlant" && slug.current == $slug][0] {
     bannerImage,
     mobileImage,
@@ -189,14 +202,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -238,14 +251,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -282,14 +295,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -327,14 +340,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -371,14 +384,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -422,14 +435,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -479,14 +492,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {
@@ -524,14 +537,14 @@ export const GET_PLANT_PAGE_DATA = `
         "bodyText": bodyText,
         "titleText": titleText,
         buttonText,
-        images,
+        image,
         "linkItems": 
           link->{
-            "itemId": _id,
-            "itemType" : _type, 
-            "itemSlug": slug.current,
-            "itemMetaDescription": metaDescription,
-            "itemMainImage": mainImage 
+            "linkId": _id,
+            "linkType" : _type, 
+            "linkSlug": slug.current,
+            "linkMetaDescription": metaDescription,
+            "linkMainImage": mainImage 
           },
       },
       _type == "figure" => {

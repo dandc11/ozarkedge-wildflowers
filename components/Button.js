@@ -153,13 +153,15 @@ const Button = (
     if (callBack) {
       callBack()
     } else {
-      const query = urlParams ? { query: urlParams } : {}
-      router.push({
-        pathname: path,
-        ...query, // Include query parameters here
-      })
+      let finalPath = path
+      if (urlParams) {
+        const searchParams = new URLSearchParams(urlParams)
+        finalPath = `${path}?${searchParams.toString()}`
+      }
+      router.push(finalPath)
     }
   }
+
   return (
     <button
       className={cx(

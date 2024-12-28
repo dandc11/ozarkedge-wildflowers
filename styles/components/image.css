@@ -14,12 +14,14 @@
       position: relative;
       text-align: center;
       font-style: italic;
+      line-height: normal;
+      margin-block-start: var(--sp-xxs);
 
       &.inset-left,
       &.inset-right {
         position: absolute;
         bottom: 0;
-        background-color: var(--color-white);
+        background-color: #ffffffb5;
         padding-block: 0.05rem;
         padding-inline-start: 0.25rem;
         padding-inline-end: 0.5rem;
@@ -48,6 +50,7 @@
     transition: all;
     transition-duration: 200ms;
     transition-delay: 100ms;
+    object-fit: cover;
 
     &.hover {
       &:hover {

@@ -3,7 +3,7 @@
   z-index: 0;
   background-color: var(--oe-green-yellow-400);
 
-  .heading-base,
+  .heading,
   .plant-pg-port-text {
     width: clamp(8rem, 90cqi, 60rem);
     margin-inline: auto;
