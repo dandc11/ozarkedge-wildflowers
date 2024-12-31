@@ -135,7 +135,7 @@
   --fall-bg-color: var(--oe-orange-200);
   --winter-bg-color: var(--oe-white);
 
-  /* Gradients ---------------------------- */
+  /* Gradients ----------------------------- */
   --spring-gradient: linear-gradient(60deg, #ddbd71 5%, #c8dbbd 60%);
   --summer-gradient: linear-gradient(
     180deg,
