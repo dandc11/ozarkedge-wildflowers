@@ -211,17 +211,19 @@ export default defineType({
       type: 'pageBodyPortableText',
       group: 'description',
     }),
-    {
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
         source: (doc) =>
-          `${doc.plantName.commonName}-${doc.plantName.botanicalName}`
+          `${doc?.plantName?.commonName}-${doc?.plantName?.botanicalName}`
             .toLowerCase()
             .replace(/\s+/g, '-')
             .slice(0, 200),
       },
+      hidden: ({ document }) =>
+        !document?.plantName?.commonName || !document?.plantName?.botanicalName,
       preview: {
         select: {
           title: 'plantName.commonName',
@@ -238,7 +240,7 @@ export default defineType({
         },
       },
       validation: (Rule) => Rule.required(),
-    },
+    }),
     defineField({
       name: 'plantIdentificationTags',
       type: 'array',
