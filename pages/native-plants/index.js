@@ -209,9 +209,6 @@ export default function PlantListPage(props) {
     return alphaNames
   }, [nativePlantList])
 
-  // useEffect(() => {
-  // }, [colorsSelected, monthsSelected, habitatsSelected])
-
   // JS Doc for getMatched
   /**
    * @param {Array} selectedItems - The selected options from the filter
