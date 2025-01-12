@@ -1,7 +1,7 @@
 import { SanityImage } from 'sanity-image'
 
-import { urlForImage } from '../app/lib/sanity.image'
-import { projectId, dataset } from '../app/lib/sanity.api'
+import { urlForImage } from '../sanity/lib/sanity.image'
+import { projectId, dataset } from '../sanity/lib/sanity.api'
 
 /**
  * Returns a Sanity image url with the parameters applied
@@ -35,39 +35,25 @@ export const getImagePalette = (image, paletteType) => {
   if (image.palette)
     switch (paletteType) {
       case 'darkMuted':
-        paletteColors = image.palette.darkMuted
-          ? image.palette.darkMuted
-          : paletteColors
+        paletteColors = image.palette.darkMuted ? image.palette.darkMuted : paletteColors
         break
       case 'darkVibrant':
-        paletteColors = image.palette.darkVibrant
-          ? image.palette.darkVibrant
-          : paletteColors
+        paletteColors = image.palette.darkVibrant ? image.palette.darkVibrant : paletteColors
         break
       case 'dominant':
-        paletteColors = image.palette.dominant
-          ? image.palette.dominant
-          : paletteColors
+        paletteColors = image.palette.dominant ? image.palette.dominant : paletteColors
         break
       case 'lightMuted':
-        paletteColors = image.palette.lightMuted
-          ? image.palette.lightMuted
-          : paletteColors
+        paletteColors = image.palette.lightMuted ? image.palette.lightMuted : paletteColors
         break
       case 'lightVibrant':
-        paletteColors = image.palette.lightVibrant
-          ? image.palette.lightVibrant
-          : paletteColors
+        paletteColors = image.palette.lightVibrant ? image.palette.lightVibrant : paletteColors
         break
       case 'vibrant':
-        paletteColors = image.palette.vibrant
-          ? image.palette.vibrant
-          : paletteColors
+        paletteColors = image.palette.vibrant ? image.palette.vibrant : paletteColors
         break
       case 'muted':
-        paletteColors = image.palette.muted
-          ? image.palette.muted
-          : paletteColors
+        paletteColors = image.palette.muted ? image.palette.muted : paletteColors
         break
       default:
         break
@@ -136,14 +122,12 @@ export const getImagePaletteTitleColor = (image, paletteType) => {
  * @returns {Object} - The style object representing the background style.
  */
 export const buildBackgroundStyleObject = (bgParamObj) => {
-  const { bgImage, bgImageSmall, bgColor, bgBlendMode, bgPosition, bgOpacity} = bgParamObj
+  const { bgImage, bgImageSmall, bgColor, bgBlendMode, bgPosition, bgOpacity } = bgParamObj
   let styleObject = {}
 
   if (bgImage) {
     let bgImageUrl = `url('${urlForImage(bgImage)}')`
-    let bgImageSmallUrl = bgImageSmall
-      ? `url('${urlForImage(bgImageSmall)}')`
-      : bgImageUrl
+    let bgImageSmallUrl = bgImageSmall ? `url('${urlForImage(bgImageSmall)}')` : bgImageUrl
 
     styleObject['--container-bg-image'] = `${bgImageUrl}`
     styleObject['--container-bg-small'] = `${bgImageSmallUrl}`
@@ -152,9 +136,8 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
   }
 
   if (bgColor) {
-    let color = bgColor !== 'palette'
-      ? bgColor
-      : getImagePaletteBackgroundColor(bgImage, 'darkVibrant')
+    let color =
+      bgColor !== 'palette' ? bgColor : getImagePaletteBackgroundColor(bgImage, 'darkVibrant')
     styleObject['--container-bg-color'] = color
 
     if (bgOpacity) {
@@ -173,7 +156,7 @@ export const buildBackgroundStyleObject = (bgParamObj) => {
 /**
  * This function returns an array of unique images from a document data object.
  * An image is considered unique if its reference and caption are not repeated in the document.
- * 
+ *
  * @param {Object} docData - The document data object.
  * @param {Array} excludedKeys - An optional array of keys to exclude from the result.
  * @returns {Array} - An array of unique image objects.
@@ -186,7 +169,7 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
   const addUniqueImage = (image) => {
     uniqueImageRefs.add(image.asset._ref) // Add image reference to the Set
     uniqueImageCaptions.add(image.caption) // Add image caption to the Set
-    return image;
+    return image
   }
 
   const imageIsUnique = (image) => {
@@ -198,26 +181,26 @@ export const getUniqueImagesFromDocument = (docData, excludedKeys = []) => {
     )
   }
 
-  const images = [];
+  const images = []
   for (const key in docData) {
     if (docData.hasOwnProperty(key) && !excludedKeysSet.has(key)) {
-      const value = docData[key];
+      const value = docData[key]
       if (Array.isArray(value)) {
         value.forEach((dataObj) => {
           if (dataObj._type === 'figure' && imageIsUnique(dataObj)) {
-            images.push(addUniqueImage(dataObj));
+            images.push(addUniqueImage(dataObj))
           }
           if (dataObj._type === 'imageCollection' && Array.isArray(dataObj.imageCollection)) {
             dataObj.imageCollection.forEach((image) => {
               if (imageIsUnique(image)) {
-                images.push(addUniqueImage(image));
+                images.push(addUniqueImage(image))
               }
-            });
+            })
           }
-        });
+        })
       }
     }
   }
 
-  return images;
+  return images
 }

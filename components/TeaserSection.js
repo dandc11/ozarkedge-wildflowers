@@ -2,12 +2,9 @@ import React from 'react'
 import cx from 'classnames'
 
 import PortTextWrapper from './PortTextWrapper'
-import {
-  getCurrentMonthName,
-  getMonthNumbersFromSeason,
-} from '../utilities/helperUtil'
-import { client } from '../app/lib/sanity.client'
-import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../app/lib/queries'
+import { getCurrentMonthName, getMonthNumbersFromSeason } from '../utilities/helperUtil'
+import { client } from '../sanity/lib/sanity.client'
+import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../sanity/lib/queries'
 import Heading from './Heading'
 import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
@@ -68,19 +65,12 @@ const TeaserSection = (props) => {
    */
 
   const currentMonth = getCurrentMonthName()
-  const headingText = headingChildren
-    ? headingChildren
-    : titleText
-      ? titleText
-      : ''
+  const headingText = headingChildren ? headingChildren : titleText ? titleText : ''
   let teaserUrlParams
 
   return (
     <>
-      <section
-        id={id}
-        className={cx(`teaser feature w-full`, sectionClassName, teaserTheme)}
-      >
+      <section id={id} className={cx(`teaser feature w-full`, sectionClassName, teaserTheme)}>
         <div className={cx('feature-layout-grid w-full', gridClassName)}>
           {headingText && (
             <Heading

@@ -5,7 +5,7 @@ import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react'
 import cx from 'classnames'
 import imageUrlBuilder from '@sanity/image-url'
 
-import { client } from '../app/lib/sanity.client'
+import { client } from '../sanity/lib/sanity.client'
 import useLightbox from '../hooks/useLightbox'
 
 const LightboxGallery = ({
@@ -52,9 +52,7 @@ const LightboxGallery = ({
 
   const imgObjArray = useMemo(() => {
     if (!memoizedImages) return null
-    const imgArray = Array.isArray(memoizedImages)
-      ? memoizedImages
-      : [memoizedImages]
+    const imgArray = Array.isArray(memoizedImages) ? memoizedImages : [memoizedImages]
     return imgArray.map((image) => ({
       src: urlFor(image.asset).width(100).url(),
       original: urlFor(image.asset).fit('max').width(2000).url(),
@@ -67,8 +65,7 @@ const LightboxGallery = ({
   return (
     <SlideshowLightbox
       className={cx({
-        [`grid ${gridColumns[cols]} place-items-center gap-2 p-in-4`]:
-          showImageGrid,
+        [`grid ${gridColumns[cols]} place-items-center gap-2 p-in-4`]: showImageGrid,
         className,
       })}
       framework={useNextImage ? 'next' : ''}

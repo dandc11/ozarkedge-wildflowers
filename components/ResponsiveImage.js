@@ -5,7 +5,7 @@ import { useEffect, useContext } from 'react'
 import cx from 'classnames'
 
 import { LightboxContext } from '../contexts/LightboxContext'
-import { projectId, dataset } from '../app/lib/sanity.api'
+import { projectId, dataset } from '../sanity/lib/sanity.api'
 
 /**
  * @typedef {Object} SanityImageWrapperProps
@@ -127,13 +127,7 @@ const ResponsiveImage = ({
   wrapperClassName = '',
   ...props
 }) => {
-  const {
-    caption = '',
-    alt = '',
-    asset = null,
-    lqip = '',
-    palette = null,
-  } = image ? image : {}
+  const { caption = '', alt = '', asset = null, lqip = '', palette = null } = image ? image : {}
   const id = asset?._ref || ''
   const captionClassName = cx({
     'inset-left': captionStyle === 'insetLeft',
@@ -141,8 +135,7 @@ const ResponsiveImage = ({
     below: captionStyle === 'below',
   })
 
-  const { setLightBoxOpenImgKey, setLightboxIdentifier } =
-    useContext(LightboxContext)
+  const { setLightBoxOpenImgKey, setLightboxIdentifier } = useContext(LightboxContext)
 
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
