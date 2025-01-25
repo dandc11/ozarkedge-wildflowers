@@ -19,12 +19,12 @@
       border-style: none;
     }
 
-    /* Main Navigation ********************************/
+    /* Main Navigation *********************************/
 
     #mainNav {
       &.menu-active {
         display: block;
-        
+
         .nav-btn-bar {
           background-color: var(--oe-white);
         }
