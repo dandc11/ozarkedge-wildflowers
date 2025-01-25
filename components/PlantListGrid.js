@@ -1,11 +1,5 @@
 'use client'
-import React, {
-  useState,
-  useCallback,
-  useMemo,
-  useEffect,
-  Suspense,
-} from 'react'
+import React, { useState, useCallback, useMemo, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import makeAnimated from 'react-select/animated'
 
@@ -26,11 +20,7 @@ import { MONTH_OPTIONS } from '../utilities/constants'
  *
  * @returns {JSX.Element} The rendered PlantListGrid component.
  */
-const PlantListGrid = ({
-  nativePlantList,
-  nativePlantPageData,
-  plantListInformation,
-}) => {
+const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformation }) => {
   const [maxItemsDisplayed, setMaxItemsDisplayed] = useState(30)
   const [nameSelected, setNameSelected] = useState('')
   const [habitatsSelected, setHabitatsSelected] = useState('')
@@ -80,6 +70,7 @@ const PlantListGrid = ({
 
   // Create the name options for the filter, sorted alphabetically by common name
   const NAME_OPTIONS = useMemo(() => {
+    console.log('nativePlantList', nativePlantList)
     const names = nativePlantList.map((plant) => plant.plantName)
     const uniqueNames = [...new Set(names)]
     const fullNames = [
@@ -126,33 +117,22 @@ const PlantListGrid = ({
       plantValues = [plantProperty]
     }
     const selectedValues = selectedItems.map((item) => item.value)
-    const isMatched = selectedValues.some((value) =>
-      plantValues.includes(value),
-    )
+    const isMatched = selectedValues.some((value) => plantValues.includes(value))
     return isMatched
   }
 
   // Filter the plant list displayed based on the selected options, then sort alphabetically
   const filteredNativePlantList = nativePlantList
     .filter((plant) => {
-      const isFloweringMonthMatched = getMatched(
-        monthsSelected,
-        plant.floweringMonths,
-      )
-      const isHabitatTypeMatched = getMatched(
-        habitatsSelected,
-        plant.habitatType,
-      )
+      const isFloweringMonthMatched = getMatched(monthsSelected, plant.floweringMonths)
+      const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
       const isFlowerColorMatched = getMatched(colorsSelected, plant.flowerColor)
       const isNameMatched = getMatched(nameSelected, [
         plant.plantName.commonName,
         plant.plantName.botanicalName,
       ])
       return (
-        isNameMatched &&
-        isHabitatTypeMatched &&
-        isFloweringMonthMatched &&
-        isFlowerColorMatched
+        isNameMatched && isHabitatTypeMatched && isFloweringMonthMatched && isFlowerColorMatched
       )
     })
     .map((plant) => plant)
@@ -186,34 +166,29 @@ const PlantListGrid = ({
               monthsValue={monthsSelected}
             />
           </section>
-          <section
-            id={'plantListSection'}
-            className="plant-list-container w-full"
-          >
+          <section id={'plantListSection'} className="plant-list-container w-full">
             <div className="plant-card-grid w-full">
-              {filteredNativePlantList
-                .slice(0, maxItemsDisplayed)
-                .map((plant, index) => (
-                  <CustomLink
-                    docType={'nativePlant'}
-                    slug={plant.slug?.current}
-                    key={plant.plantName.botanicalName}
-                  >
-                    <PlantImageCard
-                      className="max-w-xs"
-                      image={plant.previewImage}
-                      plantName={plant.plantName}
-                      floweringMonths={plant.floweringMonths}
-                      flowerColor={plant.flowerColor}
-                      habitatType={plant.habitatType}
-                      imagePosition="left"
-                    />
-                  </CustomLink>
-                ))}
+              {filteredNativePlantList.slice(0, maxItemsDisplayed).map((plant, index) => (
+                <CustomLink
+                  docType={'nativePlant'}
+                  slug={plant.slug?.current}
+                  key={plant.plantName.botanicalName}
+                >
+                  <PlantImageCard
+                    className="max-w-xs"
+                    image={plant.previewImage}
+                    plantName={plant.plantName}
+                    floweringMonths={plant.floweringMonths}
+                    flowerColor={plant.flowerColor}
+                    habitatType={plant.habitatType}
+                    imagePosition="left"
+                  />
+                </CustomLink>
+              ))}
             </div>
             {maxItemsDisplayed < nativePlantList.length && (
               <Button
-                className={`btn-secondary mt-8 bp-900:mb-6`}
+                className={`btn-2 mt-8 bp-900:mb-6`}
                 callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}
               >
                 Show More

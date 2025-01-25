@@ -1,32 +1,49 @@
 import React from 'react'
 import cx from 'classnames'
+import { stegaClean } from '@sanity/client/stega'
 
 import LightboxGallery from '../../../components/LightboxGallery'
 import PortTextWrapper from '../../../components/PortTextWrapper'
 import ResponsiveImage from '../../../components/ResponsiveImage'
 import HeadingDisplay from '../../../components/HeadingDisplay'
 import FeatureSection from '../../../components/FeatureSection'
-import ContextUpdater from '../../../components/ContextUpdater'
 import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
 import { destructureFeature } from '../../../utilities/helperUtil'
-import {
-  GET_ALL_SEASON_PATHS_QUERY,
-  GET_SEASON_PAGE_DATA_QUERY,
-} from '../../lib/queries'
-import { client } from '../../lib/sanity.client'
+import { GET_ALL_SEASON_PATHS_QUERY, GET_SEASON_PAGE_DATA_QUERY } from '../../../sanity/lib/queries'
+import { client } from '../../../sanity/lib/sanity.client'
+import { sanityFetch } from '../../../sanity/lib/sanity.live'
 
-const SeasonPage = async ({ params }) => {
-  /**
-   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
-   * TODO: 2. TEASER - retrieve FeatureSection data for teaser section - add to query, dereference in query, and pass to FeatureSection component (replacing TeaserSection)
+/**
+ * Generate the static params for the page.
+ * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
+ */
+export async function generateStaticParams() {
+  const { data } = await sanityFetch({
+    query: GET_ALL_SEASON_PATHS_QUERY,
+    // Use the published perspective in generateStaticParams
+    perspective: 'published',
+    stega: false,
+  })
+  return data
+}
+
+const SeasonPage = async (props) => {
+  /** TODO: 2. TEASER - retrieve FeatureSection data for teaser section - add to query, dereference in query, and pass to FeatureSection component (replacing TeaserSection)
    */
-  const { slug } = params
-  const pageData = await client.fetch(GET_SEASON_PAGE_DATA_QUERY, { slug })
+  const params = await props.params
+  const [{ data: pageData }] = await Promise.all([
+    sanityFetch({ query: GET_SEASON_PAGE_DATA_QUERY, params }),
+  ])
+
+  if (!pageData?._id) {
+    return <div className="py-40">Loading...</div>
+  }
 
   const {
     seasonName = 'spring',
     description = [],
     feature,
+    slug,
     mainImage,
     mobileImage,
     monthNumbers = [],
@@ -41,12 +58,8 @@ const SeasonPage = async ({ params }) => {
     <>
       {pageData && (
         <>
-          <ContextUpdater navButtonColor={menuButtonColor} />
-          <div className={`season-page ${seasonName}`}>
-            <section
-              id={'sesaonHeader'}
-              className="season-header relative w-full h-full"
-            >
+          <div className={`season-page ${stegaClean(seasonName)}`}>
+            <section id={'seasonHeader'} className="season-header relative w-full h-full">
               <ResponsiveImage
                 image={mainImage}
                 alt={mainImage?.alt || `${seasonName} at Ozarkedge `}
@@ -112,13 +125,6 @@ const SeasonPage = async ({ params }) => {
       )}
     </>
   )
-}
-
-export async function generateStaticParams() {
-  const seasonPagePaths = await client.fetch(GET_ALL_SEASON_PATHS_QUERY)
-  return seasonPagePaths.map((slug) => ({
-    slug,
-  }))
 }
 
 export default SeasonPage

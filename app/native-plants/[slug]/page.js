@@ -10,14 +10,25 @@ import GrowingNearby from '../../../components/GrowingNearbySection'
 import Heading from '../../../components/Heading'
 import PlantPageIntroSection from '../../../components/PlantPageIntroSection'
 import ContentSection from '../../../components/ContentSection'
-import ContextUpdater from '../../../components/ContextUpdater'
 import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
 import { PLANT_PAGE_SECTIONS } from '../../../utilities/constants'
-import {
-  GET_ALL_NATIVE_PLANT_PATHS_QUERY,
-  GET_PLANT_PAGE_DATA,
-} from '../../lib/queries'
-import { client } from '../../lib/sanity.client'
+import { GET_ALL_NATIVE_PLANT_PATHS_QUERY, GET_PLANT_PAGE_DATA } from '../../../sanity/lib/queries'
+import { client } from '../../../sanity/lib/sanity.client'
+import { sanityFetch } from '../../../sanity/lib/sanity.live'
+
+/**
+ * Generate the static params for the page.
+ * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
+ */
+export async function generateStaticParams() {
+  const { data } = await sanityFetch({
+    query: GET_ALL_NATIVE_PLANT_PATHS_QUERY,
+    // Use the published perspective in generateStaticParams
+    perspective: 'published',
+    stega: false,
+  })
+  return data
+}
 
 // get links to section ids for the sections with content
 const getSectionLinks = (pageData) => {
@@ -36,13 +47,15 @@ const getSectionLinks = (pageData) => {
  * @returns {JSX.Element} - plant page component
  *
  */
-const NativePlantPage = async ({ params }) => {
-  /**
-   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
-   */
+const NativePlantPage = async (props) => {
+  const params = await props.params
+  const [{ data: pageData }] = await Promise.all([
+    sanityFetch({ query: GET_PLANT_PAGE_DATA, params }),
+  ])
 
-  const { slug } = params
-  const pageData = await client.fetch(GET_PLANT_PAGE_DATA, { slug })
+  // if (!pageData?._id) {
+  //   return <div className="py-40">Loading...</div>
+  // }
 
   const {
     bannerImage,
@@ -65,25 +78,17 @@ const NativePlantPage = async ({ params }) => {
   } = pageData
 
   const sectionLinks = getSectionLinks(pageData)
-  const fullImageArray = getUniqueImagesFromDocument(pageData, [
-    'growingNearbyPlantList',
-  ])
+  const fullImageArray = getUniqueImagesFromDocument(pageData, ['growingNearbyPlantList'])
   const nsBadge = (
-    <NatureServeBadge
-      conservationRanking={conservationRanking}
-      className={'inline-flex text-lg'}
-    />
+    <NatureServeBadge conservationRanking={conservationRanking} className={'inline-flex text-lg'} />
   )
 
-  const nsMessage = (
-    <NatureServeMessage conservationRanking={conservationRanking} />
-  )
+  const nsMessage = <NatureServeMessage conservationRanking={conservationRanking} />
 
   return (
     <div className="plant-page bg-topography parallax">
       {pageData && (
         <>
-          <ContextUpdater navButtonColor={menuButtonColor} />
           {bannerImage && (
             <div id="bannerImage" className={`relative ${menuButtonColor}`}>
               <ResponsiveImage
@@ -130,10 +135,7 @@ const NativePlantPage = async ({ params }) => {
           <main id="plantPageMainContent" className="w-full">
             <div className={`relative plant-page-grid`}>
               {fullImageArray && (
-                <div
-                  id={`images`}
-                  className="right-sidebar flex flex-col items-center"
-                >
+                <div id={`images`} className="right-sidebar flex flex-col items-center">
                   <LightboxGallery
                     cols={3}
                     images={fullImageArray}
@@ -240,13 +242,6 @@ const NativePlantPage = async ({ params }) => {
       )}
     </div>
   )
-}
-
-export async function generateStaticParams() {
-  const plantPagePaths = await client.fetch(GET_ALL_NATIVE_PLANT_PATHS_QUERY)
-  return plantPagePaths.map((slug) => ({
-    slug,
-  }))
 }
 
 export default NativePlantPage

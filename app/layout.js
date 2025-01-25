@@ -1,18 +1,16 @@
 import '../styles/global.css'
-import 'lightbox.js-react/dist/index.css'
-import { Playfair_Display, Raleway, Roboto } from 'next/font/google'
-import Head from 'next/head'
-import dynamic from 'next/dynamic'
+// import 'lightbox.js-react/dist/index.css'
+import { Playfair_Display, Raleway } from 'next/font/google'
 import { draftMode } from 'next/headers'
-import { groq } from 'next-sanity'
+import Head from 'next/head'
+import { VisualEditing } from 'next-sanity'
 
-import { client } from './lib/sanity.client'
-import { token } from './lib/sanity.fetch'
+import { DisableDraftMode } from '../components/DisableDraftMode'
+import { sanityFetch, SanityLive } from '../sanity/lib/sanity.live'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-
-const PreviewProvider = dynamic(() => import('../components/PreviewProvider'))
+import { GET_MENU_ITEMS_QUERY } from '../sanity/lib/queries'
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -32,15 +30,14 @@ const raleway = Raleway({
 
 export default async function RootLayout({ children, pageProps }) {
   // Fetch the menu data from Sanity
-  const menuData = await client.fetch(groq`
-    *[_type == "menu" && !(_id in path("drafts.**"))]{menuBackgroundImage, mobileMenuBackgroundImage, menuItems[]{title,"menuItemLink": {"docType": link.internalLink->_type, "slug": link.internalLink->slug.current}}}
-  `)
+  const menuData = await sanityFetch({
+    query: GET_MENU_ITEMS_QUERY,
+  })
+
+  const { isEnabled: isDraftMode } = await draftMode()
 
   return (
-    <html
-      lang="en"
-      className={`${playfairDisplay.variable} ${raleway.variable}`}
-    >
+    <html lang="en" className={`${playfairDisplay.variable} ${raleway.variable}`}>
       <Head>
         <title>Ozarkedge Wildflowers</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,29 +48,20 @@ export default async function RootLayout({ children, pageProps }) {
         <meta name="theme-color" content="#000000" />
       </Head>
       <body className="oe-site-body">
-        {/* {draftMode ? (
-          <PreviewProvider token={token}>
-            <ContextProviders>
-              <div className={`flex flex-col w-full`}>
-                <Nav menuData={menuData} />
-                <main id={`page-content`} className={`relative`}>
-                  {children}
-                </main>
-                <Footer />
-              </div>
-            </ContextProviders>
-          </PreviewProvider>
-        ) : ( */}
+        {/* <SanityLive /> */}
         <ContextProviders>
-          {/* <div className={`flex flex-col`}> */}
-          <Nav menuData={menuData} />
+          <Nav menuData={menuData?.data} />
           <main id={`page-content`} className={`relative`}>
             {children}
           </main>
           <Footer />
-          {/* </div> */}
+          {isDraftMode && (
+            <>
+              <DisableDraftMode />
+              <VisualEditing />
+            </>
+          )}
         </ContextProviders>
-        {/* )} */}
       </body>
     </html>
   )

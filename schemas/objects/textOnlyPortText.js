@@ -2,7 +2,7 @@ import React from 'react'
 import { defineArrayMember, defineType } from 'sanity'
 
 import { DOCUMENT_TYPES } from '../constants/constants'
-import IconAppender from '../components/IconAppender'
+// import { IconAppender } from '../components/IconAppender'
 
 export default defineType({
   name: 'textOnlyPortText',
@@ -42,7 +42,7 @@ export default defineType({
                 to: DOCUMENT_TYPES,
               },
             ],
-            icon: <IconAppender iconType={`internalLink`} />,
+            // icon: <IconAppender iconType={`internalLink`} />,
           },
           {
             name: 'externalLink',
@@ -61,7 +61,7 @@ export default defineType({
                 type: 'boolean',
               },
             ],
-            icon: <IconAppender iconType={`externalLink`} />,
+            // icon: <IconAppender iconType={`externalLink`} />,
           },
         ],
         // Decorators usually describe a single property – e.g. a typographic

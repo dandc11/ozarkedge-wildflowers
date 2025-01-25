@@ -15,6 +15,7 @@
 @import './components/imagecard.css';
 @import './components/imageslider.css';
 @import './components/natureserve.css';
+@import './components/plantname.css';
 @import './components/tableofcontents.css';
 @import './pages/home.css';
 @import './pages/plant-pages.css';
@@ -53,6 +54,24 @@ html {
   * {
     color: var(--oe-text-body);
     border-style: none;
+  }
+}
+
+/* Hide navigation and footer when the studio is rendered */
+body:has(#sanity) {
+  #mainNav,
+  #oeFooter {
+    display: none;
+  }
+
+  #sanity {
+    [data-testid='action-publish'] {
+      background-color: grey;
+
+      &[data-disabled='false'] {
+        background-color: lightgreen;
+      }
+    }
   }
 }
 
@@ -141,15 +160,6 @@ img {
 
   img {
     object-fit: contain;
-    align-self: flex-start;
-  }
-}
-
-.plant-name-wrapper {
-  container: plant-name-wrapper / inline-size;
-
-  .common-name {
-    font-weight: 600;
-    padding-block: var(--sp-xxs);
+    align-self: center;
   }
 }

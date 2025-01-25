@@ -6,37 +6,40 @@ export const mainDocuments = defineDocuments([
     filter: `_type == "nativePlant" && slug.current == $slug`,
   },
   {
-    route: '/native-plants',
-    filter: `_type == "plantListPage" && slug.current == $slug`,
-  },
-  {
-    route: 'seasons/:slug',
-    filter: `_type == "page" && slug.current == $slug`,
+    route: '/seasons/:slug',
+    filter: `_type == "season" && slug.current == $slug`,
   },
 ])
 
-export const resolve = {
-  locations: {
-    landingPage: defineLocations({
-      select: {
-        title: 'title',
-        slug: 'slug.current',
-      },
-      resolve: (doc) => ({
-        locations: [
-          {
-            title: doc?.title || 'Landing Page',
-            href: '/',
-          },
-        ],
-      }),
-    }),
-    aboutPage: defineLocations([
+export const locations = {
+  settings: defineLocations({
+    message: 'This document is used on all pages',
+    tone: 'caution',
+  }),
+  landingPage: defineLocations({
+    message: 'This document is used to render the Home page',
+    tone: 'positive',
+    locations: [{ title: 'Home', href: '/' }],
+  }),
+  aboutPage: defineLocations({
+    message: 'This document is used to render the About Ozarkedge page',
+    tone: 'positive',
+    locations: [
       {
-        title: 'title',
+        title: 'About',
         href: '/about',
       },
-    ]),
-    // Add more document types as needed
-  },
+    ],
+  }),
+  plantListPage: defineLocations({
+    select: { title: 'Plant List Page', slug: 'slug.current' },
+    message: 'This document is used to render the Plant List page',
+    tone: 'positive',
+    locations: [
+      {
+        title: 'Plant List Page',
+        href: '/native-plants',
+      },
+    ],
+  }),
 }

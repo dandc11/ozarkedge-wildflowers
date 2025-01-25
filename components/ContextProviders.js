@@ -1,16 +1,11 @@
-'use client';
+'use client'
 
-import { NavContextProvider } from '../contexts/NavContext';
-import { LightboxProvider } from '../contexts/LightboxContext';
+import { LightboxProvider } from '../contexts/LightboxContext'
 
 export default function ContextProviders({ children }) {
   return (
     <>
-        <NavContextProvider>
-          <LightboxProvider>
-            {children}
-          </LightboxProvider>
-        </NavContextProvider>
+      <LightboxProvider>{children}</LightboxProvider>
     </>
-  );
+  )
 }

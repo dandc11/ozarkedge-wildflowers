@@ -1,57 +1,43 @@
 import React from 'react'
 import cx from 'classnames'
+import { stegaClean } from '@sanity/client/stega'
 
 import HeadingDisplay from '../../components/HeadingDisplay'
-import { client } from '../lib/sanity.client'
 import ResponsiveImage from '../../components/ResponsiveImage'
-import ContextUpdater from '../../components/ContextUpdater'
 import PlantListGridWithSuspense from '../../components/PlantListGrid'
 import {
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
   GET_PLANT_LIST_PAGE_DATA_QUERY,
-} from '../lib/queries'
+} from '../../sanity/lib/queries'
+import { sanityFetch } from '../../sanity/lib/sanity.live'
 
 const NativePlantPage = async () => {
-  /**
-   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
-   */
+  const nativePlantQueryResponse = await sanityFetch({ query: GET_PLANT_LIST_PAGE_DATA_QUERY })
+  const nativePlantPageData = nativePlantQueryResponse?.data?.[0] ?? null
+  const nativePlantListQueryResponse = await sanityFetch({
+    query: GET_NATIVE_PLANT_LIST_DATA_QUERY,
+  })
+  const nativePlantList = nativePlantListQueryResponse?.data ?? []
 
-  const nativePlantPageData = await client.fetch(GET_PLANT_LIST_PAGE_DATA_QUERY)
-  const nativePlantList = await client.fetch(GET_NATIVE_PLANT_LIST_DATA_QUERY)
-
-  const {
-    pageTitle,
-    navButtonColor = 'light',
-    mainImage,
-    mobileImage,
-    plantListInformation,
-  } = nativePlantPageData[0]
+  const menuButtonColor = stegaClean(nativePlantPageData?.menuButtonColor) || 'light'
 
   return (
     <div className="plant-list-page-content">
       <div className="plant-list-header relative ">
-        <ContextUpdater navButtonColor={navButtonColor} />
         <HeadingDisplay absolute headingClassName={'text-display'}>
           <span
             className={cx('no-wrap', {
-              'text-light': navButtonColor === 'light',
-              'text-dark': navButtonColor !== 'light',
+              'text-light': menuButtonColor === 'light',
+              'text-dark': menuButtonColor === 'dark',
             })}
           >
             Native Wildflowers
           </span>{' '}
-          <span
-            className={cx('no-wrap', {
-              'text-light': navButtonColor === 'light',
-              'text-dark': navButtonColor !== 'light',
-            })}
-          >
-            at Ozarkedge
-          </span>
+          <span className={cx(`no-wrap text-${menuButtonColor}`)}>at Ozarkedge</span>
         </HeadingDisplay>
         <ResponsiveImage
-          image={mainImage}
-          alt={pageTitle}
+          image={nativePlantPageData?.mainImage}
+          alt={nativePlantPageData?.pageTitle}
           disableHover
           disablePointer
           loading="eager"
@@ -60,8 +46,12 @@ const NativePlantPage = async () => {
           className="w-full h-full "
         />
         <ResponsiveImage
-          image={mobileImage ? mobileImage : mainImage}
-          alt={pageTitle}
+          image={
+            nativePlantPageData?.mobileImage
+              ? nativePlantPageData?.mobileImage
+              : nativePlantPageData?.mainImage
+          }
+          alt={nativePlantPageData?.pageTitle}
           disableHover
           disablePointer
           loading="eager"
@@ -73,7 +63,7 @@ const NativePlantPage = async () => {
       <PlantListGridWithSuspense
         nativePlantPageData={nativePlantPageData}
         nativePlantList={nativePlantList}
-        plantListInformation={plantListInformation}
+        plantListInformation={nativePlantPageData?.plantListInformation}
       />
     </div>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { getCurrentMonthName, titleCase } from '../utilities/helperUtil'
+import { getCurrentMonthName, getCurrentSeason, titleCase } from '../utilities/helperUtil'
 import Heading from './Heading'
 import PortTextWrapper from './PortTextWrapper'
 import ImageSlider from './ImageSlider'
@@ -43,6 +43,24 @@ const TeaserSlider = (props) => {
     gridClassName = '',
   } = props
   const thisMonth = getCurrentMonthName()
+  const currentSeason = getCurrentSeason()?.SEASON_NAME
+  let btnThemeClass
+  switch (currentSeason) {
+    case 'spring':
+      btnThemeClass = 'btn-primary'
+      break
+    case 'summer':
+      btnThemeClass = 'btn-secondary'
+      break
+    case 'fall':
+      btnThemeClass = 'btn-3'
+      break
+    case 'winter':
+      btnThemeClass = 'btn-4'
+      break
+    default:
+      btnThemeClass = 'btn-primary'
+  }
   const sliderPlants = images
     .filter((plant) => plant.image)
     .map((plant) => {
@@ -51,7 +69,6 @@ const TeaserSlider = (props) => {
       plant.image.slug = plant.slug
       return plant.image
     })
-  console.log('defaultImage', defaultImage)
   // TODO: update this with dynamic params for more use cases
   const teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
   return (
@@ -61,6 +78,7 @@ const TeaserSlider = (props) => {
           id={id}
           className={cx(
             `teaser teaser-slider bp-800:flex justify-center w-full`,
+            currentSeason,
             className,
           )}
         >
@@ -70,11 +88,7 @@ const TeaserSlider = (props) => {
             })}
           >
             {headingChildren && (
-              <Heading
-                id={headingId}
-                className={headingClassName}
-                headingClassName={`font-bold`}
-              >
+              <Heading id={headingId} className={headingClassName} headingClassName={`font-bold`}>
                 {headingChildren}
               </Heading>
             )}
@@ -106,11 +120,9 @@ const TeaserSlider = (props) => {
                 <p>{bodyText}</p>
               )}
               <Button
-                className={`btn-primary m-bk-6`}
+                className={cx(btnThemeClass, `m-bk-6`)}
                 slug={buttonLinkSlug}
-                linkDocType={
-                  buttonLinkDocType ? buttonLinkDocType : 'plantListPage'
-                }
+                linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
                 urlParams={teaserUrlParams}
               >
                 {buttonLinkText}

@@ -8,18 +8,36 @@
   border-radius: var(--br-lg);
   align-self: center;
   border: none;
+  background-size: 300% 100%;
+  transition: all 0.4s ease-in-out;
 
-  &.btn-primary {
-    background: var(--btn-gradient-1);
-  }
-
-  &.btn-secondary {
-    background: var(--btn-gradient-2);
+  &:hover {
+    /* transition: all 0.3s ease-in-out; */
+    background-position: 100% 0;
   }
 
   &.btn-expand {
     width: 100%;
+    box-shadow: none;
+    color: var(--oe-text-body);
   }
+}
+
+.btn-1 {
+  background-image: var(--btn-gradient-1);
+}
+.btn-2 {
+  background-image: var(--btn-gradient-2);
+}
+.btn-3 {
+  background-image: var(--btn-gradient-1);
+}
+.btn-4 {
+  background-image: var(--btn-gradient-3);
+  color: var(--oe-blue-dark-600);
+}
+.btn-5 {
+  background-image: var(--btn-gradient-5);
 }
 
 @container (width > 600px) {

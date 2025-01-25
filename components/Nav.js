@@ -3,8 +3,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import cx from 'classnames'
 
-import { NavContext } from '../contexts/NavContext'
-import ContextUpdater from './ContextUpdater'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
 
@@ -32,11 +30,6 @@ const Nav = ({ menuData }) => {
     }
   }, [menuData])
 
-  // Get the color of the nav button from NavContext
-  const { navButtonColor } = useContext(NavContext)
-  const navColorClass =
-    isMenuOpen || navButtonColor === 'light' ? 'nav-btn-light' : 'nav-btn-dark'
-
   const menuListItems = menuItems.map((item, index) => {
     return (
       <li
@@ -62,9 +55,9 @@ const Nav = ({ menuData }) => {
         className={cx('nav-icon flex flex-col justify-between')}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        <div className={`nav-btn-bar ${navColorClass}`}></div>
-        <div className={`nav-btn-bar ${navColorClass}`}></div>
-        <div className={`nav-btn-bar ${navColorClass}`}></div>
+        <div className={`nav-btn-bar`}></div>
+        <div className={`nav-btn-bar`}></div>
+        <div className={`nav-btn-bar`}></div>
       </button>
     )
   }
@@ -77,11 +70,7 @@ const Nav = ({ menuData }) => {
           'nav-active': isMenuOpen,
         })}
       >
-        <HamburgerButton
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-          navButtonColor={navButtonColor}
-        />
+        <HamburgerButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         <div className={cx(`nav-grid-container w-full h-full`)}>
           <div id="menuItemsContainer" className="nav-sidebar">
             <ul className={`nav-list`}>{menuListItems}</ul>

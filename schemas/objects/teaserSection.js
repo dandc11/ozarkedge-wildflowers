@@ -1,9 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-import {
-  TeaserCollectionPreview,
-  TeaserSectionPreview,
-} from '../components/TeaserSectionPreview'
+import { TeaserCollectionPreview, TeaserSectionPreview } from '../components/TeaserSectionPreview'
 import { DOCUMENT_TYPES } from '../constants/constants'
 
 export default defineType({
@@ -12,10 +9,7 @@ export default defineType({
   type: 'object',
   validation: (rule) =>
     rule.custom((fields) => {
-      if (
-        (fields.pullTextFromLink || fields.pullImagesFromLink) &&
-        !fields.link
-      )
+      if ((fields.pullTextFromLink || fields.pullImagesFromLink) && !fields.link)
         return `A teaser section is trying to pull resources from a link, but no link has been added. You must either add a link to pull resources from, or add body text and images yourself.`
       return true
     }),
@@ -52,8 +46,7 @@ export default defineType({
     }),
     defineField({
       name: 'link',
-      description:
-        'Select the page that this teaser section should direct the visitor toward.',
+      description: 'Select the page that this teaser section should direct the visitor toward.',
       type: 'reference',
       to: DOCUMENT_TYPES,
       group: 'text',
@@ -85,6 +78,7 @@ export default defineType({
       group: 'image',
     }),
   ],
+  icon: () => '🌟',
   components: { preview: TeaserSectionPreview },
   preview: {
     select: {

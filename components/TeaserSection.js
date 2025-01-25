@@ -104,7 +104,7 @@ const TeaserSection = (props) => {
             )}
             {linkType && showButton && (
               <Button
-                className={`btn-primary m-bk-5`}
+                className={`btn-1 m-bk-5`}
                 linkDocType={linkType}
                 slug={linkSlug}
                 urlParams={teaserUrlParams}

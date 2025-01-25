@@ -7,9 +7,51 @@
   --teaser-heading-color: var(--oe-blue-green-light-900);
   --teaser-btn-bg-color: var(--btn-gradient-1);
   container: teaser / inline-size;
+
+  &.spring,
+  &.summer {
+    --teaser-bg-color: var(--spring-accent);
+    --teaser-text-color: var(--oe-white);
+    --teaser-heading-color: var(--spring-accent);
+    --teaser-btn-bg-color: var(--btn-gradient-1);
+  }
+
+  &.fall {
+    --teaser-bg-color: var(--fall-bg-color);
+    --teaser-text-color: var(--oe-white);
+    --teaser-heading-color: var(--fall-bg-color);
+    --teaser-btn-bg-color: var(--btn-gradient-3);
+  }
+
+  &.winter {
+    --teaser-bg-color: var(--winter-bg-color);
+    --teaser-text-color: var(--oe-text-body);
+    --teaser-heading-color: var(--oe-text-body);
+    --teaser-btn-bg-color: var(--btn-gradient-3);
+  }
 }
 
 /* Teaser Slider (multiple images)*/
+
+.teaser-slider {
+  background: var(--teaser-bg-color);
+  color: var(--teaser-text-color);
+
+  .heading-title {
+    color: var(--teaser-heading-color);
+  }
+
+  button {
+    margin-inline: auto;
+  }
+
+  @container homepage-content (width >= 800px) {
+    button {
+      margin-inline: 0;
+    }
+  }
+}
+
 .teaser-slider-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -31,7 +73,7 @@
   .teaser-body {
     grid-area: body;
 
-    .btn-primary {
+    .btn-1 {
       margin-inline: auto;
     }
   }
@@ -91,28 +133,6 @@
   width: 100%;
   margin-block: var(--sp-2xl);
 
-  &.spring,
-  &.summer {
-    --teaser-bg-color: var(--spring-accent);
-    --teaser-text-color: var(--oe-white);
-    --teaser-heading-color: var(--spring-accent);
-    --teaser-btn-bg-color: var(--btn-gradient-1);
-  }
-
-  &.fall {
-    --teaser-bg-color: var(--fall-bg-color);
-    --teaser-text-color: var(--oe-white);
-    --teaser-heading-color: var(--fall-bg-color);
-    --teaser-btn-bg-color: var(--btn-gradient-3);
-  }
-
-  &.winter {
-    --teaser-bg-color: var(--winter-accent);
-    --teaser-text-color: var(--oe-text-body);
-    --teaser-heading-color: var(--oe-blue-dark-600);
-    --teaser-btn-bg-color: var(--btn-gradient-4);
-  }
-
   .heading {
     background-color: var(--season-bg-color);
 
@@ -132,7 +152,7 @@
       padding-inline: var(--sp-md);
     }
 
-    .btn-primary {
+    .btn-1 {
       background: var(--teaser-btn-bg-color);
     }
   }

@@ -17,11 +17,7 @@ const ChevronDown = ({ strokeWidth = 1 }) => {
         stroke="black"
         className="w-10 h-10 my-1"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
       </svg>
     </>
   )
@@ -80,11 +76,7 @@ const ChevronUp = (strokeWidth = 1) => {
         stroke="currentColor"
         className="w-10 h-10"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.5 15.75l7.5-7.5 7.5 7.5"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
       </svg>
     </>
   )
@@ -101,11 +93,7 @@ const ChevronRight = (strokeWidth = 1) => {
         stroke="currentColor"
         className="w-10 h-10"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9.75 4.5l7.5 7.5-7.5 7.5"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </>
   )
@@ -122,11 +110,7 @@ const ChevronLeft = (strokeWidth = 1) => {
         stroke="currentColor"
         className="w-10 h-10"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M14.25 19.5l-7.5-7.5 7.5-7.5"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 19.5l-7.5-7.5 7.5-7.5" />
       </svg>
     </>
   )
@@ -138,6 +122,7 @@ const Button = (
     callBack,
     children,
     className,
+    data,
     expanded = '',
     linkDocType = '',
     strokeWidth = 1.5,
@@ -147,6 +132,7 @@ const Button = (
   },
   ...props
 ) => {
+  console.log('data returned ,', data)
   const router = useRouter()
   const path = getPathFromDocType(linkDocType, slug)
   const clickHandler = () => {
@@ -172,22 +158,12 @@ const Button = (
       type={`${type}`}
       onClick={() => clickHandler()}
     >
-      {buttonIcon === 'expand' && !expanded && (
-        <PlusCircle strokeWidth={strokeWidth} />
-      )}
-      {buttonIcon === 'expand' && expanded && (
-        <MinusCircle strokeWidth={strokeWidth} />
-      )}
-      {buttonIcon === 'chevron-down' && (
-        <ChevronDown strokeWidth={strokeWidth} />
-      )}
+      {buttonIcon === 'expand' && !expanded && <PlusCircle strokeWidth={strokeWidth} />}
+      {buttonIcon === 'expand' && expanded && <MinusCircle strokeWidth={strokeWidth} />}
+      {buttonIcon === 'chevron-down' && <ChevronDown strokeWidth={strokeWidth} />}
       {buttonIcon === 'chevron-up' && <ChevronUp strokeWidth={strokeWidth} />}
-      {buttonIcon === 'chevron-right' && (
-        <ChevronRight strokeWidth={strokeWidth} />
-      )}
-      {buttonIcon === 'chevron-left' && (
-        <ChevronLeft strokeWidth={strokeWidth} />
-      )}
+      {buttonIcon === 'chevron-right' && <ChevronRight strokeWidth={strokeWidth} />}
+      {buttonIcon === 'chevron-left' && <ChevronLeft strokeWidth={strokeWidth} />}
       {children}
     </button>
   )

@@ -9,7 +9,7 @@ export const client = createClient({
   useCdn,
   // perspective: 'published',
   stega: {
-    studioUrl: 'http://localhost:3000/studio',
+    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL,
     logger: console,
     filter: (props) => {
       if (props.sourcePath.at(-1) === 'title') {

@@ -57,7 +57,7 @@
   }
 
   .homepage-cta {
-    .btn-secondary {
+    .btn-2 {
       background: var(--btn-gradient-5);
     }
   }
@@ -107,8 +107,8 @@
       justify-content: end;
       padding-block-start: var(--sp-2xl);
 
-      .btn-primary,
-      .btn-secondary {
+      .btn-1,
+      .btn-2 {
         width: auto;
       }
     }
@@ -121,12 +121,12 @@
   .description {
     container: description / inline-size;
 
-    .btn-primary {
+    .btn-1 {
       width: 100%;
     }
 
     @container description (width > 600px) {
-      .btn-primary {
+      .btn-1 {
         width: auto;
       }
     }

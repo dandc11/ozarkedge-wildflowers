@@ -1,0 +1,14 @@
+.common-name {
+  padding-block: var(--sp-xs);
+}
+.botanical-name {
+  padding-block: var(--sp-xxs);
+}
+
+.plant-name-wrapper {
+  container: plant-name-wrapper / inline-size;
+
+  .common-name {
+    font-weight: 600;
+  }
+}
