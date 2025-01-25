@@ -14,7 +14,6 @@
 @import './components/image.css';
 @import './components/imagecard.css';
 @import './components/imageslider.css';
-@import './components/plantname.css';
 @import './components/natureserve.css';
 @import './components/tableofcontents.css';
 @import './pages/home.css';
@@ -161,5 +160,20 @@ img {
   img {
     object-fit: contain;
     align-self: center;
+  }
+}
+
+.common-name {
+  padding-block: var(--sp-xs);
+}
+.botanical-name {
+  padding-block: var(--sp-xxs);
+}
+
+.plant-name-wrapper {
+  container: plant-name-wrapper / inline-size;
+
+  .common-name {
+    font-weight: 600;
   }
 }
