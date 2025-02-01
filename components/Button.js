@@ -15,7 +15,7 @@ const ChevronDown = ({ strokeWidth = 1 }) => {
         viewBox="0 0 24 24"
         strokeWidth={strokeWidth}
         stroke="black"
-        className="w-10 h-10 my-1"
+        className="icon chevron-down m-bk-xxs"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
       </svg>
@@ -32,7 +32,7 @@ const PlusCircle = ({ strokeWidth = 1 }) => {
         viewBox="0 0 24 24"
         strokeWidth={strokeWidth}
         stroke="currentColor"
-        className="w-6 h-6"
+        className="icon plus-circle"
       >
         <path
           strokeLinecap="round"
@@ -53,7 +53,7 @@ const MinusCircle = ({ strokeWidth = 1 }) => {
         viewBox="0 0 24 24"
         strokeWidth={strokeWidth}
         stroke="currentColor"
-        className="w-6 h-6"
+        className="icon minus-circle"
       >
         <path
           strokeLinecap="round"
@@ -74,7 +74,7 @@ const ChevronUp = (strokeWidth = 1) => {
         viewBox="0 0 24 24"
         strokeWidth={strokeWidth}
         stroke="currentColor"
-        className="w-10 h-10"
+        className="icon chevron-up"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
       </svg>
@@ -132,7 +132,6 @@ const Button = (
   },
   ...props
 ) => {
-  console.log('data returned ,', data)
   const router = useRouter()
   const path = getPathFromDocType(linkDocType, slug)
   const clickHandler = () => {
@@ -153,7 +152,7 @@ const Button = (
       className={cx(
         { 'btn-expand': buttonIcon === 'expand' },
         className,
-        'flex justify-center no-wrap fs-md fw-400 m-bk-4',
+        'flex justify-center no-wrap fs-md fw-400 m-bk-md',
       )}
       type={`${type}`}
       onClick={() => clickHandler()}

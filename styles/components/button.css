@@ -46,3 +46,22 @@
     margin-inline: 0;
   }
 }
+
+.icon {
+  &.chevron-down,
+  &.chevron-up {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &.plus-circle,
+  &.minus-circle {
+    width: var(--sp-lg);
+    height: var(--sp-lg);
+  }
+
+  &.info {
+    width: var(--sp-ml);
+    height: var(--sp-ml);
+  }
+}

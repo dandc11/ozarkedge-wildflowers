@@ -17,9 +17,7 @@ const portTextComponents = {
     h2: ({ children }) => <h1 className="w-full text-2xl">{children}</h1>,
     h3: ({ children }) => <h1 className="w-full text-xl">{children}</h1>,
     h4: ({ children }) => <h1 className="w-full text-lg">{children}</h1>,
-    normal: ({ children }) => (
-      <p className="w-full pb-3 text-inherit">{children}</p>
-    ),
+    normal: ({ children }) => <p className="w-full pb-sm text-inherit">{children}</p>,
     blockquote: ({ children }) => (
       <blockquote className="border-l-purple-500">{children}</blockquote>
     ),
@@ -27,24 +25,17 @@ const portTextComponents = {
   types: {},
   list: {
     // Ex. 1: customizing common list types
-    bullet: ({ children }) => <ul className={`mt-2`}>{children}</ul>,
-    number: ({ children }) => (
-      <ol className={`mt-2 list-decimal`}>{children}</ol>
-    ),
+    bullet: ({ children }) => <ul className={`mt-xs`}>{children}</ul>,
+    number: ({ children }) => <ol className={`mt-xs list-decimal`}>{children}</ol>,
   },
   listItem: {
     // Ex. 1: customizing common list types
     bullet: ({ children }) => (
-      <li
-        className={`list-item list-inside`}
-        style={{ listStyleType: ' disclosure-closed' }}
-      >
+      <li className={`list-item list-inside`} style={{ listStyleType: ' disclosure-closed' }}>
         {children}
       </li>
     ),
-    number: ({ children }) => (
-      <li className={`list-item list-inside`}>{children}</li>
-    ),
+    number: ({ children }) => <li className={`list-item list-inside`}>{children}</li>,
   },
   marks: {
     internalLink: ({ children, value }) => {
@@ -81,12 +72,7 @@ const portTextComponents = {
  * @returns {JSX.Element} - The rendered component.
  */
 const PortTextWrapper = React.memo((props) => {
-  const {
-    className,
-    value,
-    lightboxIdentifier,
-    lightboxCallback = () => {},
-  } = props
+  const { className, value, lightboxIdentifier, lightboxCallback = () => {} } = props
 
   // callback for opening lightbox
   const componentsWithCallback = useMemo(
@@ -115,9 +101,7 @@ const PortTextWrapper = React.memo((props) => {
               showCaptions
             />
           ),
-          portTextVideo: (typeProps) => (
-            <PortTextVideo portTextProps={typeProps}></PortTextVideo>
-          ),
+          portTextVideo: (typeProps) => <PortTextVideo portTextProps={typeProps}></PortTextVideo>,
           teaserSection: (typeProps) => (
             <PortTextTeaser portTextProps={typeProps?.value}></PortTextTeaser>
           ),

@@ -188,7 +188,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
             </div>
             {maxItemsDisplayed < nativePlantList.length && (
               <Button
-                className={`btn-2 mt-8 bp-900:mb-6`}
+                className={`btn-2`}
                 callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}
               >
                 Show More

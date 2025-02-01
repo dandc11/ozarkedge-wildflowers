@@ -89,7 +89,7 @@ const ImageSlider = ({
         images={sliderImages}
         slideshow={true}
       />
-      <div className={cx(`image-slider pt-2 p-in-4`, className)}>
+      <div className={cx(`image-slider p-bk-xs p-in-md`, className)}>
         {/* {showArrows && (
         <Button
           className={`absolute top-[33%] left-0 z-10`}

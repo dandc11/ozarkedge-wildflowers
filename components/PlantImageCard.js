@@ -17,12 +17,7 @@ const PlantImageCard = ({
 }) => {
   const imageComponent = (
     <div className="img-card-img">
-      <ResponsiveImage
-        image={image}
-        alt={titleText}
-        disableHover={true}
-        showCaption={false}
-      />
+      <ResponsiveImage image={image} alt={titleText} disableHover={true} showCaption={false} />
     </div>
   )
 
@@ -43,7 +38,7 @@ const PlantImageCard = ({
     <div className={containerClasses}>
       {imagePosition !== 'right' && imageComponent}
       <div className="img-card-description">
-        {/* <h2 className='text-base font-display mb-2'>{titleText}</h2> */}
+        {/* <h2 className='text-base font-display mb-xs'>{titleText}</h2> */}
         <PlantName
           className="img-card-heading font-display"
           topNameClassName="font-display text-left "
@@ -62,9 +57,7 @@ const PlantImageCard = ({
             |{' '}
             <span className="uppercase font-xxs">
               {' '}
-              {Array.isArray(habitatType)
-                ? habitatType.join(', ')
-                : habitatType}{' '}
+              {Array.isArray(habitatType) ? habitatType.join(', ') : habitatType}{' '}
             </span>
           </p>
         </div>

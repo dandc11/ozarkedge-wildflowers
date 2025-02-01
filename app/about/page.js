@@ -59,13 +59,13 @@ const AboutPage = async () => {
               showCircle={false}
               absolute
               textTypeClass={'display bp-900:text-3xl'}
-              headingClassName={'w-fit text-white bg-oe-blue-dark-500 px-6 pb-1 mb-0'}
+              headingClassName={'w-fit text-white bg-oe-blue-dark-500 px-6 pb-xxs mb-0'}
             >
               About Ozarkedge
             </Heading>
           </header>
           <PortTextWrapper
-            className={`relative z-10 order-2 mt-7`}
+            className={`relative z-10 order-2 mt-2xl`}
             lightboxIdentifier={'about'}
             value={aboutPageData.body}
           />

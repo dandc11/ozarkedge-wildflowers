@@ -38,7 +38,7 @@ const IntroSection = ({
     <div className={`plant-intro relative flex flex-col`}>
       <div className={`header-title`}>
         {plantName && (
-          <div className={`relative block p-bk-3`}>
+          <div className={`relative block p-bk-sm`}>
             <PlantName
               topNameClassName={`fs-xl text-center `}
               bottomNameClassName={`italic text-center `}
@@ -59,9 +59,7 @@ const IntroSection = ({
           </div>
         )}
       </div>
-      <div
-        className={`toc-wrapper flex flex-col justify-center transition-all`}
-      >
+      <div className={`toc-wrapper flex flex-col justify-center transition-all`}>
         <Button
           className={`self-center fs-lg fw-300 uppercase flex justify-center`}
           strokeWidth={1}

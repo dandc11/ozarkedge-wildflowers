@@ -83,12 +83,7 @@ const Heading = (props) => {
   const toggleTableOfContents = () => {
     setTableOfContentsOpen(!tableOfContentsOpen)
   }
-  const headingCSS = cx(
-    'heading-title',
-    { relative: showCircle },
-    textTypeClass,
-    headingClassName,
-  )
+  const headingCSS = cx('heading-title', { relative: showCircle }, textTypeClass, headingClassName)
 
   // Closes table of contents if clicked outside
   const onClickOutside = (e) => {
@@ -108,9 +103,7 @@ const Heading = (props) => {
   }, [])
 
   const currentSeason = getCurrentSeason()
-  const circleColor = circleColorClass
-    ? `${circleColorClass}`
-    : currentSeason.ACCENT_COLOR_VAR
+  const circleColor = circleColorClass ? `${circleColorClass}` : currentSeason.ACCENT_COLOR_VAR
   const circleClassName = cx(
     'heading-circle',
     {
@@ -131,7 +124,7 @@ const Heading = (props) => {
           })}
         >
           <div className="overflow-hidden relative">
-            <TableOfContents className={cx('px-8 w-80')} links={tocLinks} />
+            <TableOfContents className={cx('p-in-xl')} links={tocLinks} />
           </div>
         </div>
       )}
@@ -141,12 +134,7 @@ const Heading = (props) => {
         headingChildren={children}
         headingBgClass={headingBgClass}
       >
-        {showCircle && (
-          <div
-            className={circleClassName}
-            onClick={toggleTableOfContents}
-          ></div>
-        )}
+        {showCircle && <div className={circleClassName} onClick={toggleTableOfContents}></div>}
         {children}
       </HeadingElement>
     </div>

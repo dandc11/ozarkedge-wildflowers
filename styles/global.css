@@ -177,3 +177,17 @@ img {
     font-weight: 600;
   }
 }
+
+.footer {
+  vertical-align: middle;
+  justify-content: center;
+  width: 100%;
+  height: 7rem;
+  color: var(--oe-white);
+  background-color: var(--oe-green-700);
+  align-self: center;
+
+  * {
+    color: inherit;
+  }
+}

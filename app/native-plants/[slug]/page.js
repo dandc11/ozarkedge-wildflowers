@@ -148,7 +148,7 @@ const NativePlantPage = async (props) => {
                     <Heading showCircle={false} headingLevel={3}>
                       ALL IMAGES
                     </Heading>
-                    {/* <p className="text-lg m-bk-5"></p> */}
+                    {/* <p className="text-lg m-bk-lg"></p> */}
                     <ThumbnailGrid
                       assets={fullImageArray}
                       cols={2}

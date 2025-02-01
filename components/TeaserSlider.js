@@ -108,7 +108,7 @@ const TeaserSlider = (props) => {
                 showCaption={false}
                 loading="eager"
                 figureClassName="h-full w-full"
-                wrapperClassName="teaser-image rounded-lg w-full mb-8 bg-oe-green-yellow-200"
+                wrapperClassName="teaser-image rounded-lg w-full mb-3xl bg-oe-green-yellow-200"
                 className="w-full h-full"
               />
             )}
@@ -120,7 +120,7 @@ const TeaserSlider = (props) => {
                 <p>{bodyText}</p>
               )}
               <Button
-                className={cx(btnThemeClass, `m-bk-6`)}
+                className={cx(btnThemeClass, `m-bk-xl`)}
                 slug={buttonLinkSlug}
                 linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
                 urlParams={teaserUrlParams}

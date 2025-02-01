@@ -106,53 +106,6 @@ export const getImagePaletteTitleColor = (image, paletteType) => {
   return palette.title
 }
 
-// CSS background image helper functions
-/*--------------------------------------*/
-
-/**
- * Builds a background style object based on the provided parameters. For use with the <Container /> component, which uses container queries to set the background image to appropriate image size variables.
- *
- * @param {Object} bgParamObj - The background parameters object.
- * @param {string} bgParamObj.bgImage - Sanity image asset object - {_type: 'image', asset: {_ref: 'image-asset-id'}}
- * @param {string} bgParamObj.bgImageSmall - Sanity image asset object for a small-sized background image.
- * @param {string} bgParamObj.bgColor - The background color.
- * @param {string} bgParamObj.bgBlendMode - The background blend mode.
- * @param {number} bgParamObj.bgOpacity - The background opacity.
- * @param {string} bgParamObj.bgPosition - The background position.
- * @returns {Object} - The style object representing the background style.
- */
-export const buildBackgroundStyleObject = (bgParamObj) => {
-  const { bgImage, bgImageSmall, bgColor, bgBlendMode, bgPosition, bgOpacity } = bgParamObj
-  let styleObject = {}
-
-  if (bgImage) {
-    let bgImageUrl = `url('${urlForImage(bgImage)}')`
-    let bgImageSmallUrl = bgImageSmall ? `url('${urlForImage(bgImageSmall)}')` : bgImageUrl
-
-    styleObject['--container-bg-image'] = `${bgImageUrl}`
-    styleObject['--container-bg-small'] = `${bgImageSmallUrl}`
-
-    // TODO - use container queries to set the background image to appropriate image size variables
-  }
-
-  if (bgColor) {
-    let color =
-      bgColor !== 'palette' ? bgColor : getImagePaletteBackgroundColor(bgImage, 'darkVibrant')
-    styleObject['--container-bg-color'] = color
-
-    if (bgOpacity) {
-      styleObject['--container-bg-color'] = `${bgColor + bgOpacity}`
-    }
-  }
-  if (bgBlendMode) {
-    styleObject['--container-bg-blend-mode'] = bgBlendMode
-  }
-  if (bgPosition) {
-    styleObject['--container-bg-position'] = bgPosition
-  }
-  return styleObject
-}
-
 /**
  * This function returns an array of unique images from a document data object.
  * An image is considered unique if its reference and caption are not repeated in the document.

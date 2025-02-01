@@ -65,7 +65,7 @@ const LightboxGallery = ({
   return (
     <SlideshowLightbox
       className={cx({
-        [`grid ${gridColumns[cols]} place-items-center gap-2 p-in-4`]: showImageGrid,
+        [`grid ${gridColumns[cols]} place-items-center gap-2 p-in-md`]: showImageGrid,
         className,
       })}
       framework={useNextImage ? 'next' : ''}

@@ -79,7 +79,7 @@ export default async function HomePage() {
               wrapperClassName="absolute bg-img mobile w-full"
               className="w-full h-full"
             />
-            <div className={`homepage-title text-center p-in-4`}>
+            <div className={`homepage-title text-center p-in-md`}>
               <h1 className={`title text-dynamic-title font-display`}>
                 {landingPageData.titleText}
               </h1>
@@ -89,7 +89,7 @@ export default async function HomePage() {
               <div className={`cta-buttons flex flex-col`}>
                 {landingPageData.buttonOne && (
                   <Button
-                    className={`btn-1 bp-900:mb-6`}
+                    className={`btn-1 bp-900:mb-xl`}
                     slug={landingPageData.buttonOne?.slug}
                     linkDocType={landingPageData.buttonOne?.docType}
                   ></Button>
