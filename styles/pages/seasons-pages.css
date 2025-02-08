@@ -145,7 +145,7 @@
       bottom: -7rem;
       margin-inline-start: 7%;
 
-      .font-display {
+      .text-display {
         font-size: var(--fs-9xl);
       }
     }

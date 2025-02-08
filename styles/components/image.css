@@ -7,6 +7,22 @@
     z-index: 0;
   }
 
+  .aspect-thumbnail {
+    aspect-ratio: 5/4;
+  }
+
+  .aspect-portrait {
+    aspect-ratio: 3/4;
+  }
+
+  .cover {
+    object-fit: cover;
+  }
+
+  .contain {
+    object-fit: contain;
+  }
+
   figure {
     position: relative;
 
@@ -62,4 +78,75 @@
       cursor: pointer;
     }
   }
+
+  &.port-text-img {
+    @container content-well (width > 600px) {
+      width: 100%;
+
+      figure {
+        &.w-20 {
+          width: 20%;
+        }
+
+        &.w-25 {
+          width: 25%;
+        }
+
+        &.w-33 {
+          width: 33%;
+        }
+
+        &.w-50 {
+          width: 50%;
+        }
+
+        &.w-66 {
+          width: 66%;
+        }
+
+        &.w-75 {
+          width: 75%;
+        }
+      }
+
+      .float-left {
+        float: left;
+        margin-inline-end: var(--sp-md);
+        margin-block: 0;
+      }
+
+      .float-right {
+        float: right;
+        margin-inline-start: var(--sp-md);
+        margin-block: 0;
+      }
+    }
+  }
+}
+
+.img-grid {
+  list-style-type: none;
+  margin-block: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-md);
+
+  img {
+    aspect-ratio: 10/7;
+  }
+
+  @container content-well (width >= 900px) {
+    margin-block: 4rem;
+    margin-inline: 1.5rem;
+    gap: var(--sp-md);
+  }
+
+  @container content-well (width >= 1200px) {
+    margin-inline: 2.5rem;
+  }
+}
+
+.lightbox-img {
+  width: 3rem;
+  height: 80vh;
 }

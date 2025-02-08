@@ -5,7 +5,9 @@
 
   .plant-list-header {
     width: 100%;
+
     .heading-display {
+      position: absolute;
       padding-left: var(--sp-md);
       margin-block: var(--sp-4xl) 0;
     }
@@ -70,7 +72,7 @@
     grid-area: filters;
     order: 2;
     width: 100%;
-    background-color: var(--oe-green-yellow-300);
+    background-color: hsl(80.63deg 34.12% 78.83%);
     border-radius: var(--br-md);
     margin-block-end: var(--sp-xl);
     padding-inline: var(--sp-lg);

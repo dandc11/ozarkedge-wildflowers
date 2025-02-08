@@ -11,4 +11,8 @@
   .common-name {
     font-weight: 600;
   }
+
+  hr {
+    margin-block: 0;
+  }
 }

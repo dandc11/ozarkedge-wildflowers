@@ -1,5 +1,6 @@
 /* CSS imports must be at the top of the file */
 
+@import './normalize.css';
 @import './variables.css';
 @import './colors.css';
 @import './utility/utility.css';
@@ -21,24 +22,16 @@
 @import './pages/plant-list.css';
 @import './pages/seasons-pages.css';
 @import './pages/about.css';
-@import 'tailwindcss/base';
-@import './tw-base.css';
-
-@import 'tailwindcss/components';
-@import './tw-components.css';
-
-@import 'tailwindcss/utilities';
 
 html {
   font-size: 16px;
+  line-height: 1.15;
   scroll-behavior: smooth;
   font-family: var(--font-raleway), system-ui, sans-serif;
   font-weight: 400;
 
   body {
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -77,6 +70,15 @@ body:has(#sanity) {
 main {
   height: 100%;
   line-height: var(--sp-lg);
+}
+
+a[href] {
+  color: var(--oe-link-blue);
+  text-decoration: none;
+}
+
+figure {
+  margin: 0;
 }
 
 .banner-img:not(.mobile) {
@@ -168,6 +170,7 @@ img {
 }
 .botanical-name {
   padding-block: var(--sp-xxs);
+  font-weight: var(--fw-500);
 }
 
 .plant-name-wrapper {
@@ -175,6 +178,10 @@ img {
 
   .common-name {
     font-weight: 600;
+  }
+
+  hr {
+    margin-block: 0;
   }
 }
 
@@ -186,6 +193,7 @@ img {
   color: var(--oe-white);
   background-color: var(--oe-green-700);
   align-self: center;
+  align-items: center;
 
   * {
     color: inherit;

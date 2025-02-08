@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import React from 'react'
+import { stegaClean } from '@sanity/client/stega'
 
 import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
 import Heading from '../../components/Heading'
@@ -28,7 +29,7 @@ const AboutPage = async () => {
       />
       {aboutPageData && (
         <div
-          className={`about-content overflow-hidden flex flex-col items-center relative`}
+          className={`about-content nav-${stegaClean(aboutPageData.menuButtonColor)} overflow-hidden flex flex-col items-center relative`}
           key={aboutPageData.id}
         >
           <header className="header-section relative w-full h-full">
@@ -39,8 +40,8 @@ const AboutPage = async () => {
               disablePointer
               loading="eager"
               figureClassName="h-full w-full"
-              wrapperClassName="banner-img w-full bg-oe-green-yellow-200"
-              className=" object-[50%_10%] w-full h-full"
+              wrapperClassName="banner-img w-full"
+              className="w-full h-full"
             />
             <ResponsiveImage
               image={aboutPageData.mobileImage}
@@ -49,8 +50,8 @@ const AboutPage = async () => {
               disablePointer
               loading="eager"
               figureClassName="h-full w-full"
-              wrapperClassName="banner-img mobile w-full bg-oe-green-yellow-200"
-              className=" bp-1200:object-[50%_35%] "
+              wrapperClassName="banner-img mobile w-full"
+              className=""
             />
             <Heading
               className={
@@ -65,7 +66,7 @@ const AboutPage = async () => {
             </Heading>
           </header>
           <PortTextWrapper
-            className={`relative z-10 order-2 mt-2xl`}
+            className={`relative z-10 mt-2xl`}
             lightboxIdentifier={'about'}
             value={aboutPageData.body}
           />

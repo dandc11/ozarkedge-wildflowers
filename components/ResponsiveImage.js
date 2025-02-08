@@ -140,7 +140,6 @@ const ResponsiveImage = ({
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
     if (lightboxIdentifier) {
-      console.log('setting lightbox open image key')
       setLightBoxOpenImgKey(e.currentTarget.dataset.key)
       setLightboxIdentifier(lightboxIdentifier)
     }

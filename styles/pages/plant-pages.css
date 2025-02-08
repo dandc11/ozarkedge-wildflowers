@@ -85,6 +85,14 @@
     }
   }
 
+  #growingNearby {
+    @container growingNearbyText (width >= 600px) {
+      .image-slider {
+        padding-inline: var(--sp-2xl);
+      }
+    }
+  }
+
   @media screen and (min-width: 500px) {
     .plant-page-header {
       .plant-intro {

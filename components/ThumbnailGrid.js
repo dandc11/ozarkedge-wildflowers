@@ -39,7 +39,7 @@ const ThumbnailGrid = (props) => {
         onClick={handleClick}
       >
         <ResponsiveImage
-          className="aspect-5/4 object-cover"
+          className="thumbnail cover"
           // disableHover
           figureClassName=""
           image={image}
@@ -52,9 +52,7 @@ const ThumbnailGrid = (props) => {
   })
 
   return (
-    <ul className={cx(`img-grid grid ${gridColumns[cols]} gap-3`, className)}>
-      {galleryImages}
-    </ul>
+    <ul className={cx(`img-grid grid ${gridColumns[cols]} gap-3`, className)}>{galleryImages}</ul>
   )
 }
 

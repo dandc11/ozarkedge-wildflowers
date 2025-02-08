@@ -14,9 +14,9 @@ import ThumbnailGrid from './ThumbnailGrid'
 const portTextComponents = {
   block: {
     // customizing common block types
-    h2: ({ children }) => <h1 className="w-full text-2xl">{children}</h1>,
-    h3: ({ children }) => <h1 className="w-full text-xl">{children}</h1>,
-    h4: ({ children }) => <h1 className="w-full text-lg">{children}</h1>,
+    h2: ({ children }) => <h1 className="w-full fs-2xl">{children}</h1>,
+    h3: ({ children }) => <h1 className="w-full fs-xl">{children}</h1>,
+    h4: ({ children }) => <h1 className="w-full fs-lg">{children}</h1>,
     normal: ({ children }) => <p className="w-full pb-sm text-inherit">{children}</p>,
     blockquote: ({ children }) => (
       <blockquote className="border-l-purple-500">{children}</blockquote>
@@ -41,7 +41,7 @@ const portTextComponents = {
     internalLink: ({ children, value }) => {
       const href = getPathFromDocType(value?.docType, value?.slug?.current)
       return (
-        <Link className={`underline text-blue-500`} href={href}>
+        <Link className={`underline `} href={href}>
           {children}
         </Link>
       )
@@ -50,7 +50,7 @@ const portTextComponents = {
       const href = value?.href || ''
       return (
         <a
-          className={`underline text-blue-500`}
+          className={`underline`}
           href={href}
           target={value?.blank ? 'blank' : ''}
           rel="noopener noreferrer"
@@ -93,7 +93,7 @@ const PortTextWrapper = React.memo((props) => {
           imageCollection: (typeProps) => (
             <ThumbnailGrid
               assets={typeProps.value?.imageCollection}
-              className={`my-10 bp-900:my-16 bp-900:mx-6 bp-1200:mx-10 gap-[1rem_.5rem] bp-900:gap-4`}
+              className={`img-collection`}
               cols={2}
               maxItems={12}
               lightboxIdentifier={lightboxIdentifier}

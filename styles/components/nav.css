@@ -1,3 +1,9 @@
+body:has(.nav-dark) {
+  .main-nav .nav-btn-bar {
+    background-color: var(--nav-bg-dark);
+  }
+}
+
 .main-nav {
   position: fixed;
   font-size: var(--fs-xl);
@@ -12,7 +18,7 @@
     display: block;
 
     .nav-btn-bar {
-      background-color: var(--oe-white);
+      background-color: var(--oe-white) !important;
     }
 
     .nav-grid-container {
@@ -105,13 +111,13 @@
     left: 1.5rem;
     z-index: 30;
     border: none;
+  }
 
-    .nav-btn-bar {
-      width: 2rem;
-      height: 4px;
-      background-color: var(--nav-bg-color);
-      margin: 0.25rem 0;
-    }
+  .nav-btn-bar {
+    width: 2rem;
+    height: 4px;
+    background-color: var(--nav-bg-color);
+    margin: 0.25rem 0;
   }
 
   .nav-img {

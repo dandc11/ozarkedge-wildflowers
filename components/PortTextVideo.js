@@ -24,7 +24,7 @@ const PortTextVideo = (typeProps) => {
               videoTitle: { videoTitle },
             }}
           />
-          <figcaption className="relative text-center italic text-sm p-t-xxs">
+          <figcaption className="relative text-center italic fs-xs p-t-xxs">
             {useTitleAsCaption ? videoTitle : caption}
           </figcaption>
         </figure>

@@ -36,7 +36,7 @@ const SeasonPage = async (props) => {
   ])
 
   if (!pageData?._id) {
-    return <div className="py-40">Loading...</div>
+    return <div className="m-bk-4xl">Loading...</div>
   }
 
   const {
@@ -58,7 +58,9 @@ const SeasonPage = async (props) => {
     <>
       {pageData && (
         <>
-          <div className={`season-page ${stegaClean(seasonName)}`}>
+          <div
+            className={`season-page ${stegaClean(seasonName)} nav-${stegaClean(menuButtonColor)}`}
+          >
             <section id={'seasonHeader'} className="season-header relative w-full h-full">
               <ResponsiveImage
                 image={mainImage}
@@ -101,7 +103,7 @@ const SeasonPage = async (props) => {
               <HeadingDisplay
                 className={cx(`text-right`)}
                 absolute
-                headingClassName={'font-display'}
+                headingClassName={'text-display'}
               >
                 {seasonName}
               </HeadingDisplay>
@@ -116,7 +118,7 @@ const SeasonPage = async (props) => {
             </section>
             <LightboxGallery
               cols={3}
-              lightboxImgClass={`h-[80vh]`}
+              lightboxImgClass={`lightbox-img`}
               images={fullImageArray}
               lightboxIdentifier="seasonPage"
             />

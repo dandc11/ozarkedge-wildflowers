@@ -25,7 +25,7 @@ export const TeaserSectionPreview = (props) => {
         <Heading padding={8} marginBottom={4} as="h5" size={1}>
           <strong>Teaser Section: </strong>
         </Heading>
-          <br></br>
+        <br></br>
         <Heading padding={4} as="h2" size={3}>
           <strong>{title}</strong>
         </Heading>
@@ -39,7 +39,7 @@ export const TeaserSectionPreview = (props) => {
         {images ? (
           <ThumbnailGrid
             assets={images}
-            className={`my-7 bp-900:mx-6 bp-1200:mx-10`}
+            className={`img-collection m-bk-md`}
             cols={2}
             maxItems={12}
             lightboxIdentifier={''}

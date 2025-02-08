@@ -76,14 +76,10 @@ const TeaserSlider = (props) => {
       {images && (
         <section
           id={id}
-          className={cx(
-            `teaser teaser-slider bp-800:flex justify-center w-full`,
-            currentSeason,
-            className,
-          )}
+          className={cx(`teaser teaser-slider justify-center w-full`, currentSeason, className)}
         >
           <div
-            className={cx('teaser-slider-grid p-4 w-full', gridClassName, {
+            className={cx('teaser-slider-grid p-md w-full', gridClassName, {
               'single-image': sliderPlants.length === 0,
             })}
           >
@@ -113,7 +109,7 @@ const TeaserSlider = (props) => {
               />
             )}
 
-            <div className={`description`}>
+            <div className={`description p-in-md`}>
               {bodyText && usePortText ? (
                 <PortTextWrapper value={bodyText} components={{}} />
               ) : (

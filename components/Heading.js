@@ -119,8 +119,8 @@ const Heading = (props) => {
         <div
           ref={tableOfContentsRef}
           className={cx('toc-wrapper', {
-            'z-50 grid-rows-[1fr]': tableOfContentsOpen,
-            'grid-rows-[0fr]': !tableOfContentsOpen,
+            'grid-rows-1fr': tableOfContentsOpen,
+            'grid-rows-0': !tableOfContentsOpen,
           })}
         >
           <div className="overflow-hidden relative">

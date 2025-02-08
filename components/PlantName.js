@@ -14,37 +14,23 @@ const PlantName = (props) => {
     showSeparator = true,
     topNameClassName,
   } = props
-  const headingClassNames = cx(`common-name font-display`, topNameClassName)
+  const headingClassNames = cx(`common-name text-display`, topNameClassName)
 
   function getHeadingElement(headingLevel, headingClassNames, plantName) {
     switch (headingLevel) {
       case 1:
-        return (
-          <h1 className={headingClassNames}>
-            {titleCase(plantName?.commonName)}
-          </h1>
-        )
+        return <h1 className={headingClassNames}>{titleCase(plantName?.commonName)}</h1>
       case 2:
-        return (
-          <h2 className={headingClassNames}>
-            {titleCase(plantName?.commonName)}
-          </h2>
-        )
+        return <h2 className={headingClassNames}>{titleCase(plantName?.commonName)}</h2>
       case 3:
-        return (
-          <h3 className={headingClassNames}>
-            {titleCase(plantName?.commonName)}
-          </h3>
-        )
+        return <h3 className={headingClassNames}>{titleCase(plantName?.commonName)}</h3>
       default:
         return null
     }
   }
   return (
-    <div className={cx(`plant-name-wrapper`, className)}>
-      {showCommonName && (
-        <>{getHeadingElement(headingLevel, headingClassNames, plantName)}</>
-      )}
+    <div className={cx(`plant-name-wrapper `, className)}>
+      {showCommonName && <>{getHeadingElement(headingLevel, headingClassNames, plantName)}</>}
 
       {showSeparator && <hr className={`h-rule w-full`}></hr>}
 

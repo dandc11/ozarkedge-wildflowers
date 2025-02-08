@@ -6,10 +6,14 @@
   background-color: var(--oe-green-yellow-300);
 
   .header-section {
-    img {
-      border-radius: 0;
-      object-fit: cover;
-      /* object-position: 50% 10%; */
+    .banner-img {
+      background-color: var(--oe-green-yellow-200);
+
+      img {
+        border-radius: 0;
+        object-fit: cover;
+        object-position: 50% 10%;
+      }
     }
   }
 
@@ -34,6 +38,13 @@
 
     .port-text {
       margin-top: var(--sp-4xl);
+      order: 2;
+    }
+  }
+
+  @container aboutpage-content (width >= 12.96l) {
+    .banner-img img {
+      object-position: 50% 35%;
     }
   }
 }

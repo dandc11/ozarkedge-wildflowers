@@ -15,6 +15,10 @@
     bottom: -3rem;
   }
 
+  &.absolute {
+    position: absolute;
+  }
+
   .heading-title {
     /*  clamp funtion for responsive font-size using container units (cqi) */
     position: relative;

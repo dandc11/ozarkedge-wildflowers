@@ -38,10 +38,10 @@ const PlantImageCard = ({
     <div className={containerClasses}>
       {imagePosition !== 'right' && imageComponent}
       <div className="img-card-description">
-        {/* <h2 className='text-base font-display mb-xs'>{titleText}</h2> */}
+        {/* <h2 className='text-base text-display mb-xs'>{titleText}</h2> */}
         <PlantName
-          className="img-card-heading font-display"
-          topNameClassName="font-display text-left "
+          className="img-card-heading text-display"
+          topNameClassName="text-display text-left "
           bottomNameClassName="text-left fs-xs"
           plantName={plantName}
           headingLevel={3}

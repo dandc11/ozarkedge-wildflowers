@@ -121,12 +121,12 @@
   .description {
     container: description / inline-size;
 
-    .btn-1 {
+    [class^='btn-'] {
       width: 100%;
     }
 
     @container description (width > 600px) {
-      .btn-1 {
+      [class^='btn-'] {
         width: auto;
       }
     }

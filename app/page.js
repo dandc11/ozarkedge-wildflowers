@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import React from 'react'
 import { groq } from 'next-sanity'
+import { stegaClean } from '@sanity/client/stega'
 
 import TeaserSlider from '../components/TeaserSlider'
 import Button from '../components/Button'
@@ -40,6 +41,7 @@ export default async function HomePage() {
 
   const landingPageQueryResponse = await sanityFetch({ query: GET_LANDING_PAGE_DATA_QUERY })
   const landingPageData = landingPageQueryResponse?.data?.[0] ?? null
+  const menuButtonColor = stegaClean(landingPageData?.menuButtonColor) || 'light'
 
   const teaserBodyText = seasonData?.metaDescription
   const seasonDefaultImage = seasonData?.mainImage
@@ -57,7 +59,10 @@ export default async function HomePage() {
   return (
     <>
       {landingPageData && (
-        <div className={`homepage-content w-full overflow-hidden p-0`} key={landingPageData.id}>
+        <div
+          className={`homepage-content w-full overflow-hidden p-0 nav-${menuButtonColor}`}
+          key={landingPageData.id}
+        >
           <section className="atf relative flex flex-col justify-between align-center">
             <ResponsiveImage
               image={landingPageData.mainImage}
@@ -80,7 +85,7 @@ export default async function HomePage() {
               className="w-full h-full"
             />
             <div className={`homepage-title text-center p-in-md`}>
-              <h1 className={`title text-dynamic-title font-display`}>
+              <h1 className={`title text-dynamic-title text-display`}>
                 {landingPageData.titleText}
               </h1>
               <p className={`subtitle fs-md `}>{landingPageData.subtitleText}</p>
@@ -106,11 +111,7 @@ export default async function HomePage() {
               </div>
             </div>
           </section>
-          <div
-            data-season={currentSeason}
-            className={`btf w-full bg-yellow-100 bp-1100:bg-[#f1f0caeb]`}
-            tag={'section'}
-          >
+          <div data-season={currentSeason} className={`btf w-full`} tag={'section'}>
             <TeaserSlider
               bodyText={teaserBodyText}
               buttonLinkSlug={`${currentSeason}`}

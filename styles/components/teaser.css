@@ -7,7 +7,6 @@
   --teaser-heading-color: var(--oe-blue-green-light-900);
   --teaser-btn-bg-color: var(--btn-gradient-1);
   container: teaser / inline-size;
-
   &.spring,
   &.summer {
     --teaser-bg-color: var(--spring-accent);
@@ -46,6 +45,8 @@
   }
 
   @container homepage-content (width >= 800px) {
+    display: flex;
+
     button {
       margin-inline: 0;
     }

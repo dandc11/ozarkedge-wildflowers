@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+import { stegaClean } from '@sanity/client/stega'
 
 import ResponsiveImage from '../../../components/ResponsiveImage'
 import LightboxGallery from '../../../components/LightboxGallery'
@@ -80,19 +81,19 @@ const NativePlantPage = async (props) => {
   const sectionLinks = getSectionLinks(pageData)
   const fullImageArray = getUniqueImagesFromDocument(pageData, ['growingNearbyPlantList'])
   const nsBadge = (
-    <NatureServeBadge conservationRanking={conservationRanking} className={'inline-flex text-lg'} />
+    <NatureServeBadge conservationRanking={conservationRanking} className={'inline-flex fs-lg'} />
   )
 
   const nsMessage = <NatureServeMessage conservationRanking={conservationRanking} />
 
   return (
-    <div className="plant-page bg-topography parallax">
+    <div className={`plant-page bg-topography parallax nav-${stegaClean(menuButtonColor)}`}>
       {pageData && (
         <>
           {bannerImage && (
             <div id="bannerImage" className={`relative ${menuButtonColor}`}>
               <ResponsiveImage
-                className={`relative w-full h-full object-cover`}
+                className={`relative w-full h-full cover`}
                 figureClassName={`w-full`}
                 image={bannerImage}
                 breakpoint={'500'}
@@ -107,7 +108,7 @@ const NativePlantPage = async (props) => {
                 wrapperClassName={`banner-img w-full`}
               />
               <ResponsiveImage
-                className={`relative w-full h-full object-cover`}
+                className={`relative w-full h-full cover`}
                 figureClassName={`w-full`}
                 image={mobileImage ? mobileImage : bannerImage}
                 breakpoint={'500'}
@@ -129,7 +130,7 @@ const NativePlantPage = async (props) => {
               lede={lede}
               plantName={plantName}
               tocLinks={sectionLinks}
-              lightboxImgClass={`w-12`}
+              lightboxImgClass={`lightbox-img`}
             />
           </header>
           <main id="plantPageMainContent" className="w-full">
@@ -161,7 +162,7 @@ const NativePlantPage = async (props) => {
               )}
               <article className="content-well">
                 <ContentSection
-                  className={`z-[10]`}
+                  className={`z-10`}
                   headingClassName={``}
                   portableText={plantName.nameInformation}
                   tocLinks={sectionLinks}
@@ -170,7 +171,7 @@ const NativePlantPage = async (props) => {
                   lightboxIdentifier={`plantPage`}
                 />
                 <ContentSection
-                  className={`z-[9]`}
+                  className={`z-9`}
                   headingClassName={``}
                   portableText={bloomText}
                   tocLinks={sectionLinks}
@@ -179,7 +180,7 @@ const NativePlantPage = async (props) => {
                   lightboxIdentifier={`plantPage`}
                 />
                 <ContentSection
-                  className={`z-[8]`}
+                  className={`z-8`}
                   headingClassName={``}
                   portableText={description}
                   tocLinks={sectionLinks}
@@ -188,7 +189,7 @@ const NativePlantPage = async (props) => {
                   lightboxIdentifier={`plantPage`}
                 />
                 <ContentSection
-                  className={`z-[7]`}
+                  className={`z-7`}
                   headingClassName={``}
                   portableText={pollinators}
                   tocLinks={sectionLinks}
@@ -197,7 +198,7 @@ const NativePlantPage = async (props) => {
                   lightboxIdentifier={`plantPage`}
                 />
                 <GrowingNearby
-                  className={`z-[6]`}
+                  className={`z-6`}
                   headingClassName={``}
                   growingNearbyPlantImages={growingNearbyPlantList}
                   growingNearbyText={growingNearbyText}
@@ -206,7 +207,7 @@ const NativePlantPage = async (props) => {
                   lightboxIdentifier={`growningNearby`}
                 />
                 <ContentSection
-                  className={`z-[5]`}
+                  className={`z-5`}
                   headingClassName={``}
                   portableText={habitat}
                   tocLinks={sectionLinks}
@@ -216,8 +217,8 @@ const NativePlantPage = async (props) => {
                 />
 
                 <ContentSection
-                  className={`z-[4]`}
-                  headingClassName={`mr-10 `}
+                  className={`z-4`}
+                  headingClassName={``}
                   badge={nsBadge}
                   pretextComponent={nsMessage}
                   portableText={conservationStatus}
@@ -227,7 +228,7 @@ const NativePlantPage = async (props) => {
                   lightboxIdentifier={`plantPage`}
                 ></ContentSection>
                 <ContentSection
-                  className={`z-[3]`}
+                  className={`z-3`}
                   headingClassName={``}
                   portableText={tidbits}
                   tocLinks={sectionLinks}

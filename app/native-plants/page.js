@@ -22,7 +22,7 @@ const NativePlantPage = async () => {
   const menuButtonColor = stegaClean(nativePlantPageData?.menuButtonColor) || 'light'
 
   return (
-    <div className="plant-list-page-content">
+    <div className={`plant-list-page-content nav-${menuButtonColor}`}>
       <div className="plant-list-header relative ">
         <HeadingDisplay absolute headingClassName={'text-display'}>
           <span

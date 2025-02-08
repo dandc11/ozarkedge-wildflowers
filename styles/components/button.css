@@ -20,6 +20,7 @@
     width: 100%;
     box-shadow: none;
     color: var(--oe-text-body);
+    margin: 0;
   }
 }
 
