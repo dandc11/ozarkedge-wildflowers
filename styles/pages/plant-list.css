@@ -145,6 +145,10 @@
     .plant-list-container {
       max-height: 60rem;
       overflow-y: scroll;
+
+      button {
+        margin-inline: auto;
+      }
     }
 
     .plant-list-fieldset {

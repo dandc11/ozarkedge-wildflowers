@@ -147,21 +147,12 @@ img {
 
 /* Override default Lightbox.js styles */
 #lightboxContainer {
+  .lightbox-arrow {
+    color: white;
+    font-size: 1.5rem;
+  }
   p {
     color: #ffffff !important;
-
-    @media screen and (min-width: 850px) {
-      margin-top: 2rem;
-    }
-  }
-
-  .lightbox-img {
-    height: 80vh;
-  }
-
-  img {
-    object-fit: contain;
-    align-self: center;
   }
 }
 

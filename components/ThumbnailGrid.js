@@ -46,6 +46,7 @@ const ThumbnailGrid = (props) => {
           lightboxIdentifier={lightboxIdentifier}
           mobileImage={false}
           showCaption={showCaptions}
+          width="560"
         />
       </li>
     )

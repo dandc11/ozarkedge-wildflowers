@@ -145,19 +145,7 @@ const NativePlantPage = async (props) => {
                     slideshow={true}
                   />
 
-                  <div className="sidebar-content-wrapper relative flex flex-col items-center">
-                    <Heading showCircle={false} headingLevel={3}>
-                      ALL IMAGES
-                    </Heading>
-                    {/* <p className="text-lg m-bk-lg"></p> */}
-                    <ThumbnailGrid
-                      assets={fullImageArray}
-                      cols={2}
-                      maxItems={6}
-                      thumbnailWidth={100}
-                      lightboxIdentifier={`plantPage`}
-                    />
-                  </div>
+                  {/* <div className="sidebar-content-wrapper relative flex flex-col items-center"></div> */}
                 </div>
               )}
               <article className="content-well">

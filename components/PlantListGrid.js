@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useMemo, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import makeAnimated from 'react-select/animated'
+import { stegaClean } from 'next-sanity'
 
 import Fieldset from './FieldSet'
 import Button from './Button'
@@ -116,6 +117,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
     } else {
       plantValues = [plantProperty]
     }
+    plantValues = plantValues.map((value) => stegaClean(value))
     const selectedValues = selectedItems.map((item) => item.value)
     const isMatched = selectedValues.some((value) => plantValues.includes(value))
     return isMatched
@@ -145,6 +147,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
       }
       return 0
     })
+  console.log('filteredNativePlantList', filteredNativePlantList)
 
   return (
     <div className="plant-list-layout-wrapper relative">
