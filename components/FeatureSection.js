@@ -1,4 +1,3 @@
-'use client'
 import TeaserSection from './TeaserSection'
 import {
   getCurrentMonthName,
@@ -8,16 +7,18 @@ import {
 
 export default function FeatureSection(props) {
   const { feature } = props
+  const featureObj = destructureFeature(feature)
   const {
+    bodyPortText,
     buttonText,
-    themeSeasonObject,
     featureImage,
+    featureTheme,
     linkSlug,
     linkType,
     linkId,
-    bodyPortText,
+    seasonThemeObj,
     titleText,
-  } = destructureFeature(feature)
+  } = featureObj
 
   // const SEASON_MONTHS = getMonthNumbersFromSeason(teaserTheme)
   // const teaserUrlParams = { months: SEASON_MONTHS }
@@ -30,6 +31,7 @@ export default function FeatureSection(props) {
       linkSlug={linkSlug}
       linkType={linkType}
       linkId={linkId}
+      teaserTheme={featureTheme}
       titleText={titleText}
     />
   )

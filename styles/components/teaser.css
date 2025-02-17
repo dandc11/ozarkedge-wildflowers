@@ -23,10 +23,10 @@
   }
 
   &.winter {
-    --teaser-bg-color: var(--winter-bg-color);
+    --teaser-bg-color: var(--winter-gradient-2);
     --teaser-text-color: var(--oe-text-body);
     --teaser-heading-color: var(--oe-text-body);
-    --teaser-btn-bg-color: var(--btn-gradient-3);
+    --teaser-btn-bg-color: var(--btn-gradient-4);
   }
 }
 
@@ -143,8 +143,7 @@
   }
 
   .teaser-body,
-  .teaser-img,
-  .teaser-bg {
+  .teaser-img {
     background-color: var(--teaser-bg-color);
 
     .port-text *,
@@ -156,6 +155,10 @@
     .btn-1 {
       background: var(--teaser-btn-bg-color);
     }
+  }
+
+  .teaser-bg {
+    background: var(--teaser-bg-color);
   }
 
   .feature-layout-grid {
@@ -188,6 +191,7 @@
     }
 
     .teaser-body {
+      container: teaser-body / inline-size;
       grid-area: body;
       padding-top: var(--sp-lg);
 

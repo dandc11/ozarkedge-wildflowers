@@ -94,8 +94,8 @@
   --oe-purple-800: hsl(260deg, 60%, 17%);
   --oe-purple-900: hsl(260deg, 65%, 7%);
   --oe-red-100: hsl(0, 100%, 96%);
-  --oe-red-200: hsl(15, 100%, 76%);
-  --oe-red-300: hsl(15, 100%, 70%);
+  --oe-red-200: hsl(15deg 89.54% 81.98%);
+  --oe-red-300: hsl(15, 100%, 66%);
   --oe-red-400: hsl(15, 100%, 46%);
   --oe-red-500: hsl(0, 100%, 38%);
   --oe-red-600: hsl(0, 100%, 33%);
@@ -143,6 +143,7 @@
   --summer-gradient: linear-gradient(220deg, var(--oe-purple-200) 60%, var(--oe-purple-300) 100%);
   --fall-gradient: linear-gradient(175deg, var(--oe-brown-700) 60%, var(--oe-yellow-800) 100%);
   --winter-gradient: linear-gradient(145deg, #3b332a 0%, hsl(27, 12%, 57%) 100%);
+  --winter-gradient-2: linear-gradient(90deg, hsl(215, 27%, 88%) 0%, hsl(216, 42%, 87%) 100%);
 
   --btn-gradient-1: linear-gradient(
     to right,

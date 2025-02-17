@@ -90,25 +90,7 @@ const ImageSlider = ({
         slideshow={true}
       />
       <div className={cx(`image-slider p-bk-xs p-in-md`, className)}>
-        {/* {showArrows && (
-        <Button
-          className={`absolute top-[33%] left-0 z-10`}
-          buttonIcon="chevron-left"
-          callBack={() => {
-            console.log('left')
-          }}
-        />
-      )} */}
         <ul className={`slider flex h-full`}>{listItems}</ul>
-        {/* {showArrows && (
-        <Button
-          className={`absolute top-[50%] right-0 z-10`}
-          buttonIcon="chevron-right"
-          callBack={() => {
-            console.log('right')
-          }}
-        />
-      )} */}
       </div>
     </>
   )

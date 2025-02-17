@@ -45,8 +45,6 @@ const SanityImageWrapper = (props) => {
     height = '',
     hotspot = '',
     id = props.id || props.asset?._ref,
-    imagePosition = '',
-    imageWidth = '',
     lightboxIdentifier,
     loading,
     mode = 'cover',
@@ -68,7 +66,7 @@ const SanityImageWrapper = (props) => {
       hotspot={hotspot}
       alt={alt}
       loading={loading}
-      width={width}
+      // width={800}
       height={height}
       mode={mode}
       preview={preview}

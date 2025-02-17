@@ -118,17 +118,11 @@
     }
   }
 
-  .description {
+  .teaser-slider-grid .description {
     container: description / inline-size;
 
-    [class^='btn-'] {
-      width: 100%;
-    }
-
-    @container description (width > 600px) {
-      [class^='btn-'] {
-        width: auto;
-      }
+    @container teaser (width >= 800px) {
+      grid-row-start: 2;
     }
   }
 }

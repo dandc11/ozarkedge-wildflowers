@@ -165,6 +165,12 @@ export const GET_SEASON_PAGE_DATA_QUERY = groq`*[ _type == "season" && slug.curr
 // retrieves the paths of all published native plants
 export const GET_ALL_NATIVE_PLANT_PATHS_QUERY = groq`*[ _type == "nativePlant" && defined(slug.current)][].slug.current`
 
+// retrieves the slugs and plant names of all native plant documents
+export const GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY = groq`*[ _type == "nativePlant"]{
+  plantName,
+  slug 
+}`
+
 // retrieves the document data of all published native plants
 export const GET_NATIVE_PLANT_LIST_DATA_QUERY = groq`*[ _type == "nativePlant"]{  
   floweringMonths[],

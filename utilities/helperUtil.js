@@ -9,9 +9,7 @@ import { DOCTYPE_PATH_PREFIXES } from './constants'
  * @returns {string} The path for the given document type and slug
  */
 export const getPathFromDocType = (doctype = '', slug = '') => {
-  return DOCTYPE_PATH_PREFIXES[doctype]
-    ? DOCTYPE_PATH_PREFIXES[doctype] + slug
-    : slug
+  return DOCTYPE_PATH_PREFIXES[doctype] ? DOCTYPE_PATH_PREFIXES[doctype] + slug : slug
 }
 /**
  * Returns the full name of the current month
@@ -150,9 +148,8 @@ export const titleCase = (textString = '') =>
   textString.charAt(0).toUpperCase() + textString.slice(1)
 
 export const getSeasonObject = (season) => {
-  const seasonObject = Object.values(SEASONS).find(
-    (s) => s.SEASON_NAME === season,
-  )
+  console.log('season:', season)
+  const seasonObject = Object.values(SEASONS).find((s) => s.SEASON_NAME === season)
   return seasonObject
 }
 
@@ -160,8 +157,7 @@ export const getSeasonObject = (season) => {
  * Returns the current season
  * @returns {object} The current season
  */
-export const getCurrentSeason = () =>
-  getSeasonFromMonthNumber(getCurrentMonthNumber())
+export const getCurrentSeason = () => getSeasonFromMonthNumber(getCurrentMonthNumber())
 
 /**
  * Destructures a feature object and returns relevant properties.
@@ -186,7 +182,7 @@ export const getCurrentSeason = () =>
  * @returns {object} An object containing the destructured properties.
  * @returns {string} return.bodyPortText - The body text or meta description.
  * @returns {string} return.buttonText - The text for the button.
- * @returns {object} return.themeSeasonObject - The season object for the feature theme.
+ * @returns {object} return.seasonThemeObj - The season object for the feature theme.
  * @returns {object} return.featureImage - The feature image.
  * @returns {string} return.linkSlug - The slug of the link item.
  * @returns {string} return.linkType - The type of the link item.
@@ -194,8 +190,6 @@ export const getCurrentSeason = () =>
  * @returns {string} return.titleText - The title text of the feature.
  */
 export const destructureFeature = (feature) => {
-  console.log('feature', feature)
-
   const {
     _type,
     pullTextFromLink,
@@ -208,8 +202,7 @@ export const destructureFeature = (feature) => {
     titleText,
   } = feature || {}
 
-  const { linkId, linkMetaDescription, linkMainImage, linkSlug, linkType } =
-    linkItems || {}
+  const { linkId, linkMetaDescription, linkMainImage, linkSlug, linkType } = linkItems || {}
 
   const {
     asset: { _ref: mainImageRef } = {},
@@ -217,21 +210,23 @@ export const destructureFeature = (feature) => {
     alt: mainImageAlt,
   } = linkMainImage || {}
 
-  const featureImage = pullImageFromLink
-    ? (linkMainImage ?? image ?? null)
-    : (image ?? null)
+  const featureImage = pullImageFromLink ? (linkMainImage ?? image ?? null) : (image ?? null)
 
   const bodyPortText = pullTextFromLink
     ? (linkMetaDescription ?? bodyText ?? null)
     : (bodyText ?? null)
 
-  const themeSeasonObject = getSeasonObject(featureTheme)
+  console.log('feature:', feature)
+
+  const seasonThemeObj = getSeasonObject(featureTheme)
+  console.log('seasonThemeObj:', seasonThemeObj)
 
   return {
     bodyPortText,
     buttonText,
-    themeSeasonObject,
+    seasonThemeObj,
     featureImage,
+    featureTheme,
     linkSlug,
     linkType,
     linkId,
