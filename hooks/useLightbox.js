@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState, useCallback, useMemo } from 'react'
+
 import { LightboxContext } from '../contexts/LightboxContext'
 
 // JS Doc
@@ -11,29 +12,16 @@ import { LightboxContext } from '../contexts/LightboxContext'
  * @returns {Object} - The open state and the starting slide index
  * */
 const useLightbox = (images, onOpenCallback, onCloseCallback, identifier) => {
-  const {
-    lightboxOpenImgKey,
-    setLightBoxOpenImgKey,
-    lightboxIdentifier,
-    setLightboxIdentifier,
-  } = useContext(LightboxContext)
+  const { lightboxOpenImgKey, setLightBoxOpenImgKey, lightboxIdentifier, setLightboxIdentifier } =
+    useContext(LightboxContext)
   const [open, setOpen] = useState(false)
   const [startingSlideIndex, setStartingSlideIndex] = useState(0)
 
   const memoizedImages = useMemo(() => images, [images])
 
   useEffect(() => {
-    if (
-      lightboxOpenImgKey &&
-      memoizedImages &&
-      lightboxIdentifier === identifier
-    ) {
-      console.log('setting lightbox open image key', lightboxOpenImgKey)
-      console.log('lightbox images', memoizedImages)
-      const index = memoizedImages.findIndex(
-        (e) => e.asset._ref === lightboxOpenImgKey,
-      )
-      console.log('index discovered', index)
+    if (lightboxOpenImgKey && memoizedImages && lightboxIdentifier === identifier) {
+      const index = memoizedImages.findIndex((e) => e.asset._ref === lightboxOpenImgKey)
       setStartingSlideIndex(index)
       setOpen(true)
       if (onOpenCallback) {
@@ -42,13 +30,7 @@ const useLightbox = (images, onOpenCallback, onCloseCallback, identifier) => {
     } else {
       setOpen(false)
     }
-  }, [
-    lightboxOpenImgKey,
-    memoizedImages,
-    onOpenCallback,
-    lightboxIdentifier,
-    identifier,
-  ])
+  }, [lightboxOpenImgKey, memoizedImages, onOpenCallback, lightboxIdentifier, identifier])
 
   const closeLightboxCallback = useCallback(() => {
     setLightBoxOpenImgKey(null)

@@ -55,7 +55,7 @@ const LightboxGallery = ({
     const imgArray = Array.isArray(memoizedImages) ? memoizedImages : [memoizedImages]
     return imgArray.map((image) => ({
       src: urlFor(image.asset).width(100).url(),
-      original: urlFor(image.asset).fit('max').width(2000).url(),
+      original: urlFor(image.asset).fit('max').width(1024).format('webp').url(),
       alt: image.alt,
       caption: showCaptions ? image.caption : '',
     }))
@@ -65,21 +65,19 @@ const LightboxGallery = ({
   return (
     <SlideshowLightbox
       className={cx({
-        [`grid ${gridColumns[cols]} place-items-center gap-2 p-in-md`]: showImageGrid,
         className,
       })}
-      framework={useNextImage ? 'next' : ''}
-      fullScreen={true}
+      framework={'next'}
       iconColor="white"
       images={imgObjArray}
       imgAnimation="fade"
-      leftArrowClassname={'text-white text-2xl'}
+      leftArrowClassname={'lightbox-arrow'}
       lightboxIdentifier={lightboxIdentifier}
       lightboxImgClass={'lightbox-img'}
       modalClose="clickOutside"
       onClose={closeLightboxCallback}
       open={open}
-      rightArrowClassname={'text-white text-2xl'}
+      rightArrowClassname={'lightbox-arrow'}
       showControls={true}
       showThumbnails={showThumbnails}
       slideshowInterval={3500}
