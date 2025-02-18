@@ -1,5 +1,16 @@
 import React from 'react'
 
+/**
+ * Tooltip component
+ * @param {object} props
+ * @param {object} props.buttonElementRef - Reference to the button element
+ * @param {boolean} props.isVisible - Whether the tooltip is visible
+ * @param {object} props.position - Position of the tooltip
+ * @param {string} props.textColorClass - Text color class
+ * @param {string} props.bgColorClass - Background color class
+ * @param {ReactNode} props.children - Tooltip content
+ * @returns {ReactNode} Tooltip component
+ */
 const Tooltip = ({
   buttonElementRef,
   isVisible,

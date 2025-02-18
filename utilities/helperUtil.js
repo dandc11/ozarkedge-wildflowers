@@ -19,12 +19,18 @@ export const getCurrentMonthName = () => {
   const CURRENT_MONTH_NAME = new Date(Date.now()).getMonth() + 1
   return MONTH_NAMES_MAP.get(CURRENT_MONTH_NAME).fullName
 }
+  const CURRENT_MONTH_NAME = new Date(Date.now()).getMonth() + 1
+  return MONTH_NAMES_MAP.get(CURRENT_MONTH_NAME).fullName
+}
 
 /**
  * Returns the current month number
  * @returns {number} The current month number
  */
 export const getCurrentMonthNumber = () => {
+  const CURRENT_MONTH_NUMBER = new Date(Date.now()).getMonth() + 1
+  return CURRENT_MONTH_NUMBER
+}
   const CURRENT_MONTH_NUMBER = new Date(Date.now()).getMonth() + 1
   return CURRENT_MONTH_NUMBER
 }
@@ -35,6 +41,14 @@ export const getCurrentMonthNumber = () => {
  * @returns {object|undefined} The season object for the given month number, or undefined if not found
  */
 export const getSeasonFromMonthNumber = (monthNum) => {
+  let season
+  for (const testSeason in SEASONS) {
+    season = SEASONS[testSeason]
+    if (season.SEASON_MONTHS.includes(monthNum)) {
+      return season
+    }
+  }
+}
   let season
   for (const testSeason in SEASONS) {
     season = SEASONS[testSeason]
@@ -58,6 +72,14 @@ export const getMonthNumbersFromSeason = (season) => {
     }
   }
   return []
+  let currentTestSeason
+  for (const testSeason in SEASONS) {
+    currentTestSeason = SEASONS[testSeason]
+    if (currentTestSeason.SEASON_NAME === season) {
+      return currentTestSeason.SEASON_MONTHS
+    }
+  }
+  return []
 }
 
 /**
@@ -66,6 +88,8 @@ export const getMonthNumbersFromSeason = (season) => {
  * @returns {string|undefined} The full name of the month, or undefined if not found
  */
 export const getMonthNameFromMonthNumber = (monthNum) => {
+  return MONTH_NAMES_MAP.get(monthNum)
+}
   return MONTH_NAMES_MAP.get(monthNum)
 }
 
@@ -82,6 +106,12 @@ export const truncateText = (text = '', charLimit = 1000000) => {
     truncatedText = <>text.substring(0, charLimit) + ellipsis</>
   }
   return truncatedText
+  let ellipsis = <span className="tracking-tighter">...</span>
+  let truncatedText = ''
+  if (text.length > charLimit) {
+    truncatedText = <>text.substring(0, charLimit) + ellipsis</>
+  }
+  return truncatedText
 }
 
 /**
@@ -90,6 +120,10 @@ export const truncateText = (text = '', charLimit = 1000000) => {
  * @returns {object} An object containing the background color variable, text color variable, and ranking text
  */
 export const getNatureServeRankingColors = (conservationRanking) => {
+  let bgColorVariable
+  let textLight = true
+  let textColorVariable = '--oe-white'
+  let rankingText
   let bgColorVariable
   let textLight = true
   let textColorVariable = '--oe-white'
@@ -137,10 +171,52 @@ export const getNatureServeRankingColors = (conservationRanking) => {
     textColorVariable = '--oe-black'
   }
   return { bgColorVariable, textColorVariable, rankingText }
+  switch (conservationRanking) {
+    case 'presumedExtirpated':
+      bgColorVariable = '--oe-presumed-extirpated'
+      rankingText = 'Presumed Extirpated'
+      break
+    case 'possiblyExtirpated':
+      bgColorVariable = '--oe-possibly-extirpated'
+      rankingText = 'Possibly Extirpated'
+      break
+    case 'criticallyImperiled':
+      bgColorVariable = '--oe-critically-imperiled'
+      rankingText = 'Critically Imperiled'
+      break
+    case 'imperiled':
+      bgColorVariable = '--oe-imperiled'
+      rankingText = 'Imperiled'
+      textLight = false
+      break
+    case 'vulnerable':
+      bgColorVariable = '--oe-vulnerable'
+      rankingText = 'Vulnerable'
+      textLight = false
+      break
+    case 'apparentlySecure':
+      bgColorVariable = '--oe-apparently-secure'
+      rankingText = 'Apparently Secure'
+      textLight = false
+      break
+    case 'secure':
+      bgColorVariable = '--oe-secure'
+      rankingText = 'Secure'
+      break
+    default:
+      bgColorVariable = '--oe-gray-300'
+      textLight = false
+      rankingText = 'Not Ranked'
+      break
+  }
+  if (!textLight) {
+    textColorVariable = '--oe-black'
+  }
+  return { bgColorVariable, textColorVariable, rankingText }
 }
 
 /**
- * Capitalizes the first character in a string
+ * Capitalizes the first character in the string
  * @param {string} [textString=''] - The string to be capitalized
  * @returns {string} A capitalized string
  */
