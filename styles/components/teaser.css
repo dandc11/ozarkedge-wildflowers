@@ -16,14 +16,14 @@
   }
 
   &.fall {
-    --teaser-bg-color: var(--fall-bg-color);
+    --teaser-bg-color: var(--fall-accent);
     --teaser-text-color: var(--oe-white);
     --teaser-heading-color: var(--fall-bg-color);
-    --teaser-btn-bg-color: var(--btn-gradient-3);
+    --teaser-btn-bg-color: var(--btn-gradient-6);
   }
 
   &.winter {
-    --teaser-bg-color: var(--winter-gradient-2);
+    --teaser-bg-color: var(--winter-bg-color-2);
     --teaser-text-color: var(--oe-text-body);
     --teaser-heading-color: var(--oe-text-body);
     --teaser-btn-bg-color: var(--btn-gradient-4);
@@ -184,7 +184,7 @@
     }
 
     .teaser-bg {
-      grid-area: image;
+      grid-area: 1 / 1 / 4 / 3;
       display: block;
       height: 80%;
       align-self: end;
@@ -262,7 +262,7 @@
 
       .teaser-img {
         grid-column: 3/4;
-        grid-row: 2 / -1;
+        grid-row: 1 / -1;
         margin-block-start: 2rem;
         margin-inline: 0 var(--sp-md);
         background-color: transparent;
@@ -273,21 +273,11 @@
           min-width: 10rem;
           box-shadow: var(--shadow-lg);
         }
-        img,
-        figcaption {
-          /* transform: translateY(-4rem); */
-        }
 
         figcaption {
           border-bottom-left-radius: 0.5rem;
           background-color: #ffffffb5;
         }
-      }
-    }
-
-    @container teaser (width > 900px) {
-      .teaser-img {
-        grid-row: 1 / -1;
       }
     }
   }

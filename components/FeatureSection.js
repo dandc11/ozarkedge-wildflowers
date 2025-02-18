@@ -1,9 +1,7 @@
+import { stegaClean } from 'next-sanity'
+
 import TeaserSection from './TeaserSection'
-import {
-  getCurrentMonthName,
-  getMonthNumbersFromSeason,
-  destructureFeature,
-} from '../utilities/helperUtil'
+import { destructureFeature } from '../utilities/helperUtil'
 
 export default function FeatureSection(props) {
   const { feature } = props
@@ -16,12 +14,8 @@ export default function FeatureSection(props) {
     linkSlug,
     linkType,
     linkId,
-    seasonThemeObj,
     titleText,
   } = featureObj
-
-  // const SEASON_MONTHS = getMonthNumbersFromSeason(teaserTheme)
-  // const teaserUrlParams = { months: SEASON_MONTHS }
 
   return (
     <TeaserSection
@@ -31,7 +25,7 @@ export default function FeatureSection(props) {
       linkSlug={linkSlug}
       linkType={linkType}
       linkId={linkId}
-      teaserTheme={featureTheme}
+      teaserTheme={stegaClean(featureTheme)}
       titleText={titleText}
     />
   )
