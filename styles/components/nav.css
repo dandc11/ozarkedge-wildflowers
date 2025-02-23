@@ -108,7 +108,7 @@ body:has(.nav-dark) {
   .nav-icon {
     position: absolute;
     top: 1.5rem;
-    left: 1.5rem;
+    left: 0.75rem;
     z-index: 30;
     border: none;
   }

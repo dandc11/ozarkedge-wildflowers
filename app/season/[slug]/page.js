@@ -97,6 +97,7 @@ const SeasonPage = async (props) => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 100 10"
                   preserveAspectRatio="none"
+                  className="header-border-svg"
                 >
                   <polygon points="100 7 100 10 0 10" />
                 </svg>
