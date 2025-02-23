@@ -1,14 +1,15 @@
 .plant-list-page-content {
   container: plant-list-page-content / inline-size;
+  overflow: auto;
+  background-color: var(--oe-yellow-200);
 
   .plant-list-header {
     width: 100%;
-    height: 100%;
 
     .heading-display {
+      position: absolute;
       padding-left: var(--sp-md);
-      margin-top: var(--sp-4xl);
-      margin-bottom: 0;
+      margin-block: var(--sp-4xl) 0;
     }
 
     .heading-title {
@@ -16,38 +17,93 @@
     }
 
     .banner-img {
+      width: 100%;
+      height: 30rem;
+
       img {
-        object-position: 16% top;
+        border-radius: 0;
+        object-fit: cover;
+        object-position: left top;
+        /* object-position: 80% 50%; */
       }
 
       &.mobile {
         height: 26rem;
       }
+
+      @container (width > 900px) {
+        order: 2;
+      }
     }
   }
 
-  /* Plant List Page *********************************/
-  .plant-list-layout-grid {
-    @media screen and (min-width: 800px) {
-      display: grid;
-      grid-template-columns: 3fr 1fr;
-      gap: 1.5rem;
-      align-items: start;
-      justify-items: start;
-      grid-template-areas:
-        'plant-list description '
-        'plant-list filters';
-    }
-    .description {
-      grid-area: description;
+  .plant-list-layout-wrapper {
+    justify-items: center;
+    min-height: 34rem;
+    padding-inline: var(--sp-md);
+    padding-block: var(--sp-lg);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'description'
+      'plant-list';
+  }
+
+  .info-section {
+    grid-area: description;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 30rem;
+  }
+  .description {
+    order: 1;
+    margin-block-end: var(--sp-md);
+    padding-block-end: 0;
+    width: 100%;
+  }
+  .plant-list-container {
+    container: plant-list-container / inline-size;
+    grid-area: plant-list;
+  }
+
+  .plant-list-fieldset {
+    grid-area: filters;
+    order: 2;
+    width: 100%;
+    background-color: hsl(80.63deg 34.12% 78.83%);
+    border-radius: var(--br-md);
+    margin-block-end: var(--sp-xl);
+    padding-inline: var(--sp-lg);
+    padding-block-start: var(--sp-sm);
+    padding-block-end: var(--sp-lg);
+
+    legend {
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-600);
+      margin-bottom: var(--sp-md);
     }
 
-    .filters {
-      grid-area: filters;
+    .plant-list-field {
+      width: 100%;
+      min-width: 16rem;
     }
+  }
 
-    .plant-grid {
-      grid-area: plant-list;
+  .plant-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, max-content));
+    justify-content: center;
+    gap: var(--sp-md);
+    height: auto;
+    align-content: start;
+  }
+
+  @container plant-list-container (min-width: 900px) {
+    .plant-card-grid {
+      height: 60rem;
+      overflow: scroll;
     }
   }
 
@@ -60,20 +116,56 @@
     }
   }
 
-  @container plant-list-page-content (width > 900px) {
+  @container plant-list-page-content (width >= 900px) {
     .plant-list-header {
       .heading-display {
         padding-left: var(--sp-lg);
       }
 
       .heading-title {
-        font-size: var(--fs-2xl);
-        max-width: 150cqi;
+        font-size: var(--fs-3xl);
       }
+
       .banner-img {
         img {
           object-position: 16% 80%;
         }
+      }
+    }
+
+    .plant-list-layout-wrapper {
+      grid-template-columns: 3fr 1fr;
+      grid-template-areas: 'plant-list description';
+      gap: 1.5rem;
+      align-items: start;
+      justify-items: start;
+      padding-block: var(--sp-2xl);
+    }
+
+    .plant-list-container {
+      max-height: 60rem;
+      overflow-y: scroll;
+
+      button {
+        margin-inline: auto;
+      }
+    }
+
+    .plant-list-fieldset {
+      margin-block-end: 0;
+      margin-inline: 0;
+      padding-block-start: var(--sp-md);
+      padding-block-end: var(--sp-md);
+    }
+
+    .info-section {
+      gap: var(--sp-xl);
+      justify-content: start;
+
+      .description {
+        width: 100%;
+        padding-inline: 0;
+        max-width: none;
       }
     }
   }
@@ -83,20 +175,6 @@
       .heading-title {
         font-size: var(--fs-4xl);
       }
-
-    }
-  }
-}
-
-/* Swap out the images at 600px instead of 900px */
-@media screen and (min-width: 600px) {
-  .plant-list-page-content {
-    .banner-img:not(.mobile) {
-      display: block;
-    }
-
-    .banner-img.mobile {
-      display: none;
     }
   }
 }

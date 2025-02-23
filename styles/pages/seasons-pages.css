@@ -1,4 +1,4 @@
-.season-page-content {
+.season-page {
   --season-accent-color: var(--oe-green-800);
   --season-bg-color: #fff;
   --season-gradient: var(--spring-gradient);
@@ -15,7 +15,7 @@
       object-position: top;
     }
   }
-  
+
   &.summer {
     --season-bg-color: var(--summer-bg-color);
     --season-accent-color: var(--summer-accent);
@@ -32,7 +32,6 @@
     --season-accent-color: var(--fall-accent);
     --season-gradient: var(--fall-gradient);
     background-color: var(--season-bg-color);
-
 
     .banner-img img {
       object-position: 100% 15%;
@@ -55,8 +54,9 @@
     container: season-header / inline-size;
 
     .heading-display {
-      bottom: -3.8rem;
-      margin-right: var(--sp-lg);
+      bottom: -4rem;
+      text-align: left;
+      width: fit-content;
     }
 
     .heading-title {
@@ -64,56 +64,69 @@
       background-clip: text;
       color: transparent;
       font-size: var(--fs-5xl);
+      font-weight: var(--fw-700);
+      line-height: normal;
+      width: fit-content;
 
       &::first-letter {
         text-transform: uppercase;
       }
     }
 
-    .banner-img svg {
-      position: absolute;
-      bottom: -1px;
-      width: 100%;
-      height: 80px;
-      fill: var(--season-bg-color);
-      /* border-bottom: 3px solid var(--season-bg-color); */
+    .banner-img {
+      background-color: var(--season-bg-color);
+
+      @container season-header (width > 900px) {
+        height: 85vh;
+      }
+
+      .header-border-svg {
+        position: absolute;
+        bottom: -1px;
+        width: 100%;
+        height: 80px;
+        fill: var(--season-bg-color);
+      }
     }
   }
 
   .season-body {
     grid-area: content;
     container: season-body / inline-size;
-    margin-block: var(--sp-3xl);
+    margin-block: var(--sp-xl);
     margin-inline: auto;
     width: 100%;
-    
+
     > .port-text > *:not(.full-width) {
-      max-width: 50rem;
+      max-width: 100%;
       margin-inline: auto;
-      padding-inline: var(--sp-xl);
     }
   }
-  
+
   @container season-page-content (width > 600px) {
-    .season-body {
-      margin-block: var(--sp-4xl);
+    .season-header .heading-display {
+      bottom: -6rem;
     }
 
-    .season-header .heading-display {
-      margin-right: var(--sp-xl);
-      bottom: -4.25rem;
-    }
-    
     .season-header .heading-title {
-      font-size: var(--fs-6xl);
+      margin-inline-end: var(--sp-xl);
+      font-size: var(--fs-7xl);
+    }
+
+    .season-body {
+      padding-inline: 0;
+      margin-block: var(--sp-3xl);
     }
   }
-  
+
   @container season-page-content (width > 900px) {
     .season-body {
       padding-inline: 0;
+      margin-block: var(--sp-4xl);
     }
-    .heading-display .heading-title.display {
+
+    .heading-display .heading-title {
+      padding-inline-start: var(--sp-2xl);
       font-size: var(--fs-8xl);
       font-weight: var(--fw-900);
     }
@@ -121,27 +134,24 @@
 
   @container season-page-content (width > 1200px) {
     .season-body {
-      margin-block: var(--sp-6xl);
-
       > .port-text > .img-grid {
         max-width: 60rem;
       }
     }
 
     .season-header .heading-display {
-      bottom: -7.25rem;
+      bottom: -7rem;
+      margin-inline-start: 7%;
 
-      .heading-title.display {
-        margin-right: 13%;
-        font-size: 10rem;
+      .text-display {
+        font-size: var(--fs-9xl);
       }
     }
   }
 
-
   /* Season Page Teaser Sections */
-  .teaser-section {
-    .teaser-section-grid {
+  .teaser {
+    .feature-layout-grid {
       padding: 0;
     }
   }

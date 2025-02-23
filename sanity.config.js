@@ -1,49 +1,14 @@
 // sanity.config.js
 import { visionTool } from '@sanity/vision'
+import { presentationTool } from 'sanity/presentation'
 import { defineConfig } from 'sanity'
-import { buildLegacyTheme } from 'sanity'
-import { structureTool } from 'sanity/structure'
 import { muxInput } from 'sanity-plugin-mux-input'
-import Iframe from 'sanity-plugin-iframe-pane'
-import { media, mediaAssetSource } from 'sanity-plugin-media'
-import { apiVersion, dataset, projectId } from './lib/sanity.api'
+import { structureTool } from 'sanity/structure'
+import { media } from 'sanity-plugin-media'
+
+import * as resolve from './sanity/presentation/resolve'
+import { apiVersion, dataset, projectId } from './sanity/lib/sanity.api'
 import { schema } from './schemas/schema'
-import { COLORS } from './utilities/constants'
-
-// Build a preview URL for the given document
-async function getPreviewUrl(doc) {
-  if (!doc) {
-    return ''
-  }
-
-  const isLocalhost = window.location.host.includes('localhost')
-  const protocol = isLocalhost ? 'http://' : 'https://'
-  const host = window.location.host
-
-  const url = new URL('/api/preview', protocol + host)
-  url.searchParams.set('slug', doc?.slug?.current || '')
-
-  return url.href
-}
-
-// default document node for preview iframe - more here: https://www.sanity.io/docs/structure-builder-reference#9766ea34ddfb
-const defaultDocumentNode = (S, { schemaType }) => {
-  return S.document().views([
-    S.view.form(),
-    S.view
-      .component(Iframe)
-      .options({
-        url: (doc) => getPreviewUrl(doc),
-        loader: true,
-        showDisplayUrl: true,
-        reload: {
-          button: true, // default `undefined`
-          revision: true, // boolean | number. default `undefined`. If a number is provided, add a delay (in ms) before the automatic reload on document revision
-        },
-      })
-      .title('Preview'),
-  ])
-}
 
 export default defineConfig({
   basePath: '/studio',
@@ -52,53 +17,19 @@ export default defineConfig({
   dataset,
   schema,
   plugins: [
-    structureTool({ defaultDocumentNode }),
+    // structureTool({ defaultDocumentNode }),
+    structureTool(),
+    presentationTool({
+      resolve,
+      previewUrl: {
+        previewMode: {
+          enable: '/api/draft-mode/enable',
+          disable: '/api/draft-mode/disable',
+        },
+      },
+    }),
     visionTool({ defaultApiVersion: apiVersion }),
     media(),
     muxInput({ mp4_support: 'standard' }),
   ],
-  form: {
-    // Don't use this plugin when selecting files only (but allow all other enabled asset sources)
-    file: {
-      assetSources: (previousAssetSources) => {
-        return previousAssetSources.filter(
-          (assetSource) => assetSource !== mediaAssetSource,
-        )
-      },
-    },
-  },
-  theme: buildLegacyTheme({
-    /* Base theme colors */
-    '--black': COLORS['oe-black'],
-    '--white': COLORS['oe-white'],
-
-    '--gray': '#666',
-    '--gray-base': '#666',
-
-    '--component-bg': COLORS['oe-green-yellow-100'],
-    '--component-text-color': COLORS['oe-black'],
-
-    /* Brand */
-    '--brand-primary': COLORS['oe-blue-green-dark-200'],
-
-    // Default button
-    '--default-button-color': '#79bfb0',
-    '--default-button-primary-color': COLORS['oe-blue-green-dark-200'],
-    '--default-button-success-color': COLORS['oe-green-500'],
-    '--default-button-warning-color': COLORS['oe-green-yellow-500'],
-    '--default-button-danger-color': COLORS['oe-red-500'],
-    '--card-bg-color': COLORS['oe-green-yellow-100'],
-
-    /* State */
-    '--state-info-color': COLORS['oe-blue-green-dark-200'],
-    '--state-success-color': COLORS['oe-green-400'],
-    '--state-warning-color': COLORS['oe-green-yellow-500'],
-    '--state-danger-color': COLORS['oe-red-500'],
-
-    /* Navbar */
-    '--main-navigation-color': COLORS['oe-green-yellow-100'],
-    '--main-navigation-color--inverted': COLORS['oe-green-yellow-300'],
-
-    '--focus-color': COLORS['oe-blue-green-dark-300'],
-  }),
 })

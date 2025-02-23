@@ -1,6 +1,7 @@
 import React from 'react'
-import ResponsiveImage from './ResponsiveImage'
 import cx from 'classnames'
+
+import ResponsiveImage from './ResponsiveImage'
 
 // JSDoc definitions
 /**
@@ -18,36 +19,28 @@ import cx from 'classnames'
  * lightboxCallback={lightboxCallback}
  * />
  */
-const PortTextFigure = ({
-  portTextProps,
-  lightboxIdentifier,
-  lightboxCallback = null,
-}) => {
+const PortTextFigure = ({ portTextProps, lightboxIdentifier, lightboxCallback = null }) => {
   const widths = {
-    '20%': 'w-full bp-600:w-[20%]',
-    '25%': 'w-full bp-600:w-1/4',
-    '33%': 'w-full bp-600:w-1/3',
-    '50%': 'w-full bp-600:w-1/2',
-    '66%': 'w-full bp-600:w-2/3',
-    '75%': 'w-full bp-600:w-3/4',
+    '20%': 'w-full w-20',
+    '25%': 'w-full w-25',
+    '33%': 'w-full w-33',
+    '50%': 'w-full w-50',
+    '66%': 'w-full w-66',
+    '75%': 'w-full w-75',
     '100%': 'w-full',
   }
 
   const widthClass = portTextProps.value?.imageWidth
     ? widths[portTextProps.value?.imageWidth]
-    : 'w-full bp-600:w-2/3'
+    : 'w-full w-66'
   const positions = {
-    left: `my-7 bp-600:float-left bp-600:mr-4 bp-600:my-0 ${
-      portTextProps.value?.imageWidth
-        ? widths[portTextProps.value?.imageWidth]
-        : 'bp-600:w-[20%]'
+    left: `my-7 float-left ${
+      portTextProps.value?.imageWidth ? widths[portTextProps.value?.imageWidth] : 'w-20'
     }`,
-    right: `my-7 bp-600:float-right bp-600:ml-4 bp-600:my-0 ${
-      portTextProps.value?.imageWidth
-        ? widths[portTextProps.value?.imageWidth]
-        : 'bp-600:w-[20%]'
+    right: `my-7 float-right ${
+      portTextProps.value?.imageWidth ? widths[portTextProps.value?.imageWidth] : 'w-20'
     }`,
-    center: `flex justify-center my-7`,
+    center: `flex justify-center m-bk-lg`,
   }
   const positionClass = portTextProps.value?.imagePosition
     ? positions[portTextProps.value?.imagePosition]
@@ -69,7 +62,7 @@ const PortTextFigure = ({
           }`,
         )}
         width={560}
-        wrapperClassName={cx(`port-text-img z-0 ${positionClass}`)}
+        wrapperClassName={cx(`port-text-img ${positionClass}`)}
         onClick={lightboxCallback ? lightboxCallback : null}
       />
     </>
@@ -77,4 +70,3 @@ const PortTextFigure = ({
 }
 
 export default PortTextFigure
- 

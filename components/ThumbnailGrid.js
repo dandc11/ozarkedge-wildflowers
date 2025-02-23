@@ -1,5 +1,7 @@
+'use client'
 import React from 'react'
 import cx from 'classnames'
+
 import ResponsiveImage from './ResponsiveImage'
 
 const ThumbnailGrid = (props) => {
@@ -10,7 +12,7 @@ const ThumbnailGrid = (props) => {
     maxItems = 12,
     thumbnailWidth = 100,
     lightboxIdentifier = '',
-    onClick = () => {},
+    onClick,
     showCaptions = false,
   } = props
   const gridColumns = {
@@ -22,35 +24,36 @@ const ThumbnailGrid = (props) => {
 
   // call onClick callback with key of image clicked
   const handleClick = (e) => {
-    onClick(e.currentTarget.dataset.key)
+    if (onClick) {
+      onClick(e.currentTarget.dataset.key)
+    }
   }
   let galleryImages = []
-    galleryImages = assets.map((image, index) => {
-      const key = image.asset?._ref || index
-      return (
-        <li
-          key={key}
-          data-key={key}
-          className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}
-          onClick={handleClick}
-        >
-          <ResponsiveImage
-            className="aspect-5/4 object-cover"
-            // disableHover
-            figureClassName=""
-            image={image}
-            lightboxIdentifier={lightboxIdentifier}
-            mobileImage={false}
-            showCaption={showCaptions}
-          />
-        </li>
-      )
-    })
-  
+  galleryImages = assets.map((image, index) => {
+    const key = image.asset?._ref || index
+    return (
+      <li
+        key={key}
+        data-key={key}
+        className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}
+        onClick={handleClick}
+      >
+        <ResponsiveImage
+          className="thumbnail cover"
+          // disableHover
+          figureClassName=""
+          image={image}
+          lightboxIdentifier={lightboxIdentifier}
+          mobileImage={false}
+          showCaption={showCaptions}
+          width="560"
+        />
+      </li>
+    )
+  })
+
   return (
-    <ul className={cx(`img-grid grid ${gridColumns[cols]} gap-3`, className)}>
-      {galleryImages}
-    </ul>
+    <ul className={cx(`img-grid grid ${gridColumns[cols]} gap-3`, className)}>{galleryImages}</ul>
   )
 }
 

@@ -1,5 +1,6 @@
 import { defineArrayMember, defineType } from 'sanity'
 import { AiOutlineCamera } from 'react-icons/ai'
+
 import { VideoPreview } from '../components/VideoPreview'
 
 export default defineType({

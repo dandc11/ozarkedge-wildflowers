@@ -1,8 +1,6 @@
 import { defineField, defineType } from 'sanity'
-import {
-  TeaserCollectionPreview,
-  TeaserSectionPreview,
-} from '../components/TeaserSectionPreview'
+
+import { TeaserCollectionPreview, TeaserSectionPreview } from '../components/TeaserSectionPreview'
 import { DOCUMENT_TYPES } from '../constants/constants'
 
 export default defineType({
@@ -11,10 +9,7 @@ export default defineType({
   type: 'object',
   validation: (rule) =>
     rule.custom((fields) => {
-      if (
-        (fields.pullTextFromLink || fields.pullImagesFromLink) &&
-        !fields.link
-      )
+      if ((fields.pullTextFromLink || fields.pullImagesFromLink) && !fields.link)
         return `A teaser section is trying to pull resources from a link, but no link has been added. You must either add a link to pull resources from, or add body text and images yourself.`
       return true
     }),
@@ -24,8 +19,8 @@ export default defineType({
       title: 'Text',
     },
     {
-      name: 'images',
-      title: 'Images',
+      name: 'image',
+      title: 'Image',
     },
   ],
   fields: [
@@ -51,27 +46,19 @@ export default defineType({
     }),
     defineField({
       name: 'link',
-      description:
-      'Select the page that this teaser section should direct the visitor toward.',
+      description: 'Select the page that this teaser section should direct the visitor toward.',
       type: 'reference',
       to: DOCUMENT_TYPES,
       group: 'text',
     }),
     defineField({
       name: 'buttonText',
-      description: 'Text to appear in the button (which is a link to the page selected in the link field). No more than 25 characters. If left blank, the default value is "See more".',
+      description:
+        'Text to appear in the button (which is a link to the page selected in the link field). No more than 25 characters. If left blank, the default value is "See more".',
       validation: (Rule) => Rule.max(25),
       type: 'string',
       group: 'text',
     }),
-    // defineField({
-    //   name: 'pullTextFromLink',
-    //   title: 'Pull text from another document.',
-    //   description:
-    //     'Use the exisitng metadescription text from the linked document (page).',
-    //   type: 'boolean',
-    //   group: 'text',
-    // }),
     defineField({
       name: 'bodyText',
       description: 'The body text for this teaser section.',
@@ -80,43 +67,18 @@ export default defineType({
       hidden: ({ parent }) => parent?.pullTextFromLink,
       group: 'text',
     }),
-    // defineField({
-    //   name: 'pullImagesFromLink',
-    //   title: 'Pull images from another document.',
-    //   description:
-    //     'Use the images from the linked document (page). Linked plant pages pull from plant images. Links to the plant list page will pull preview images from plants blooming in the current month. Seasons and About pages will pull the main page image.',
-    //   type: 'boolean',
-    //   group: 'images',
-    // }),
     defineField({
-      name: 'images',
+      name: 'image',
       description:
-        "If you add images here, they will display within the image slider in this teaser section. You can add as many images as you like, but those displayed won't exceed the max images you set below.",
+        "If you add an image here, it will display within the image slider in this teaser section. You can add as many images as you like, but those displayed won't exceed the max images you set below.",
       title: 'Image',
       readOnly: ({ parent }) => parent?.pullImagesFromLink,
       hidden: ({ parent }) => parent?.pullImagesFromLink,
-      type: 'array',
-      of: [
-        {
-          type: 'thumbnailImage',
-          title: 'Image',
-          description: 'Add an image to this section.',
-          options: { hotspot: true },
-        },
-      ],
-      group: 'images',
+      type: 'figure',
+      group: 'image',
     }),
-    // max number of images to display
-    // defineField({
-    //   name: 'maxImages',
-    //   description:
-    //     'Choose up to 8 images to display in the image slider for this teaser section.',
-    //   title: 'Max images',
-    //   type: 'number',
-    //   validation: [(Rule) => Rule.max(8), (Rule) => Rule.min(0)],
-    //   group: 'images',
-    // }),
   ],
+  icon: () => '🌟',
   components: { preview: TeaserSectionPreview },
   preview: {
     select: {

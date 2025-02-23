@@ -1,0 +1,29 @@
+.port-text {
+  max-width: 64rem;
+  padding-block-end: var(--sp-lg);
+
+  * {
+    color: inherit;
+  }
+
+  a[href] {
+    text-decoration: underline;
+  }
+
+  .list-decimal {
+    list-style-type: decimal;
+    padding-inline-start: var(--sp-sm);
+  }
+
+  .list-item {
+    display: list-item;
+  }
+
+  .list-inside {
+    list-style-position: inside;
+  }
+
+  .disclosure-closed {
+    list-style-type: disclosure-closed;
+  }
+}

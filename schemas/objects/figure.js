@@ -19,8 +19,7 @@ export default defineType({
     },
     {
       name: 'presentation',
-      title:
-        'Image Presensation Options (optional - only applies within text blocks)',
+      title: 'Image Presensation Options (optional - only applies within text blocks)',
     },
     {
       name: 'link',
@@ -40,8 +39,7 @@ export default defineType({
       type: 'string',
       title: 'Alternative text',
       hidden: ({ parent }) => !parent?.asset,
-      validation: (Rule) =>
-        Rule.error('Alternative text is required.').required(),
+      validation: (Rule) => Rule.error('Alternative text is required.').required(),
       description:
         'A very brief description of the image that will appear only in the html - important for SEO and accessiblity.',
     }),
@@ -120,4 +118,5 @@ export default defineType({
       group: 'presentation',
     }),
   ],
+  icon: () => '🏞️',
 })

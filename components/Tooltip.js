@@ -28,7 +28,7 @@ const Tooltip = ({
 
   return (
     <div
-      className={`absolute ${textColorClass} ${bgColorClass} text-xs rounded py-1 px-4 shadow-md`}
+      className={`absolute ${textColorClass} ${bgColorClass} text-xs rounded p-bk-xxs p-in-md shadow-md`}
       style={styles}
       ref={buttonElementRef}
     >

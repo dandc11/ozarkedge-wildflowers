@@ -1,4 +1,5 @@
 import { defineType } from 'sanity'
+
 import { ImageCollectionPreview } from '../components/ImageCollectionPreview'
 
 export default defineType({
@@ -33,4 +34,5 @@ export default defineType({
       }
     },
   },
+  icon: () => '🖼️',
 })

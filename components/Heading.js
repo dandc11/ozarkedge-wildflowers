@@ -1,11 +1,15 @@
+'use client'
+
 import cx from 'classnames'
 import React, { useState, useEffect, useRef } from 'react'
+
 import { getCurrentSeason } from '../utilities/helperUtil'
 import TableOfContents from './TableOfContents'
 
 const HeadingElement = ({
   headingChildren,
-  headingLevel,
+  headingLevel = 2,
+  headingBgClass,
   headingCSS,
   styleObject,
   children,
@@ -34,12 +38,14 @@ const HeadingElement = ({
       Heading = 'h2'
   }
   return (
-    <Heading style={styleObject} className={headingCSS}>
-      {children}
-    </Heading>
+    <>
+      <Heading style={styleObject} className={headingCSS}>
+        {children}
+        <div className={cx(`heading-bg`, headingBgClass)}></div>
+      </Heading>
+    </>
   )
 }
-
 /**
  * Represents a heading component with optional table of contents and circle.
  *
@@ -49,11 +55,13 @@ const HeadingElement = ({
  * @param {React.ReactNode} props.children - The content of the heading.
  * @param {string} [props.circleColorClass] - The CSS class for the circle element.
  * @param {string} [props.className=''] - The CSS class for the heading container.
+ * @param {string} [props.headingBgClass=''] - The CSS class for the heading background.
  * @param {string} [props.headingClassName=''] - The CSS class for the heading element.
  * @param {number} [props.headingLevel=2] - The level of the heading (1-6).
  * @param {string} [props.id] - The ID of the heading element.
  * @param {boolean} [props.showCircle=false] - Whether to show the circle element.
  * @param {Array} [props.tocLinks=null] - The table of contents links.
+ * @param {string} [props.textTypeClass='thin'] - The CSS class for the text type.
  * @returns {JSX.Element} The rendered heading component.
  */
 const Heading = (props) => {
@@ -62,6 +70,7 @@ const Heading = (props) => {
     children,
     circleColorClass,
     className = '',
+    headingBgClass = '',
     headingClassName = '',
     headingLevel = 2,
     id,
@@ -74,7 +83,7 @@ const Heading = (props) => {
   const toggleTableOfContents = () => {
     setTableOfContentsOpen(!tableOfContentsOpen)
   }
-  const headingCSS = cx('heading-title', {'relative': showCircle}, textTypeClass, headingClassName)
+  const headingCSS = cx('heading-title', { relative: showCircle }, textTypeClass, headingClassName)
 
   // Closes table of contents if clicked outside
   const onClickOutside = (e) => {
@@ -82,7 +91,7 @@ const Heading = (props) => {
       tableOfContentsRef.current &&
       !tableOfContentsRef.current.contains(e.target) &&
       tableOfContentsRef.current !== e.target &&
-      !e.target.classList.contains('header-circle')
+      !e.target.classList.contains('heading-circle')
     ) {
       setTableOfContentsOpen(false)
     }
@@ -94,37 +103,28 @@ const Heading = (props) => {
   }, [])
 
   const currentSeason = getCurrentSeason()
-  const circleColor = circleColorClass
-    ? `${circleColorClass}`
-    : currentSeason.ACCENT_COLOR_VAR
+  const circleColor = circleColorClass ? `${circleColorClass}` : currentSeason.ACCENT_COLOR_VAR
   const circleClassName = cx(
-    'header-circle absolute font-normal w-16 h-16 rounded-full -z-10 opacity-60 bg-oe-red-200 transition-all ease-in duration-150 -top-[1rem] -left-6 bp-600:left-[-2rem] bp-900:w-20 bp-900:h-20 bp-900:top-[-1.5rem] bp-900:left-[-2.7rem]',
+    'heading-circle',
     {
-      'cursor-pointer hover:bg-oe-red-300 hover:opacity-70 hover:scale-110':
-        tocLinks != null,
-      'z-50': tocLinks != null && tableOfContentsOpen,
+      'has-toc': tocLinks != null,
+      active: tocLinks != null && tableOfContentsOpen,
     },
     circleColor,
   )
 
   return (
-    <div
-      id={id}
-      className={cx('heading-base', { absolute: absolute }, className)}
-    >
+    <div id={id} className={cx('heading', { absolute: absolute }, className)}>
       {tocLinks && (
         <div
           ref={tableOfContentsRef}
-          className={cx(
-            'absolute grid transition-z-50 transition-all duration-500 ease-in-out',
-            {
-              'z-50 grid-rows-[1fr]': tableOfContentsOpen,
-              'grid-rows-[0fr]': !tableOfContentsOpen,
-            },
-          )}
+          className={cx('toc-wrapper', {
+            'grid-rows-1fr': tableOfContentsOpen,
+            'grid-rows-0': !tableOfContentsOpen,
+          })}
         >
           <div className="overflow-hidden relative">
-            <TableOfContents className={cx('px-8 w-80')} links={tocLinks} />
+            <TableOfContents className={cx('p-in-xl')} links={tocLinks} />
           </div>
         </div>
       )}
@@ -132,13 +132,9 @@ const Heading = (props) => {
         headingLevel={headingLevel}
         headingCSS={headingCSS}
         headingChildren={children}
+        headingBgClass={headingBgClass}
       >
-        {showCircle && (
-          <div
-            className={circleClassName}
-            onClick={toggleTableOfContents}
-          ></div>
-        )}
+        {showCircle && <div className={circleClassName} onClick={toggleTableOfContents}></div>}
         {children}
       </HeadingElement>
     </div>

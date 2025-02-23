@@ -1,0 +1,28 @@
+#growingNearby {
+  container: growingNearby / inline-size;
+  z-index: 0;
+  background-color: hsl(67.65deg 31.22% 79.8%);
+
+  .heading {
+    margin-block-start: -1.5rem;
+  }
+
+  @container growingNearby (min-width: 600px) {
+    .heading,
+    .plant-pg-port-text {
+      width: clamp(8rem, 90cqi, 60rem);
+      margin-inline: auto;
+    }
+    .heading {
+      margin-block-start: -0.3rem;
+    }
+  }
+
+  .plant-pg-port-text {
+    margin-block: min(5vh, 2rem);
+
+    @container (min-width: 600px) {
+      margin-block: min(10vh, 3rem) min(10vh, 1rem);
+    }
+  }
+}

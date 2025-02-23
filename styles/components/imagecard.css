@@ -1,20 +1,55 @@
 /* Image Card Component*/
 .img-card {
+  background-color: var(--oe-green-200);
   display: grid;
   grid-template-columns: 1fr 2fr;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--br-md);
+  overflow: clip;
+  transition: all 300ms ease-in-out;
+  max-width: 20rem;
 
-  .text-container {
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .img-card-img {
+    aspect-ratio: 3/4;
+    width: 7rem;
+
+    img {
+      border-radius: 0;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+  }
+
+  .img-card-description {
+    container: img-card-description / inline-size;
     padding-block: 0.75rem;
     padding-inline: 0.45rem;
     text-align: left;
     margin-left: var(--sp-xxs);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
-  .name-container {
-    margin-inline: 0;
-    display: inline;
-    text-align: center;
+  /* PlantName component container */
+  .plant-name-wrapper {
     padding-right: var(--sp-xs);
+
+    .common-name {
+      padding-bottom: var(--sp-xxs);
+      line-height: var(--sp-md);
+      font-size: var(--fs-sm);
+    }
+
+    .botanical-name {
+      line-height: var(--sp-md);
+      padding-top: var(--sp-xxs);
+      font-size: var(--fs-xs);
+    }
   }
 
   .flowering,
@@ -23,21 +58,14 @@
       margin-right: var(--sp-xxs);
     }
   }
-}
 
-.img-card-name {
-  .common-name {
-    padding-bottom: var(--sp-xxs);
-    line-height: var(--sp-md);
+  .img-card-heading {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
-  .botanical-name {
-    line-height: var(--sp-md);
-    padding-top: var(--sp-xxs);
-    font-size: var(--fs-xs);
-    font-style: normal;
-    font-weight: 100;
-    color: var(--color-slate-50);
-    text-align: left;
+  .img-card-body {
+    line-height: 1.175rem;
   }
 }

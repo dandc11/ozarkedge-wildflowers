@@ -1,20 +1,82 @@
 /* Landing Page ********************************/
 .homepage-content {
+  --btf-bg-color: #fef9c3;
   container: homepage-content / inline-size;
+  height: auto;
 
-  #landingImageContainer {
-    background-image: var(--container-bg-small);
+  .atf {
+    min-height: 100svh;
+    height: 100%;
+    padding-top: 5.5rem;
   }
 
-  @media screen and (min-width: 900px) {
-    #landingImageContainer {
-      background-image: var(--container-bg-image);
+  .bg-img {
+    z-index: -10;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: none;
+
+    img {
+      border-radius: 0;
+      object-fit: cover;
+      object-position: 50% 100%;
+    }
+    &.mobile {
+      display: block;
+    }
+
+    @container homepage-content (width > 900px) {
+      display: block;
+
+      &.mobile {
+        display: none;
+      }
     }
   }
 
+  .title,
+  .subtitle {
+    color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(to right, #c2410c, #78350f);
+  }
+
+  .title {
+    padding-bottom: 0.25rem;
+    font-size: clamp(1.5rem, calc(1.5rem + 4cqi), 4rem);
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    line-height: 1;
+  }
+
+  .subtitle {
+    padding-block-start: var(--sp-xxs);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
   .homepage-cta {
-    .btn-secondary {
+    .btn-2 {
       background: var(--btn-gradient-5);
+    }
+  }
+
+  .btf {
+    &[data-season='spring'] {
+      background-color: var(--spring-bg-color);
+    }
+
+    &[data-season='summer'] {
+      background-color: var(--summer-bg-color);
+    }
+
+    &[data-season='fall'] {
+      background-color: var(--fall-bg-color);
+    }
+
+    &[data-season='winter'] {
+      background: var(--winter-accent);
     }
   }
 
@@ -22,21 +84,31 @@
     .homepage-cta {
       display: flex;
       justify-content: center;
-
-      .btn-primary,
-      .btn-secondary {
-        width: auto;
-      }
+    }
+    .homepage-title .title {
+      line-height: 1.25;
     }
   }
 
   @container homepage-content (width >= 900px) {
+    .atf {
+      justify-content: start;
+      padding-inline: var(--sp-xl);
+    }
+
+    .homepage-title {
+      align-self: end;
+      text-align: right;
+      padding-inline: 0;
+    }
+
     .homepage-cta {
       display: flex;
       justify-content: end;
+      padding-block-start: var(--sp-2xl);
 
-      .btn-primary,
-      .btn-secondary {
+      .btn-1,
+      .btn-2 {
         width: auto;
       }
     }
@@ -46,17 +118,11 @@
     }
   }
 
-  .description {
+  .teaser-slider-grid .description {
     container: description / inline-size;
 
-    .btn-primary {
-      width: 100%;
-    }
-
-    @container description (width > 600px) {
-      .btn-primary {
-        width: auto;
-      }
+    @container teaser (width >= 800px) {
+      grid-row-start: 2;
     }
   }
 }

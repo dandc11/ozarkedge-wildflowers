@@ -1,59 +1,46 @@
+'use client'
+
 import React, { useState, useEffect, useContext } from 'react'
+import cx from 'classnames'
+
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
-import cx from 'classnames'
-import { NavButtonColorContext } from '../contexts/NavButtonColorContext'
 
 /**
  * The Nav (Menu) component
- * @returns the Nav component
- * @category Components
- * @example
- * <Nav />
- * 
+ * @param {object} menuData - The menu data object
+ * @returns {JSX.Element} The Nav component
  */
-const Nav = () => {
+const Nav = ({ menuData }) => {
   const [menuItems, setMenuItems] = useState([])
   const [menuBgImage, setMenuBgImage] = useState('')
   const [mobileMenuBgImage, setMobileMenuBgImage] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [navButtonColor] = useContext(NavButtonColorContext)
-
-  const fetchMenuItems = async () => {
-    try {
-      const res = await fetch('/api/menuMiddleware')
-      const data = await res.json()
-      
-      if (data && data.length > 0) {
-        let menuItems = data[0].menuItems
-        let menuBgImage = data[0].menuBackgroundImage
-        let mobileMenuBgImage = data[0].mobileMenuBgImage
-        menuItems ? setMenuItems(menuItems) : setMenuItems([])
-        menuBgImage ? setMenuBgImage(menuBgImage) : setMenuBgImage('')
-        mobileMenuBgImage
-          ? setMobileMenuBgImage(mobileMenuBgImage)
-          : setMobileMenuBgImage('')
-      }
-    } catch (error) {
-      console.error('Failed to fetch menu items', error)
-    }
-  }
 
   useEffect(() => {
-    fetchMenuItems()
-  }, [])
+    if (menuData && menuData.length > 0) {
+      let menuItems = menuData[0].menuItems
+      let menuBgImage = menuData[0].menuBackgroundImage
+      let mobileMenuBgImage = menuData[0].mobileMenuBgImage
+      menuItems ? setMenuItems(menuItems) : setMenuItems([])
+      menuBgImage ? setMenuBgImage(menuBgImage) : setMenuBgImage('')
+      mobileMenuBgImage
+        ? setMobileMenuBgImage(mobileMenuBgImage)
+        : setMobileMenuBgImage(menuBgImage)
+    }
+  }, [menuData])
 
   const menuListItems = menuItems.map((item, index) => {
     return (
       <li
         key={index}
-        className="nav-list-item mb-4 flex justify-start items-center"
+        className="nav-list-item text-display flex justify-start items-center"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <CustomLink
           docType={item.menuItemLink.docType}
           slug={item.menuItemLink.slug}
-          className="menu-link text-white"
+          className="nav-list-item-link"
         >
           {item.title}
         </CustomLink>
@@ -61,78 +48,61 @@ const Nav = () => {
     )
   })
 
-  return (
-    <nav
-      id="mainNav"
-      className={`group/nav fixed font-display tracking-normal bg-#181517 text-2xl flex z-50 ${
-        isMenuOpen ? 'menu-active w-full h-full overflow-hidden bg-white' : ''
-      }`}
-    >
+  const HamburgerButton = ({ isMenuOpen, setIsMenuOpen }) => {
+    return (
       <button
-        className={cx(
-          'menu-icon absolute top-5 left-5 z-30 h-6 border-none flex flex-col justify-between',
-        )}
+        aria-label="Open the main menu"
+        className={cx('nav-icon flex flex-col justify-between')}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        <div
-          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
-        ></div>
-        <div
-          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
-        ></div>
-        <div
-          className={`nav-btn-bar w-8 h-1 ${navButtonColor === 'dark' ? 'menu-dark' : 'menu-light'}`}
-        ></div>
-
+        <div className={`nav-btn-bar`}></div>
+        <div className={`nav-btn-bar`}></div>
+        <div className={`nav-btn-bar`}></div>
       </button>
-      <div className={cx(`menu-container w-full`)}>
-        <div id="menuItemsContainer" className="menu-items">
-          <ul
-            className={`nav-links mt-24 ml-5 bp-600:mt-32 bp-600:ml-16 bp-900:mt-24 bp-900:ml-8`}
-          >
-            {menuListItems}
-          </ul>
-          <div
-            className={cx(
-              `overlay absolute h-full w-full top-0 -z-10`,
-            )}
-          ></div>
+    )
+  }
+
+  return (
+    <>
+      <nav
+        id="mainNav"
+        className={cx(`main-nav fixed text-display`, {
+          'nav-active': isMenuOpen,
+        })}
+      >
+        <HamburgerButton isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <div className={cx(`nav-grid-container w-full h-full`)}>
+          <div id="menuItemsContainer" className="nav-sidebar">
+            <ul className={`nav-list`}>{menuListItems}</ul>
+            <div className={cx(`overlay`)}></div>
+          </div>
+          <div id="menuImageContainer" className={cx(`nav-img`)}>
+            <ResponsiveImage
+              className={cx(`rounded-none w-full h-full`)}
+              disableHover
+              figureClassName={'h-full'}
+              image={menuBgImage}
+              lightboxIdentifier
+              loading="lazy"
+              showCaption={false}
+              width=""
+              wrapperClassName="lg-img h-full"
+            />
+            <ResponsiveImage
+              className={cx(`rounded-none w-full h-full`)}
+              disableHover
+              figureClassName={'h-full'}
+              image={mobileMenuBgImage}
+              lightboxIdentifier
+              loading="lazy"
+              showCaption={false}
+              width=""
+              wrapperClassName="mobile-img h-full"
+            />
+          </div>
         </div>
-        <div
-          id="menuImageContainer"
-          className={cx(
-            `menu-image w-full h-full absolute top-0 -z-20 bp-1200:relative`,
-          )}
-        >
-          <ResponsiveImage
-            className={cx(
-              `rounded-none w-full h-full`,
-            )}
-            disableHover
-            figureClassName={'h-full'}
-            image={menuBgImage}
-            lightboxIdentifier
-            loading="lazy"
-            showCaption={false}
-            width=""
-            wrapperClassName="lg-img h-full"
-          />
-          <ResponsiveImage
-            className={cx(
-              `rounded-none w-full h-full`,
-            )}
-            disableHover
-            figureClassName={'h-full'}
-            image={menuBgImage}
-            lightboxIdentifier
-            loading="lazy"
-            showCaption={false}
-            width=""
-            wrapperClassName="mobile-img h-full"
-          />
-        </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   )
 }
 

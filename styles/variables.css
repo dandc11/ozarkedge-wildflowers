@@ -1,54 +1,56 @@
 :root {
-    /* Font sizing---------------------------*/
-    --fs-xxs: 0.75rem;
-    --fs-xs: 0.875rem;
-    --fs-sm: 1rem;
-    --fs-md: 1.125rem;
-    --fs-lg: 1.25rem;
-    --fs-xl: 1.5rem;
-    --fs-2xl: 1.875rem;
-    --fs-3xl: 2.25rem;
-    --fs-4xl: 3rem;
-    --fs-5xl: 3.75rem;
-    --fs-6xl: 4.5rem;
-    --fs-7xl: 5.5rem;
-    --fs-8xl: 6.5rem;
-    --fs-9xl: 8rem;
+  /* Font sizing---------------------------*/
+  --fs-xxs: 0.75rem;
+  --fs-xs: 0.875rem;
+  --fs-sm: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 1.875rem;
+  --fs-3xl: 2.25rem;
+  --fs-4xl: 3rem;
+  --fs-5xl: 3.75rem;
+  --fs-6xl: 4.5rem;
+  --fs-7xl: 5.5rem;
+  --fs-8xl: 6.5rem;
+  --fs-9xl: 8rem;
+  --fs-10xl: 10rem;
 
+  /* Spacing-------------------------------*/
+  --sp-xxs: 0.25rem;
+  --sp-xs: 0.5rem;
+  --sp-sm: 0.75rem;
+  --sp-md: 1rem;
+  --sp-ml: 1.25rem;
+  --sp-lg: 1.5rem;
+  --sp-xl: 2rem;
+  --sp-2xl: 3rem;
+  --sp-3xl: 4rem;
+  --sp-4xl: 6rem;
+  --sp-5xl: 8rem;
+  --sp-6xl: 12rem;
+  --sp-7xl: 16rem;
+  --sp-8xl: 24rem;
 
-    /* Spacing-------------------------------*/
-    --sp-xxs: 0.25rem;
-    --sp-xs: 0.5rem;
-    --sp-sm: 0.75rem;
-    --sp-md: 1rem;
-    --sp-ml: 1.25rem;
-    --sp-lg: 1.5rem;
-    --sp-xl: 2rem;
-    --sp-2xl: 3rem;
-    --sp-3xl: 4rem;
-    --sp-4xl: 6rem;
-    --sp-5xl: 8rem;
-    --sp-6xl: 12rem;
-    --sp-7xl: 16rem;
-    --sp-8xl: 24rem;
-    
+  /* Font Weight---------------------------*/
+  --fw-100: 100;
+  --fw-200: 200;
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+  --fw-800: 800;
+  --fw-900: 900;
 
-    /* Font Weight---------------------------*/
-    --fw-100: 100;
-    --fw-200: 200;
-    --fw-300: 300;
-    --fw-400: 400;
-    --fw-500: 500;
-    --fw-600: 600;
-    --fw-700: 700;
-    --fw-800: 800;
-    --fw-900: 900;
+  /* Box Shadow----------------------------*/
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-    /* Box Shadow----------------------------*/
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-
-
+  /* Border Radius---------------------------*/
+  --br-sm: 0.125rem;
+  --br-md: 0.375rem;
+  --br-lg: 0.5rem;
 }

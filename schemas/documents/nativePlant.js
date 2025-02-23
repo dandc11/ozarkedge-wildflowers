@@ -1,7 +1,7 @@
 import { GiFlowerEmblem } from 'react-icons/gi'
 import { defineArrayMember, defineType, defineField } from 'sanity'
-import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
+import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
 // import AssetSource from 'part:sanity-plugin-media-library/asset-source';
 
@@ -43,13 +43,16 @@ export default defineType({
       botanicalName: 'plantName.botanicalName',
     },
     prepare(selection) {
-      const {commonName, botanicalName} = selection;
-      const slug = `${commonName}-${botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200);
+      const { commonName, botanicalName } = selection
+      const slug = `${commonName}-${botanicalName}`
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .slice(0, 200)
       return {
         ...selection,
-        subtitle: `/${slug}`
+        subtitle: `/${slug}`,
       }
-    }
+    },
   },
   fields: [
     defineField({
@@ -63,7 +66,7 @@ export default defineType({
         hotspot: true,
       },
       group: 'name',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'mobileImage',
@@ -79,7 +82,8 @@ export default defineType({
     defineField({
       name: 'menuButtonColor',
       title: 'Menu Button Color',
-      description: 'Choose light when using a dark image and dark when using a light image.',
+      description:
+        'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
       options: {
         list: ['light', 'dark'],
@@ -98,7 +102,7 @@ export default defineType({
         "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
       type: 'pageBodyPortableText',
       group: 'description',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'images',
@@ -165,7 +169,7 @@ export default defineType({
           { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
           { title: 'Savannah', value: 'Savannah' },
           { title: 'Wetland', value: 'Wetland' },
-        ]
+        ],
       },
       group: 'growingNearby',
     }),
@@ -187,10 +191,10 @@ export default defineType({
           { title: 'Critically Imperiled', value: 'criticallyImperiled' },
           { title: 'Imperiled', value: 'imperiled' },
           { title: 'Vulnerable', value: 'vulnerable' },
-          { title: 'Apparently Secure', value: 'apparentlySecure'},
+          { title: 'Apparently Secure', value: 'apparentlySecure' },
           { title: 'Secure', value: 'secure' },
-          { title: 'Not Ranked', value: 'notRanked'}
-        ]
+          { title: 'Not Ranked', value: 'notRanked' },
+        ],
       },
       group: 'description',
     }),
@@ -207,27 +211,36 @@ export default defineType({
       type: 'pageBodyPortableText',
       group: 'description',
     }),
-    {
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: doc => `${doc.plantName.commonName}-${doc.plantName.botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+        source: (doc) =>
+          `${doc?.plantName?.commonName}-${doc?.plantName?.botanicalName}`
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .slice(0, 200),
       },
+      hidden: ({ document }) =>
+        !document?.plantName?.commonName || !document?.plantName?.botanicalName,
       preview: {
         select: {
           title: 'plantName.commonName',
           subtitle: 'plantName.botanicalName',
         },
         prepare(selection) {
-          const {title, subtitle} = selection
+          const { title, subtitle } = selection
           return {
-            title: `${title}-${subtitle}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+            title: `${title}-${subtitle}`
+              .toLowerCase()
+              .replace(/\s+/g, '-')
+              .slice(0, 200),
           }
         },
       },
-      validation: Rule => Rule.required(),
-    },
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: 'plantIdentificationTags',
       type: 'array',
@@ -259,7 +272,7 @@ export default defineType({
         ],
       },
       group: 'metadata',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'floweringSeason',
@@ -276,7 +289,7 @@ export default defineType({
         ], // <-- predefined values
       },
       group: 'metadata',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'floweringMonths',
@@ -300,7 +313,7 @@ export default defineType({
         ], // <-- predefined values
       },
       group: 'metadata',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'metaDescription',
@@ -315,7 +328,7 @@ export default defineType({
         (Rule) => Rule.min(40),
       ],
       description:
-        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section, like "TeaserSlider Now". Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."', 
+        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section. Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."',
       group: 'metadata',
     }),
     defineField({
@@ -328,7 +341,7 @@ export default defineType({
         hotspot: true, // <-- Defaults to false
       },
       group: 'metadata',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
   ],
 })

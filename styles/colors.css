@@ -2,6 +2,7 @@
   --oe-white: hsl(0, 0%, 100%);
   --oe-black: hsl(0, 0%, 0%);
   --oe-text-body: hsl(240, 3%, 15%);
+  --oe-link-blue: hsl(217, 91%, 60%);
   --oe-grey-100: hsl(0, 0%, 96%);
   --oe-grey-200: hsl(0, 0%, 88%);
   --oe-grey-300: hsl(0, 0%, 76%);
@@ -69,7 +70,7 @@
   --oe-blue-dark-200: hsl(216, 50%, 82%);
   --oe-blue-dark-300: hsl(216, 50%, 70%);
   --oe-blue-dark-400: hsl(216, 50%, 58%);
-  --oe-blue-dark-500: hsl(216, 50%, 42%);
+  --oe-blue-dark-500: hsl(216, 50%, 39%);
   --oe-blue-dark-600: hsl(216, 50%, 30%);
   --oe-blue-dark-700: hsl(216, 50%, 26%);
   --oe-blue-dark-800: hsl(216, 50%, 18%);
@@ -93,8 +94,8 @@
   --oe-purple-800: hsl(260deg, 60%, 17%);
   --oe-purple-900: hsl(260deg, 65%, 7%);
   --oe-red-100: hsl(0, 100%, 96%);
-  --oe-red-200: hsl(15, 100%, 76%);
-  --oe-red-300: hsl(15, 100%, 70%);
+  --oe-red-200: hsl(15deg 89.54% 81.98%);
+  --oe-red-300: hsl(15, 100%, 66%);
   --oe-red-400: hsl(15, 100%, 46%);
   --oe-red-500: hsl(0, 100%, 38%);
   --oe-red-600: hsl(0, 100%, 33%);
@@ -128,58 +129,57 @@
   --oe-secure: hsl(216, 50%, 42%);
   --spring-accent: var(--oe-blue-green-light-900);
   --summer-accent: var(--oe-green-yellow-600);
-  --fall-accent: var(--oe-red-200);
-  --winter-accent: var(--oe-grey-300);
+  --fall-accent: hsl(19, 52%, 25%);
+  --winter-accent: var(--oe-grey-800);
   --spring-bg-color: hsl(98, 29%, 80%);
   --summer-bg-color: hsl(49.35deg 98.52% 82.81%);
   --fall-bg-color: var(--oe-orange-200);
-  --winter-bg-color: var(--oe-white);
+  --winter-bg-color: hsl(210, 4%, 90%);
+  --winter-bg-color-2: hsl(221, 19%, 78%);
+  --nav-bg-color: var(--oe-white);
+  --nav-bg-dark: var(--oe-red-800);
 
-  /* Gradients ------------------------------ */
-  --spring-gradient: linear-gradient(
-    20deg,
-    var(--oe-red-bright-500) 60%,
-    var(--oe-green-800) 100%
-  );
-  --summer-gradient: linear-gradient(
-    180deg,
-    var(--oe-purple-300) 60%,
-    var(--oe-purple-700) 100%
-  );
-  --fall-gradient: linear-gradient(
-    175deg,
-    var(--oe-brown-700) 60%,
-    var(--oe-yellow-800) 100%
-  );
-  --winter-gradient: linear-gradient(
-    140deg,
-    var(--oe-grey-700) 0%,
-    var(--oe-blue-dark-200) 100%
-  );
+  /* Gradients ----------------------------- */
+  --spring-gradient: linear-gradient(60deg, hsl(350, 72%, 52%) 5%, hsl(134, 15%, 32%) 100%);
+  --summer-gradient: linear-gradient(220deg, var(--oe-purple-200) 60%, var(--oe-purple-300) 100%);
+  --fall-gradient: linear-gradient(175deg, var(--oe-brown-700) 60%, var(--oe-yellow-800) 100%);
+  --winter-gradient: linear-gradient(145deg, #3b332a 0%, hsl(27, 12%, 57%) 100%);
+  --winter-gradient-2: linear-gradient(90deg, hsl(215, 44%, 58%) 0%, hsl(216, 42%, 87%) 100%);
 
   --btn-gradient-1: linear-gradient(
-    90deg,
-    var(--oe-pink-500) 0%,
-    var(--oe-pink-600) 100%
+    to right,
+    hsl(337, 67%, 54%),
+    var(--oe-pink-600),
+    var(--oe-pink-700)
   );
   --btn-gradient-2: linear-gradient(
-    90deg,
-    var(--oe-blue-green-dark-500) 0%,
-    var(--oe-blue-green-dark-600) 100%
+    to right,
+    var(--oe-blue-green-dark-500),
+    var(--oe-blue-green-dark-600),
+    var(--oe-blue-green-dark-700)
+  );
+  --btn-gradient-2-hover: linear-gradient(
+    to right,
+    var(--oe-blue-green-dark-400) 0%,
+    var(--oe-blue-green-dark-500) 100%
   );
   --btn-gradient-3: linear-gradient(
     90deg,
-    var(--oe-grey-800) 0%,
-    var(--oe-grey-900) 100%
+    var(--oe-blue-dark-100) 0%,
+    var(--oe-blue-dark-200) 70%,
+    var(--oe-blue-dark-100) 100%
   );
   --btn-gradient-4: linear-gradient(
-    90deg,
-    var(--oe-blue-dark-700) 0%,
-    var(--oe-blue-dark-800) 100%
+    to right,
+    var(--oe-blue-dark-700),
+    var(--oe-blue-dark-800),
+    var(--oe-blue-dark-800)
   );
   --btn-gradient-5: linear-gradient(
     90deg,
     var(--oe-red-800) 0%,
+    var(--oe-red-600) 50%,
     var(--oe-red-700) 100%
   );
+  --btn-gradient-6: linear-gradient(to right, #2b2728 0%, #262123 100%);
 }

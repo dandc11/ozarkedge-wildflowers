@@ -66,7 +66,14 @@ const HeadingDisplay = (props) => {
   const headingCSS = cx('heading-title', headingClassName)
 
   return (
-    <div id={id} className={cx('heading-display', { absolute: absolute }, className)}>
+    <div
+      id={id}
+      className={cx(
+        'heading heading-display',
+        { absolute: absolute },
+        className,
+      )}
+    >
       <HeadingElement
         headingLevel={headingLevel}
         headingCSS={headingCSS}

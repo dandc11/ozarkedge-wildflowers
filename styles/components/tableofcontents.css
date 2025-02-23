@@ -1,0 +1,23 @@
+.toc {
+  background-color: var(--oe-white);
+  z-index: 30;
+  width: 100%;
+  padding-block: var(--sp-xl);
+
+  li {
+    a {
+      color: var(--oe-text-body);
+      text-decoration: none;
+
+      &:hover {
+        font-weight: var(--fw-500);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    }
+
+    a:after {
+      content: '....................................................................................................................................';
+    }
+  }
+}

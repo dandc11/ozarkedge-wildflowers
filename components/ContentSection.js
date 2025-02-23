@@ -1,5 +1,7 @@
+'use client'
 import React, { useState } from 'react'
 import cx from 'classnames'
+
 import Heading from './Heading'
 import PortTextWrapper from './PortTextWrapper'
 
@@ -39,7 +41,7 @@ const ContentSection = ({
   return (
     <>
       {portableText && (
-        <section className={cx('relative', className)}>
+        <section className={cx('content-section relative', className)}>
           <Heading
             id={sectionId}
             title={headerTitle}
@@ -47,12 +49,16 @@ const ContentSection = ({
             showCircle={showCircle}
             tocLinks={tocLinks}
           >
-            <div className="flex flex-col gap-3 bp-600:flex-row">
-              {headerTitle} {badge && React.cloneElement(badge, {showMoreInfoSection: setDisplayPretextComponent})}
+            <div className="heading-wrapper flex flex-col ">
+              {headerTitle}{' '}
+              {badge &&
+                React.cloneElement(badge, {
+                  showMoreInfoSection: setDisplayPretextComponent,
+                })}
             </div>
-          </Heading> 
+          </Heading>
           <div>
-          {displayPretextComponent && pretextComponent}
+            {displayPretextComponent && pretextComponent}
             <PortTextWrapper
               lightboxCallback={toggleLightboxCallback}
               lightboxIdentifier={lightboxIdentifier}

@@ -1,18 +1,50 @@
 .about-content {
-    container: aboutpage-content / inline-size;
-    width: 100%;
-    height: auto;
-    padding: 0; 
-    background-color: var(--oe-green-yellow-300);
-    
-    .content-well > * {
-      width: clamp(8rem, 90cqi, 60rem);
-      padding-block: min(5vh, 2rem);
-      margin-inline: auto;
+  container: aboutpage-content / inline-size;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  background-color: var(--oe-green-yellow-300);
 
-      @container (min-width: 600px) {
-        width: clamp(35rem, 85cqi, 55rem);
-        padding-block: min(10vh, 3rem);
+  .header-section {
+    .banner-img {
+      background-color: var(--oe-green-yellow-200);
+
+      img {
+        border-radius: 0;
+        object-fit: cover;
+        object-position: 50% 10%;
       }
     }
   }
+
+  .heading {
+    bottom: -2rem;
+
+    .heading-bg {
+      background-color: var(--oe-blue-dark-500);
+    }
+  }
+
+  @container aboutpage-content (width > 900px) {
+    .banner-img {
+      height: 70vh;
+    }
+
+    .heading {
+      text-align: right;
+      padding-left: var(--sp-lg);
+      bottom: -2.5rem;
+    }
+
+    .port-text {
+      margin-top: var(--sp-4xl);
+      order: 2;
+    }
+  }
+
+  @container aboutpage-content (width >= 12.96l) {
+    .banner-img img {
+      object-position: 50% 35%;
+    }
+  }
+}
