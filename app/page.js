@@ -50,7 +50,7 @@ export default async function HomePage() {
     currentSeason === 'winter' ? `More about winter` : `More about ${currentSeason} flowers`
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
-    <span className="">
+    <span className="blooming-title fw-400">
       {currentSeason === 'winter'
         ? `${titleCase(thisMonth)}`
         : `Blooming in ${titleCase(thisMonth)}`}

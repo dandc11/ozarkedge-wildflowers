@@ -135,7 +135,8 @@
   --summer-bg-color: hsl(49.35deg 98.52% 82.81%);
   --fall-bg-color: var(--oe-orange-200);
   --winter-bg-color: hsl(210, 4%, 90%);
-  --winter-bg-color-2: hsl(221, 19%, 78%);
+  --winter-bg-color-2: hsl(220, 2%, 73%);
+  --winter-bg-color-3: hsl(222, 15%, 29%);
   --nav-bg-color: var(--oe-white);
   --nav-bg-dark: var(--oe-red-800);
 
@@ -145,6 +146,7 @@
   --fall-gradient: linear-gradient(175deg, var(--oe-brown-700) 60%, var(--oe-yellow-800) 100%);
   --winter-gradient: linear-gradient(145deg, #3b332a 0%, hsl(27, 12%, 57%) 100%);
   --winter-gradient-2: linear-gradient(90deg, hsl(215, 44%, 58%) 0%, hsl(216, 42%, 87%) 100%);
+  --winter-gradient-3: linear-gradient(145deg, #39393e 0%, hsl(25, 13%, 18%) 100%);
 
   --btn-gradient-1: linear-gradient(
     to right,

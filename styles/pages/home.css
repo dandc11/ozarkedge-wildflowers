@@ -115,6 +115,18 @@
 
     .blooming-now {
       padding-left: var(--sp-lg);
+
+      .blooming-title {
+        text-transform: uppercase;
+      }
+
+      &.winter {
+        background: var(--winter-gradient-3);
+        .blooming-title,
+        .description p {
+          color: var(--oe-white);
+        }
+      }
     }
   }
 
