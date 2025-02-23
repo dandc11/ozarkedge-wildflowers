@@ -73,10 +73,10 @@
         transform: scale(0.99);
       }
     }
+  }
 
-    &.curspor-pointer {
-      cursor: pointer;
-    }
+  .cursor-pointer {
+    cursor: pointer;
   }
 
   &.port-text-img {

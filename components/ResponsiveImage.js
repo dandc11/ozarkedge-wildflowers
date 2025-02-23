@@ -3,6 +3,7 @@
 import { SanityImage } from 'sanity-image'
 import { useEffect, useContext } from 'react'
 import cx from 'classnames'
+import { stegaClean } from 'next-sanity'
 
 import { LightboxContext } from '../contexts/LightboxContext'
 import { projectId, dataset } from '../sanity/lib/sanity.api'
@@ -161,10 +162,10 @@ const ResponsiveImage = ({
           >
             <SanityImageWrapper
               {...image}
-              alt={alt || ''}
+              alt={stegaClean(alt)}
               className={cx(
                 { hover: !disableHover },
-                { 'cursor-pointer ': onClick !== '' && !disablePointer },
+                { 'cursor-pointer ': !disablePointer },
                 className,
               )}
               lightboxIdentifier={lightboxIdentifier}
