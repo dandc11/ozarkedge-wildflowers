@@ -11,6 +11,7 @@ import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { GET_MENU_ITEMS_QUERY } from '../sanity/lib/queries'
+import { getCurrentSeason } from '../utilities/helperUtil'
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default async function RootLayout({ children, pageProps }) {
   const menuData = await sanityFetch({
     query: GET_MENU_ITEMS_QUERY,
   })
+  const currentSeason = getCurrentSeason()
 
   const { isEnabled: isDraftMode } = await draftMode()
 
@@ -47,7 +49,7 @@ export default async function RootLayout({ children, pageProps }) {
         <link rel="icon" href="/favicon-512x512.png" sizes="512x512" />
         <meta name="theme-color" content="#000000" />
       </Head>
-      <body className="oe-site-body">
+      <body className={`oe-site-body ${currentSeason.SEASON_NAME}`}>
         {/* <SanityLive /> */}
         <ContextProviders>
           <Nav menuData={menuData?.data} />

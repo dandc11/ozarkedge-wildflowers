@@ -54,22 +54,21 @@ const AboutPage = async () => {
               className=""
             />
             <Heading
-              className={
-                'content-center text-display -bottom-8 whitespace-nowrap bp-900:text-right bp-900:px-8 bp-900:py-3 bp-900:-bottom-12'
-              }
+              className={'content-center text-display '}
               showCircle={false}
-              absolute
-              textTypeClass={'display bp-900:text-3xl'}
-              headingClassName={'w-fit text-white bg-oe-blue-dark-500 px-6 pb-xxs mb-0'}
+              textTypeClass={'text-display'}
+              headingClassName={'no-wrap text-white bg-oe-blue-dark-500 px-6 pb-xxs mb-0'}
             >
               About Ozarkedge
             </Heading>
           </header>
-          <PortTextWrapper
-            className={`relative z-10 mt-2xl`}
-            lightboxIdentifier={'about'}
-            value={aboutPageData.body}
-          />
+          <div className="content-well">
+            <PortTextWrapper
+              className={`relative z-10 mt-2xl`}
+              lightboxIdentifier={'about'}
+              value={aboutPageData.body}
+            />
+          </div>
         </div>
       )}
     </>

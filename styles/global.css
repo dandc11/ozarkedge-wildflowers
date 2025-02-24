@@ -177,15 +177,31 @@ img {
 }
 
 .footer {
+  --footer-bg-color: var(--oe-green-700);
   vertical-align: middle;
   justify-content: center;
   width: 100%;
   height: 7rem;
   color: var(--oe-white);
-  background-color: var(--oe-green-700);
+  background-color: var(--footer-bg-color);
   align-self: center;
   align-items: center;
 
+  .spring & {
+    --footer-bg-color: var(--oe-green-700);
+  }
+
+  .summer & {
+    --footer-bg-color: var(--oe-blue-green-light-800);
+  }
+
+  .fall & {
+    --footer-bg-color: var(--oe-orange-700);
+  }
+
+  .winter & {
+    --footer-bg-color: var(--oe-grey-800);
+  }
   * {
     color: inherit;
   }

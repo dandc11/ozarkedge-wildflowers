@@ -18,10 +18,19 @@
   }
 
   .heading {
-    bottom: -2rem;
+    margin-block-start: -1rem;
+
+    .heading-title {
+      width: fit-content;
+      color: var(--oe-white);
+      position: relative;
+      padding-inline: 1rem;
+    }
 
     .heading-bg {
       background-color: var(--oe-blue-dark-500);
+      width: 100%;
+      position: absolute;
     }
   }
 
@@ -33,7 +42,6 @@
     .heading {
       text-align: right;
       padding-left: var(--sp-lg);
-      bottom: -2.5rem;
     }
 
     .port-text {
