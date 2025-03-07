@@ -47,7 +47,7 @@ export default async function HomePage() {
   const seasonDefaultImage = seasonData?.mainImage
   const currentSeason = getCurrentSeason()?.SEASON_NAME
   const teaserButtonLinkText =
-    currentSeason === 'winter' ? `More about winter` : `More about ${currentSeason} flowers`
+    currentSeason === 'winter' ? `More about winter` : `More ${currentSeason} flowers`
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
     <span className="blooming-title fw-400">
