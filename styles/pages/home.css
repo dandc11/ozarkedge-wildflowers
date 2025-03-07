@@ -92,6 +92,10 @@
         color: var(--oe-white);
       }
     }
+
+    &.spring {
+      background: var(--spring-gradient-3);
+    }
   }
 
   @container homepage-content (width > 600px) {

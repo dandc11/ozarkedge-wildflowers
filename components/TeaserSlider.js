@@ -47,10 +47,10 @@ const TeaserSlider = (props) => {
   let btnThemeClass
   switch (currentSeason) {
     case 'spring':
-      btnThemeClass = 'btn-primary'
+      btnThemeClass = 'btn-1'
       break
     case 'summer':
-      btnThemeClass = 'btn-secondary'
+      btnThemeClass = 'btn-2'
       break
     case 'fall':
       btnThemeClass = 'btn-3'
@@ -59,7 +59,7 @@ const TeaserSlider = (props) => {
       btnThemeClass = 'btn-4'
       break
     default:
-      btnThemeClass = 'btn-primary'
+      btnThemeClass = 'btn-1'
   }
   const sliderPlants = images
     .filter((plant) => plant.image)
