@@ -61,14 +61,16 @@ const TeaserSlider = (props) => {
     default:
       btnThemeClass = 'btn-1'
   }
+  ;``
   const sliderPlants = images
     .filter((plant) => plant.image)
     .map((plant) => {
-      plant.image.caption = plant.plantName?.commonName
+      plant.image.caption = plant.caption?.commonName
       plant.image.docType = 'nativePlant'
       plant.image.slug = plant.slug
       return plant.image
     })
+
   // TODO: update this with dynamic params for more use cases
   const teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
   return (
