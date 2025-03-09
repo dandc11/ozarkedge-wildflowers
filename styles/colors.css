@@ -148,12 +148,7 @@
   --winter-gradient-2: linear-gradient(90deg, hsl(215, 44%, 58%) 0%, hsl(216, 42%, 87%) 100%);
   --winter-gradient-3: linear-gradient(145deg, #39393e 0%, hsl(25, 13%, 18%) 100%);
 
-  --btn-gradient-1: linear-gradient(
-    to right,
-    hsl(337, 67%, 54%),
-    var(--oe-pink-600),
-    var(--oe-pink-700)
-  );
+  --btn-gradient-1: linear-gradient(to right, hsl(337, 67%, 54%), var(--oe-pink-600));
   --btn-gradient-2: linear-gradient(
     to right,
     var(--oe-blue-green-dark-500),
@@ -167,21 +162,10 @@
   );
   --btn-gradient-3: linear-gradient(
     90deg,
-    var(--oe-blue-dark-100) 0%,
-    var(--oe-blue-dark-200) 70%,
+    var(--oe-blue-dark-200) 0%,
     var(--oe-blue-dark-100) 100%
   );
-  --btn-gradient-4: linear-gradient(
-    to right,
-    var(--oe-blue-dark-700),
-    var(--oe-blue-dark-800),
-    var(--oe-blue-dark-800)
-  );
-  --btn-gradient-5: linear-gradient(
-    90deg,
-    var(--oe-red-800) 0%,
-    var(--oe-red-600) 50%,
-    var(--oe-red-700) 100%
-  );
+  --btn-gradient-4: linear-gradient(to right, var(--oe-blue-dark-700), var(--oe-blue-dark-800));
+  --btn-gradient-5: linear-gradient(90deg, var(--oe-red-800) 0%, var(--oe-red-700) 100%);
   --btn-gradient-6: linear-gradient(to right, #2b2728 0%, #262123 100%);
 }
