@@ -1,7 +1,6 @@
 [class^='btn-'] {
   padding: var(--sp-ml) var(--sp-xl);
-  width: 90%;
-  /* min-width: 10rem; */
+  width: 300px;
   color: var(--oe-white);
   cursor: pointer;
   box-shadow: var(--shadow-md);
@@ -9,22 +8,17 @@
   align-self: center;
   border: none;
   background-size: 300% 100%;
-  transition: all 0.4s ease-in-out;
-
-  @container (width > 400px) {
-    [class^='btn-'] {
-      max-width: 300px;
-    }
-  }
+  transition: all 0.5s ease-in-out;
 
   @container (width > 600px) {
     width: auto;
     margin-inline: 0;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     /* transition: all 0.3s ease-in-out; */
-    background-position: 100% 0;
+    background-position: 25% 0;
   }
 
   &.btn-expand {
@@ -36,20 +30,20 @@
 }
 
 .btn-1 {
-  background-image: var(--btn-gradient-1);
+  background: var(--btn-gradient-1);
 }
 .btn-2 {
-  background-image: var(--btn-gradient-2);
+  background: var(--btn-gradient-2);
 }
 .btn-3 {
-  background-image: var(--btn-gradient-1);
+  background: var(--btn-gradient-1);
 }
 .btn-4 {
-  background-image: var(--btn-gradient-3);
+  background: var(--btn-gradient-3);
   color: var(--oe-blue-dark-600);
 }
 .btn-5 {
-  background-image: var(--btn-gradient-5);
+  background: var(--btn-gradient-5);
 }
 
 .icon {

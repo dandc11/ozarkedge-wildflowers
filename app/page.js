@@ -37,7 +37,7 @@ export default async function HomePage() {
   const bloomingQueryResponse = await sanityFetch({
     query: GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
   })
-  const bloomingPlantImagesArray = bloomingQueryResponse?.data ?? []
+  const bloomingPlantArray = bloomingQueryResponse?.data ?? []
 
   const landingPageQueryResponse = await sanityFetch({ query: GET_LANDING_PAGE_DATA_QUERY })
   const landingPageData = landingPageQueryResponse?.data?.[0] ?? null
@@ -46,8 +46,7 @@ export default async function HomePage() {
   const teaserBodyText = seasonData?.metaDescription
   const seasonDefaultImage = seasonData?.mainImage
   const currentSeason = getCurrentSeason()?.SEASON_NAME
-  const teaserButtonLinkText =
-    currentSeason === 'winter' ? `More about winter` : `More ${currentSeason} flowers`
+  const teaserButtonLinkText = `Visit our ${currentSeason} page`
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
     <span className="blooming-title fw-400">
@@ -123,7 +122,7 @@ export default async function HomePage() {
               headingClassName={`blooming-heading`}
               headingId={`bloomingHeading`}
               id={`bloomingNow`}
-              images={bloomingPlantImagesArray}
+              images={bloomingPlantArray}
               lightboxIdentifier={`bloomingNow`}
             />
           </div>

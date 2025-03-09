@@ -104,7 +104,9 @@ export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[ _type == "nativePlant" && 
 // get the previewImage of the first 7 native plants with a floweringMonth matching the current month
 export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = `*[ _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
   {
-    "image": previewImage {...}
+    "image": previewImage {...},
+    "caption": plantName,
+    
   }`
 
 // retrieves the season document that matches the current month

@@ -39,9 +39,6 @@ const ImageSlider = ({
     }
     setIsLightboxOpen(!isLightboxOpen)
   }
-  const closeLightbox = () => {
-    setIsLightboxOpen(false)
-  }
 
   const listItems = sliderImages?.map((image, index) => {
     return (
