@@ -14,8 +14,7 @@ export default defineType({
     {
       name: 'metadata',
       title: 'Plant Metadata',
-      despcription:
-        'Add metadescription, tags and a thumbnail image for this plant.',
+      despcription: 'Add metadescription, tags and a thumbnail image for this plant.',
     },
     {
       name: 'name',
@@ -31,8 +30,7 @@ export default defineType({
     {
       name: 'growingNearby',
       title: 'Habitat and Nearby Plants',
-      despcription:
-        'Add information about the habitat and plants growing nearby.',
+      despcription: 'Add information about the habitat and plants growing nearby.',
     },
   ],
   preview: {
@@ -44,10 +42,7 @@ export default defineType({
     },
     prepare(selection) {
       const { commonName, botanicalName } = selection
-      const slug = `${commonName}-${botanicalName}`
-        .toLowerCase()
-        .replace(/\s+/g, '-')
-        .slice(0, 200)
+      const slug = `${commonName}-${botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200)
       return {
         ...selection,
         subtitle: `/${slug}`,
@@ -82,8 +77,7 @@ export default defineType({
     defineField({
       name: 'menuButtonColor',
       title: 'Menu Button Color',
-      description:
-        'Choose light when using a dark image and dark when using a light image.',
+      description: 'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
       options: {
         list: ['light', 'dark'],
@@ -98,8 +92,7 @@ export default defineType({
     defineField({
       name: 'lede',
       title: 'Plant Lede',
-      description:
-        "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
+      description: "Add the lede for this plant's page. Ledes are typically between 30-40 words.",
       type: 'pageBodyPortableText',
       group: 'description',
       validation: (Rule) => Rule.required(),
@@ -152,8 +145,7 @@ export default defineType({
     defineField({
       name: 'growingNearbyText',
       title: "What's growing nearby?",
-      description:
-        "Add any additional information about what's growing near this plant.",
+      description: "Add any additional information about what's growing near this plant.",
       type: 'pageBodyPortableText',
       group: 'growingNearby',
     }),
@@ -232,14 +224,12 @@ export default defineType({
         prepare(selection) {
           const { title, subtitle } = selection
           return {
-            title: `${title}-${subtitle}`
-              .toLowerCase()
-              .replace(/\s+/g, '-')
-              .slice(0, 200),
+            title: `${title}-${subtitle}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
           }
         },
       },
       validation: (Rule) => Rule.required(),
+      group: 'metadata',
     }),
     defineField({
       name: 'plantIdentificationTags',
@@ -322,11 +312,7 @@ export default defineType({
       components: {
         input: TextInputWithCharCount,
       },
-      validation: [
-        (Rule) => Rule.required(),
-        (Rule) => Rule.max(200),
-        (Rule) => Rule.min(40),
-      ],
+      validation: [(Rule) => Rule.required(), (Rule) => Rule.max(200), (Rule) => Rule.min(40)],
       description:
         'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section. Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."',
       group: 'metadata',
@@ -334,8 +320,7 @@ export default defineType({
     defineField({
       name: 'previewImage',
       title: 'Plant Thumbnail Image',
-      description:
-        'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
+      description: 'Choose an image for this plant. Should be a portrait crop (3/4 aspect ratio).',
       type: 'mainImage',
       options: {
         hotspot: true, // <-- Defaults to false

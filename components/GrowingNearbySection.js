@@ -35,7 +35,7 @@ const GrowingNearby = ({ className, growingNearbyPlantImages, growingNearbyText,
 
   return (
     <>
-      {growingNearbyText && (
+      {(growingNearbyPlantImages || growingNearbyText) && (
         <section id="growingNearby" className={cx('relative w-full', className)}>
           <div>
             <Heading
@@ -53,16 +53,18 @@ const GrowingNearby = ({ className, growingNearbyPlantImages, growingNearbyText,
                 useLinks
               />
             )}
-            <div>
-              <PortTextWrapper
-                className={`plant-pg-port-text`}
-                lightboxIdentifier={'growingNearby'}
-                value={growingNearbyText}
-              ></PortTextWrapper>
-              <br></br>
-            </div>
+            {growingNearbyText && (
+              <div>
+                <PortTextWrapper
+                  className={`plant-pg-port-text`}
+                  lightboxIdentifier={'growingNearby'}
+                  value={growingNearbyText}
+                ></PortTextWrapper>
+                <br></br>
+              </div>
+            )}
           </div>
-        </section>
+        </section>,
       )}
     </>
   )
