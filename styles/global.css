@@ -22,6 +22,7 @@
 @import './pages/plant-list.css';
 @import './pages/seasons-pages.css';
 @import './pages/about.css';
+@import './sanity/studio.css';
 
 html {
   font-size: 16px;
@@ -46,24 +47,6 @@ html {
   * {
     color: var(--oe-text-body);
     border-style: none;
-  }
-}
-
-/* Hide navigation and footer when the studio is rendered */
-body:has(#sanity) {
-  #mainNav,
-  #oeFooter {
-    display: none;
-  }
-
-  #sanity {
-    [data-testid='action-publish'] {
-      background-color: grey;
-
-      &[data-disabled='false'] {
-        background-color: lightgreen;
-      }
-    }
   }
 }
 

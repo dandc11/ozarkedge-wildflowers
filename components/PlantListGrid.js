@@ -93,13 +93,13 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
 
   // JS Doc for getMatched
   /**
-   * @param {Array} selectedItems - The selected options from the filter
+   * @param {Array} selectedFieldValues - The selected options from the filter
    * @param {Array|String|Number} plantProperty - The property of the plant to compare to the selected options
    * @returns {Boolean} - Whether the plant matches the selected options
    * @description - This function compares the selected options to the plant property and returns a boolean value
    */
-  const getMatched = (selectedItems, plantProperty) => {
-    if (selectedItems.length < 1) {
+  const getMatched = (selectedFieldValues, plantProperty) => {
+    if (selectedFieldValues.length < 1) {
       return true
     }
 
@@ -112,13 +112,11 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
       } else {
         plantValues = plantProperty.map(String)
       }
-    } else if (typeof plantProperty === 'number') {
-      plantValues = [plantProperty]
     } else {
       plantValues = [plantProperty]
     }
     plantValues = plantValues.map((value) => stegaClean(value))
-    const selectedValues = selectedItems.map((item) => item.value)
+    const selectedValues = selectedFieldValues.map((item) => stegaClean(item.value))
     const isMatched = selectedValues.some((value) => plantValues.includes(value))
     return isMatched
   }

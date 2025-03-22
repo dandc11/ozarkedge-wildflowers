@@ -17,7 +17,7 @@ const portTextComponents = {
     h2: ({ children }) => <h1 className="w-full fs-2xl">{children}</h1>,
     h3: ({ children }) => <h1 className="w-full fs-xl">{children}</h1>,
     h4: ({ children }) => <h1 className="w-full fs-lg">{children}</h1>,
-    normal: ({ children }) => <p className="w-full pb-sm text-inherit">{children}</p>,
+    normal: ({ children }) => <p className="w-full text-inherit">{children}</p>,
     blockquote: ({ children }) => (
       <blockquote className="border-l-purple-500">{children}</blockquote>
     ),

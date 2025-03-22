@@ -1,0 +1,34 @@
+/* Hide navigation and footer when the studio is rendered */
+body:has(#sanity) {
+  #mainNav,
+  #oeFooter {
+    display: none;
+  }
+
+  #sanity {
+    [data-testid='action-publish'] {
+      background-color: grey;
+
+      &[data-disabled='false'] {
+        background-color: lightgreen;
+      }
+    }
+  }
+
+  .draftmode-btn {
+    display: none;
+  }
+}
+
+.draftmode-btn {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 1000;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--oe-yellow-500);
+  color: var(--oe-text-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
