@@ -64,7 +64,7 @@ const GrowingNearby = ({ className, growingNearbyPlantImages, growingNearbyText,
               </div>
             )}
           </div>
-        </section>,
+        </section>
       )}
     </>
   )
