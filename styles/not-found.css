@@ -106,9 +106,9 @@
       justify-self: self-start;
       align-self: self-start;
       margin-block-start: var(--sp-lg);
-      text-align: left;
 
       .port-text {
+        text-align: left;
         font-size: var(--sp-lg);
       }
     }
