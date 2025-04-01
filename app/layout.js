@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { VisualEditing } from 'next-sanity'
 
 import { DisableDraftMode } from '../components/DisableDraftMode'
-import { sanityFetch, SanityLive } from '../sanity/lib/sanity.live'
+import { sanityFetch } from '../sanity/lib/sanity.live'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'

@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { stegaClean } from '@sanity/client/stega'
+import { notFound } from 'next/navigation'
 
 import LightboxGallery from '../../../components/LightboxGallery'
 import PortTextWrapper from '../../../components/PortTextWrapper'
@@ -36,7 +37,7 @@ const SeasonPage = async (props) => {
   ])
 
   if (!pageData?._id) {
-    return <div className="m-bk-4xl">Loading...</div>
+    notFound()
   }
 
   const {

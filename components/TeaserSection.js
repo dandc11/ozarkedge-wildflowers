@@ -29,7 +29,6 @@ import ResponsiveImage from './ResponsiveImage'
  * @property {boolean} [pullImagesFromLink] - The boolean to pull images from the link
  * @property {string} [teaserTheme] - The theme for the teaser section
  * @property {string} [titleText] - The title text for the teaser section
- * @property {boolean} [useLightBox] - The boolean to use the lightbox
  * @property {boolean} [usePortText] - The boolean to use the port text
 section
  */
