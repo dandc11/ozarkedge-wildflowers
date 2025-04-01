@@ -97,12 +97,28 @@
   text-decoration: underline;
 }
 
+/* Text Color --------- */
+
 .text-dark {
-  color: var(--oe-black);
+  &,
+  p,
+  ul,
+  li,
+  ol,
+  a[href] {
+    color: var(--oe-black);
+  }
 }
 
 .text-light {
-  color: var(--oe-white);
+  &,
+  p,
+  ul,
+  li,
+  ol,
+  a[href] {
+    color: var(--oe-white);
+  }
 }
 
 /* Font Weight------------ */

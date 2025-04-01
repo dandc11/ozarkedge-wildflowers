@@ -116,6 +116,23 @@ const ChevronLeft = (strokeWidth = 1) => {
   )
 }
 
+// JS Doc
+/**
+ * Button component that renders a button with optional icon and callback functionality.
+ *
+ * @param {Object} props - The props for the Button component.
+ * @param {string} [props.buttonIcon] - The icon to display on the button. Options: 'expand', 'chevron-down', 'chevron-up', 'chevron-right', 'chevron-left'.
+ * @param {function} [props.callBack] - Optional callback function to be executed on button click.
+ * @param {ReactNode} [props.children] - The content to display inside the button.
+ * @param {string} [props.className] - Additional CSS classes for styling the button.
+ * @param {string} [props.data] - Optional data attribute for the button.
+ * @param {string} [props.expanded] - Indicates if the button is in an expanded state.
+ * @param {string} [props.linkDocType] - The document type for routing.
+ * @param {number} [props.strokeWidth] - Stroke width for the icons.
+ * @param {string} [props.slug] - Optional slug for routing.
+ * @param {string} [props.type] - The type of the button (default: 'button').
+ * @param {Object} [props.urlParams] - Optional URL parameters to append to the link.
+ */
 const Button = (
   {
     buttonIcon = '',
@@ -124,7 +141,7 @@ const Button = (
     className,
     data,
     expanded = '',
-    linkDocType = '',
+    linkDocType = 'landingPage',
     strokeWidth = 1.5,
     slug = '',
     type = 'button',

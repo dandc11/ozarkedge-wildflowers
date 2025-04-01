@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { stegaClean } from '@sanity/client/stega'
+import { notFound } from 'next/navigation'
 
 import ResponsiveImage from '../../../components/ResponsiveImage'
 import LightboxGallery from '../../../components/LightboxGallery'
@@ -54,9 +55,9 @@ const NativePlantPage = async (props) => {
     sanityFetch({ query: GET_PLANT_PAGE_DATA, params }),
   ])
 
-  // if (!pageData?._id) {
-  //   return <div className="py-40">Loading...</div>
-  // }
+  if (!pageData?._id) {
+    notFound()
+  }
 
   const {
     bannerImage,

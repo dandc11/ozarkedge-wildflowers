@@ -196,6 +196,7 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
 // gets all document data for a nativePlant document based on the slug
 export const GET_PLANT_PAGE_DATA = groq`
 *[_type == "nativePlant" && slug.current == $slug][0] {
+    _id,
     bannerImage,
     mobileImage,
     menuButtonColor,

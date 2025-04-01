@@ -11,6 +11,7 @@ import nativePlant from './documents/nativePlant'
 import landingPage from './documents/landingPage'
 import plantListPage from './documents/plantListPage'
 import pollinator from './documents/pollinator'
+import notFoundPage from './documents/notFound'
 import link from './objects/link'
 import button from './objects/button'
 import season from './documents/season'
@@ -38,6 +39,7 @@ export const schema = {
     plantListPage,
     aboutPage,
     landingPage,
+    notFoundPage,
     menu,
     menuItem,
     teaserSection,
