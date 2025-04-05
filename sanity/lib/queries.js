@@ -583,3 +583,41 @@ export const GET_PLANT_PAGE_DATA = groq`
     }
   }
 `
+
+// gets all document data for the not found page
+export const NOT_FOUND_PAGE_QUERY = groq`*[ _type == "notFoundPage" ] {
+  ...,
+  message[]{
+    ...,
+    _type == "teaserSection" => {
+      _type,
+      "bodyText": bodyText,
+      "titleText": titleText,
+      buttonText,
+      image,
+      "linkItems": 
+        link->{
+          "linkId": _id,
+          "linkType" : _type, 
+          "linkSlug": slug.current,
+          "linkMetaDescription": metaDescription,
+          "linkMainImage": mainImage 
+        },
+    },
+    _type == "figure" => {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
+    },
+    _type == "block" => {
+      ...,
+        markDefs[]{
+        ...,
+        _type == "internalLink" => {
+            "slug": @.reference->slug,
+            "docType": @.reference->_type
+        }
+      },
+    },
+  }
+}`
