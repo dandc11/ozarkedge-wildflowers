@@ -1,13 +1,13 @@
-import { groq } from 'next-sanity'
 import { stegaClean } from '@sanity/client/stega'
 
 import { sanityFetch } from '../sanity/lib/sanity.live'
+import { NOT_FOUND_PAGE_QUERY } from '../sanity/lib/queries'
 import PortTextWrapper from '../components/PortTextWrapper'
 import ResponsiveImage from '../components/ResponsiveImage'
 
 export default async function NotFound() {
   const notFoundPageQueryResponse = await sanityFetch({
-    query: groq`*[ _type == "notFoundPage" ] {...}`,
+    query: NOT_FOUND_PAGE_QUERY,
   })
   const notFoundPageData = notFoundPageQueryResponse?.data?.[0] ?? null
   const menuButtonColor = stegaClean(notFoundPageData?.menuButtonColor) || 'light'
