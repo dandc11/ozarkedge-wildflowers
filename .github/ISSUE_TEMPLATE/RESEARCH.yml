@@ -1,13 +1,13 @@
-name: '💡 Feature Request'
+name: '📖 Research '
 description: Create a new ticket for a new feature request
-title: '💡 Enhancement - <title>'
+title: '📖💡 Research - <title>'
 labels: ['question']
 body:
   - type: input
     id: start_date
     attributes:
-      label: 'Start Date (Dev only)'
-      description: Start of development (leave blank until started)
+      label: 'Start Date '
+      description: Start of research (leave blank until started)
       placeholder: 'month/day/year'
     validations:
       required: false
@@ -15,24 +15,24 @@ body:
     id: summary
     attributes:
       label: 'Summary'
-      description: Provide a brief explanation of the feature
-      placeholder: Describe in a few lines your feature request
+      description: Provide a brief explanation of the research
+      placeholder: Describe in a few lines what the research is about and what it aims to achieve.
     validations:
       required: true
   - type: textarea
-    id: basic_example
+    id: summary
     attributes:
-      label: 'Basic Example'
-      description: Indicate here some basic examples of your feature.
-      placeholder: A few specific words about your feature request.
+      label: 'Conclusions'
+      description: What are the conclusions of your research ?
+      placeholder: Provide a summary of the research findings and conclusions.
     validations:
       required: true
   - type: textarea
     id: drawbacks
     attributes:
-      label: 'Drawbacks'
-      description: What are the drawbacks/impacts of your feature request ?
-      placeholder: Identify the drawbacks and impacts while being neutral on your feature request
+      label: 'Action items'
+      description: What are the action items to be taken from this research?
+      placeholder: Identify the next steps and actions to be taken based on the research findings.
     validations:
       required: true
   - type: textarea
@@ -46,15 +46,15 @@ body:
   - type: textarea
     id: implementation_pr
     attributes:
-      label: 'Implementation PR (Dev only)'
-      description: Pull request used (leave blank until PR created)
+      label: 'Implementation PR (if applicable)'
+      description: Pull request used (if applicable, leave blank until PR created)
       placeholder: '#Pull Request ID'
     validations:
       required: false
   - type: textarea
     id: reference_issues
     attributes:
-      label: 'Reference Issues (Dev only)'
+      label: 'Reference Issues (if applicable)'
       description: Common issues
       placeholder: '#Issues IDs'
     validations:
