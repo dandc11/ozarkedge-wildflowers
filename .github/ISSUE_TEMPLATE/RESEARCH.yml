@@ -1,0 +1,61 @@
+name: '📖 Research '
+description: Create a new ticket for a new feature request
+title: '📖💡 Research - <title>'
+labels: ['question']
+body:
+  - type: input
+    id: start_date
+    attributes:
+      label: 'Start Date '
+      description: Start of research (leave blank until started)
+      placeholder: 'month/day/year'
+    validations:
+      required: false
+  - type: textarea
+    id: summary
+    attributes:
+      label: 'Summary'
+      description: Provide a brief explanation of the research
+      placeholder: Describe in a few lines what the research is about and what it aims to achieve.
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: 'Conclusions'
+      description: What are the conclusions of your research ?
+      placeholder: Provide a summary of the research findings and conclusions.
+    validations:
+      required: true
+  - type: textarea
+    id: drawbacks
+    attributes:
+      label: 'Action items'
+      description: What are the action items to be taken from this research?
+      placeholder: Identify the next steps and actions to be taken based on the research findings.
+    validations:
+      required: true
+  - type: textarea
+    id: unresolved_question
+    attributes:
+      label: 'Unresolved questions'
+      description: What questions still remain unresolved ?
+      placeholder: Identify any unresolved issues.
+    validations:
+      required: false
+  - type: textarea
+    id: implementation_pr
+    attributes:
+      label: 'Implementation PR (if applicable)'
+      description: Pull request used (if applicable, leave blank until PR created)
+      placeholder: '#Pull Request ID'
+    validations:
+      required: false
+  - type: textarea
+    id: reference_issues
+    attributes:
+      label: 'Reference Issues (if applicable)'
+      description: Common issues
+      placeholder: '#Issues IDs'
+    validations:
+      required: false
