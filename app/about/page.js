@@ -11,10 +11,6 @@ import { GET_ABOUT_PAGE_DATA_QUERY } from '../../sanity/lib/queries'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 
 const AboutPage = async () => {
-  /**
-   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
-   */
-
   const aboutQueryResponse = await sanityFetch({ query: GET_ABOUT_PAGE_DATA_QUERY })
   const aboutPageData = aboutQueryResponse?.data?.[0] ?? null
   const fullImageArray = getUniqueImagesFromDocument(aboutPageData)

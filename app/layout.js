@@ -1,5 +1,5 @@
 import '../styles/global.css'
-// import 'lightbox.js-react/dist/index.css'
+
 import { Playfair_Display, Raleway } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import Head from 'next/head'
