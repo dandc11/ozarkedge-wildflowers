@@ -1,17 +1,17 @@
 import '../styles/global.css'
-// import 'lightbox.js-react/dist/index.css'
 import { Playfair_Display, Raleway } from 'next/font/google'
-import { draftMode } from 'next/headers'
 import Head from 'next/head'
 import { VisualEditing } from 'next-sanity'
+import { draftMode } from 'next/headers'
 
+import { SanityLive } from '../sanity/lib/sanity.live'
 import { DisableDraftMode } from '../components/DisableDraftMode'
-import { sanityFetch } from '../sanity/lib/sanity.live'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { GET_MENU_ITEMS_QUERY } from '../sanity/lib/queries'
 import { getCurrentSeason } from '../utilities/helperUtil'
+import { sanityFetch } from '../sanity/lib/sanity.live'
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -50,7 +50,7 @@ export default async function RootLayout({ children, pageProps }) {
         <meta name="theme-color" content="#000000" />
       </Head>
       <body className={`oe-site-body ${currentSeason.SEASON_NAME}`}>
-        {/* <SanityLive /> */}
+        <SanityLive />
         <ContextProviders>
           <Nav menuData={menuData?.data} />
           <main id={`page-content`} className={`relative`}>
