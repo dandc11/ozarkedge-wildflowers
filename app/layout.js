@@ -3,6 +3,7 @@ import { Playfair_Display, Raleway } from 'next/font/google'
 import Head from 'next/head'
 import { VisualEditing } from 'next-sanity'
 import { draftMode } from 'next/headers'
+import { Analytics } from '@vercel/analytics/next'
 
 import { SanityLive } from '../sanity/lib/sanity.live'
 import { DisableDraftMode } from '../components/DisableDraftMode'
@@ -63,6 +64,7 @@ export default async function RootLayout({ children, pageProps }) {
               <VisualEditing />
             </>
           )}
+          <Analytics />
         </ContextProviders>
       </body>
     </html>
