@@ -4,12 +4,20 @@ import MuxPlayer from '@mux/mux-player-react'
 
 import { COLORS } from './../utilities/constants'
 
-const PortTextVideo = (typeProps) => {
-  const { playbackId, useTitleAsCaption, caption, alt, accentColor, videoTitle } =
-    typeProps?.portTextProps?.value
+const PortTextVideo = (props) => {
+  const {
+    portTextProps,
+    dataSanityAttr, // Accept the attribute string
+  } = props
+  const { playbackId, useTitleAsCaption, caption, alt, accentColor, videoTitle, _key } =
+    portTextProps?.value
   return (
-    <>
-      {/* if playbackId ouput MuxPlayer */}
+    <div
+      className="port-text-video flex justify-center m-bk-lg"
+      data-sanity-edit-target
+      data-sanity={dataSanityAttr}
+    >
+      {/* if playbackId output MuxPlayer */}
       {playbackId && (
         <figure
           className="w-full mt-3xl mb-xl"
@@ -29,7 +37,7 @@ const PortTextVideo = (typeProps) => {
           </figcaption>
         </figure>
       )}
-    </>
+    </div>
   )
 }
 

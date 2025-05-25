@@ -27,12 +27,15 @@ const ContentSection = ({
   bodyClassName = '',
   children,
   className = '',
+  documentId = '',
+  documentType = '',
   headingClassName = '',
   headerTitle = '',
   lightboxIdentifier = '',
   portableText,
+  portableTextFieldName, // Added new prop
   pretextComponent,
-  sectionId = '',
+  sectionId = '', // Kept for its original purpose
   showCircle = true,
   toggleLightboxCallback = () => {},
   tocLinks,
@@ -63,7 +66,10 @@ const ContentSection = ({
               lightboxCallback={toggleLightboxCallback}
               lightboxIdentifier={lightboxIdentifier}
               className={cx('', bodyClassName)}
+              documentId={documentId}
+              documentType={documentType}
               value={portableText}
+              portableTextPath={portableTextFieldName} // Use the new prop here
             ></PortTextWrapper>
             <br></br>
             {children}

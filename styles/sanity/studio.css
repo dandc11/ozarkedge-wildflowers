@@ -30,9 +30,10 @@ body:has(#sanity) {
   bottom: 2%;
   right: 2%;
   z-index: 1000;
-  padding: 0.25rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   background-color: var(--oe-yellow-500);
-  color: var(--oe-text-body);
+  color: var(--oe-black);
+  border: 1px solid var(--oe-black);
   font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;

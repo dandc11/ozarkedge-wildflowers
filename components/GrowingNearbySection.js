@@ -12,6 +12,8 @@ import PortTextWrapper from './PortTextWrapper'
 /**
  * GrowingNearby component - 6th section of plant page (growing nearby)
  * @param {String} className - class name for the section
+ * @param {String} documentId - the id of the document the component is being used in
+ * @param {String} documentType = the doumcument type the component is being used in
  * @param {Array} growingNearbyPlantImages - list of plants that grow nearby
  * @param {String} growingNearbyText - text about growing nearby
  * @param {Array} tocLinks - list of links for the table of contents
@@ -19,7 +21,14 @@ import PortTextWrapper from './PortTextWrapper'
  * @param {Function} closeToC - function to set the table of contents
  * @returns {JSX.Element} - returns jsx of growing nearby section
  */
-const GrowingNearby = ({ className, growingNearbyPlantImages, growingNearbyText, tocLinks }) => {
+const GrowingNearby = ({
+  className,
+  documentId,
+  documentType,
+  growingNearbyPlantImages,
+  growingNearbyText,
+  tocLinks,
+}) => {
   const [nativePlantNamesAndSlugs, setNativePlantNamesAndSlugs] = useState([])
 
   // useEffect(() => {
@@ -57,6 +66,8 @@ const GrowingNearby = ({ className, growingNearbyPlantImages, growingNearbyText,
               <div>
                 <PortTextWrapper
                   className={`plant-pg-port-text`}
+                  documentId={documentId}
+                  documentType={documentType}
                   lightboxIdentifier={'growingNearby'}
                   value={growingNearbyText}
                 ></PortTextWrapper>

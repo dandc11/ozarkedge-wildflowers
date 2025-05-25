@@ -1,8 +1,6 @@
 import { defineArrayMember, defineType } from 'sanity'
 import { AiOutlineCamera } from 'react-icons/ai'
 
-import { VideoPreview } from '../components/VideoPreview'
-
 export default defineType({
   name: 'portTextVideo',
   title: 'Video',
@@ -19,8 +17,7 @@ export default defineType({
       title: 'Use Video Title As Caption / Alt Text',
       hidden: ({ parent }) => !parent?.video,
       type: 'boolean',
-      description:
-        'Select to use the video title for the caption and alt text.',
+      description: 'Select to use the video title for the caption and alt text.',
     },
     {
       name: 'caption',
@@ -36,15 +33,16 @@ export default defineType({
     },
   ],
   icon: () => '🎥 ',
-  components: { preview: VideoPreview },
   preview: {
     select: {
-      title: 'title',
+      media: 'video',
+      title: 'title', // Assuming you have a title field
     },
-    prepare: ({ title }) => {
+    prepare(selection) {
+      const { video, title } = selection
       return {
-        title: title ? `Video: ${title}` : 'Add a Video',
-        media: AiOutlineCamera,
+        title: title || 'Untitled',
+        media: video, // The Mux plugin should handle rendering the thumbnail
       }
     },
   },

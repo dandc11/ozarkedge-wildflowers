@@ -14,9 +14,9 @@ import ThumbnailGrid from './ThumbnailGrid'
 const portTextComponents = {
   block: {
     // customizing common block types
-    h2: ({ children }) => <h1 className="w-full fs-2xl">{children}</h1>,
-    h3: ({ children }) => <h1 className="w-full fs-xl">{children}</h1>,
-    h4: ({ children }) => <h1 className="w-full fs-lg">{children}</h1>,
+    h2: ({ children }) => <h2 className="w-full fs-2xl">{children}</h2>,
+    h3: ({ children }) => <h3 className="w-full fs-xl">{children}</h3>,
+    h4: ({ children }) => <h4 className="w-full fs-lg">{children}</h4>,
     normal: ({ children }) => <p className="w-full text-inherit">{children}</p>,
     blockquote: ({ children }) => (
       <blockquote className="border-l-purple-500">{children}</blockquote>
@@ -69,11 +69,21 @@ const portTextComponents = {
  * @param {Object} props.value - The PortableText value object.
  * @param {Function} props.lightboxCallback - The callback function for opening a lightbox.
  * @param {string} props.lightboxIdentifier - The identifier for the lightbox.
+ * @param {string} props.documentId - The ID of the Sanity document.
+ * @param {string} props.documentType - The type of the Sanity document.
+ * @param {string} props.portableTextPath - The path to the portable text field within the document.
  * @returns {JSX.Element} - The rendered component.
  */
 const PortTextWrapper = React.memo((props) => {
-  const { className, value, lightboxIdentifier, lightboxCallback = () => {} } = props
-
+  const {
+    className,
+    value,
+    lightboxIdentifier,
+    lightboxCallback = () => {},
+    documentId = '', // Added prop
+    documentType = '', // Added prop
+    portableTextPath, // Added prop
+  } = props
   // callback for opening lightbox
   const componentsWithCallback = useMemo(
     function memoedCallback() {
@@ -83,13 +93,15 @@ const PortTextWrapper = React.memo((props) => {
         ...otherComponents,
         types: {
           ...portTextComponents.types,
-          figure: (typeProps) => (
-            <PortTextFigure
-              portTextProps={typeProps}
-              lightboxIdentifier={lightboxIdentifier}
-              lightboxCallback={lightboxCallback}
-            />
-          ),
+          figure: (typeProps) => {
+            return (
+              <PortTextFigure
+                portTextProps={typeProps}
+                lightboxIdentifier={lightboxIdentifier}
+                lightboxCallback={lightboxCallback}
+              />
+            )
+          },
           imageCollection: (typeProps) => (
             <ThumbnailGrid
               assets={typeProps.value?.imageCollection}
@@ -101,14 +113,16 @@ const PortTextWrapper = React.memo((props) => {
               showCaptions
             />
           ),
-          portTextVideo: (typeProps) => <PortTextVideo portTextProps={typeProps}></PortTextVideo>,
-          teaserSection: (typeProps) => (
-            <PortTextTeaser portTextProps={typeProps?.value}></PortTextTeaser>
-          ),
+          portTextVideo: (typeProps) => {
+            return <PortTextVideo portTextProps={typeProps} />
+          },
+          teaserSection: (typeProps) => {
+            return <PortTextTeaser portTextProps={typeProps?.value} />
+          },
         },
       }
     },
-    [lightboxCallback, lightboxIdentifier],
+    [lightboxCallback, lightboxIdentifier, documentId, documentType, portableTextPath], // Add new props to dependency array
   )
 
   return (
