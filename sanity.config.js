@@ -10,12 +10,27 @@ import * as resolve from './sanity/presentation/resolve'
 import { apiVersion, dataset, projectId } from './sanity/lib/sanity.api'
 import { schema } from './schemas/schema'
 
+// Create a Set to track schema type names and prevent duplicates
+const schemaTypeNames = new Set()
+const uniqueSchemaTypes = schema.types.filter((type) => {
+  if (schemaTypeNames.has(type.name)) {
+    console.warn(
+      `Warning: Duplicate schema type name detected: "${type.name}". Keeping only the first definition.`,
+    )
+    return false
+  }
+  schemaTypeNames.add(type.name)
+  return true
+})
+
 export default defineConfig({
   basePath: '/studio',
   title: 'Ozarkedge Wildflowers',
   projectId,
   dataset,
-  schema,
+  schema: {
+    types: uniqueSchemaTypes,
+  },
   plugins: [
     // structureTool({ defaultDocumentNode }),
     structureTool(),
@@ -24,7 +39,6 @@ export default defineConfig({
       previewUrl: {
         previewMode: {
           enable: '/api/draft-mode/enable',
-          disable: '/api/draft-mode/disable',
         },
       },
     }),
