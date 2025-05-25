@@ -26,7 +26,7 @@ import { projectId, dataset } from '../sanity/lib/sanity.api'
  * @property {string} [loading='lazy'] - The loading attribute for the image
  * @property {string} [mode='cover'] - The mode of the image
  * @property {string} [preview=''] - The preview of the image
- * @property {boolean} [priority=false] - Whether to prioritize the image
+ * @property {boolean} [fetchPriority=auto] - Whether to prioritize image fetching
  * @property {string} [quality='100'] - The quality of the image
  * @property {string} [sizes=''] - The sizes of the image
  * @property {string} [src=''] - The src of the image
@@ -50,7 +50,7 @@ const SanityImageWrapper = (props) => {
     loading,
     mode = 'cover',
     preview = '',
-    priority = false,
+    fetchPriority = 'auto',
     quality = `100`,
     sizes = '',
     width = '',
@@ -153,7 +153,11 @@ const ResponsiveImage = ({
   return (
     <>
       {image && (image.id || (image.asset && image.asset._ref)) && (
-        <div id={id} className={cx('img-wrapper text-sm', wrapperClassName)}>
+        <div
+          id={id}
+          className={cx('img-wrapper text-sm', wrapperClassName)}
+          {...props} // Spread remaining props onto the div
+        >
           <figure
             className={cx(figureClassName)}
             onClick={handleClick}

@@ -18,6 +18,8 @@ const AboutPage = async () => {
   const aboutQueryResponse = await sanityFetch({ query: GET_ABOUT_PAGE_DATA_QUERY })
   const aboutPageData = aboutQueryResponse?.data?.[0] ?? null
   const fullImageArray = getUniqueImagesFromDocument(aboutPageData)
+  const docId = aboutPageData.id
+  const docType = 'aboutPage'
 
   return (
     <>
@@ -66,6 +68,8 @@ const AboutPage = async () => {
             <PortTextWrapper
               className={`relative z-10 mt-2xl`}
               lightboxIdentifier={'about'}
+              documentId={docId}
+              documentType={docType}
               value={aboutPageData.body}
             />
           </div>

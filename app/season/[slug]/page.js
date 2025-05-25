@@ -54,6 +54,8 @@ const SeasonPage = async (props) => {
 
   const fullImageArray = getUniqueImagesFromDocument(pageData)
   const wrapperClassName = cx(`banner-img relative w-full`)
+  const docId = pageData.id
+  const docType = 'seasonPage'
 
   return (
     <>
@@ -116,6 +118,8 @@ const SeasonPage = async (props) => {
                 className={`relative`}
                 lightboxIdentifier="seasonPage"
                 value={description}
+                documentId={docId}
+                documentType={docType}
               />
               {feature && <FeatureSection feature={feature} />}
             </section>

@@ -10,6 +10,7 @@ import ResponsiveImage from './ResponsiveImage'
  * @param {object} portTextProps - object with image and caption for figure
  * @param {string} lightboxIdentifier - identifier for lightbox.js
  * @param {function} lightboxCallback - function to toggle lightbox
+ * @param {string} dataSanityAttr - The data-sanity attribute string for visual editing.
  * @returns {JSX} - returns jsx of figure
  * @category Components
  * @example
@@ -17,9 +18,15 @@ import ResponsiveImage from './ResponsiveImage'
  * portTextProps={portTextProps}
  * lightboxIdentifier={lightboxIdentifier}
  * lightboxCallback={lightboxCallback}
+ * dataSanityAttr={dataSanityAttr}
  * />
  */
-const PortTextFigure = ({ portTextProps, lightboxIdentifier, lightboxCallback = null }) => {
+const PortTextFigure = ({
+  portTextProps,
+  lightboxIdentifier,
+  lightboxCallback = null,
+  dataSanityAttr, // Accept the attribute string
+}) => {
   const widths = {
     '20%': 'w-full w-20',
     '25%': 'w-full w-25',
@@ -49,7 +56,6 @@ const PortTextFigure = ({ portTextProps, lightboxIdentifier, lightboxCallback = 
     <>
       <ResponsiveImage
         image={portTextProps.value}
-        priority={false}
         captionStyle={portTextProps.value?.captionPosition}
         showCaption={true}
         lightboxIdentifier={lightboxIdentifier}
@@ -64,6 +70,8 @@ const PortTextFigure = ({ portTextProps, lightboxIdentifier, lightboxCallback = 
         width={560}
         wrapperClassName={cx(`port-text-img ${positionClass}`)}
         onClick={lightboxCallback ? lightboxCallback : null}
+        data-sanity-edit-target="true"
+        data-sanity={dataSanityAttr} // Pass the attribute string
       />
     </>
   )

@@ -36,6 +36,8 @@ const TeaserSection = (props) => {
   const {
     bodyText = '',
     buttonText = 'See More',
+    docId = '',
+    docType = '',
     gridClassName = '',
     headingClassName = '',
     sectionClassName = '',
@@ -70,7 +72,11 @@ const TeaserSection = (props) => {
 
   return (
     <>
-      <section id={id} className={cx(`teaser feature w-full`, sectionClassName, teaserTheme)}>
+      <section
+        id={id}
+        className={cx(`teaser feature w-full`, sectionClassName, teaserTheme)}
+        data-sanity-edit-target={'true'}
+      >
         <div className={cx('feature-layout-grid w-full', gridClassName)}>
           {headingText && (
             <Heading
@@ -85,7 +91,6 @@ const TeaserSection = (props) => {
           {image && (
             <ResponsiveImage
               image={image}
-              priority={false}
               disableHover
               disablePointer
               showCaption={true}
@@ -98,7 +103,12 @@ const TeaserSection = (props) => {
           <div className="teaser-bg"></div>
           <div className={cx(`teaser-body`, teaserBodyClassName)}>
             {bodyText && usePortText && Array.isArray(bodyText) ? (
-              <PortTextWrapper value={bodyText} components={{}} />
+              <PortTextWrapper
+                value={bodyText}
+                documentId={docId}
+                documentType={docType}
+                components={{}}
+              />
             ) : (
               <p>{bodyText}</p>
             )}

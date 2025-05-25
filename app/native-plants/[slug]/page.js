@@ -78,13 +78,13 @@ const NativePlantPage = async (props) => {
     previewImage,
     tidbits,
   } = pageData
-
+  const docId = pageData._id
+  const docType = 'nativePlant'
   const sectionLinks = getSectionLinks(pageData)
   const fullImageArray = getUniqueImagesFromDocument(pageData, ['growingNearbyPlantList'])
   const nsBadge = (
     <NatureServeBadge conservationRanking={conservationRanking} className={'inline-flex fs-lg'} />
   )
-
   const nsMessage = <NatureServeMessage conservationRanking={conservationRanking} />
 
   return (
@@ -100,7 +100,7 @@ const NativePlantPage = async (props) => {
                 breakpoint={'500'}
                 disableHover
                 disablePointer
-                priority={true}
+                priority={'high'}
                 placeholder={``}
                 loading={`eager`}
                 quality={`100`}
@@ -115,7 +115,7 @@ const NativePlantPage = async (props) => {
                 breakpoint={'500'}
                 disableHover
                 disablePointer
-                priority={true}
+                priority={'high'}
                 placeholder={``}
                 loading={`eager`}
                 quality={`100`}
@@ -155,7 +155,10 @@ const NativePlantPage = async (props) => {
                   headingClassName={``}
                   portableText={plantName.nameInformation}
                   tocLinks={sectionLinks}
+                  documentId={docId}
+                  documentType={docType}
                   sectionId={`plantName`}
+                  portableTextFieldName={`plantName`}
                   headerTitle={`PLANT NAME`}
                   lightboxIdentifier={`plantPage`}
                 />
@@ -163,8 +166,11 @@ const NativePlantPage = async (props) => {
                   className={`z-9`}
                   headingClassName={``}
                   portableText={bloomText}
+                  documentId={docId}
+                  documentType={docType}
                   tocLinks={sectionLinks}
                   sectionId={`bloomText`}
+                  portableTextFieldName={`bloomText`}
                   headerTitle={`BLOOM`}
                   lightboxIdentifier={`plantPage`}
                 />
@@ -172,8 +178,11 @@ const NativePlantPage = async (props) => {
                   className={`z-8`}
                   headingClassName={``}
                   portableText={description}
+                  documentId={docId}
+                  documentType={docType}
                   tocLinks={sectionLinks}
                   sectionId={`description`}
+                  portableTextFieldName={`description`}
                   headerTitle={`DESCRIPTION`}
                   lightboxIdentifier={`plantPage`}
                 />
@@ -181,8 +190,11 @@ const NativePlantPage = async (props) => {
                   className={`z-7`}
                   headingClassName={``}
                   portableText={pollinators}
+                  documentId={docId}
+                  documentType={docType}
                   tocLinks={sectionLinks}
                   sectionId={`pollinators`}
+                  portableTextFieldName={`pollinators`}
                   headerTitle={`POLLINATORS`}
                   lightboxIdentifier={`plantPage`}
                 />
@@ -191,7 +203,10 @@ const NativePlantPage = async (props) => {
                   headingClassName={``}
                   growingNearbyPlantImages={growingNearbyPlantList}
                   growingNearbyText={growingNearbyText}
+                  documentId={docId}
+                  documentType={docType}
                   sectionId={`growingNearby`}
+                  portableTextFieldName={`growingNearbyText`}
                   tocLinks={sectionLinks}
                   lightboxIdentifier={`growningNearby`}
                 />
@@ -199,8 +214,11 @@ const NativePlantPage = async (props) => {
                   className={`z-5`}
                   headingClassName={``}
                   portableText={habitat}
+                  documentId={docId}
+                  documentType={docType}
                   tocLinks={sectionLinks}
                   sectionId={`habitat`}
+                  portableTextFieldName={`habitat`}
                   headerTitle={`HABITAT`}
                   lightboxIdentifier={`plantPage`}
                 />
@@ -212,7 +230,10 @@ const NativePlantPage = async (props) => {
                   pretextComponent={nsMessage}
                   portableText={conservationStatus}
                   tocLinks={sectionLinks}
+                  documentId={docId}
+                  documentType={docType}
                   sectionId={`conservationStatus`}
+                  portableTextFieldName={`conservationStatus`}
                   headerTitle={`CONSERVATION STATUS`}
                   lightboxIdentifier={`plantPage`}
                 ></ContentSection>
@@ -220,8 +241,11 @@ const NativePlantPage = async (props) => {
                   className={`z-3`}
                   headingClassName={``}
                   portableText={tidbits}
+                  documentId={docId}
+                  documentType={docType}
                   tocLinks={sectionLinks}
                   sectionId={`tidbits`}
+                  portableTextFieldName={`tidbits`}
                   headerTitle={`INTERESTING TIDBITS`}
                   lightboxIdentifier={`plantPage`}
                 />
