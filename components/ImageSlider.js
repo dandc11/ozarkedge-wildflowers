@@ -51,8 +51,6 @@ const ImageSlider = ({
               wrapperClassName={``}
               image={image}
               sizes="(max-width: 800px) 150px, 240px"
-              mobileWidth
-              priority={false}
               placeholder={``}
               showCaption={true}
               captionBgClassName={captionBgClassName}
@@ -66,8 +64,6 @@ const ImageSlider = ({
             image={image}
             sizes="(max-width: 800px) 150px, 240px"
             lightboxIdentifier={lightboxIdentifier}
-            mobileWidth
-            priority={false}
             placeholder={``}
             showCaption={true}
             onClick={toggleLightbox ? toggleLightbox : null}
