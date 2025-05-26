@@ -3,6 +3,13 @@ description: Create a new ticket to update or address technical debt
 title: '🛠️ Update '
 labels: ['studio', 'devops']
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Helpful Documentation
+        - [Sanity Upgrade Guide](https://www.sanity.io/docs/studio/upgrade)
+        - [Next.js](https://nextjs.org/docs)
+        - [next-sanity on NPM](https://www.npmjs.com/package/next-sanity)
   - type: input
     id: start_date
     attributes:
