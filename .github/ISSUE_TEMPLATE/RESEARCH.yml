@@ -1,7 +1,7 @@
 name: '📖 Research '
 description: Create a new ticket for a new feature request
 title: '📖💡 Research - <title>'
-labels: ['question']
+labels: ['research']
 body:
   - type: input
     id: start_date
