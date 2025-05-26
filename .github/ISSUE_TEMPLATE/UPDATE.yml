@@ -1,0 +1,69 @@
+name: '🛠️ Update/Tech Debt'
+description: Create a new ticket to update or address technical debt
+title: '🛠️ Update '
+labels: ['studio', 'devops']
+body:
+  - type: input
+    id: start_date
+    attributes:
+      label: 'Start Date (Dev only)'
+      description: Start of development (leave blank until started)
+      placeholder: 'month/day/year'
+    validations:
+      required: false
+  - type: textarea
+    id: summary
+    attributes:
+      label: 'Summary'
+      description: Provide a brief explanation of the update
+      placeholder: Describe in a few lines the reason for the update
+    validations:
+      required: true
+  - type: textarea
+    id: packages
+    attributes:
+      label: 'Packages updated'
+      description: Indicate here which packages are being updated
+      placeholder: A few specific words about your feature request.
+    validations:
+      required: true
+  - type: textarea
+    id: new_features
+    attributes:
+      label: 'New Features'
+      description: What new features are we enabling (if any)?
+      placeholder: Identify new features
+    validations:
+      required: false
+  - type: textarea
+    id: risks
+    attributes:
+      label: 'Risks'
+      description: Are there any risks to this update?
+      placeholder: Identify the risks and impacts
+    validations:
+      required: false
+  - type: textarea
+    id: unresolved_question
+    attributes:
+      label: 'Unresolved questions'
+      description: What questions still remain unresolved?
+      placeholder: Identify any unresolved issues.
+    validations:
+      required: false
+  - type: textarea
+    id: implementation_pr
+    attributes:
+      label: 'Implementation PR (Dev only)'
+      description: Pull request used (leave blank until PR created)
+      placeholder: '#Pull Request ID'
+    validations:
+      required: false
+  - type: textarea
+    id: reference_issues
+    attributes:
+      label: 'Reference Issues (Dev only)'
+      description: Common issues
+      placeholder: '#Issues IDs'
+    validations:
+      required: false
