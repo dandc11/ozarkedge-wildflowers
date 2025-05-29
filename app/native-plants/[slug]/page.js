@@ -82,10 +82,9 @@ const NativePlantPage = async (props) => {
   const docType = 'nativePlant'
   const sectionLinks = getSectionLinks(pageData)
   const fullImageArray = getUniqueImagesFromDocument(pageData, ['growingNearbyPlantList'])
-  const nsBadge = (
-    <NatureServeBadge conservationRanking={conservationRanking} className={'inline-flex fs-lg'} />
-  )
-  const nsMessage = <NatureServeMessage conservationRanking={conservationRanking} />
+  const ranking = stegaClean(conservationRanking)
+  const nsBadge = <NatureServeBadge conservationRanking={ranking} className={'inline-flex fs-lg'} />
+  const nsMessage = <NatureServeMessage conservationRanking={ranking} />
 
   return (
     <div className={`plant-page bg-topography parallax nav-${stegaClean(menuButtonColor)}`}>
