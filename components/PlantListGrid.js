@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useCallback, useMemo, useEffect, Suspense } from 'react'
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import makeAnimated from 'react-select/animated'
 import { stegaClean } from 'next-sanity'
@@ -9,7 +9,7 @@ import Button from './Button'
 import CustomLink from './CustomLink'
 import PlantImageCard from './PlantImageCard'
 import PortTextWrapper from './PortTextWrapper'
-import { MONTH_OPTIONS } from '../utilities/constants'
+import { MONTH_OPTIONS, FLOWER_COLOR_OPTIONS } from '../utilities/constants'
 
 /**
  * PlantListGrid component renders a grid layout of plant items with filtering and pagination capabilities.
@@ -29,6 +29,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
   const [colorsSelected, setColorsSelected] = useState('')
   const animatedComponents = makeAnimated()
   const searchParams = useSearchParams()
+  const initializedFromUrl = useRef(false)
 
   const nameChangeHandler = useCallback((selectedOptions) => {
     setNameSelected(selectedOptions)
@@ -46,32 +47,41 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
     setHabitatsSelected(selectedOptions)
   }, [])
 
+  // Initialize filters from URL parameters only once
   useEffect(() => {
+    if (initializedFromUrl.current) return
+
     const monthsQuery = searchParams.get('months')
     const namesQuery = searchParams.get('names')
+    const colorsQuery = searchParams.get('colors')
 
     if (monthsQuery) {
       const months = monthsQuery.split(',').map(Number)
-      const selectedMonths = months.map((month) =>
-        MONTH_OPTIONS.find((option) => option.value === month),
-      )
-      if (JSON.stringify(selectedMonths) !== JSON.stringify(monthsSelected)) {
-        setMonthsSelected(selectedMonths)
-      }
+      const selectedMonths = months
+        .map((month) => MONTH_OPTIONS.find((option) => option.value === month))
+        .filter(Boolean)
+      setMonthsSelected(selectedMonths)
     }
 
     if (namesQuery) {
       const names = namesQuery.split(',').map(String)
       const selectedNames = names.map((name) => ({ value: name, label: name }))
-      if (JSON.stringify(selectedNames) !== JSON.stringify(nameSelected)) {
-        setNameSelected(selectedNames)
-      }
+      setNameSelected(selectedNames)
     }
-  }, [searchParams, monthsSelected, nameSelected])
+
+    if (colorsQuery) {
+      const colors = colorsQuery.split(',').map(String)
+      const selectedColors = colors
+        .map((color) => FLOWER_COLOR_OPTIONS.find((option) => option.value === color))
+        .filter(Boolean)
+      setColorsSelected(selectedColors)
+    }
+
+    initializedFromUrl.current = true
+  }, [searchParams])
 
   // Create the name options for the filter, sorted alphabetically by common name
   const NAME_OPTIONS = useMemo(() => {
-    console.log('nativePlantList', nativePlantList)
     const names = nativePlantList.map((plant) => plant.plantName)
     const uniqueNames = [...new Set(names)]
     const fullNames = [
@@ -165,6 +175,11 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
               colorChangeHandler={colorChangeHandler}
               habitatChangeHandler={habitatChangeHandler}
               monthsValue={monthsSelected}
+              maxItemsDisplayed={maxItemsDisplayed}
+              filteredCount={filteredNativePlantList.length}
+              totalCount={nativePlantList.length}
+              colorsValue={colorsSelected}
+              habitatsValue={habitatsSelected}
             />
           </section>
           <section id={'plantListSection'} className="plant-list-container w-full">
@@ -192,7 +207,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
                 className={`btn-2`}
                 callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}
               >
-                Show More
+                Show more
               </Button>
             )}
           </section>
@@ -202,10 +217,4 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
   )
 }
 
-const PlantListGridWithSuspense = (props) => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <PlantListGrid {...props} />
-  </Suspense>
-)
-
-export default PlantListGridWithSuspense
+export default PlantListGrid
