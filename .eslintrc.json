@@ -15,7 +15,8 @@
         "groups": [["builtin", "external", "internal"]],
         "newlines-between": "always"
       }
-    ]
+    ],
+    "react/display-name": "off"
   },
   "settings": {
     "import/resolver": {

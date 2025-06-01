@@ -5,6 +5,7 @@ import PortTextWrapper from './PortTextWrapper'
 import { getCurrentMonthName, getMonthNumbersFromSeason } from '../utilities/helperUtil'
 import { client } from '../sanity/lib/sanity.client'
 import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../sanity/lib/queries'
+import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
 import Heading from './Heading'
 import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
@@ -68,7 +69,7 @@ const TeaserSection = (props) => {
 
   const currentMonth = getCurrentMonthName()
   const headingText = headingChildren ? headingChildren : titleText ? titleText : ''
-  let teaserUrlParams
+  let teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
 
   return (
     <>
