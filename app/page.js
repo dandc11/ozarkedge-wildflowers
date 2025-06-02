@@ -14,7 +14,6 @@ import {
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../sanity/lib/queries'
 import { sanityFetch } from '../sanity/lib/sanity.live'
-import button from '../schemas/objects/button'
 
 /**
  * @param {object} pageProps - props for the page
