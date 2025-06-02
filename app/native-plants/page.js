@@ -4,7 +4,7 @@ import { stegaClean } from '@sanity/client/stega'
 
 import HeadingDisplay from '../../components/HeadingDisplay'
 import ResponsiveImage from '../../components/ResponsiveImage'
-import PlantListGrid from '../../components/PlantListGrid'
+import PlantListGridWrapper from '../../components/PlantListGridWrapper'
 import {
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
   GET_PLANT_LIST_PAGE_DATA_QUERY,
@@ -61,7 +61,7 @@ const NativePlantPage = async () => {
           className="w-full h-full"
         />
       </div>
-      <PlantListGrid
+      <PlantListGridWrapper
         nativePlantPageData={nativePlantPageData}
         nativePlantList={nativePlantList}
         plantListInformation={nativePlantPageData?.plantListInformation}
