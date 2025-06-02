@@ -1,0 +1,109 @@
+/* Skeleton loading animations */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--oe-grey-100) 25%,
+    var(--oe-grey-200) 50%,
+    var(--oe-grey-100) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  border-radius: var(--br-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Skeleton card styles */
+.skeleton-card {
+  pointer-events: none;
+  user-select: none;
+}
+
+.skeleton-card:hover {
+  transform: none;
+}
+
+/* Individual skeleton elements */
+.skeleton-image {
+  aspect-ratio: 3/4;
+  width: 7rem;
+  height: 100%;
+}
+
+.skeleton-common-name {
+  height: var(--fs-sm);
+  width: 6rem;
+}
+
+.skeleton-botanical-name {
+  height: var(--fs-xs);
+  width: 8rem;
+}
+
+.skeleton-details {
+  height: var(--fs-xs);
+  width: 5rem;
+}
+
+/* Text skeleton elements */
+.skeleton-text-line {
+  height: var(--fs-md);
+}
+
+.skeleton-text-75 {
+  width: 75%;
+}
+
+.skeleton-text-50 {
+  width: 50%;
+}
+
+/* Filter skeleton elements */
+.skeleton-fieldset {
+  background-color: hsl(80.63deg 34.12% 78.83%);
+}
+
+.skeleton-legend {
+  height: var(--fs-lg);
+  width: 5rem;
+}
+
+.skeleton-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-md);
+}
+
+.skeleton-filter-input {
+  height: 2.5rem;
+  border-radius: var(--br-md);
+}
+
+/* Pulse animation alternative */
+.skeleton-pulse {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Responsive grid adjustments */
+@container plant-list-container (width > 600px) {
+  .skeleton-filters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

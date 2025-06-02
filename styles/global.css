@@ -19,6 +19,7 @@
 @import './components/natureserve.css';
 @import './components/tableofcontents.css';
 @import './components/footer.css';
+@import './components/skeleton.css';
 @import './pages/home.css';
 @import './pages/plant-pages.css';
 @import './pages/plant-list.css';
