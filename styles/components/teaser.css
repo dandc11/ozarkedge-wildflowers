@@ -34,10 +34,9 @@
 
 .teaser-slider {
   background: var(--teaser-bg-color);
-  color: var(--teaser-text-color);
 
-  .heading-title {
-    color: var(--teaser-heading-color);
+  * {
+    color: var(--teaser-text-color);
   }
 
   button {
