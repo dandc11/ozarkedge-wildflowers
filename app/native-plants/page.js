@@ -4,7 +4,7 @@ import { stegaClean } from '@sanity/client/stega'
 
 import HeadingDisplay from '../../components/HeadingDisplay'
 import ResponsiveImage from '../../components/ResponsiveImage'
-import PlantListGridWithSuspense from '../../components/PlantListGrid'
+import PlantListGridWrapper from '../../components/PlantListGridWrapper'
 import {
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
   GET_PLANT_LIST_PAGE_DATA_QUERY,
@@ -12,8 +12,9 @@ import {
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 
 const NativePlantPage = async () => {
-  const nativePlantQueryResponse = await sanityFetch({ query: GET_PLANT_LIST_PAGE_DATA_QUERY })
-  const nativePlantPageData = nativePlantQueryResponse?.data?.[0] ?? null
+  const nativePlantPageQueryResponse = await sanityFetch({ query: GET_PLANT_LIST_PAGE_DATA_QUERY })
+  const nativePlantPageData = nativePlantPageQueryResponse?.data?.[0] ?? null
+
   const nativePlantListQueryResponse = await sanityFetch({
     query: GET_NATIVE_PLANT_LIST_DATA_QUERY,
   })
@@ -60,7 +61,7 @@ const NativePlantPage = async () => {
           className="w-full h-full"
         />
       </div>
-      <PlantListGridWithSuspense
+      <PlantListGridWrapper
         nativePlantPageData={nativePlantPageData}
         nativePlantList={nativePlantList}
         plantListInformation={nativePlantPageData?.plantListInformation}

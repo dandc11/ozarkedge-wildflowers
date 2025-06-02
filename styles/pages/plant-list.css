@@ -66,6 +66,11 @@
   .plant-list-container {
     container: plant-list-container / inline-size;
     grid-area: plant-list;
+
+    .btn-2 {
+      margin-inline: auto;
+      margin-block-start: var(--sp-md);
+    }
   }
 
   .plant-list-fieldset {
@@ -89,6 +94,14 @@
       width: 100%;
       min-width: 16rem;
     }
+  }
+
+  .plant-count-display {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-block-end: var(--sp-xs);
   }
 
   .plant-card-grid {
@@ -146,8 +159,8 @@
       max-height: 60rem;
       overflow-y: scroll;
 
-      button {
-        margin-inline: auto;
+      .btn-2 {
+        margin-block-start: var(--sp-xl);
       }
     }
 

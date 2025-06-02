@@ -30,7 +30,7 @@ const raleway = Raleway({
   preload: true,
 })
 
-export default async function RootLayout({ children, pageProps }) {
+export default async function RootLayout({ children }) {
   // Fetch the menu data from Sanity
   const menuData = await sanityFetch({
     query: GET_MENU_ITEMS_QUERY,
