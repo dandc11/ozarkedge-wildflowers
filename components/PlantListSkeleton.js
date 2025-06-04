@@ -11,7 +11,7 @@ const PlantCardSkeleton = ({ className = '' }) => {
       <div className="img-card-img">
         <div className="skeleton-shimmer skeleton-image"></div>
       </div>
-      
+
       {/* Content skeleton */}
       <div className="img-card-description">
         <div className="img-card-heading">
@@ -21,7 +21,7 @@ const PlantCardSkeleton = ({ className = '' }) => {
             <div className="skeleton-shimmer skeleton-botanical-name"></div>
           </div>
         </div>
-        
+
         {/* Details skeleton */}
         <div className="img-card-body mt-sm">
           <div className="skeleton-shimmer skeleton-details mb-xs"></div>
@@ -45,7 +45,7 @@ const PlantListSkeleton = ({ count = 12, showFilters = true }) => {
           <div className="skeleton-shimmer skeleton-text-line mb-sm skeleton-text-75"></div>
           <div className="skeleton-shimmer skeleton-text-line mb-lg skeleton-text-50"></div>
         </div>
-        
+
         {/* Filters skeleton */}
         {showFilters && (
           <div className="plant-list-fieldset w-full skeleton-fieldset rounded-md p-lg mb-xl">
@@ -59,7 +59,7 @@ const PlantListSkeleton = ({ count = 12, showFilters = true }) => {
           </div>
         )}
       </section>
-      
+
       {/* Plant grid skeleton */}
       <section className="plant-list-container w-full">
         <div className="plant-card-grid w-full">
