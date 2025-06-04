@@ -104,6 +104,17 @@
     margin-block-end: var(--sp-xs);
   }
 
+  .fieldset-show-more-container {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    order: 4;
+
+    .btn-2 {
+      margin-block-start: 0;
+    }
+  }
+
   .plant-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, max-content));
@@ -160,7 +171,7 @@
       overflow-y: scroll;
 
       .btn-2 {
-        margin-block-start: var(--sp-xl);
+        margin-block-start: var(--sp-2xl);
       }
     }
 
@@ -171,8 +182,16 @@
       padding-block-end: var(--sp-md);
     }
 
+    .fieldset-show-more-container {
+      display: flex;
+    }
+
+    .grid-show-more-button {
+      display: none;
+    }
+
     .info-section {
-      gap: var(--sp-xl);
+      gap: var(--sp-md);
       justify-content: start;
 
       .description {
