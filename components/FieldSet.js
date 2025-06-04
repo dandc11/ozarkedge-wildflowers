@@ -2,6 +2,7 @@
 import React from 'react'
 import Select from 'react-select'
 
+import Button from './Button'
 import { FLOWER_COLOR_OPTIONS, HABITAT_OPTIONS, MONTH_OPTIONS } from '../utilities/constants'
 
 const Fieldset = ({
@@ -18,6 +19,8 @@ const Fieldset = ({
   totalCount,
   colorsValue,
   habitatsValue,
+  setMaxItemsDisplayed,
+  totalPlantCount,
 }) => {
   // Check if any filters are active
   const hasActiveFilters =
@@ -106,6 +109,13 @@ const Fieldset = ({
       <div className="plant-count-display">
         Showing {Math.min(maxItemsDisplayed, filteredCount)} of {filteredCount} {countText}
       </div>
+      {maxItemsDisplayed < totalPlantCount && (
+        <div className="fieldset-show-more-container">
+          <Button className={`btn-2`} callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}>
+            Show more
+          </Button>
+        </div>
+      )}
     </>
   )
 }

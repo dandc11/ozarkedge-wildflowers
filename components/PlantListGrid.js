@@ -180,6 +180,8 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
               totalCount={nativePlantList.length}
               colorsValue={colorsSelected}
               habitatsValue={habitatsSelected}
+              setMaxItemsDisplayed={setMaxItemsDisplayed}
+              totalPlantCount={nativePlantList.length}
             />
           </section>
           <section id={'plantListSection'} className="plant-list-container w-full">
@@ -204,7 +206,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
             </div>
             {maxItemsDisplayed < nativePlantList.length && (
               <Button
-                className={`btn-2`}
+                className={`btn-2 grid-show-more-button`}
                 callBack={() => setMaxItemsDisplayed(maxItemsDisplayed + 20)}
               >
                 Show more
