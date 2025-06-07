@@ -6,35 +6,20 @@ body:has(#sanity) {
   }
 
   #sanity {
-    [data-testid='action-publish'] {
-      background-color: grey;
+    .oe-site-body {
+      /* * {
+        color: var(--oe-text-body);
+        border-style: none;
+      } */
 
-      &[data-disabled='false'] {
-        background-color: lightgreen;
+      a[href] {
+        color: var(--oe-link-blue);
+        text-decoration: none;
+        cursor: pointer;
       }
     }
-
-    a[href] {
-      color: inherit;
-      text-decoration: none;
-    }
   }
-
   .draftmode-btn {
     display: none;
   }
-}
-
-.draftmode-btn {
-  position: fixed;
-  bottom: 2%;
-  right: 2%;
-  z-index: 1000;
-  padding: 0.5rem 0.75rem;
-  background-color: var(--oe-yellow-500);
-  color: var(--oe-black);
-  border: 1px solid var(--oe-black);
-  font-size: 1.25rem;
-  font-weight: 700;
-  cursor: pointer;
 }

@@ -14,6 +14,16 @@
       flex: none;
       scroll-snap-align: center;
 
+      a {
+        color: var(--oe-text-body);
+        position: relative;
+
+        figcaption {
+          text-decoration: underline;
+          text-underline-offset: 0.2rem;
+        }
+      }
+
       figure {
         position: relative;
         width: 9rem;

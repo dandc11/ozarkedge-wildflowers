@@ -8,6 +8,8 @@
   }
 
   a[href] {
+    text-decoration-color: var(--oe-link-blue);
+    color: var(--oe-link-blue);
     text-decoration: underline;
   }
 
