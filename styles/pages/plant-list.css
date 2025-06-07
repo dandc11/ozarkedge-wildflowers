@@ -75,6 +75,7 @@
 
   .plant-list-fieldset {
     grid-area: filters;
+    border: none;
     order: 2;
     width: 100%;
     background-color: hsl(80.63deg 34.12% 78.83%);

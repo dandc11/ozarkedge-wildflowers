@@ -8,6 +8,15 @@
   overflow: clip;
   transition: all 300ms ease-in-out;
   max-width: 20rem;
+  color: var(--oe-text-body);
+
+  & * {
+    text-decoration: none;
+  }
+
+  figure {
+    margin: 0;
+  }
 
   &:hover {
     transform: scale(1.05);
