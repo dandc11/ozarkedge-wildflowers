@@ -162,8 +162,3 @@ img {
     margin-block: 0;
   }
 }
-
-/* bugfix for inject fixed height div */
-[class*='_lightboxjs_'] > div[style*='height']:empty {
-  display: none !important;
-}
