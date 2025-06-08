@@ -61,6 +61,16 @@ export const getMonthNumbersFromSeason = (season) => {
 }
 
 /**
+ * Returns the month names for a given season
+ * @param {string} [season=''] - The season
+ * @returns {array} The month names for the given season, or empty array if not found
+ */
+export const getMonthNamesFromSeason = (season) => {
+  const monthNumbers = getMonthNumbersFromSeason(season)
+  return monthNumbers.map((monthNum) => MONTH_NAMES_MAP.get(monthNum)?.fullName).filter(Boolean)
+}
+
+/**
  * Returns the full name of a month from its number
  * @param {number} [monthNum=0] - The month number
  * @returns {string|undefined} The full name of the month, or undefined if not found
