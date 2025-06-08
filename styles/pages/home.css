@@ -144,3 +144,9 @@
     }
   }
 }
+
+@container homepage-content (width >= 500px) {
+  .blooming-heading .heading-title {
+    padding-inline: var(--sp-md);
+  }
+}

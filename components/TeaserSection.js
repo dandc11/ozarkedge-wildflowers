@@ -1,11 +1,14 @@
 import React from 'react'
 import cx from 'classnames'
+import { stegaClean } from '@sanity/client/stega'
 
 import PortTextWrapper from './PortTextWrapper'
-import { getCurrentMonthName, getMonthNumbersFromSeason } from '../utilities/helperUtil'
-import { client } from '../sanity/lib/sanity.client'
-import { GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY } from '../sanity/lib/queries'
-import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
+import {
+  getCurrentMonthName,
+  getMonthNumbersFromSeason,
+  getCurrentSeason,
+} from '../utilities/helperUtil'
+import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
 import Heading from './Heading'
 import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
@@ -63,13 +66,18 @@ const TeaserSection = (props) => {
    * TODO:
    * - Revisit Teaser/Feature components to see if they can be combined
    * - Add support for multiple images
-   * - Add support for url params
    * - Add support for teaser theme
    */
 
-  const currentMonth = getCurrentMonthName()
   const headingText = headingChildren ? headingChildren : titleText ? titleText : ''
-  let teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
+  const cleanedTheme = stegaClean(teaserTheme)
+
+  // Get month numbers for the season based on teaserTheme, with fallback to current season
+  const seasonMonths = teaserTheme
+    ? getMonthNumbersFromSeason(cleanedTheme)
+    : (getCurrentSeason()?.SEASON_MONTHS ?? [CURRENT_MONTH_NUMBER])
+
+  let teaserUrlParams = { months: seasonMonths }
 
   return (
     <>
