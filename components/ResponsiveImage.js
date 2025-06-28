@@ -67,8 +67,10 @@ const SanityImageWrapper = (props) => {
       hotspot={hotspot}
       alt={alt}
       loading={loading}
+      sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'} // Default responsive sizes
       // width={800}
       height={height}
+      format="webp"
       mode={mode}
       preview={preview}
       data-lightboxjs={lightboxIdentifier}

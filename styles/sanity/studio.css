@@ -1,17 +1,13 @@
 /* Hide navigation and footer when the studio is rendered */
 body:has(#sanity) {
   #mainNav,
-  #oeFooter {
+  #oeFooter,
+  .draftmode-btn {
     display: none;
   }
 
   #sanity {
     .oe-site-body {
-      /* * {
-        color: var(--oe-text-body);
-        border-style: none;
-      } */
-
       a[href] {
         color: var(--oe-link-blue);
         text-decoration: none;
@@ -19,7 +15,43 @@ body:has(#sanity) {
       }
     }
   }
-  .draftmode-btn {
-    display: none;
+}
+
+.studio-loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--oe-white);
+}
+
+.studio-loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-lg); /* 1.5rem */
+}
+
+.studio-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 0.125rem solid var(--oe-text-body);
+  border-top: 0.125rem solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.studio-loading-text {
+  font-size: var(--fs-md);
+  color: var(--oe-text-body);
+  font-family: var(--font-raleway);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

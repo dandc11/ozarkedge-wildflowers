@@ -122,7 +122,7 @@ const PortTextWrapper = React.memo((props) => {
         },
       }
     },
-    [lightboxCallback, lightboxIdentifier, documentId, documentType, portableTextPath], // Add new props to dependency array
+    [lightboxCallback, lightboxIdentifier], // Add new props to dependency array
   )
 
   return (

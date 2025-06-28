@@ -42,4 +42,28 @@ export const locations = {
       },
     ],
   }),
+  nativePlant: defineLocations({
+    select: { title: 'plantName.botanicalName', slug: 'slug.current' },
+    message: `This document is used to render a Native Plant page`,
+    resolve: (doc) => ({
+      locations: [
+        {
+          title: doc?.title || 'Native Plant',
+          href: `/native-plants/${doc?.slug}`,
+        },
+      ],
+    }),
+  }),
+  season: defineLocations({
+    select: { title: 'seasonName', slug: 'slug.current' },
+    message: 'This document is used to render a Season page',
+    resolve: (doc) => ({
+      locations: [
+        {
+          title: doc?.title || 'Season',
+          href: `/season/${doc?.slug}`,
+        },
+      ],
+    }),
+  }),
 }
