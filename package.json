@@ -10,7 +10,11 @@
     "lint": "next lint -- --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
     "migrate": "sanity exec migrations/rename-pagebodyportabletext-objects/index.ts --with-user-token",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "cross-env ANALYZE=true next build",
+    "sanity:backup": "sanity dataset export prod backups/backup-$(date +%Y%m%d-%H%M%S).tar.gz",
+    "sanity:backup-json": "sanity dataset export prod backups/backup-$(date +%Y%m%d-%H%M%S).json",
+    "sanity:backup-script": "node scripts/backup-sanity.js"
   },
   "prettier": {
     "semi": false,
@@ -44,7 +48,9 @@
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.3.4",
     "autoprefixer": "^10.4.13",
+    "cross-env": "^7.0.3",
     "cssnano": "^7.0.6",
     "eslint-config-next": "^14.2.7",
     "eslint-config-prettier": "^8.10.0",
