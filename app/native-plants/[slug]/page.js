@@ -7,15 +7,12 @@ import ResponsiveImage from '../../../components/ResponsiveImage'
 import LightboxGallery from '../../../components/LightboxGallery'
 import NatureServeMessage from '../../../components/NatureServeMessage'
 import NatureServeBadge from '../../../components/NatureServeBadge'
-import ThumbnailGrid from '../../../components/ThumbnailGrid'
 import GrowingNearby from '../../../components/GrowingNearbySection'
-import Heading from '../../../components/Heading'
 import PlantPageIntroSection from '../../../components/PlantPageIntroSection'
 import ContentSection from '../../../components/ContentSection'
 import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
-import { PLANT_PAGE_SECTIONS } from '../../../utilities/constants'
+import { PLANT_PAGE_SECTIONS, IMG_SIZES } from '../../../utilities/constants'
 import { GET_ALL_NATIVE_PLANT_PATHS_QUERY, GET_PLANT_PAGE_DATA } from '../../../sanity/lib/queries'
-import { client } from '../../../sanity/lib/sanity.client'
 import { sanityFetch } from '../../../sanity/lib/sanity.live'
 
 /**
@@ -94,17 +91,16 @@ const NativePlantPage = async (props) => {
             <div id="bannerImage" className={`relative ${menuButtonColor}`}>
               <ResponsiveImage
                 className={`relative w-full h-full cover`}
-                figureClassName={`w-full`}
-                image={bannerImage}
-                breakpoint={'500'}
                 disableHover
                 disablePointer
-                priority={'high'}
+                fetchPriority="high"
+                figureClassName={`w-full`}
+                image={bannerImage}
+                priority
                 placeholder={``}
-                loading={`eager`}
-                quality={`100`}
                 showCaption={false}
-                sizes={`100vw`}
+                quality={85}
+                sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
                 wrapperClassName={`banner-img w-full`}
               />
               <ResponsiveImage
@@ -114,12 +110,12 @@ const NativePlantPage = async (props) => {
                 breakpoint={'500'}
                 disableHover
                 disablePointer
-                priority={'high'}
+                fetchPriority="high"
+                priority
                 placeholder={``}
-                loading={`eager`}
-                quality={`100`}
+                quality={85}
+                sizes={IMG_SIZES.HERO_MOBILE_SIZES}
                 showCaption={false}
-                sizes={`100vw`}
                 wrapperClassName={`banner-img mobile w-full`}
               />
             </div>

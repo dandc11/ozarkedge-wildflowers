@@ -2,6 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 
 import ResponsiveImage from './ResponsiveImage'
+import InteractiveImage from './InteractiveImage'
+import { IMG_SIZES } from '../utilities/constants'
 
 // JSDoc definitions
 /**
@@ -54,25 +56,48 @@ const PortTextFigure = ({
     : positions['center']
   return (
     <>
-      <ResponsiveImage
-        image={portTextProps.value}
-        captionStyle={portTextProps.value?.captionPosition}
-        showCaption={true}
-        lightboxIdentifier={lightboxIdentifier}
-        figureClassName={cx(
-          `${
-            portTextProps.value?.imagePosition !== 'left' &&
-            portTextProps.value?.imagePosition !== 'right'
-              ? widthClass
-              : 'w-full'
-          }`,
-        )}
-        width={560}
-        wrapperClassName={cx(`port-text-img ${positionClass}`)}
-        onClick={lightboxCallback ? lightboxCallback : null}
-        data-sanity-edit-target="true"
-        data-sanity={dataSanityAttr} // Pass the attribute string
-      />
+      {lightboxIdentifier ? (
+        <InteractiveImage
+          image={portTextProps.value}
+          captionStyle={portTextProps.value?.captionPosition}
+          showCaption={true}
+          lightboxIdentifier={lightboxIdentifier}
+          figureClassName={cx(
+            `${
+              portTextProps.value?.imagePosition !== 'left' &&
+              portTextProps.value?.imagePosition !== 'right'
+                ? widthClass
+                : 'w-full'
+            }`,
+          )}
+          width={580}
+          height={435}
+          sizes={IMG_SIZES.PORT_TEXT}
+          wrapperClassName={cx(`port-text-img ${positionClass}`)}
+          data-sanity-edit-target="true"
+          data-sanity={dataSanityAttr} // Pass the attribute string
+        />
+      ) : (
+        <ResponsiveImage
+          image={portTextProps.value}
+          captionStyle={portTextProps.value?.captionPosition}
+          showCaption={true}
+          figureClassName={cx(
+            `${
+              portTextProps.value?.imagePosition !== 'left' &&
+              portTextProps.value?.imagePosition !== 'right'
+                ? widthClass
+                : 'w-full'
+            }`,
+          )}
+          width={580}
+          height={435}
+          sizes={IMG_SIZES.PORT_TEXT}
+          wrapperClassName={cx(`port-text-img ${positionClass}`)}
+          data-sanity-edit-target="true"
+          data-sanity={dataSanityAttr} // Pass the attribute string
+        />
+      )}
     </>
   )
 }

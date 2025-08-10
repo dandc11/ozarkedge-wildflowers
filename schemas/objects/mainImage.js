@@ -13,19 +13,17 @@ export default defineType({
     ],
   },
   fields: [
-    defineType({
+    defineField({
       name: 'caption',
       type: 'string',
       title: 'Caption',
     }),
-    defineType({
+    defineField({
       name: 'alt',
       type: 'string',
       title: 'Alternative text',
-      description:
-        'A very brief description of the image. Important for SEO and accessiblity.',
-      validation: (Rule) =>
-        Rule.error('You have to fill out the alternative text.').required(),
+      description: 'A very brief description of the image. Important for SEO and accessibility.',
+      validation: (Rule) => Rule.error('You have to fill out the alternative text.').required(),
     }),
   ],
   preview: {

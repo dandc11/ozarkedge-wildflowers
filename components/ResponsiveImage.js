@@ -1,195 +1,102 @@
-'use client'
-
-import { SanityImage } from 'sanity-image'
-import { useEffect, useContext } from 'react'
+import Image from 'next/image'
 import cx from 'classnames'
-import { stegaClean } from 'next-sanity'
+import { stegaClean } from '@sanity/client/stega'
 
-import { LightboxContext } from '../contexts/LightboxContext'
-import { projectId, dataset } from '../sanity/lib/sanity.api'
+import { urlForImage } from '../sanity/lib/sanity.image'
 
-/**
- * @typedef {Object} SanityImageWrapperProps
- * @property {string} [alt=''] - The alt text for the image
- * @property {Object} [asset={}] - The asset object
- * @property {string} [className=''] - The class name of the
- * @property {string} [crop=''] - The crop of the image
- * @property {boolean} [fill=false] - Whether to fill the image
- * @property {string} [fit=''] - The fit of the image
- * @property {string} [focus=''] - The focus of the image
- * @property {string} [height=''] - The height of the image
- * @property {string} [hotspot=''] - The hotspot of the image
- * @property {string} [id=''] - The id of the image
- * @property {string} [imagePosition=''] - The position of the image
- * @property {string} [imageWidth=''] - The width of the image
- * @property {string} [lightboxIdentifier] - The identifier for the lightbox
- * @property {string} [loading='lazy'] - The loading attribute for the image
- * @property {string} [mode='cover'] - The mode of the image
- * @property {string} [preview=''] - The preview of the image
- * @property {boolean} [fetchPriority=auto] - Whether to prioritize image fetching
- * @property {string} [quality='100'] - The quality of the image
- * @property {string} [sizes=''] - The sizes of the image
- * @property {string} [src=''] - The src of the image
- * @property {string} [srcSet=''] - The srcSet of the image
- * @property {string} [style=''] - The style of the image
- * @property {string} [width=''] - The width of the image
- * @returns {JSX.Element} - The rendered component
- * */
-// https://github.com/coreyward/sanity-image
-const SanityImageWrapper = (props) => {
-  // destrucrture all props and set defaults
-  const {
-    alt = '',
-    asset = {},
-    className = '',
-    crop = '',
-    height = '',
-    hotspot = '',
-    id = props.id || props.asset?._ref,
-    lightboxIdentifier,
-    loading,
-    mode = 'cover',
-    preview = '',
-    fetchPriority = 'auto',
-    quality = `100`,
-    sizes = '',
-    width = '',
-    ...rest
-  } = props
-
-  return (
-    <SanityImage
-      projectId={projectId}
-      className={className}
-      dataset={dataset}
-      id={id}
-      crop={crop}
-      hotspot={hotspot}
-      alt={alt}
-      loading={loading}
-      sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'} // Default responsive sizes
-      // width={800}
-      height={height}
-      format="webp"
-      mode={mode}
-      preview={preview}
-      data-lightboxjs={lightboxIdentifier}
-    />
-  )
-}
-
-/**
- * @typedef {Object} ResponsiveImageProps
- * @property {string} [captionBgClassName='bg-oe-green-yellow-200'] - The background color of the caption
- * @property {string} [captionStyle='below'] - The style of the caption
- * @property {JSX.Element} [children] - Any children of the component
- * @property {string} [className='border-l-blue-100'] - The class name of the component
- * @property {boolean} [disableHover=false] - Whether to disable hover effects
- * @property {string} [figureClassName=''] - The class name of the figure
- * @property {Object} [image] - The image object
- * @property {string} [lightboxIdentifier] - The identifier for the lightbox
- * @property {Function} [onClick=() => {}] - The click handler
- * @property {string} [queryParams=''] - The query parameters for the image
- * @property {boolean} [showCaption=true] - Whether to show the caption
- * @property {string} [wrapperClassName=''] - The class name of the wrapper
- * @property {Object} [props] - The props object
- * @returns {JSX.Element} - The rendered component
- * @category Components
- * @example
- * <ResponsiveImage
- *  captionBgClassName='bg-oe-green-yellow-200'
- *  captionStyle='below'
- *  className='border-l-blue-100'
- *  disableHover={false}
- *  figureClassName=''
- *  image=''
- *  lightboxIdentifier=''
- *  onClick={() => {}}
- *  queryParams=''
- *  showCaption={true}
- *  wrapperClassName=''
- * />
- */
 const ResponsiveImage = ({
+  alt = '',
+  caption,
   captionBgClassName = '',
   captionStyle = 'below',
   children,
   className = '',
+  crop = '',
   disableHover = false,
   disablePointer = false,
   figureClassName = '',
-  image = '',
+  height = '',
+  hotspot = '',
+  image,
   lightboxIdentifier,
-  loading = 'lazy',
+  loading,
   onClick,
-  queryParams = '',
+  priority,
+  quality = 90,
   showCaption = true,
+  sizes,
   width = '',
   wrapperClassName = '',
   ...props
 }) => {
-  const { caption = '', alt = '', asset = null, lqip = '', palette = null } = image ? image : {}
+  if (!image?.asset?._ref) return null
+
+  const {
+    caption: imageCaptionFromData = '',
+    alt: altFromData = '',
+    asset = null,
+    lqip,
+  } = image || {}
+
+  const imageCaption = caption || imageCaptionFromData
+  const imageAlt = alt || altFromData
   const id = asset?._ref || ''
+
   const captionClassName = cx({
     'inset-left': captionStyle === 'insetLeft',
     'inset-right': captionStyle === 'insetRight',
     below: captionStyle === 'below',
   })
 
-  const { setLightBoxOpenImgKey, setLightboxIdentifier } = useContext(LightboxContext)
+  const imgWidth = parseInt(width, 10) || 1600
+  const imgHeight = parseInt(height, 10) || Math.round(imgWidth * 0.75)
 
-  // call onClick callback with key of image clicked
-  const handleClick = (e) => {
-    if (lightboxIdentifier) {
-      setLightBoxOpenImgKey(e.currentTarget.dataset.key)
-      setLightboxIdentifier(lightboxIdentifier)
-    }
-  }
-
-  useEffect(() => {
-    if (image && !(image.id || (image.asset && image.asset._ref))) {
-      console.warn('Image without an id was used:', image)
-    }
-  }, [image])
+  const imageUrl = urlForImage(image, {
+    width: imgWidth,
+    height: imgHeight,
+    quality,
+  }).url()
 
   return (
-    <>
-      {image && (image.id || (image.asset && image.asset._ref)) && (
-        <div
-          id={id}
-          className={cx('img-wrapper text-sm', wrapperClassName)}
-          {...props} // Spread remaining props onto the div
-        >
-          <figure
-            className={cx(figureClassName)}
-            onClick={handleClick}
-            data-lightboxjs={lightboxIdentifier}
-            data-key={id}
-          >
-            <SanityImageWrapper
-              {...image}
-              alt={stegaClean(alt)}
-              className={cx(
-                { hover: !disableHover },
-                { 'cursor-pointer ': !disablePointer },
-                className,
-              )}
-              lightboxIdentifier={lightboxIdentifier}
-              loading={loading}
-              preview={lqip}
-              width={width}
-            />
+    <div id={id} className={cx('img-wrapper text-sm', wrapperClassName)} {...props}>
+      <figure
+        className={cx(figureClassName)}
+        onClick={onClick}
+        data-lightboxjs={lightboxIdentifier}
+        data-key={id}
+      >
+        <Image
+          alt={stegaClean(imageAlt)}
+          blurDataURL={lqip || undefined}
+          className={cx(
+            'sanity-image-main',
+            { hover: !disableHover },
+            { 'cursor-pointer': !disablePointer },
+            className,
+          )}
+          // Use high fetch priority only when priority is enabled
+          fetchPriority={priority ? 'high' : 'low'}
+          height={imgHeight}
+          // Only pass loading when not using priority (Next/Image treats them as mutually exclusive)
+          {...(!priority ? { loading: loading || 'lazy' } : {})}
+          placeholder={lqip ? 'blur' : 'empty'}
+          // Only pass the priority prop when truthy to avoid conflicts with loading
+          {...(priority ? { priority: true } : {})}
+          quality={quality}
+          sizes={sizes}
+          src={imageUrl}
+          width={imgWidth}
+        />
 
-            {children && children}
-            {caption && showCaption && (
-              <figcaption className={cx(captionClassName, captionBgClassName)}>
-                {caption}
-              </figcaption>
-            )}
-          </figure>
-        </div>
-      )}
-    </>
+        {children}
+
+        {imageCaption && showCaption && (
+          <figcaption className={cx(captionClassName, captionBgClassName)}>
+            {stegaClean(imageCaption)}
+          </figcaption>
+        )}
+      </figure>
+    </div>
   )
 }
 

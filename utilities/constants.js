@@ -90,6 +90,18 @@ export const HABITAT_OPTIONS = [
   { label: 'Wetland', value: 'Wetland' },
 ]
 
+export const HERO_DESKTOP_SIZES = '(max-width: 900px) 0px, 100vw'
+export const HERO_MOBILE_SIZES = '(min-width: 901px) 0px, 100vw'
+export const PORT_TEXT_SIZES = '(min-width: 600px) 85vw, (min-width: 700px) 580px, 90vw'
+export const THUMBNAIL_GRID_SIZES = '(min-width: 400px) 432px, 35vw'
+
+export const IMG_SIZES = {
+  HERO_DESKTOP_SIZES: HERO_DESKTOP_SIZES,
+  HERO_MOBILE_SIZES: HERO_MOBILE_SIZES,
+  PORT_TEXT: PORT_TEXT_SIZES,
+  THUMBNAIL_GRID: THUMBNAIL_GRID_SIZES,
+}
+
 export const FLOWER_COLOR_OPTIONS = [
   { label: 'White', value: 'white' },
   { label: 'Blue', value: 'blue' },
@@ -175,5 +187,4 @@ export const COLORS = {
   'oe-vulnerable': '#f7d48b',
   'oe-apparently-secure': '#a6d8b8',
   'oe-secure': '#668bb3',
-
 }

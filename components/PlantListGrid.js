@@ -155,7 +155,6 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
       }
       return 0
     })
-  console.log('filteredNativePlantList', filteredNativePlantList)
 
   return (
     <div className="plant-list-layout-wrapper relative">

@@ -6,6 +6,7 @@ import cx from 'classnames'
 import LightboxGallery from './LightboxGallery'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
+import InteractiveImage from './InteractiveImage'
 import Button from './Button'
 
 /**
@@ -53,12 +54,13 @@ const ImageSlider = ({
               sizes="(max-width: 800px) 150px, 240px"
               placeholder={``}
               showCaption={true}
+              loading="lazy"
               captionBgClassName={captionBgClassName}
             />
           </CustomLink>
         ) : (
           // if the image has no link, open it in the lightbox when clicked
-          <ResponsiveImage
+          <InteractiveImage
             figureClassName={`img `}
             wrapperClassName={``}
             image={image}
@@ -66,7 +68,7 @@ const ImageSlider = ({
             lightboxIdentifier={lightboxIdentifier}
             placeholder={``}
             showCaption={true}
-            onClick={toggleLightbox ? toggleLightbox : null}
+            loading="lazy"
             captionBgClassName={captionBgClassName}
           />
         )}

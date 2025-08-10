@@ -1,24 +1,3 @@
-import { SanityImage } from 'sanity-image'
-
-import { urlForImage } from '../sanity/lib/sanity.image'
-import { projectId, dataset } from '../sanity/lib/sanity.api'
-
-/**
- * Returns a Sanity image url with the parameters applied
- * @param { Object } image
- * @param {Object} options
- * @returns
- */
-/*--------------------------------------*/
-export const getImageUrl = (image, options = {}) => {
-  if (options.width) {
-    const { width, height } = options
-    urlForImage(image).width(width).height(height)
-  }
-
-  return urlForImage(image)
-}
-
 /**
  * Returns an object of palette values according to the palette type
  * @param {Object} image

@@ -104,7 +104,7 @@ const TeaserSlider = (props) => {
                 disableHover
                 disablePointer
                 showCaption={false}
-                loading="eager"
+                // loading="eager"
                 figureClassName="h-full w-full"
                 wrapperClassName="teaser-image rounded-lg w-full mb-3xl bg-oe-green-yellow-200"
                 className="w-full h-full"

@@ -9,6 +9,7 @@ import {
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
   GET_PLANT_LIST_PAGE_DATA_QUERY,
 } from '../../sanity/lib/queries'
+import { IMG_SIZES } from '../../utilities/constants'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 
 const NativePlantPage = async () => {
@@ -37,28 +38,34 @@ const NativePlantPage = async () => {
           <span className={cx(`no-wrap text-${menuButtonColor}`)}>at Ozarkedge</span>
         </HeadingDisplay>
         <ResponsiveImage
-          image={nativePlantPageData?.mainImage}
           alt={nativePlantPageData?.pageTitle}
+          className="w-full h-full "
           disableHover
           disablePointer
-          loading="eager"
+          fetchPriority="high"
           figureClassName="h-full w-full"
+          image={nativePlantPageData?.mainImage}
+          priority
+          quality={95}
+          sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
           wrapperClassName="banner-img"
-          className="w-full h-full "
         />
         <ResponsiveImage
+          alt={nativePlantPageData?.pageTitle}
+          className="w-full h-full"
+          disableHover
+          disablePointer
+          fetchPriority="high"
+          figureClassName="h-full w-full"
           image={
             nativePlantPageData?.mobileImage
               ? nativePlantPageData?.mobileImage
               : nativePlantPageData?.mainImage
           }
-          alt={nativePlantPageData?.pageTitle}
-          disableHover
-          disablePointer
-          loading="eager"
-          figureClassName="h-full w-full"
+          priority
+          quality={95}
+          sizes={IMG_SIZES.HERO_MOBILE_SIZES}
           wrapperClassName="banner-img mobile"
-          className="w-full h-full"
         />
       </div>
       <PlantListGridWrapper
