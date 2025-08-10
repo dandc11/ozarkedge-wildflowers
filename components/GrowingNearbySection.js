@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 
 import { PLANT_PAGE_SECTIONS } from '../utilities/constants'
-import { GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY } from '../sanity/lib/queries'
-import { client } from '../sanity/lib/sanity.client'
 import Heading from './Heading'
 import ImageSlider from './ImageSlider'
 import PortTextWrapper from './PortTextWrapper'
@@ -29,19 +27,6 @@ const GrowingNearby = ({
   growingNearbyText,
   tocLinks,
 }) => {
-  const [nativePlantNamesAndSlugs, setNativePlantNamesAndSlugs] = useState([])
-
-  // useEffect(() => {
-  //   const fetchNativePlantNamesAndSlugs = async () => {
-  //     const nativePlantDocs = await client.fetch(GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY)
-  //     console.log('nativePlantDocs', nativePlantDocs)
-  //     setNativePlantNamesAndSlugs(nativePlantDocs)
-  //   }
-
-  //   fetchNativePlantNamesAndSlugs()
-  // }, [])
-  // console.log('growingNearbyPlantImages', growingNearbyPlantImages)
-
   return (
     <>
       {(growingNearbyPlantImages || growingNearbyText) && (

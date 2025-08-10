@@ -9,9 +9,8 @@ import ResponsiveImage from '../../../components/ResponsiveImage'
 import HeadingDisplay from '../../../components/HeadingDisplay'
 import FeatureSection from '../../../components/FeatureSection'
 import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
-import { destructureFeature } from '../../../utilities/helperUtil'
 import { GET_ALL_SEASON_PATHS_QUERY, GET_SEASON_PAGE_DATA_QUERY } from '../../../sanity/lib/queries'
-import { client } from '../../../sanity/lib/sanity.client'
+import { IMG_SIZES } from '../../../utilities/constants'
 import { sanityFetch } from '../../../sanity/lib/sanity.live'
 
 /**
@@ -66,15 +65,18 @@ const SeasonPage = async (props) => {
           >
             <section id={'seasonHeader'} className="season-header relative w-full h-full">
               <ResponsiveImage
-                image={mainImage}
                 alt={mainImage?.alt || `${seasonName} at Ozarkedge `}
+                className="rounded-none w-full h-full"
                 disableHover
                 disablePointer
-                loading="eager"
-                showCaption={false}
+                fetchPriority="high"
                 figureClassName="h-full w-full"
+                image={mainImage}
+                priority
+                showCaption={false}
+                quality={85}
+                sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
                 wrapperClassName={wrapperClassName}
-                className="rounded-none w-full h-full"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -86,15 +88,17 @@ const SeasonPage = async (props) => {
                 </svg>
               </ResponsiveImage>
               <ResponsiveImage
-                image={mobileImage ? mobileImage : mainImage}
                 alt={mobileImage?.alt || 'A picture of the Ozarkedge property'}
+                className="rounded-none"
                 disableHover
                 disablePointer
-                loading="eager"
-                showCaption={false}
+                fetchPriority="high"
                 figureClassName="h-full w-full"
+                image={mobileImage ? mobileImage : mainImage}
+                priority
+                showCaption={false}
+                sizes={IMG_SIZES.HERO_MOBILE_SIZES}
                 wrapperClassName={cx(wrapperClassName, `mobile`)}
-                className="rounded-none"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -125,6 +129,7 @@ const SeasonPage = async (props) => {
             </section>
             <LightboxGallery
               cols={3}
+              stuff={pageData}
               lightboxImgClass={`lightbox-img`}
               images={fullImageArray}
               lightboxIdentifier="seasonPage"

@@ -1,8 +1,8 @@
-'use client'
 import React from 'react'
 import cx from 'classnames'
 
-import ResponsiveImage from './ResponsiveImage'
+import { IMG_SIZES } from '../utilities/constants'
+import InteractiveImage from './InteractiveImage'
 
 const ThumbnailGrid = (props) => {
   const {
@@ -38,14 +38,15 @@ const ThumbnailGrid = (props) => {
         className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}
         onClick={handleClick}
       >
-        <ResponsiveImage
+        <InteractiveImage
           className="thumbnail cover"
           // disableHover
-          figureClassName=""
+          figureClassName="w-full"
           image={image}
           lightboxIdentifier={lightboxIdentifier}
           showCaption={showCaptions}
-          width="560"
+          width="430"
+          sizes={IMG_SIZES.THUMBNAIL_GRID_SIZES}
         />
       </li>
     )

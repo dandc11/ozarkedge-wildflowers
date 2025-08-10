@@ -158,7 +158,6 @@ export const titleCase = (textString = '') =>
   textString.charAt(0).toUpperCase() + textString.slice(1)
 
 export const getSeasonObject = (season) => {
-  console.log('season:', season)
   const seasonObject = Object.values(SEASONS).find((s) => s.SEASON_NAME === season)
   return seasonObject
 }
@@ -226,10 +225,7 @@ export const destructureFeature = (feature) => {
     ? (linkMetaDescription ?? bodyText ?? null)
     : (bodyText ?? null)
 
-  console.log('feature:', feature)
-
   const seasonThemeObj = getSeasonObject(featureTheme)
-  console.log('seasonThemeObj:', seasonThemeObj)
 
   return {
     bodyPortText,

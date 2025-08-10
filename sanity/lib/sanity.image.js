@@ -7,10 +7,26 @@ const imageBuilder = createImageUrlBuilder({
   dataset: dataset || '',
 })
 
-export const urlForImage = (source) => {
+/**
+ * Returns a Sanity image url with the parameters applied
+ * @param { Object } source
+ * @param {Object} options
+ * @param {number} [options.width] - The width of the image
+ * @param {number} [options.height] - The height of the image
+ * @param {number} [options.quality=80] - The quality of the image
+ * @param {string} [options.format='auto'] - The format of the image
+ * @returns {string} - The URL of the image
+ */
+export const urlForImage = (source, options) => {
   // Ensure that source image contains a valid reference
   if (!source?.asset?._ref) {
     return undefined
+  }
+
+  // If options are provided, apply them to the image URL
+  if (options) {
+    const { width, height, quality = 80 } = options
+    return imageBuilder.image(source).width(width).height(height).quality(quality).auto('format')
   }
 
   return imageBuilder?.image(source).auto('format')

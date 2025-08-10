@@ -7,10 +7,9 @@ import TeaserSlider from '../components/TeaserSlider'
 import Button from '../components/Button'
 import ResponsiveImage from '../components/ResponsiveImage'
 import { getCurrentMonthName, titleCase, getCurrentSeason } from '../utilities/helperUtil'
-import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
+import { CURRENT_MONTH_NUMBER, IMG_SIZES } from '../utilities/constants'
 import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
-  GET_CURRENT_SEASON_DATA_QUERY,
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../sanity/lib/queries'
 import { sanityFetch } from '../sanity/lib/sanity.live'
@@ -63,21 +62,26 @@ export default async function HomePage() {
         >
           <section className="atf relative flex flex-col justify-between align-center">
             <ResponsiveImage
-              image={landingPageData.mainImage}
               alt={landingPageData.mainImage?.alt || 'A picture of the Ozarkedge property'}
+              className="w-full h-full"
               disableHover
               disablePointer
-              loading="eager"
+              priority
+              fetchPriority="high"
               figureClassName="h-full w-full"
+              image={landingPageData.mainImage}
+              quality={85}
+              sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
               wrapperClassName="absolute bg-img w-full"
-              className="w-full h-full"
             />
             <ResponsiveImage
               image={landingPageData.mobileImage}
               alt={landingPageData.mobileImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
               disablePointer
-              loading="eager"
+              fetchPriority="high"
+              priority
+              sizes={IMG_SIZES.HERO_MOBILE_SIZES}
               figureClassName="h-full w-full"
               wrapperClassName="absolute bg-img mobile w-full"
               className="w-full h-full"

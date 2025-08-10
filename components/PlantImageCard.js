@@ -18,7 +18,15 @@ const PlantImageCard = React.memo(
   }) => {
     const imageComponent = (
       <div className="img-card-img">
-        <ResponsiveImage image={image} alt={titleText} disableHover={true} showCaption={false} />
+        <ResponsiveImage
+          alt={titleText}
+          disableHover={true}
+          figureClassName="w-full h-full"
+          image={image}
+          showCaption={false}
+          height={200}
+          width={150}
+        />
       </div>
     )
 

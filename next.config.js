@@ -6,7 +6,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   images: {
     domains: ['cdn.sanity.io'],
-    loader: 'custom',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        pathname: '/images/**',
+      },
+    ],
   },
   productionBrowserSourceMaps: true,
 }
