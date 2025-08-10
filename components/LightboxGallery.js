@@ -7,6 +7,17 @@ import cx from 'classnames'
 import { urlForImage } from '../sanity/lib/sanity.image'
 import useLightbox from '../hooks/useLightbox'
 
+/**
+ * A lightbox gallery component for displaying images in a modal slideshow
+ * @param {ReactNode} children - Child elements to render within the lightbox
+ * @param {string} className - Additional CSS classes for the lightbox
+ * @param {Array|Object} images - Sanity image objects to display
+ * @param {string} lightboxIdentifier - Unique identifier for this lightbox instance
+ * @param {Function} onOpenCallback - Function called when lightbox opens
+ * @param {Function} onCloseCallback - Function called when lightbox closes
+ * @param {boolean} showCaptions - Whether to display image captions
+ * @param {boolean} showThumbnails - Whether to display thumbnail navigation
+ */
 const LightboxGallery = ({
   children,
   className = '',
@@ -30,24 +41,48 @@ const LightboxGallery = ({
     onCloseCallback,
     lightboxIdentifier,
   )
-
   const imgObjArray = useMemo(() => {
     if (!memoizedImages) return null
-    const imgArray = Array.isArray(memoizedImages) ? memoizedImages : [memoizedImages]
-    return imgArray.map((image) => ({
-      src: urlForImage(image, { width: 100 }),
-      original: urlForImage(image, { width: 1024, quality: 90 }),
-      alt: image.alt,
-      caption: showCaptions ? image.caption : '',
-    }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    try {
+      const imgArray = Array.isArray(memoizedImages) ? memoizedImages : [memoizedImages]
+      return imgArray.map((image) => {
+        // Create a properly formatted thumbnail URL with absolute dimensions
+        const thumbUrl = urlForImage(image, {
+          width: 150,
+          height: 150,
+          fit: 'crop',
+          quality: 70,
+          auto: 'format',
+        }).url()
+
+        // Create a properly formatted original URL
+        const originalUrl = urlForImage(image, {
+          width: 1024,
+          quality: 90,
+          auto: 'format',
+        }).url()
+
+        return {
+          src: thumbUrl,
+          original: originalUrl,
+          alt: image.alt || '',
+          caption: showCaptions ? image.caption || '' : '',
+          width: 150,
+          height: 150,
+          blurDataURL: image.lqip || undefined,
+          placeholder: image.lqip ? 'blur' : 'empty',
+        }
+      })
+    } catch (error) {
+      console.error('Error processing images for lightbox:', error)
+      return []
+    }
   }, [memoizedImages, showCaptions])
 
   return (
     <SlideshowLightbox
-      className={cx({
-        className,
-      })}
+      className={className || ''}
       framework={'next'}
       iconColor="white"
       images={imgObjArray}
@@ -65,6 +100,9 @@ const LightboxGallery = ({
       startingSlideIndex={startingSlideIndex}
       theme="lightbox"
       thumbnailBorder="silver"
+      thumbnailClassName="lightbox-thumbnail"
+      thumbnailHeight={150}
+      thumbnailWidth={150}
     >
       {children}
     </SlideshowLightbox>
