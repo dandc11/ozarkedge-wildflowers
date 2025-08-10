@@ -208,3 +208,33 @@ export const mainImageFields = (fieldName) => `
       y
     }
   }`
+
+/**
+ * Returns a GROQ query fragment for teaserSection content type
+ * @param {boolean} [includeKey=true] - Whether to include _key in the query
+ * @returns {string} GROQ query fragment for teaserSection type
+ */
+export const teaserSectionFields = (includeKey = true) => `{
+  _type,
+  ${includeKey ? '_key,' : ''}
+  "bodyText": bodyText,
+  "titleText": titleText,
+  buttonText,
+  image {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  },
+  "linkItems": 
+    link->{
+      "linkId": _id,
+      "linkType": _type, 
+      "linkSlug": slug.current,
+      "linkMetaDescription": metaDescription,
+      "linkMainImage": mainImage {
+        ...,
+        "palette": asset->metadata.palette,
+        "lqip": asset->metadata.lqip,
+      }
+    },
+}`

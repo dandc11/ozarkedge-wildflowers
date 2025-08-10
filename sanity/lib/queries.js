@@ -1,6 +1,12 @@
 import { groq } from 'next-sanity'
 
-import { imageCollectionFields, videoFields, figureFields, blockFields } from './queryFragments'
+import {
+  imageCollectionFields,
+  videoFields,
+  figureFields,
+  blockFields,
+  teaserSectionFields,
+} from './queryFragments'
 import { CURRENT_MONTH_NUMBER } from '../../utilities/constants'
 
 // retrieves langing page data
@@ -54,21 +60,7 @@ export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
     _type == "block" => ${blockFields()},
     _type == "imageCollection" => ${imageCollectionFields()},
     _type == "portTextVideo" => ${videoFields()},
-    _type == "teaserSection" => {
-    _type,
-    "bodyText": bodyText,
-    "titleText": titleText,
-    buttonText,
-    image,
-    "linkItems": 
-      link->{
-        "linkId": _id,
-        "linkType" : _type, 
-        "linkSlug": slug.current,
-        "linkMetaDescription": metaDescription,
-        "linkMainImage": mainImage 
-      },
-    },
+    _type == "teaserSection" => ${teaserSectionFields()},
   },
   slug
 }`
@@ -76,7 +68,18 @@ export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 // retrieves native plant data for the first 7 plants blooming in the current month
 export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[ _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
   {
-    "docType": _type, plantName, "image": previewImage {...}, bannerImage, "slug": slug.current, metaDescription, description, "excerpt": array::join(string::split((pt::text(description)), "")[0..400], "") + "..."
+    "docType": _type, 
+    plantName, 
+    "image": previewImage {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
+    }, 
+    bannerImage, 
+    "slug": slug.current, 
+    metaDescription, 
+    description, 
+    "excerpt": array::join(string::split((pt::text(description)), "")[0..400], "") + "..."
   }`
 
 // get the previewImage of the first 7 native plants with a floweringMonth matching the current month
@@ -133,21 +136,7 @@ export const GET_SEASON_PAGE_DATA_QUERY = groq`*[ _type == "season" && slug.curr
       ...,
     _type == "figure" => ${figureFields()},
     _type == "imageCollection" => ${imageCollectionFields()},
-    _type == "teaserSection" => {
-    _type,
-    "bodyText": bodyText,
-    "titleText": titleText,
-    buttonText,
-    image,
-    "linkItems": 
-        link->{
-          "linkId": _id,
-          "linkType" : _type, 
-          "linkSlug": slug.current,
-          "linkMetaDescription": metaDescription,
-          "linkMainImage": mainImage 
-        },
-      },
+    _type == "teaserSection" => ${teaserSectionFields()},
     },
     feature {
       ...,
@@ -157,7 +146,11 @@ export const GET_SEASON_PAGE_DATA_QUERY = groq`*[ _type == "season" && slug.curr
           "linkType": _type,
           "linkSlug": slug.current,
           "linkMetaDescription": metaDescription,
-          "linkMainImage": mainImage, 
+          "linkMainImage": mainImage {
+            ...,
+            "palette": asset->metadata.palette,
+            "lqip": asset->metadata.lqip,
+          }, 
         },
     }
   }`
@@ -177,18 +170,62 @@ export const GET_NATIVE_PLANT_LIST_DATA_QUERY = groq`*[ _type == "nativePlant"]{
   flowerColor[],
   habitatType, 
   plantName,
-  previewImage,
+  previewImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  },
   slug
 }`
 
 // retrieves the document data of all published native plants
 export const GET_MENU_ITEMS_QUERY = groq`
-*[_type == "menu"]{menuBackgroundImage, mobileMenuBackgroundImage, menuItems[]{title,"menuItemLink": {"docType": link.internalLink->_type, "slug": link.internalLink->slug.current}}}
+*[_type == "menu"]{
+  menuBackgroundImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  }, 
+  mobileMenuBackgroundImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  }, 
+  menuItems[]{
+    title,
+    "menuItemLink": {
+      "docType": link.internalLink->_type, 
+      "slug": link.internalLink->slug.current
+    }
+  }
+}
 `
 // gets all document data for the about page
 export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
   {
-    ...
+    _id,
+    _type,
+    id,
+    menuButtonColor,
+    metaDescription,
+    slug,
+    mainImage {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
+    },
+    mobileImage {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
+    },
+    body[]{
+      _type == "figure" => ${figureFields()},
+      _type == "block" => ${blockFields()},
+      _type == "imageCollection" => ${imageCollectionFields()},
+      _type == "portTextVideo" => ${videoFields()},
+      _type == "teaserSection" => ${teaserSectionFields()},
+    }
   }
 `
 // gets all document data for a nativePlant document based on the slug
@@ -209,21 +246,7 @@ export const GET_PLANT_PAGE_DATA = groq`
     metaDescription,
     floweringSeason,
     lede[]{
-      _type == "teaserSection" => {
-      _type,
-      "bodyText": bodyText,
-      "titleText": titleText,
-      buttonText,
-      image,
-      "linkItems": 
-        link->{
-          "linkId": _id,
-          "linkType" : _type, 
-          "linkSlug": slug.current,
-          "linkMetaDescription": metaDescription,
-          "linkMainImage": mainImage 
-        },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "block" => ${blockFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
@@ -235,42 +258,14 @@ export const GET_PLANT_PAGE_DATA = groq`
       "lqip": asset->metadata.lqip,
     },
     bloomText[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-        },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
       _type == "block" => ${blockFields()},
       _type == "portTextVideo" => ${videoFields()},
     },
     pollinators[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
       _type == "block" => ${blockFields()},
@@ -278,54 +273,18 @@ export const GET_PLANT_PAGE_DATA = groq`
     },
     conservationRanking,
     conservationStatus[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
       _type == "block" => ${blockFields()},
       _type == "portTextVideo" => ${videoFields()},
     },
     description[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "block" => ${blockFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
-      _type == "portTextVideo" => {
-        ...,
-        "playbackId": video.asset->playbackId,
-        "videoTitle": title,
-        "videoData": video.asset->data,
-        "useTitleAsCaption": useTitleAsCaption,
-        "alt": alt,
-        "caption": caption,
-      },
+      _type == "portTextVideo" => ${videoFields()},
     },
     growingNearbyPlantList[]{
       ...,
@@ -335,21 +294,7 @@ export const GET_PLANT_PAGE_DATA = groq`
       "lqip": asset->metadata.lqip,
     },
     growingNearbyText[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
       _type == "block" => ${blockFields()},
@@ -369,21 +314,7 @@ export const GET_PLANT_PAGE_DATA = groq`
         }
     },
     tidbits[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
       _type == "block" => ${blockFields()},
@@ -391,21 +322,7 @@ export const GET_PLANT_PAGE_DATA = groq`
     },
     habitatType,
     habitat[]{
-      _type == "teaserSection" => {
-        _type,
-        "bodyText": bodyText,
-        "titleText": titleText,
-        buttonText,
-        image,
-        "linkItems": 
-          link->{
-            "linkId": _id,
-            "linkType" : _type, 
-            "linkSlug": slug.current,
-            "linkMetaDescription": metaDescription,
-            "linkMainImage": mainImage 
-          },
-      },
+      _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
       _type == "imageCollection" => ${imageCollectionFields()},
       _type == "block" => ${blockFields()},
@@ -419,21 +336,7 @@ export const NOT_FOUND_PAGE_QUERY = groq`*[ _type == "notFoundPage" ] {
   ...,
   message[]{
     ...,
-    _type == "teaserSection" => {
-      _type,
-      "bodyText": bodyText,
-      "titleText": titleText,
-      buttonText,
-      image,
-      "linkItems": 
-        link->{
-          "linkId": _id,
-          "linkType" : _type, 
-          "linkSlug": slug.current,
-          "linkMetaDescription": metaDescription,
-          "linkMainImage": mainImage 
-        },
-    },
+    _type == "teaserSection" => ${teaserSectionFields()},
     _type == "figure" => {
       ...,
       "palette": asset->metadata.palette,
