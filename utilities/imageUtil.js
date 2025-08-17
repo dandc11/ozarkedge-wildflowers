@@ -11,7 +11,7 @@ export const getImagePalette = (image, paletteType) => {
     population: 1292,
     title: '#fff',
   }
-  if (image.palette)
+  if (image?.palette)
     switch (paletteType) {
       case 'darkMuted':
         paletteColors = image.palette.darkMuted ? image.palette.darkMuted : paletteColors
