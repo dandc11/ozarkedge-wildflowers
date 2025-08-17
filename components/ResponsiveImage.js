@@ -5,7 +5,7 @@ import { stegaClean } from '@sanity/client/stega'
 import { urlForImage } from '../sanity/lib/sanity.image'
 
 const ResponsiveImage = ({
-  alt = '',
+  alt,
   caption,
   captionBgClassName = '',
   captionStyle = 'below',
@@ -38,8 +38,8 @@ const ResponsiveImage = ({
     lqip,
   } = image || {}
 
-  const imageCaption = caption || imageCaptionFromData
-  const imageAlt = alt || altFromData
+  const imageCaption = caption ?? imageCaptionFromData
+  const imageAlt = alt ?? altFromData
   const id = asset?._ref || ''
 
   const captionClassName = cx({
@@ -51,11 +51,20 @@ const ResponsiveImage = ({
   const imgWidth = parseInt(width, 10) || 1600
   const imgHeight = parseInt(height, 10) || Math.round(imgWidth * 0.75)
 
-  const imageUrl = urlForImage(image, {
+  // Build the image URL safely; if the builder is unavailable, fall back to empty string
+  const imageBuilder = urlForImage(image, {
     width: imgWidth,
     height: imgHeight,
     quality,
-  }).url()
+  })
+  let imageUrl = ''
+  if (typeof imageBuilder?.url === 'function') {
+    try {
+      imageUrl = imageBuilder.url()
+    } catch (_err) {
+      imageUrl = ''
+    }
+  }
 
   return (
     <div id={id} className={cx('img-wrapper text-sm', wrapperClassName)} {...props}>
