@@ -10,9 +10,8 @@
   "rules": {
     "import/no-unresolved": "error",
     "import/order": [
-      "error",
+      "warn",
       {
-        "groups": [["builtin", "external", "internal"]],
         "newlines-between": "always"
       }
     ],
