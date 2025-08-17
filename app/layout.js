@@ -1,6 +1,5 @@
 import '../styles/global.css'
 import { Playfair_Display, Raleway } from 'next/font/google'
-import Head from 'next/head'
 import { VisualEditing } from 'next-sanity'
 import { draftMode } from 'next/headers'
 import { Analytics } from '@vercel/analytics/next'
@@ -41,15 +40,6 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${raleway.variable}`}>
-      <Head>
-        <title>Ozarkedge Wildflowers</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="icon" href="/favicon.ico" sizes="48x48" />
-        <link rel="icon" href="/favicon-192x192.png" sizes="192x192" />
-        <link rel="icon" href="/favicon-512x512.png" sizes="512x512" />
-        <meta name="theme-color" content="#000000" />
-      </Head>
       <body className={`oe-site-body ${currentSeason.SEASON_NAME}`}>
         <SanityLive />
         <ContextProviders>
@@ -69,4 +59,26 @@ export default async function RootLayout({ children }) {
       </body>
     </html>
   )
+}
+
+// Next.js Metadata API for app router
+export const metadata = {
+  title: 'Ozarkedge Wildflowers',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.manifest',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#000000',
 }

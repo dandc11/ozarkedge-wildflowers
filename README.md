@@ -1,5 +1,11 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Ozarkedge Wildflowers
 
-## Ozarkedge Wildflowers Site
+This is the source for the Ozarkedge Wildflowers site built with Next.js 14 and Sanity CMS.
 
-Built with Sanity.io, React, Next.js
+- Framework: Next.js (App Router)
+- CMS: Sanity.io
+- Styling: PostCSS + custom CSS (no Tailwind)
+
+Docs
+
+- Testing Guide: see docs/TESTING_GUIDE.md

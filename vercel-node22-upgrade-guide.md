@@ -163,3 +163,34 @@ After successful Vercel upgrade:
 ---
 
 **Note:** Vercel typically auto-detects Node version from `package.json` engines field, but explicitly setting it in the dashboard ensures consistency and provides better control over the runtime environment.
+
+## Framework and CMS Upgrade Notes (React 19 / Next 15 / next-sanity 10)
+
+### Breaking/Behavior Changes to Account For
+
+- Next.js app router dynamic routes require `generateStaticParams` to return an array of objects with keys matching the dynamic segment names.
+  - Example: for `app/season/[slug]/page.js`, return `[{ slug: 'spring' }]`.
+  - If your GROQ returns an array of strings (e.g., `['spring', 'summer']`), map them accordingly before returning.
+- Prefer `notFound()` for missing documents by checking for `_id`.
+- Use `sanityFetch` for all Sanity queries in RSCs; in `generateStaticParams`, set `{ perspective: 'published', stega: false }`.
+- When rendering strings from Sanity directly into the DOM, use `stegaClean` to strip steganography markers.
+
+### Sanity GROQ Query Conventions
+
+- Centralize queries in `sanity/lib/queries.js` and follow naming: `GET_*_QUERY`.
+- Include image `lqip` and `palette` projections.
+- For linked content, project stable field names (e.g., `linkSlug: slug.current`).
+
+### Known Fix Applied
+
+- Fixed `TypeError: Cannot use 'in' operator to search for 'slug' in spring` during "Collecting page data" for `/season/[slug]` by mapping `generateStaticParams()` to return objects instead of raw strings.
+  - Root cause: `GET_ALL_SEASON_PATHS_QUERY` returns an array of strings; Next expected `{ slug: string }` objects.
+  - Change: map each string to `{ slug }` and filter non-strings.
+
+### Validation Checklist Additions
+
+- [ ] `next build` completes locally on Node 22
+- [ ] `generateStaticParams` returns correct shapes for all dynamic routes
+- [ ] All Sanity image queries include `lqip` and `palette`
+- [ ] No client-only hooks in server components
+- [ ] `stegaClean` used before DOM output of Sanity strings
