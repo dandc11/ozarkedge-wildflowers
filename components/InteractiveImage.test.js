@@ -11,6 +11,7 @@ import {
   renderWithoutProviders,
   createMockSanityImage,
 } from '../tests/utils/test-utils'
+
 import InteractiveImage from './InteractiveImage'
 
 // Mock Next.js Image component similar to ResponsiveImage tests
@@ -32,6 +33,7 @@ jest.mock('next/image', () => {
   }) => {
     const fetchpriority = priority || fetchPriority ? 'high' : 'low'
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src || 'test-image.jpg'}
         alt={alt || ''}
@@ -214,9 +216,14 @@ describe('InteractiveImage Component', () => {
     })
 
     it('throws when rendered without LightboxContext provider (documenting requirement)', () => {
-      expect(() =>
-        renderWithoutProviders(<InteractiveImage image={mockImage} alt="Err" />),
-      ).toThrow()
+      const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+      try {
+        expect(() =>
+          renderWithoutProviders(<InteractiveImage image={mockImage} alt="Err" />),
+        ).toThrow()
+      } finally {
+        errorSpy.mockRestore()
+      }
     })
   })
 })

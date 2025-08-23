@@ -2,68 +2,29 @@
  * @jest-environment node
  */
 
+// Partial mock: reuse the real constants but override a couple of path prefixes
+// so tests remain deterministic and we avoid duplicating the whole constants object.
+jest.mock('./constants', () => {
+  const realConstants = jest.requireActual('./constants')
+  return {
+    ...realConstants,
+    DOCTYPE_PATH_PREFIXES: {
+      ...realConstants.DOCTYPE_PATH_PREFIXES,
+      // tests expect an '/about' path and '/plants' for plant list page
+      aboutPage: '/about',
+      plantListPage: '/plants',
+      // ensure landing page maps to root for tests
+      landingPage: '/',
+    },
+  }
+})
+
 import {
   getPathFromDocType,
   getCurrentMonthName,
   getCurrentMonthNumber,
   getSeasonFromMonthNumber,
 } from './helperUtil'
-
-// Mock constants to ensure predictable test results
-jest.mock('./constants', () => ({
-  DOCTYPE_PATH_PREFIXES: {
-    nativePlant: '/native-plants/',
-    season: '/season/',
-    aboutPage: '/about',
-    landingPage: '/',
-    plantListPage: '/plants',
-    pollinator: '/pollinator/',
-  },
-  MONTH_NAMES_MAP: new Map([
-    [1, { fullName: 'January', abbreviation: 'Jan' }],
-    [2, { fullName: 'February', abbreviation: 'Feb' }],
-    [3, { fullName: 'March', abbreviation: 'Mar' }],
-    [4, { fullName: 'April', abbreviation: 'Apr' }],
-    [5, { fullName: 'May', abbreviation: 'May' }],
-    [6, { fullName: 'June', abbreviation: 'Jun' }],
-    [7, { fullName: 'July', abbreviation: 'Jul' }],
-    [8, { fullName: 'August', abbreviation: 'Aug' }],
-    [9, { fullName: 'September', abbreviation: 'Sep' }],
-    [10, { fullName: 'October', abbreviation: 'Oct' }],
-    [11, { fullName: 'November', abbreviation: 'Nov' }],
-    [12, { fullName: 'December', abbreviation: 'Dec' }],
-  ]),
-  SEASONS: {
-    SPRING: {
-      SEASON_NAME: 'spring',
-      SEASON_MONTHS: [3, 4, 5],
-      ACCENT_COLOR_VAR: '--spring-accent',
-      BG_COLOR_VAR: '--oe-green-300',
-      BG_GRADIENT_VAR: '--spring-gradient',
-    },
-    SUMMER: {
-      SEASON_NAME: 'summer',
-      SEASON_MONTHS: [6, 7, 8],
-      ACCENT_COLOR_VAR: '--summer-accent',
-      BG_COLOR_VAR: '--summer-bg-color',
-      BG_GRADIENT_VAR: '--summer-gradient',
-    },
-    FALL: {
-      SEASON_NAME: 'fall',
-      SEASON_MONTHS: [9, 10, 11],
-      ACCENT_COLOR_VAR: '--fall-accent',
-      BG_COLOR_VAR: '--fall-bg-color',
-      BG_GRADIENT_VAR: '--fall-gradient',
-    },
-    WINTER: {
-      SEASON_NAME: 'winter',
-      SEASON_MONTHS: [12, 1, 2],
-      ACCENT_COLOR_VAR: '--winter-accent',
-      BG_COLOR_VAR: '--oe-blue-dark-100',
-      BG_GRADIENT_VAR: '--winter-gradient',
-    },
-  },
-}))
 
 describe('helperUtil.js', () => {
   describe('getPathFromDocType', () => {

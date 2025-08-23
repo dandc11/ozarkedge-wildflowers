@@ -3,9 +3,11 @@
  */
 
 import React from 'react'
+import { act } from '@testing-library/react'
 
 import { render, screen, fireEvent, waitFor } from '../tests/utils/test-utils'
 import { LightboxContext } from '../contexts/LightboxContext'
+
 import LightboxGallery from './LightboxGallery'
 import InteractiveImage from './InteractiveImage'
 
@@ -157,7 +159,10 @@ describe('LightboxGallery integration (real hook)', () => {
 
     // Invoke onClose handler from latest slideshow call
     const latest = mockSlideshow.mock.calls[mockSlideshow.mock.calls.length - 1][0]
-    latest.onClose()
+    // Wrap direct state-updating callback in act to avoid warnings
+    act(() => {
+      latest.onClose()
+    })
 
     // Rerender to propagate closed state
     rerender(
