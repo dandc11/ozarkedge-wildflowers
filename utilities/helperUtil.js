@@ -35,13 +35,13 @@ export const getCurrentMonthNumber = () => {
  * @returns {object|undefined} The season object for the given month number, or undefined if not found
  */
 export const getSeasonFromMonthNumber = (monthNum) => {
-  let season
-  for (const testSeason in SEASONS) {
-    season = SEASONS[testSeason]
-    if (season.SEASON_MONTHS.includes(monthNum)) {
-      return season
-    }
+  if (!monthNum || monthNum < 1 || monthNum > 12) return undefined
+
+  for (const key in SEASONS) {
+    const season = SEASONS[key]
+    if (season.SEASON_MONTHS?.includes(monthNum)) return season
   }
+  return undefined
 }
 
 /**
@@ -76,7 +76,7 @@ export const getMonthNamesFromSeason = (season) => {
  * @returns {string|undefined} The full name of the month, or undefined if not found
  */
 export const getMonthNameFromMonthNumber = (monthNum) => {
-  return MONTH_NAMES_MAP.get(monthNum)
+  return MONTH_NAMES_MAP.get(monthNum)?.fullName
 }
 
 /**

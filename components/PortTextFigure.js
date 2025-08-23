@@ -1,9 +1,10 @@
 import React from 'react'
 import cx from 'classnames'
 
+import { IMG_SIZES } from '../utilities/constants'
+
 import ResponsiveImage from './ResponsiveImage'
 import InteractiveImage from './InteractiveImage'
-import { IMG_SIZES } from '../utilities/constants'
 
 // JSDoc definitions
 /**

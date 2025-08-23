@@ -6,6 +6,7 @@ import Link from 'next/link'
 import React, { useMemo } from 'react'
 
 import { getPathFromDocType } from '../utilities/helperUtil'
+
 import PortTextFigure from './PortTextFigure'
 import PortTextVideo from './PortTextVideo'
 import PortTextTeaser from './PortTextTeaser'
@@ -52,8 +53,8 @@ const portTextComponents = {
         <a
           className={`underline`}
           href={href}
-          target={value?.blank ? 'blank' : ''}
-          rel="noopener noreferrer"
+          target={value?.blank ? '_blank' : undefined}
+          rel={value?.blank ? 'noopener noreferrer' : undefined}
         >
           {children}
         </a>
