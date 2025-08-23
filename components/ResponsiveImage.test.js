@@ -10,6 +10,7 @@ import {
   fireEvent,
   createMockSanityImage,
 } from '../tests/utils/test-utils'
+
 import ResponsiveImage from './ResponsiveImage'
 
 // Mock Next.js Image component
@@ -32,6 +33,7 @@ jest.mock('next/image', () => {
     const fetchpriority = priority ? 'high' : 'low'
 
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src || 'test-image.jpg'}
         alt={alt || ''}

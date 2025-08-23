@@ -1,7 +1,11 @@
-// Relocated from tests/utils/sanity-mocks.js
 // Provides mock Sanity data & helper to mock sanityFetch for test scenarios.
+//
+// Portable Text mocks guidance:
+// - Always export Portable Text as an ARRAY of blocks/objects.
+// - Do NOT nest block objects inside another block's `children` (children should be spans only).
+// - This avoids invalid DOM like nested <p> tags during rendering with @portabletext/react.
 
-// Mock data that matches your actual Sanity schema
+// Mock data for the nativePlant Sanity document schema
 const mockNativePlantData = {
   _createdAt: '2024-07-30T17:53:16Z',
   _id: 'c20ec0e4-9fc8-4e69-b628-6ebd3d9e6fe4',
@@ -11,7 +15,7 @@ const mockNativePlantData = {
   _updatedAt: '2025-02-02T18:10:25Z',
   bannerImage: {
     _type: 'mainImage',
-    alt: 'Blue flowers of Salvia azurea with American Bumble Bee',
+    alt: 'nativePlant bannerImage alt text',
     asset: {
       _ref: 'image-03ce97c456ce90f428a2cdb4ea8f00057dd614a7-5184x2592-jpg',
       _type: 'reference',
@@ -26,7 +30,7 @@ const mockNativePlantData = {
           _key: '9deac4825201',
           _type: 'span',
           marks: [],
-          text: 'Bloom text test. ',
+          text: 'nativePlant bloom portable text ',
         },
       ],
       markDefs: [],
@@ -39,42 +43,28 @@ const mockNativePlantData = {
         {
           _key: '914dffa04cd4',
           _type: 'figure',
-          alt: 'Blue flowers',
+          alt: 'nativePlant bloom text portable text image collection - image 1 alt text',
           asset: {
             _ref: 'image-2f964b7cb35bf509dec76ee5b861080729488c64-1024x768-jpg',
             _type: 'reference',
           },
-          caption: 'Blue flowers',
+          caption: 'nativePlant bloom text portable text image collection - image 1 caption',
           captionPosition: 'below',
           showCaption: true,
         },
         {
           _key: '1433c45b62e5',
           _type: 'figure',
-          alt: 'White flowers',
+          alt: 'nativePlant bloom text portable text image collection - image 2 alt text',
           asset: {
             _ref: 'image-1e0f76b99d2a36af57d2d32a9160aebaa653aa00-1024x768-jpg',
             _type: 'reference',
           },
-          caption: 'White flowers',
+          caption: 'nativePlant bloom text portable text image collection - image 2 caption',
           captionPosition: 'below',
           showCaption: true,
         },
       ],
-    },
-    {
-      _key: '5f58750f14a8',
-      _type: 'block',
-      children: [
-        {
-          _key: '437936d78b60',
-          _type: 'span',
-          marks: [],
-          text: 'Flowers occur in whorls (actually verticillasters) along the stem with each whorl containing many buds. The whorls may not be obvious at first glance because only 1-3 of the many buds are usually blooming at once. Salvia azurea has a long flowering period which may extend from late July through September and into October. ',
-        },
-      ],
-      markDefs: [],
-      style: 'normal',
     },
   ],
   conservationRanking: 'apparentlySecure',
@@ -354,7 +344,7 @@ const mockSeasonData = {
           _key: '4f351a958cba0',
           _type: 'span',
           marks: [],
-          text: 'Testing description text.',
+          text: 'season description portable text',
         },
       ],
       markDefs: [],
@@ -367,12 +357,12 @@ const mockSeasonData = {
         {
           _key: 'a1e1c05ab2ca',
           _type: 'figure',
-          alt: 'Bloodroot (Sanguinaria canadensis) ',
+          alt: 'season description portable text image collection - image 1 alt text',
           asset: {
             _ref: 'image-c181c14b93e82ba60332519467bb078061e5953f-1024x768-jpg',
             _type: 'reference',
           },
-          caption: 'Bloodroot (Sanguinaria canadensis) ',
+          caption: 'season description portable text image collection - image 1 caption',
           captionPosition: 'below',
           link: {
             _type: 'link',
@@ -386,12 +376,12 @@ const mockSeasonData = {
         {
           _key: 'fdeefd58395a',
           _type: 'figure',
-          alt: 'Trout lily  (Erythronium albidum)',
+          alt: 'season description portable text image collection - image 2 alt text',
           asset: {
             _ref: 'image-248472f9d8011454502d45fe0536551294274f3c-1024x768-jpg',
             _type: 'reference',
           },
-          caption: 'Trout lily (Erythronium albidum)',
+          caption: 'season description portable text image collection - image 2 caption',
           captionPosition: 'below',
           link: {
             _type: 'link',
@@ -405,12 +395,12 @@ const mockSeasonData = {
         {
           _key: '2fc103b0db9b',
           _type: 'figure',
-          alt: "Dutchman's breeches (Dicentra cucullaria)",
+          alt: 'season description portable text image collection - image 3 alt text',
           asset: {
             _ref: 'image-a13dc91152a7021990e2098562f8904d2afef19d-1024x768-jpg',
             _type: 'reference',
           },
-          caption: "Dutchman's breeches (Dicentra cucullaria)",
+          caption: 'season description portable text image collection - image 3 caption',
           captionPosition: 'below',
           link: {
             _type: 'link',
@@ -435,14 +425,14 @@ const mockSeasonData = {
             _key: 'b733d7290506',
             _type: 'span',
             marks: [],
-            text: 'Testing feature text.',
+            text: 'season feature text.',
           },
         ],
         markDefs: [],
         style: 'normal',
       },
     ],
-    buttonText: 'Feature button text.',
+    buttonText: 'season feature button text.',
     featureTheme: 'spring',
     image: {
       _type: 'image',
@@ -457,18 +447,18 @@ const mockSeasonData = {
     },
     pullImageFromLink: false,
     pullTextFromLink: false,
-    titleText: 'Feature title text',
+    titleText: 'season feature titleText',
   },
   mainImage: {
     _type: 'figure',
-    alt: 'Spring at Ozarkedge, Harbinger of Spring wildflower blooming',
+    alt: 'season mainImage alt text',
     asset: {
       _ref: 'image-dad1a66744c6b00947dec87021b460f153902e41-4381x2465-jpg',
       _type: 'reference',
     },
-    caption: 'Spring at Ozarkedge',
+    caption: 'season mainImage caption',
   },
-  metaDescription: 'Season metaDescription text',
+  metaDescription: 'season metaDescription text',
   monthNumbers: [3, 4, 5],
   seasonName: 'spring',
   slug: {
@@ -480,8 +470,8 @@ const mockSeasonData = {
 const mockLandingPageData = {
   _id: 'mock-landing',
   _type: 'landingPage',
-  titleText: 'Ozarkedge Wildflowers',
-  subtitleText: 'Discover native plants of the Missouri Ozarks',
+  titleText: 'landingPage title text',
+  subtitleText: 'landingPage subtitle text',
   slug: { current: 'home' },
   menuButtonColor: 'light',
   mainImage: {
@@ -492,12 +482,12 @@ const mockLandingPageData = {
     palette: { dominant: { background: '#6B8E23', foreground: '#fff' } },
   },
   buttonOne: {
-    buttonLabel: 'Explore Plants',
+    buttonLabel: 'button one label',
     slug: 'native-plants',
     docType: 'plantListPage',
   },
   buttonTwo: {
-    buttonLabel: 'About Us',
+    buttonLabel: 'button two label',
     slug: 'about',
     docType: 'aboutPage',
   },
@@ -512,17 +502,248 @@ const mockAboutPageData = {
   mainImage: {
     _type: 'image',
     asset: { _ref: 'image-101', _type: 'reference' },
-    alt: 'About Ozarkedge',
+    alt: 'aboutPage mainImage alt text',
     lqip: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...',
     palette: { dominant: { background: '#8B4513', foreground: '#fff' } },
   },
   body: [
-    {
-      _type: 'block',
-      children: [{ _type: 'span', text: 'Learn about our conservation efforts.' }],
-    },
+    [
+      {
+        _key: '4b81d1687e16',
+        _type: 'block',
+        children: [
+          {
+            _key: '4f351a958cba0',
+            _type: 'span',
+            marks: [],
+            text: 'Testing aboutPage body portabl text.',
+          },
+        ],
+        markDefs: [],
+        style: 'normal',
+      },
+      {
+        _key: '450c43c736f4',
+        _type: 'imageCollection',
+        imageCollection: [
+          {
+            _key: 'a1e1c05ab2ca',
+            _type: 'figure',
+            alt: 'aboutPage body portable text image collection - image 1 alt text',
+            asset: {
+              _ref: 'image-c181c14b93e82ba60332519467bb078061e5953f-1024x768-jpg',
+              _type: 'reference',
+            },
+            caption: 'aboutPage body portable text image collection - image 1 caption ',
+            captionPosition: 'below',
+            link: {
+              _type: 'link',
+              internalLink: {
+                _ref: '0b9b7181-02e0-47fe-be20-1d0b75f5ff7d',
+                _type: 'reference',
+              },
+            },
+            showCaption: true,
+          },
+          {
+            _key: 'fdeefd58395a',
+            _type: 'figure',
+            alt: 'aboutPage body portable text image collection - image 2 alt text',
+            asset: {
+              _ref: 'image-248472f9d8011454502d45fe0536551294274f3c-1024x768-jpg',
+              _type: 'reference',
+            },
+            caption: 'aboutPage body portable text image collection - image 2 caption',
+            captionPosition: 'below',
+            link: {
+              _type: 'link',
+              internalLink: {
+                _ref: '2c9890d9-849e-4cc8-b7f5-d5d989322718',
+                _type: 'reference',
+              },
+            },
+            showCaption: true,
+          },
+          {
+            _key: '2fc103b0db9b',
+            _type: 'figure',
+            alt: 'aboutPage body portable text image collection - image 3 alt text',
+            asset: {
+              _ref: 'image-a13dc91152a7021990e2098562f8904d2afef19d-1024x768-jpg',
+              _type: 'reference',
+            },
+            caption: 'aboutPage body portable text image collection - image 3 caption',
+            captionPosition: 'below',
+            link: {
+              _type: 'link',
+              internalLink: {
+                _ref: '895c4c4c-4932-48d5-ad6f-544f99e09982',
+                _type: 'reference',
+              },
+            },
+            showCaption: true,
+          },
+        ],
+      },
+    ],
   ],
 }
+
+const mockBasicPortableText = [
+  {
+    _key: 'mock-portable-text',
+    _type: 'block',
+    style: 'normal',
+    children: [
+      {
+        _key: '9deac4825201',
+        _type: 'span',
+        marks: [],
+        text: 'Bloom text test. ',
+      },
+    ],
+    markDefs: [],
+  },
+]
+
+const mockPortableTextWithVideo = [
+  {
+    _key: 'mock-portable-text',
+    _type: 'block',
+    style: 'normal',
+    children: [
+      {
+        _key: '9deac4825201',
+        _type: 'span',
+        marks: [],
+        text: 'Bloom text test. ',
+      },
+    ],
+    markDefs: [],
+  },
+  {
+    _key: 'e206876eba20',
+    _type: 'portTextVideo',
+    title:
+      'Snowberry clearwing moths hover over the flowers using their long proboscis to reach nectar. In the process, pollen gets attached to their proboscis making them very efficient pollinators as thy fly plant to plant.',
+    video: {
+      _type: 'mux.video',
+      asset: {
+        _ref: '67cbdb65-da0c-4f5b-bcde-5aba1f078e9e',
+        _type: 'reference',
+        _weak: true,
+      },
+    },
+  },
+]
+
+const mockPortableTextWithImageCollection = [
+  {
+    _key: 'mock-portable-text',
+    _type: 'block',
+    children: [
+      {
+        _key: '9deac4825201',
+        _type: 'span',
+        marks: [],
+        text: 'Bloom text test. ',
+      },
+    ],
+    markDefs: [],
+    style: 'normal',
+  },
+  {
+    _key: '450c43c736f4',
+    _type: 'imageCollection',
+    imageCollection: [
+      {
+        _key: 'a1e1c05ab2ca',
+        _type: 'figure',
+        alt: 'portable text image collection - image 1 alt text',
+        asset: {
+          _ref: 'image-c181c14b93e82ba60332519467bb078061e5953f-1024x768-jpg',
+          _type: 'reference',
+        },
+        caption: 'portable text image collection - image 1 caption ',
+        captionPosition: 'below',
+        link: {
+          _type: 'link',
+          internalLink: {
+            _ref: '0b9b7181-02e0-47fe-be20-1d0b75f5ff7d',
+            _type: 'reference',
+          },
+        },
+        showCaption: true,
+      },
+      {
+        _key: 'fdeefd58395a',
+        _type: 'figure',
+        alt: 'portable text image collection - image 2 alt text',
+        asset: {
+          _ref: 'image-248472f9d8011454502d45fe0536551294274f3c-1024x768-jpg',
+          _type: 'reference',
+        },
+        caption: 'portable text image collection - image 2 caption',
+        captionPosition: 'below',
+        link: {
+          _type: 'link',
+          internalLink: {
+            _ref: '2c9890d9-849e-4cc8-b7f5-d5d989322718',
+            _type: 'reference',
+          },
+        },
+        showCaption: true,
+      },
+      {
+        _key: '2fc103b0db9b',
+        _type: 'figure',
+        alt: 'portable text image collection - image 3 alt text',
+        asset: {
+          _ref: 'image-a13dc91152a7021990e2098562f8904d2afef19d-1024x768-jpg',
+          _type: 'reference',
+        },
+        caption: 'portable text image collection - image 3 caption',
+        captionPosition: 'below',
+        link: {
+          _type: 'link',
+          internalLink: {
+            _ref: '895c4c4c-4932-48d5-ad6f-544f99e09982',
+            _type: 'reference',
+          },
+        },
+        showCaption: true,
+      },
+    ],
+  },
+]
+
+const mockPortableTextWithFigure = [
+  {
+    _key: '501aedc97c63',
+    _type: 'block',
+    style: 'normal',
+    children: [
+      {
+        _key: '1d99ca57b2fe',
+        _type: 'span',
+        marks: [],
+        text: 'portableText text',
+      },
+    ],
+    markDefs: [],
+  },
+  {
+    _key: 'bec7f866bc1d',
+    _type: 'figure',
+    alt: 'portableText figure alt text',
+    asset: {
+      _ref: 'image-b7561ecec6bad1fbab603e0b2566f42588d30821-1024x768-jpg',
+      _type: 'reference',
+    },
+    caption: 'portableText figure caption',
+    showCaption: true,
+  },
+]
 
 // Mock responses for different scenarios
 const mockResponses = {
@@ -575,5 +796,9 @@ export {
   mockSeasonData,
   mockLandingPageData,
   mockAboutPageData,
+  mockBasicPortableText,
+  mockPortableTextWithFigure,
+  mockPortableTextWithImageCollection,
+  mockPortableTextWithVideo,
   mockResponses,
 }
