@@ -4,12 +4,13 @@ import { useSearchParams } from 'next/navigation'
 import makeAnimated from 'react-select/animated'
 import { stegaClean } from 'next-sanity'
 
-import Fieldset from './FieldSet'
+import { MONTH_OPTIONS, FLOWER_COLOR_OPTIONS } from '../utilities/constants'
+
+import PlantListFieldset from './PlantListFieldset'
 import Button from './Button'
 import CustomLink from './CustomLink'
 import PlantImageCard from './PlantImageCard'
 import PortTextWrapper from './PortTextWrapper'
-import { MONTH_OPTIONS, FLOWER_COLOR_OPTIONS } from '../utilities/constants'
 
 /**
  * PlantListGrid component renders a grid layout of plant items with filtering and pagination capabilities.
@@ -165,7 +166,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
               className={`description `}
               value={plantListInformation}
             ></PortTextWrapper>
-            <Fieldset
+            <PlantListFieldset
               animatedComponents={animatedComponents}
               monthsChangeHandler={monthsChangeHandler}
               nameValue={nameSelected}
@@ -189,7 +190,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
                 <CustomLink
                   docType={'nativePlant'}
                   slug={plant.slug?.current}
-                  key={plant.plantName.botanicalName}
+                  key={plant.slug?.current ?? plant.plantName?.botanicalName ?? index}
                 >
                   <PlantImageCard
                     className="max-w-xs"
