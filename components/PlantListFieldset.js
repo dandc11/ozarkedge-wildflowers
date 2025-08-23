@@ -2,10 +2,11 @@
 import React from 'react'
 import Select from 'react-select'
 
-import Button from './Button'
 import { FLOWER_COLOR_OPTIONS, HABITAT_OPTIONS, MONTH_OPTIONS } from '../utilities/constants'
 
-const Fieldset = ({
+import Button from './Button'
+
+const PlantListFieldset = ({
   animatedComponents,
   nameValue,
   nameChangeHandler,
@@ -120,4 +121,4 @@ const Fieldset = ({
   )
 }
 
-export default Fieldset
+export default PlantListFieldset
