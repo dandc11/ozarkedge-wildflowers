@@ -1,6 +1,6 @@
 'use client'
 
-import { useTransition } from 'react'
+import { useTransition, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { disableDraftMode } from '../app/actions'
@@ -8,8 +8,16 @@ import { disableDraftMode } from '../app/actions'
 export function DisableDraftMode() {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
+  const [isInIframe, setIsInIframe] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
-  if (window && window !== window.parent) {
+  useEffect(() => {
+    setIsClient(true)
+    setIsInIframe(window !== window.parent)
+  }, [])
+
+  // Don't render during SSR or if in iframe
+  if (!isClient || isInIframe) {
     return null
   }
 

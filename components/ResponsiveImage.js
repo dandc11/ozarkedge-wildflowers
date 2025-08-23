@@ -101,7 +101,7 @@ const ResponsiveImage = ({
 
         {imageCaption && showCaption && (
           <figcaption className={cx(captionClassName, captionBgClassName)}>
-            {stegaClean(imageCaption)}
+            {imageCaption}
           </figcaption>
         )}
       </figure>

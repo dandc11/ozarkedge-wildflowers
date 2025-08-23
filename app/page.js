@@ -1,15 +1,15 @@
 import cx from 'classnames'
 import React from 'react'
-import { groq } from 'next-sanity'
 import { stegaClean } from '@sanity/client/stega'
 
 import TeaserSlider from '../components/TeaserSlider'
 import Button from '../components/Button'
 import ResponsiveImage from '../components/ResponsiveImage'
 import { getCurrentMonthName, titleCase, getCurrentSeason } from '../utilities/helperUtil'
-import { CURRENT_MONTH_NUMBER, IMG_SIZES } from '../utilities/constants'
+import { IMG_SIZES } from '../utilities/constants'
 import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
+  GET_CURRENT_SEASON_DATA_QUERY,
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../sanity/lib/queries'
 import { sanityFetch } from '../sanity/lib/sanity.live'
@@ -22,13 +22,9 @@ import { sanityFetch } from '../sanity/lib/sanity.live'
  * @category Pages
  **/
 export default async function HomePage() {
+  // Current season data (centralized query)
   const seasonQueryResponse = await sanityFetch({
-    query: groq`*[ _type == "season" && ${CURRENT_MONTH_NUMBER} in monthNumbers]
-  {
-    metaDescription,
-    mainImage
-  }`,
-    params: { CURRENT_MONTH_NUMBER },
+    query: GET_CURRENT_SEASON_DATA_QUERY,
   })
   const seasonData = seasonQueryResponse?.data?.[0] ?? null
 
