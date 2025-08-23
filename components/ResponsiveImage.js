@@ -39,6 +39,8 @@ const ResponsiveImage = ({
   } = image || {}
 
   const imageAlt = alt !== undefined && alt !== null && alt !== '' ? alt : altFromData
+  const imageCaption = caption ?? imageCaptionFromData
+
   const id = asset?._ref || ''
 
   const captionClassName = cx({
