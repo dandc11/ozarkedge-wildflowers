@@ -38,8 +38,7 @@ const ResponsiveImage = ({
     lqip,
   } = image || {}
 
-  const imageCaption = caption ?? imageCaptionFromData
-  const imageAlt = alt ?? altFromData
+  const imageAlt = alt !== undefined && alt !== null && alt !== '' ? alt : altFromData
   const id = asset?._ref || ''
 
   const captionClassName = cx({
