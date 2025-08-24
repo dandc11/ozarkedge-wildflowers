@@ -38,8 +38,9 @@ const ResponsiveImage = ({
     lqip,
   } = image || {}
 
+  const imageAlt = alt !== undefined && alt !== null && alt !== '' ? alt : altFromData
   const imageCaption = caption ?? imageCaptionFromData
-  const imageAlt = alt ?? altFromData
+
   const id = asset?._ref || ''
 
   const captionClassName = cx({
@@ -101,7 +102,7 @@ const ResponsiveImage = ({
 
         {imageCaption && showCaption && (
           <figcaption className={cx(captionClassName, captionBgClassName)}>
-            {stegaClean(imageCaption)}
+            {imageCaption}
           </figcaption>
         )}
       </figure>

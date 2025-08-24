@@ -24,7 +24,13 @@ export async function generateStaticParams() {
     perspective: 'published',
     stega: false,
   })
-  return data
+  // Next.js expects an array of params objects, e.g., [{ slug: 'spring' }]
+  // Our query returns an array of strings (slugs), so map them accordingly.
+  const slugs = Array.isArray(data) ? data : []
+  return slugs
+    .filter(Boolean)
+    .map((slug) => (typeof slug === 'string' ? { slug } : { slug: slug?.slug }))
+    .filter((p) => typeof p.slug === 'string' && p.slug.length > 0)
 }
 
 const SeasonPage = async (props) => {
@@ -53,7 +59,7 @@ const SeasonPage = async (props) => {
 
   const fullImageArray = getUniqueImagesFromDocument(pageData)
   const wrapperClassName = cx(`banner-img relative w-full`)
-  const docId = pageData.id
+  const docId = pageData._id
   const docType = 'seasonPage'
 
   return (

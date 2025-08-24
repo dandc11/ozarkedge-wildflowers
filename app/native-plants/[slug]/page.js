@@ -26,7 +26,11 @@ export async function generateStaticParams() {
     perspective: 'published',
     stega: false,
   })
-  return data
+  const slugs = Array.isArray(data) ? data : []
+  return slugs
+    .filter(Boolean)
+    .map((slug) => (typeof slug === 'string' ? { slug } : { slug: slug?.slug }))
+    .filter((p) => typeof p.slug === 'string' && p.slug.length > 0)
 }
 
 // get links to section ids for the sections with content

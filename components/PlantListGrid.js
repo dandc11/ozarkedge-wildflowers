@@ -48,9 +48,9 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
     setHabitatsSelected(selectedOptions)
   }, [])
 
-  // Initialize filters from URL parameters only once
+  // Initialize filters from URL parameters only once - client side only
   useEffect(() => {
-    if (initializedFromUrl.current) return
+    if (initializedFromUrl.current || typeof window === 'undefined') return
 
     const monthsQuery = searchParams.get('months')
     const namesQuery = searchParams.get('names')
