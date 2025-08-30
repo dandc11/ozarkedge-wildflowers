@@ -73,5 +73,18 @@ export default defineType({
         'The button will only appear if you provide a value for the text and the link field.',
       type: 'button',
     }),
+    defineField({
+      name: 'locationTitle',
+      title: 'Location Section Title',
+      description: 'The heading text for the location section, e.g. "Where is Ozarkedge?"',
+      type: 'string',
+    }),
+    defineField({
+      name: 'location',
+      title: 'Location Section',
+      description:
+        'Add information here to situate visitors regarding the location and subject matter of what we call Ozarkedge. The location section will only appear if content is added here.',
+      type: 'pageBodyPortableText',
+    }),
   ],
 })

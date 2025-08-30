@@ -3,6 +3,7 @@ import React from 'react'
 import { stegaClean } from '@sanity/client/stega'
 
 import TeaserSlider from '../components/TeaserSlider'
+import ContentSection from '../components/ContentSection'
 import Button from '../components/Button'
 import ResponsiveImage from '../components/ResponsiveImage'
 import { getCurrentMonthName, titleCase, getCurrentSeason } from '../utilities/helperUtil'
@@ -51,6 +52,7 @@ export default async function HomePage() {
   )
   return (
     <>
+      <p>Testing {JSON.stringify(landingPageData)}</p>
       {landingPageData && (
         <div
           className={`homepage-content w-full overflow-hidden p-0 nav-${menuButtonColor}`}
@@ -124,6 +126,20 @@ export default async function HomePage() {
               images={bloomingPlantArray}
               lightboxIdentifier={`bloomingNow`}
             />
+            {/* {landingPageData.location && ( */}
+            <ContentSection
+              bodyClassName="mt-0"
+              className="location-section my-0"
+              documentId={landingPageData.id}
+              documentType="landingPage"
+              headerTitle={landingPageData}
+              headingClassName="location-heading"
+              portableText={landingPageData.location}
+              portableTextFieldName="locationSection"
+              sectionId="locationSection"
+              showCircle={false}
+            />
+            {/* )} */}
           </div>
         </div>
       )}
