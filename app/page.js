@@ -52,7 +52,6 @@ export default async function HomePage() {
   )
   return (
     <>
-      <p>Testing {JSON.stringify(landingPageData)}</p>
       {landingPageData && (
         <div
           className={`homepage-content w-full overflow-hidden p-0 nav-${menuButtonColor}`}
@@ -126,20 +125,20 @@ export default async function HomePage() {
               images={bloomingPlantArray}
               lightboxIdentifier={`bloomingNow`}
             />
-            {/* {landingPageData.location && ( */}
-            <ContentSection
-              bodyClassName="mt-0"
-              className="location-section my-0"
-              documentId={landingPageData.id}
-              documentType="landingPage"
-              headerTitle={landingPageData}
-              headingClassName="location-heading"
-              portableText={landingPageData.location}
-              portableTextFieldName="locationSection"
-              sectionId="locationSection"
-              showCircle={false}
-            />
-            {/* )} */}
+            {landingPageData.location && (
+              <ContentSection
+                bodyClassName="location-body"
+                className="location-section p-md"
+                documentId={landingPageData.id}
+                documentType="landingPage"
+                headerTitle={landingPageData.locationTitle}
+                headingClassName="location-heading"
+                portableText={landingPageData.location}
+                portableTextFieldName="locationSection"
+                sectionId="locationSection"
+                showCircle={false}
+              />
+            )}
           </div>
         </div>
       )}

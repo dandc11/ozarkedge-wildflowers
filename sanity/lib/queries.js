@@ -29,15 +29,26 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
     "docType": buttonLink.internalLink->_type
   }, 
   mainImage {
-    ...,
-    "palette": asset->metadata.palette,
-    "lqip": asset->metadata.lqip,
+    alt, 
+    asset,
+    hotspot,
+    crop
   },
   mobileImage {
-    ...,
-    "palette": asset->metadata.palette,
-    "lqip": asset->metadata.lqip,
+    alt, 
+    asset,
+    hotspot,
+    crop
   }, 
+    // NEW: include the fields you just added
+  locationTitle,
+  location[]{
+    _type == "figure" => ${figureFields()},
+    _type == "block" => ${blockFields()},
+    _type == "imageCollection" => ${imageCollectionFields()},
+    _type == "portTextVideo" => ${videoFields()},
+    _type == "teaserSection" => ${teaserSectionFields()},
+  },
 }`
 
 export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
@@ -339,9 +350,10 @@ export const NOT_FOUND_PAGE_QUERY = groq`*[ _type == "notFoundPage" ] {
     ...,
     _type == "teaserSection" => ${teaserSectionFields()},
     _type == "figure" => {
-      ...,
-      "palette": asset->metadata.palette,
-      "lqip": asset->metadata.lqip,
+      alt,
+      asset,
+      hotspot,
+      crop
     },
   _type == "imageCollection" => ${imageCollectionFields()},
     _type == "block" => {

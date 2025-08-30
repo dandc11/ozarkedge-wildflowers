@@ -98,6 +98,18 @@
     }
   }
 
+  .location-section {
+    .location-heading {
+      text-transform: uppercase;
+      font-size: var(--fs-2xl);
+      font-weight: var(--fw-400);
+      padding: 0;
+    }
+
+    .location-body {
+    }
+  }
+
   @container homepage-content (width > 600px) {
     .homepage-cta {
       display: flex;
