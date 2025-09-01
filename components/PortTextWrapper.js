@@ -1,16 +1,16 @@
-'use client'
-
 import { PortableText } from '@portabletext/react'
 import cx from 'classnames'
 import Link from 'next/link'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { getPathFromDocType } from '../utilities/helperUtil'
 
-import PortTextFigure from './PortTextFigure'
-import PortTextVideo from './PortTextVideo'
-import PortTextTeaser from './PortTextTeaser'
-import ThumbnailGrid from './ThumbnailGrid'
+// Import heavy block components directly; when they are Client Components,
+// Next.js will treat them as client boundaries automatically.
+import PTFigure from './PortTextFigure'
+import PTVideo from './PortTextVideo'
+import PTTeaser from './PortTextTeaser'
+import PTThumbnailGrid from './ThumbnailGrid'
 
 const portTextComponents = {
   block: {
@@ -68,70 +68,51 @@ const portTextComponents = {
  * @param {Object} props - The props object.
  * @param {string} props.className - The class name for the component.
  * @param {Object} props.value - The PortableText value object.
- * @param {Function} props.lightboxCallback - The callback function for opening a lightbox.
  * @param {string} props.lightboxIdentifier - The identifier for the lightbox.
  * @param {string} props.documentId - The ID of the Sanity document.
  * @param {string} props.documentType - The type of the Sanity document.
  * @param {string} props.portableTextPath - The path to the portable text field within the document.
  * @returns {JSX.Element} - The rendered component.
  */
-const PortTextWrapper = React.memo((props) => {
+const PortTextWrapper = (props) => {
   const {
     className,
     value,
     lightboxIdentifier,
-    lightboxCallback = () => {},
+    // Note: Do not pass function props from a Server Component; interactive behavior is handled in client components via context
     documentId = '', // Added prop
     documentType = '', // Added prop
     portableTextPath, // Added prop
   } = props
-  // callback for opening lightbox
-  const componentsWithCallback = useMemo(
-    function memoedCallback() {
-      const { figure, ...otherComponents } = portTextComponents
-
-      return {
-        ...otherComponents,
-        types: {
-          ...portTextComponents.types,
-          figure: (typeProps) => {
-            return (
-              <PortTextFigure
-                portTextProps={typeProps}
-                lightboxIdentifier={lightboxIdentifier}
-                lightboxCallback={lightboxCallback}
-              />
-            )
-          },
-          imageCollection: (typeProps) => (
-            <ThumbnailGrid
-              assets={typeProps.value?.imageCollection}
-              className={`img-collection`}
-              cols={2}
-              maxItems={12}
-              lightboxIdentifier={lightboxIdentifier}
-              onClick={lightboxCallback}
-              showCaptions
-            />
-          ),
-          portTextVideo: (typeProps) => {
-            return <PortTextVideo portTextProps={typeProps} />
-          },
-          teaserSection: (typeProps) => {
-            return <PortTextTeaser portTextProps={typeProps?.value} />
-          },
-        },
-      }
+  // Compose a components map that SSRs text but defers media blocks to the client
+  const componentsWithCallback = {
+    ...portTextComponents,
+    types: {
+      ...portTextComponents.types,
+      figure: (typeProps) => (
+        <PTFigure portTextProps={typeProps} lightboxIdentifier={lightboxIdentifier} />
+      ),
+      imageCollection: (typeProps) => (
+        <PTThumbnailGrid
+          assets={typeProps.value?.imageCollection}
+          className={`img-collection`}
+          cols={2}
+          maxItems={12}
+          lightboxIdentifier={lightboxIdentifier}
+          showCaptions
+        />
+      ),
+      portTextVideo: (typeProps) => <PTVideo portTextProps={typeProps} />,
+      teaserSection: (typeProps) => <PTTeaser portTextProps={typeProps?.value} />,
     },
-    [lightboxCallback, lightboxIdentifier], // Add new props to dependency array
-  )
+  }
 
   return (
     <div className={cx(`port-text`, className)}>
       <PortableText value={value} components={componentsWithCallback} />
     </div>
   )
-})
+}
 
 PortTextWrapper.displayName = 'PortTextWrapper'
 

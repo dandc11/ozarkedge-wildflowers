@@ -159,19 +159,16 @@ describe('PortTextWrapper - Component Integration', () => {
 })
 
 describe('PortTextWrapper - Lightbox Functionality', () => {
-  test('calls lightboxCallback with image key when thumbnail clicked in imageCollection', () => {
-    const mockCallback = jest.fn()
+  test('passes lightboxIdentifier to media blocks', () => {
     render(
-      <PortTextWrapper
-        value={mockPortableTextWithImageCollection}
-        lightboxIdentifier="lb-click"
-        lightboxCallback={mockCallback}
-      />,
+      <PortTextWrapper value={mockPortableTextWithImageCollection} lightboxIdentifier="lb-click" />,
     )
-    const firstThumb = screen.getAllByTestId('thumbnail')[0]
-    fireEvent.click(firstThumb)
-    expect(mockCallback).toHaveBeenCalledTimes(1)
-    expect(mockCallback.mock.calls[0][0]).toBeTruthy()
+    // The mocked ThumbnailGrid does not render the identifier directly, but PortTextFigure does.
+    // Ensure the figure receives the identifier prop via our mock assertion above.
+    render(<PortTextWrapper value={mockPortableTextWithFigure} lightboxIdentifier="lb-fig" />)
+    const fig = screen.getByTestId('port-text-figure')
+    expect(fig).toBeInTheDocument()
+    expect(fig.getAttribute('data-lightbox-id')).toBe('lb-fig')
   })
 })
 

@@ -7,7 +7,7 @@ jest.mock('@sanity/client/stega', () => ({
 
 // Lightweight mock for next/image to avoid internal Next.js optimizations in tests
 jest.mock('next/image', () => {
-  // eslint-disable-next-line react/display-name
+  // eslint-disable-next-line react/display-name, @next/next/no-img-element
   return ({ src = '', alt = '', ...rest }) => <img src={src} alt={alt} {...rest} />
 })
 
@@ -36,10 +36,39 @@ jest.mock('next/navigation', () => ({
 }))
 
 // Mock Next.js dynamic imports
-jest.mock('next/dynamic', () => (fn) => {
+// Handles both synchronous factories and factories that return a Promise (from import())
+jest.mock('next/dynamic', () => (importer /*, options*/) => {
+  const path = require('path')
   const DynamicComponent = (props) => {
-    const Component = fn()
-    return <Component {...props} />
+    try {
+      const modOrComp = importer()
+      // If the factory returns a Promise (from import()), try to synchronously resolve common local modules
+      if (modOrComp && typeof modOrComp.then === 'function') {
+        // Attempt to extract the import path from the importer source
+        const src = importer.toString()
+        const match = src.match(/import\((['"])\.?\.\/([^'"\)]+)\1\)/)
+        if (match) {
+          // Map relative path to project root assuming component collocation
+          const relFile = match[2]
+          const abs = path.join(process.cwd(), 'components', relFile)
+          // eslint-disable-next-line global-require, import/no-dynamic-require
+          const required = require(abs)
+          const C = required.default || required
+          return C ? <C {...props} /> : null
+        }
+        // Special-case fallback for lightbox dynamic usage
+        try {
+          const { SlideshowLightbox } = require('lightbox.js-react')
+          return <SlideshowLightbox {...props} />
+        } catch (e) {
+          return null
+        }
+      }
+      const Component = modOrComp?.default || modOrComp
+      return Component ? <Component {...props} /> : null
+    } catch (e) {
+      return null
+    }
   }
   DynamicComponent.displayName = 'DynamicComponent'
   return DynamicComponent
@@ -50,7 +79,12 @@ jest.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }) => <div {...props}>{children}</div>,
     span: ({ children, ...props }) => <span {...props}>{children}</span>,
-    img: ({ children, ...props }) => <img {...props}>{children}</img>,
+    // eslint-disable-next-line @next/next/no-img-element
+    img: ({ children, alt = '', ...props }) => (
+      <img alt={alt} {...props}>
+        {children}
+      </img>
+    ),
   },
   AnimatePresence: ({ children }) => children,
 }))

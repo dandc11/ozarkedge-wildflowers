@@ -4,12 +4,8 @@
 
 import React from 'react'
 
-import {
-  renderWithoutProviders,
-  screen,
-  fireEvent,
-  createMockSanityImage,
-} from '../tests/utils/test-utils'
+import { renderWithoutProviders, screen, fireEvent } from '../tests/utils/test-utils'
+import { createMockSanityImage } from '../tests/mocks/sanity-mocks'
 
 import ResponsiveImage from './ResponsiveImage'
 

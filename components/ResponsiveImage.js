@@ -38,7 +38,8 @@ const ResponsiveImage = ({
     lqip,
   } = image || {}
 
-  const imageAlt = alt !== undefined && alt !== null && alt !== '' ? alt : altFromData
+  // If alt is provided (even as an empty string), use it; otherwise fall back to the image's alt
+  const imageAlt = alt !== undefined && alt !== null ? alt : altFromData
   const imageCaption = caption ?? imageCaptionFromData
 
   const id = asset?._ref || ''

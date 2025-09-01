@@ -5,7 +5,41 @@
 // - Do NOT nest block objects inside another block's `children` (children should be spans only).
 // - This avoids invalid DOM like nested <p> tags during rendering with @portabletext/react.
 
-// Mock data for the nativePlant Sanity document schema
+// See TESTING_GUIDE.md for more information about mock data guidelines.
+//
+// Key guidelines:
+// - Always export Portable Text as an ARRAY of blocks/objects.
+// - Reuse existing mocks when possible; extend locally in tests if needed.
+// - Only include fields that are accessed by the code under test.
+// - Include minimal representative document/image shapes.
+
+/**
+ * Creates a mock Sanity image object with standard structure
+ * @param {Object} overrides - Properties to override in the mock
+ * @param {string} [overrides.alt] - Alt text for the image
+ * @param {string} [overrides._ref] - Asset reference ID
+ * @param {string} [overrides.lqip] - Low quality image placeholder
+ * @returns {Object} Mock Sanity image object
+ */
+export function createMockSanityImage(overrides = {}) {
+  return {
+    _type: 'mainImage',
+    alt: overrides.alt || 'Mock image alt text',
+    asset: {
+      _ref: overrides._ref || 'image-mock123-1024x768-jpg',
+      _type: 'reference',
+    },
+    lqip:
+      overrides.lqip ||
+      'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAEAAYDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJ28jjdjbEJCvT0h5Y58Gqp/qpXtAZS5bgoBD//Z',
+    palette: overrides.palette || {
+      dominant: { background: '#416c4c', foreground: '#fff', population: 1.44 },
+    },
+    ...overrides,
+  }
+}
+
+// Mock Sanity native plant data
 const mockNativePlantData = {
   _createdAt: '2024-07-30T17:53:16Z',
   _id: 'c20ec0e4-9fc8-4e69-b628-6ebd3d9e6fe4',

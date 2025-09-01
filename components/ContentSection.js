@@ -63,7 +63,6 @@ const ContentSection = ({
           <div>
             {displayPretextComponent && pretextComponent}
             <PortTextWrapper
-              lightboxCallback={toggleLightboxCallback}
               lightboxIdentifier={lightboxIdentifier}
               className={cx('', bodyClassName)}
               documentId={documentId}
