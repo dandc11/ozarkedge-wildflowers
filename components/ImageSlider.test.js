@@ -173,16 +173,61 @@ describe('ImageSlider Component', () => {
   })
 
   describe('Mixed Image Types', () => {
-    it('handles images with and without slugs correctly when useLinks=true', () => {
+    it('handles images with and without slugs correctly when useLinks=true', async () => {
       const mixedImages = [
         mockImages[0], // has slug
         { ...mockImages[1], slug: undefined }, // no slug
       ]
 
-      render(<ImageSlider sliderImages={mixedImages} useLinks={true} />)
+      const lightboxMocks = createLightboxContextMocks()
 
+      render(
+        <ImageSlider
+          sliderImages={mixedImages}
+          useLinks={true}
+          lightboxIdentifier="mixed-gallery"
+        />,
+        {
+          lightboxContextValue: lightboxMocks,
+        },
+      )
+
+      // Should render one CustomLink for image with slug
       const links = screen.getAllByTestId('custom-link')
-      expect(links).toHaveLength(1) // Only the image with slug gets wrapped
+      expect(links).toHaveLength(1)
+      expect(links[0]).toHaveAttribute('href', '/nativePlant/purple-coneflower')
+
+      // Should render one InteractiveImage for image without slug
+      await waitFor(() => {
+        const interactiveImages = screen.getAllByTestId('interactive-image')
+        expect(interactiveImages).toHaveLength(1)
+        expect(interactiveImages[0]).toHaveAttribute('data-lightbox-id', 'mixed-gallery')
+      })
+
+      // Should render lightbox gallery for images without slugs
+      await waitFor(() => {
+        expect(screen.getByTestId('lightbox-gallery')).toBeInTheDocument()
+        expect(screen.getByTestId('lightbox-gallery')).toHaveAttribute(
+          'data-lightbox-id',
+          'mixed-gallery',
+        )
+      })
+    })
+
+    it('does not render lightbox gallery when useLinks=true and all images have slugs', () => {
+      const allLinkedImages = [
+        mockImages[0], // has slug
+        mockImages[1], // has slug
+      ]
+
+      render(<ImageSlider sliderImages={allLinkedImages} useLinks={true} />)
+
+      // Should render two CustomLinks
+      const links = screen.getAllByTestId('custom-link')
+      expect(links).toHaveLength(2)
+
+      // Should not render lightbox gallery since no images need it
+      expect(screen.queryByTestId('lightbox-gallery')).not.toBeInTheDocument()
     })
   })
 
@@ -205,6 +250,54 @@ describe('ImageSlider Component', () => {
       // Should be passed down to ResponsiveImage components
       // Note: This would need to be verified by checking if the prop is passed
       // In a real test, you might mock ResponsiveImage to verify props
+    })
+  })
+
+  describe('Comprehensive Behavior Validation', () => {
+    it('follows expected behavior rules for useLinks prop', async () => {
+      // Test Case 1: useLinks=false - all images should use lightbox
+      const lightboxMocks1 = createLightboxContextMocks()
+      const { rerender } = render(
+        <ImageSlider sliderImages={mockImages} useLinks={false} lightboxIdentifier="test1" />,
+        { lightboxContextValue: lightboxMocks1 },
+      )
+
+      await waitFor(() => {
+        const interactiveImages = screen.getAllByTestId('interactive-image')
+        expect(interactiveImages).toHaveLength(2)
+        expect(screen.getByTestId('lightbox-gallery')).toBeInTheDocument()
+      })
+
+      // Test Case 2: useLinks=true, all images have slugs - should use links, no lightbox
+      const lightboxMocks2 = createLightboxContextMocks()
+      rerender(
+        <ImageSlider sliderImages={mockImages} useLinks={true} lightboxIdentifier="test2" />,
+        { lightboxContextValue: lightboxMocks2 },
+      )
+
+      const links = screen.getAllByTestId('custom-link')
+      expect(links).toHaveLength(2)
+      expect(screen.queryByTestId('lightbox-gallery')).not.toBeInTheDocument()
+
+      // Test Case 3: useLinks=true, mixed images - links for slugged, lightbox for non-slugged
+      const mixedImages = [
+        mockImages[0], // has slug
+        { ...mockImages[1], slug: undefined }, // no slug
+      ]
+
+      const lightboxMocks3 = createLightboxContextMocks()
+      rerender(
+        <ImageSlider sliderImages={mixedImages} useLinks={true} lightboxIdentifier="test3" />,
+        { lightboxContextValue: lightboxMocks3 },
+      )
+
+      await waitFor(() => {
+        const finalLinks = screen.getAllByTestId('custom-link')
+        const finalInteractive = screen.getAllByTestId('interactive-image')
+        expect(finalLinks).toHaveLength(1) // One image with slug
+        expect(finalInteractive).toHaveLength(1) // One image without slug
+        expect(screen.getByTestId('lightbox-gallery')).toBeInTheDocument() // Lightbox for non-slugged images
+      })
     })
   })
 

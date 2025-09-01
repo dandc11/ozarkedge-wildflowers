@@ -10,6 +10,7 @@
   .plant-pg-port-text {
     width: clamp(8rem, 90cqi, 60rem);
     margin-inline: auto;
+    margin-block-start: var(--sp-md);
   }
 
   @container growingNearby (min-width: 600px) {
@@ -22,7 +23,7 @@
     margin-block: min(5vh, 2rem);
 
     @container (min-width: 600px) {
-      margin-block: min(10vh, 3rem) min(10vh, 1rem);
+      margin-block-start: min(10vh, 3rem) min(10vh, 1rem);
     }
   }
 }

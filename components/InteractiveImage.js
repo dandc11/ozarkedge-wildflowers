@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation'
 import cx from 'classnames'
 
 import { LightboxContext } from '../contexts/LightboxContext'
-
 import { getPathFromDocType } from '../utilities/helperUtil'
+
 import ResponsiveImage from './ResponsiveImage'
 
 const InteractiveImage = ({

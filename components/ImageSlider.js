@@ -77,9 +77,14 @@ const ImageSlider = ({
     )
   })
 
+  // Determine if any images in the slider should use lightbox
+  // This includes: when useLinks=false (all images use lightbox)
+  // OR when useLinks=true but some images don't have slugs (mixed mode)
+  const hasLightboxImages = !useLinks || (useLinks && sliderImages?.some((image) => !image.slug))
+
   return (
     <>
-      {!useLinks && Array.isArray(sliderImages) && sliderImages.length > 0 && (
+      {hasLightboxImages && Array.isArray(sliderImages) && sliderImages.length > 0 && (
         <DynamicLightboxGallery
           lightboxIdentifier={lightboxIdentifier}
           showSingleImage

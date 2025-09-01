@@ -89,31 +89,6 @@ export function renderWithoutProviders(ui, options = {}) {
 export const createUser = (options) => userEvent.setup(options)
 
 /**
- * Create mock image data that matches Sanity image structure
- *
- * @param {Object} overrides - Properties to override in the mock image
- * @returns {Object} Mock Sanity image object
- */
-export function createMockSanityImage(overrides = {}) {
-  return {
-    _type: 'image',
-    asset: {
-      _ref: 'image-mock-ref-123',
-      _type: 'reference',
-    },
-    alt: 'Mock image alt text',
-    lqip: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=',
-    palette: {
-      dominant: {
-        background: '#f4f4f4',
-        foreground: '#333333',
-      },
-    },
-    ...overrides,
-  }
-}
-
-/**
  * Create mock Sanity query response structure
  *
  * @param {any} data - The data to include in the response
