@@ -14,6 +14,7 @@ import {
 export const GET_LANDING_PAGE_DATA_QUERY = groq`
 *[_type == "landingPage"]
 {
+  _id,
   titleText,
   subtitleText,
   slug,

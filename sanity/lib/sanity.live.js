@@ -8,8 +8,8 @@ import { token } from './sanity.token'
  * Learn more: https://github.com/sanity-io/next-sanity?tab=readme-ov-file#1-configure-definelive
  */
 
-export const { sanityFetch, SanityLive } = defineLive({
-  client,
-  browserToken: token,
-  serverToken: token,
-})
+// Initialize live helpers once and export directly
+const live = defineLive({ client, browserToken: token, serverToken: token })
+
+export const SanityLive = live.SanityLive
+export const sanityFetch = live.sanityFetch
