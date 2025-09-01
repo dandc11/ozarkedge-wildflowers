@@ -5,7 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['cdn.sanity.io'],
+    // Use remotePatterns instead of deprecated domains
     remotePatterns: [
       {
         protocol: 'https',
@@ -13,6 +13,17 @@ const nextConfig = {
         pathname: '/images/**',
       },
     ],
+    // Predefine qualities used across the app to avoid future warnings
+    qualities: [75, 80, 85, 90, 95],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/favicon-192x192.png',
+        destination: '/android-chrome-192x192.png',
+        permanent: false,
+      },
+    ]
   },
   productionBrowserSourceMaps: true,
 }
