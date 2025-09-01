@@ -1,4 +1,5 @@
 import React from 'react'
+import { draftMode } from 'next/headers'
 import cx from 'classnames'
 import { stegaClean } from '@sanity/client/stega'
 import { notFound } from 'next/navigation'
@@ -36,9 +37,15 @@ export async function generateStaticParams() {
 const SeasonPage = async (props) => {
   /** TODO: 2. TEASER - retrieve FeatureSection data for teaser section - add to query, dereference in query, and pass to FeatureSection component (replacing TeaserSection)
    */
+  const { isEnabled: isDraftMode } = await draftMode()
   const params = await props.params
   const [{ data: pageData }] = await Promise.all([
-    sanityFetch({ query: GET_SEASON_PAGE_DATA_QUERY, params }),
+    sanityFetch({
+      query: GET_SEASON_PAGE_DATA_QUERY,
+      params,
+      perspective: isDraftMode ? 'previewDrafts' : 'published',
+      stega: isDraftMode,
+    }),
   ])
 
   if (!pageData?._id) {

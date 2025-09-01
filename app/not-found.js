@@ -1,4 +1,5 @@
 import { stegaClean } from '@sanity/client/stega'
+import { draftMode } from 'next/headers'
 
 import { sanityFetch } from '../sanity/lib/sanity.live'
 import { NOT_FOUND_PAGE_QUERY } from '../sanity/lib/queries'
@@ -6,8 +7,11 @@ import PortTextWrapper from '../components/PortTextWrapper'
 import ResponsiveImage from '../components/ResponsiveImage'
 
 export default async function NotFound() {
+  const { isEnabled: isDraftMode } = await draftMode()
   const notFoundPageQueryResponse = await sanityFetch({
     query: NOT_FOUND_PAGE_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
   })
   const notFoundPageData = notFoundPageQueryResponse?.data?.[0] ?? null
   const menuButtonColor = stegaClean(notFoundPageData?.menuButtonColor) || 'light'

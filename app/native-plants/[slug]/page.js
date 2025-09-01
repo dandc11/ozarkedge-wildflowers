@@ -1,4 +1,5 @@
 import React from 'react'
+import { draftMode } from 'next/headers'
 import cx from 'classnames'
 import { stegaClean } from '@sanity/client/stega'
 import { notFound } from 'next/navigation'
@@ -51,9 +52,15 @@ const getSectionLinks = (pageData) => {
  *
  */
 const NativePlantPage = async (props) => {
+  const { isEnabled: isDraftMode } = await draftMode()
   const params = await props.params
   const [{ data: pageData }] = await Promise.all([
-    sanityFetch({ query: GET_PLANT_PAGE_DATA, params }),
+    sanityFetch({
+      query: GET_PLANT_PAGE_DATA,
+      params,
+      perspective: isDraftMode ? 'previewDrafts' : 'published',
+      stega: isDraftMode,
+    }),
   ])
 
   if (!pageData?._id) {
