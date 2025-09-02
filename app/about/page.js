@@ -1,21 +1,25 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { Suspense } from 'react'
+import dynamic from 'next/dynamic'
+import { draftMode } from 'next/headers'
 import { stegaClean } from '@sanity/client/stega'
 
 import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
 import Heading from '../../components/Heading'
-import LightboxGallery from '../../components/LightboxGallery'
-import PortTextWrapper from '../../components/PortTextWrapper'
+// Dynamically import heavy client components to reduce initial compile size
+const LightboxGallery = dynamic(() => import('../../components/LightboxGallery'))
+const PortTextWrapper = dynamic(() => import('../../components/PortTextWrapper'))
 import ResponsiveImage from '../../components/ResponsiveImage'
 import { GET_ABOUT_PAGE_DATA_QUERY } from '../../sanity/lib/queries'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 
 const AboutPage = async () => {
-  /**
-   * TODO: 1. PREVIEW - useLiveQuery is a client-side hook, so this will not work in production - need to use Sanity's app router preview kit guide
-   */
-
-  const aboutQueryResponse = await sanityFetch({ query: GET_ABOUT_PAGE_DATA_QUERY })
+  const { isEnabled: isDraftMode } = await draftMode()
+  const aboutQueryResponse = await sanityFetch({
+    query: GET_ABOUT_PAGE_DATA_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
+  })
   const aboutPageData = aboutQueryResponse?.data?.[0] ?? null
   const fullImageArray = getUniqueImagesFromDocument(aboutPageData)
   const docId = aboutPageData.id
@@ -23,12 +27,14 @@ const AboutPage = async () => {
 
   return (
     <>
-      <LightboxGallery
-        cols={3}
-        images={fullImageArray}
-        lightboxIdentifier="about"
-        slideshow={true}
-      />
+      <Suspense>
+        <LightboxGallery
+          cols={3}
+          images={fullImageArray}
+          lightboxIdentifier="about"
+          slideshow={true}
+        />
+      </Suspense>
       {aboutPageData && (
         <div
           className={`about-content nav-${stegaClean(aboutPageData.menuButtonColor)} overflow-hidden flex flex-col items-center relative`}
@@ -65,13 +71,15 @@ const AboutPage = async () => {
             </Heading>
           </header>
           <div className="content-well">
-            <PortTextWrapper
-              className={`relative z-10 mt-2xl`}
-              lightboxIdentifier={'about'}
-              documentId={docId}
-              documentType={docType}
-              value={aboutPageData.body}
-            />
+            <Suspense>
+              <PortTextWrapper
+                className={`relative z-10 mt-2xl`}
+                lightboxIdentifier={'about'}
+                documentId={docId}
+                documentType={docType}
+                value={aboutPageData.body}
+              />
+            </Suspense>
           </div>
         </div>
       )}

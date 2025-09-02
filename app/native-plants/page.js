@@ -1,10 +1,12 @@
 import React from 'react'
+import { draftMode } from 'next/headers'
 import cx from 'classnames'
 import { stegaClean } from '@sanity/client/stega'
+import dynamic from 'next/dynamic'
 
 import HeadingDisplay from '../../components/HeadingDisplay'
 import ResponsiveImage from '../../components/ResponsiveImage'
-import PlantListGridWrapper from '../../components/PlantListGridWrapper'
+const PlantListGridWrapper = dynamic(() => import('../../components/PlantListGridWrapper'))
 import {
   GET_NATIVE_PLANT_LIST_DATA_QUERY,
   GET_PLANT_LIST_PAGE_DATA_QUERY,
@@ -13,11 +15,18 @@ import { IMG_SIZES } from '../../utilities/constants'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 
 const NativePlantPage = async () => {
-  const nativePlantPageQueryResponse = await sanityFetch({ query: GET_PLANT_LIST_PAGE_DATA_QUERY })
+  const { isEnabled: isDraftMode } = await draftMode()
+  const nativePlantPageQueryResponse = await sanityFetch({
+    query: GET_PLANT_LIST_PAGE_DATA_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
+  })
   const nativePlantPageData = nativePlantPageQueryResponse?.data?.[0] ?? null
 
   const nativePlantListQueryResponse = await sanityFetch({
     query: GET_NATIVE_PLANT_LIST_DATA_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
   })
   const nativePlantList = nativePlantListQueryResponse?.data ?? []
 

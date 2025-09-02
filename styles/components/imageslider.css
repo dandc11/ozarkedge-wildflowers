@@ -27,7 +27,6 @@
       figure {
         position: relative;
         width: 9rem;
-        margin-bottom: var(--sp-lg);
       }
 
       img {
@@ -45,6 +44,7 @@
       li {
         figure {
           width: 15rem;
+          margin-bottom: var(--sp-lg);
         }
       }
     }

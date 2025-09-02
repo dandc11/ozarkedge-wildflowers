@@ -14,6 +14,7 @@ import {
 export const GET_LANDING_PAGE_DATA_QUERY = groq`
 *[_type == "landingPage"]
 {
+  _id,
   titleText,
   subtitleText,
   slug,
@@ -86,11 +87,9 @@ export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[ _type == "nativePlant" && 
 // get the previewImage of the first 7 native plants with a floweringMonth matching the current month
 export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = groq`*[ _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
   {
-    "image": previewImage {...,
-    "palette": asset->metadata.palette,
-    "lqip": asset->metadata.lqip,},
+    "image": previewImage {...},
     "caption": plantName,
-    
+    "slug": slug.current,
   }`
 
 // retrieves the season document that matches the current month
@@ -339,9 +338,7 @@ export const NOT_FOUND_PAGE_QUERY = groq`*[ _type == "notFoundPage" ] {
     ...,
     _type == "teaserSection" => ${teaserSectionFields()},
     _type == "figure" => {
-      ...,
-      "palette": asset->metadata.palette,
-      "lqip": asset->metadata.lqip,
+      ...
     },
   _type == "imageCollection" => ${imageCollectionFields()},
     _type == "block" => {

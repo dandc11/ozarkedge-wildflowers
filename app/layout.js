@@ -30,18 +30,21 @@ const raleway = Raleway({
 })
 
 export default async function RootLayout({ children }) {
-  // Fetch the menu data from Sanity
+  const { isEnabled: isDraftMode } = await draftMode()
+  // Fetch the menu data from Sanity with proper perspective/stega
   const menuData = await sanityFetch({
     query: GET_MENU_ITEMS_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
   })
   const currentSeason = getCurrentSeason()
-
-  const { isEnabled: isDraftMode } = await draftMode()
+  const isProd = process.env.NODE_ENV === 'production'
+  const shouldMountSanityLive = isProd || isDraftMode
 
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${raleway.variable}`}>
       <body className={`oe-site-body ${currentSeason.SEASON_NAME}`}>
-        <SanityLive />
+        {shouldMountSanityLive && <SanityLive />}
         <ContextProviders>
           <Nav menuData={menuData?.data} />
           <main id={`page-content`} className={`relative`}>

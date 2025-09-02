@@ -1,13 +1,16 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import cx from 'classnames'
 
+import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
 import { getCurrentMonthName, getCurrentSeason, titleCase } from '../utilities/helperUtil'
+
 import Heading from './Heading'
-import PortTextWrapper from './PortTextWrapper'
 import ImageSlider from './ImageSlider'
 import Button from './Button'
-import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
 import ResponsiveImage from './ResponsiveImage'
+// SSR-friendly PortableText wrapper; heavy media blocks hydrate on client
+const PortTextWrapper = dynamic(() => import('./PortTextWrapper'))
 
 /**
  * @param {object} props - props for the component
@@ -61,7 +64,7 @@ const TeaserSlider = (props) => {
     default:
       btnThemeClass = 'btn-1'
   }
-  ;``
+
   const sliderPlants = images
     .filter((plant) => plant.image)
     .map((plant) => {
@@ -95,7 +98,6 @@ const TeaserSlider = (props) => {
                 className={`teaser-image-slider overflow-hidden`}
                 sliderImages={sliderPlants}
                 lightboxIdentifier={lightboxIdentifier}
-                useLinks
               />
             ) : (
               <ResponsiveImage

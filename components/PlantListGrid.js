@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
-import makeAnimated from 'react-select/animated'
 import { stegaClean } from 'next-sanity'
 
 import { MONTH_OPTIONS, FLOWER_COLOR_OPTIONS } from '../utilities/constants'
@@ -28,9 +27,27 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
   const [habitatsSelected, setHabitatsSelected] = useState('')
   const [monthsSelected, setMonthsSelected] = useState('')
   const [colorsSelected, setColorsSelected] = useState('')
-  const animatedComponents = makeAnimated()
+  const [animatedComponents, setAnimatedComponents] = useState({})
   const searchParams = useSearchParams()
   const initializedFromUrl = useRef(false)
+
+  // Lazily load react-select animated components on the client after mount
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const mod = await import('react-select/animated')
+        if (!cancelled && typeof mod?.default === 'function') {
+          setAnimatedComponents(mod.default())
+        }
+      } catch (_e) {
+        // no-op: keep empty components map
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const nameChangeHandler = useCallback((selectedOptions) => {
     setNameSelected(selectedOptions)

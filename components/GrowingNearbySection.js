@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 
 import { PLANT_PAGE_SECTIONS } from '../utilities/constants'
+
 import Heading from './Heading'
 import ImageSlider from './ImageSlider'
 import PortTextWrapper from './PortTextWrapper'

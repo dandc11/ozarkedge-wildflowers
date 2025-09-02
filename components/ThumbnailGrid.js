@@ -2,6 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 
 import { IMG_SIZES } from '../utilities/constants'
+
 import InteractiveImage from './InteractiveImage'
 
 const ThumbnailGrid = (props) => {
@@ -12,7 +13,6 @@ const ThumbnailGrid = (props) => {
     maxItems = 12,
     thumbnailWidth = 100,
     lightboxIdentifier = '',
-    onClick,
     showCaptions = false,
   } = props
   const gridColumns = {
@@ -22,22 +22,11 @@ const ThumbnailGrid = (props) => {
     4: 'grid-cols-4',
   }
 
-  // call onClick callback with key of image clicked
-  const handleClick = (e) => {
-    if (onClick) {
-      onClick(e.currentTarget.dataset.key)
-    }
-  }
   let galleryImages = []
   galleryImages = assets.map((image, index) => {
     const key = image.asset?._ref || index
     return (
-      <li
-        key={key}
-        data-key={key}
-        className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}
-        onClick={handleClick}
-      >
+      <li key={key} data-key={key} className={cx({ hidden: index + 1 > maxItems }, 'rounded-md')}>
         <InteractiveImage
           className="thumbnail cover"
           // disableHover

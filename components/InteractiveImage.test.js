@@ -4,13 +4,8 @@
 
 import React from 'react'
 
-import {
-  render,
-  screen,
-  fireEvent,
-  renderWithoutProviders,
-  createMockSanityImage,
-} from '../tests/utils/test-utils'
+import { render, screen, fireEvent, renderWithoutProviders } from '../tests/utils/test-utils'
+import { createMockSanityImage } from '../tests/mocks/sanity-mocks'
 
 import InteractiveImage from './InteractiveImage'
 
@@ -224,6 +219,36 @@ describe('InteractiveImage Component', () => {
       } finally {
         errorSpy.mockRestore()
       }
+    })
+  })
+
+  describe('Hybrid Navigation and Lightbox Behavior', () => {
+    it('renders navigation button when navigation props are provided', () => {
+      const lightboxMocks = createLightboxContextMocks()
+
+      render(
+        <InteractiveImage
+          image={mockImage}
+          lightboxIdentifier="test-lightbox"
+          navigationSlug="test-plant"
+          navigationDocType="nativePlant"
+        />,
+        { lightboxContextValue: lightboxMocks },
+      )
+
+      expect(
+        screen.getByRole('button', { name: /navigate to test-plant page/i }),
+      ).toBeInTheDocument()
+    })
+
+    it('does not render navigation button when navigation props are missing', () => {
+      const lightboxMocks = createLightboxContextMocks()
+
+      render(<InteractiveImage image={mockImage} lightboxIdentifier="test-lightbox" />, {
+        lightboxContextValue: lightboxMocks,
+      })
+
+      expect(screen.queryByRole('button', { name: /navigate/i })).not.toBeInTheDocument()
     })
   })
 })

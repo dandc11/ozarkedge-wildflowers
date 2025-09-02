@@ -52,7 +52,6 @@ const IntroSection = ({
             <PortTextWrapper
               className={`plant-pg-port-text p-0`}
               value={lede}
-              lightboxCallback={lightboxCallback}
               lightboxIdentifier={lightboxIdentifier}
             ></PortTextWrapper>
             <br></br>

@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react'
 import cx from 'classnames'
+import dynamic from 'next/dynamic'
 
-import LightboxGallery from './LightboxGallery'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
-import InteractiveImage from './InteractiveImage'
 import Button from './Button'
 
 /**
@@ -21,6 +20,16 @@ import Button from './Button'
  * @property {boolean} showArrows - Whether to show arrows
  * @property {Array} sliderImages - The image slider images
  */
+// Lazily load heavy, client-only pieces when needed
+const DynamicLightboxGallery = dynamic(() => import('./LightboxGallery'), {
+  ssr: false,
+  loading: () => null,
+})
+const DynamicInteractiveImage = dynamic(() => import('./InteractiveImage'), {
+  ssr: false,
+  loading: () => null,
+})
+
 const ImageSlider = ({
   captionBgClassName,
   sliderImages,
@@ -28,18 +37,10 @@ const ImageSlider = ({
   useLinks = false,
   lightboxIdentifier = '',
   showArrows = false,
-} = props) => {
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [startingSlideIndex, setStartingSlideIndex] = useState(0)
-
-  // toggle lightbox, set starting slide index if opening
-  const toggleLightbox = (key) => {
-    if (key) {
-      const index = sliderImages.findIndex((e) => e.asset._ref === key)
-      setStartingSlideIndex(index)
-    }
-    setIsLightboxOpen(!isLightboxOpen)
-  }
+} = {}) => {
+  // local state for arrows is currently unused; keep placeholder if needed later
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false) // eslint-disable-line no-unused-vars
+  const [startingSlideIndex, setStartingSlideIndex] = useState(0) // eslint-disable-line no-unused-vars
 
   const listItems = sliderImages?.map((image, index) => {
     return (
@@ -60,7 +61,7 @@ const ImageSlider = ({
           </CustomLink>
         ) : (
           // if the image has no link, open it in the lightbox when clicked
-          <InteractiveImage
+          <DynamicInteractiveImage
             figureClassName={`img `}
             wrapperClassName={``}
             image={image}
@@ -76,14 +77,21 @@ const ImageSlider = ({
     )
   })
 
+  // Determine if any images in the slider should use lightbox
+  // This includes: when useLinks=false (all images use lightbox)
+  // OR when useLinks=true but some images don't have slugs (mixed mode)
+  const hasLightboxImages = !useLinks || (useLinks && sliderImages?.some((image) => !image.slug))
+
   return (
     <>
-      <LightboxGallery
-        lightboxIdentifier={lightboxIdentifier}
-        showSingleImage
-        images={sliderImages}
-        slideshow={true}
-      />
+      {hasLightboxImages && Array.isArray(sliderImages) && sliderImages.length > 0 && (
+        <DynamicLightboxGallery
+          lightboxIdentifier={lightboxIdentifier}
+          showSingleImage
+          images={sliderImages}
+          slideshow={true}
+        />
+      )}
       <div className={cx(`image-slider p-bk-xs p-in-md`, className)}>
         <ul className={`slider flex h-full`}>{listItems}</ul>
       </div>

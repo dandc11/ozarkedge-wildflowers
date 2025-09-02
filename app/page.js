@@ -1,8 +1,10 @@
+import React, { Suspense } from 'react'
+import { draftMode } from 'next/headers'
+import dynamic from 'next/dynamic'
 import cx from 'classnames'
-import React from 'react'
 import { stegaClean } from '@sanity/client/stega'
 
-import TeaserSlider from '../components/TeaserSlider'
+const TeaserSlider = dynamic(() => import('../components/TeaserSlider'))
 import Button from '../components/Button'
 import ResponsiveImage from '../components/ResponsiveImage'
 import { getCurrentMonthName, titleCase, getCurrentSeason } from '../utilities/helperUtil'
@@ -22,18 +24,27 @@ import { sanityFetch } from '../sanity/lib/sanity.live'
  * @category Pages
  **/
 export default async function HomePage() {
+  const { isEnabled: isDraftMode } = await draftMode()
   // Current season data (centralized query)
   const seasonQueryResponse = await sanityFetch({
     query: GET_CURRENT_SEASON_DATA_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
   })
   const seasonData = seasonQueryResponse?.data?.[0] ?? null
 
   const bloomingQueryResponse = await sanityFetch({
     query: GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
   })
   const bloomingPlantArray = bloomingQueryResponse?.data ?? []
 
-  const landingPageQueryResponse = await sanityFetch({ query: GET_LANDING_PAGE_DATA_QUERY })
+  const landingPageQueryResponse = await sanityFetch({
+    query: GET_LANDING_PAGE_DATA_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
+  })
   const landingPageData = landingPageQueryResponse?.data?.[0] ?? null
   const menuButtonColor = stegaClean(landingPageData?.menuButtonColor) || 'light'
 
@@ -54,7 +65,7 @@ export default async function HomePage() {
       {landingPageData && (
         <div
           className={`homepage-content w-full overflow-hidden p-0 nav-${menuButtonColor}`}
-          key={landingPageData.id}
+          key={landingPageData._id}
         >
           <section className="atf relative flex flex-col justify-between align-center">
             <ResponsiveImage
@@ -110,20 +121,22 @@ export default async function HomePage() {
             </div>
           </section>
           <div data-season={currentSeason} className={`btf w-full`} tag={'section'}>
-            <TeaserSlider
-              bodyText={teaserBodyText}
-              buttonLinkSlug={`${currentSeason}`}
-              buttonLinkDocType={'season'}
-              buttonLinkText={teaserButtonLinkText}
-              className={`blooming-now`}
-              defaultImage={seasonDefaultImage}
-              headingChildren={<BloomingHeadingText thisMonth={thisMonth} />}
-              headingClassName={`blooming-heading`}
-              headingId={`bloomingHeading`}
-              id={`bloomingNow`}
-              images={bloomingPlantArray}
-              lightboxIdentifier={`bloomingNow`}
-            />
+            <Suspense>
+              <TeaserSlider
+                bodyText={teaserBodyText}
+                buttonLinkSlug={`${currentSeason}`}
+                buttonLinkDocType={'season'}
+                buttonLinkText={teaserButtonLinkText}
+                className={`blooming-now`}
+                defaultImage={seasonDefaultImage}
+                headingChildren={<BloomingHeadingText thisMonth={thisMonth} />}
+                headingClassName={`blooming-heading`}
+                headingId={`bloomingHeading`}
+                id={`bloomingNow`}
+                images={bloomingPlantArray}
+                lightboxIdentifier={`bloomingNow`}
+              />
+            </Suspense>
           </div>
         </div>
       )}
