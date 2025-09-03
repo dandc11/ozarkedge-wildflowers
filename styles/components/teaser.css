@@ -4,7 +4,7 @@
 .teaser {
   --teaser-bg-color: var(--fall-bg-gradient);
   --teaser-text-color: var(--oe-white);
-  --teaser-heading-color: var(--fall-bg-color);
+  --teaser-heading-color: var(--oe-white);
   --teaser-btn-bg-color: var(--oe-red-700);
   container: teaser / inline-size;
 }
@@ -46,6 +46,7 @@
     padding: 0%;
 
     .heading-title {
+      color: var(--teaser-heading-color);
       font-size: var(--fs-2xl);
     }
   }
@@ -155,6 +156,7 @@
       width: 100%;
 
       .heading-title {
+        color: var(--teaser-bg-color);
         font-style: italic;
         font-weight: var(--fw-300);
         font-size: var(--fs-3xl);
