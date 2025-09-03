@@ -2,32 +2,11 @@
 
 /* Teaser base styles */
 .teaser {
-  --teaser-bg-color: var(--oe-blue-green-light-900);
+  --teaser-bg-color: var(--fall-bg-gradient);
   --teaser-text-color: var(--oe-white);
-  --teaser-heading-color: var(--oe-blue-green-light-900);
-  --teaser-btn-bg-color: var(--btn-gradient-1);
+  --teaser-heading-color: var(--fall-bg-color);
+  --teaser-btn-bg-color: var(--oe-red-700);
   container: teaser / inline-size;
-  &.spring,
-  &.summer {
-    --teaser-bg-color: var(--spring-accent);
-    --teaser-text-color: var(--oe-white);
-    --teaser-heading-color: var(--spring-accent);
-    --teaser-btn-bg-color: var(--btn-gradient-1);
-  }
-
-  &.fall {
-    --teaser-bg-color: var(--fall-accent);
-    --teaser-text-color: var(--oe-white);
-    --teaser-heading-color: var(--fall-bg-color);
-    --teaser-btn-bg-color: var(--btn-gradient-6);
-  }
-
-  &.winter {
-    --teaser-bg-color: var(--winter-bg-color-2);
-    --teaser-text-color: var(--oe-text-body);
-    --teaser-heading-color: var(--oe-text-body);
-    --teaser-btn-bg-color: var(--btn-gradient-4);
-  }
 }
 
 /* Teaser Slider (multiple images)*/
@@ -41,6 +20,7 @@
 
   button {
     margin-inline: auto;
+    background: var(--teaser-btn-bg-color);
   }
 
   @container homepage-content (width >= 800px) {

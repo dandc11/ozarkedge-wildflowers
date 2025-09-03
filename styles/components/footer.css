@@ -17,7 +17,7 @@
   }
 
   .fall & {
-    --footer-bg-color: var(--oe-orange-700);
+    --footer-bg-color: var(--oe-red-900);
   }
 
   .winter & {
