@@ -29,7 +29,6 @@ const DynamicInteractiveImage = dynamic(() => import('./InteractiveImage'), {
   ssr: false,
   loading: () => null,
 })
-
 const ImageSlider = ({
   captionBgClassName,
   sliderImages,
@@ -38,10 +37,6 @@ const ImageSlider = ({
   lightboxIdentifier = '',
   showArrows = false,
 } = {}) => {
-  // local state for arrows is currently unused; keep placeholder if needed later
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false) // eslint-disable-line no-unused-vars
-  const [startingSlideIndex, setStartingSlideIndex] = useState(0) // eslint-disable-line no-unused-vars
-
   const listItems = sliderImages?.map((image, index) => {
     return (
       <li key={index} className={`relative flex flex-col h-full`}>
