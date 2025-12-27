@@ -134,10 +134,10 @@ export default defineType({
       title: 'Native plants growing nearby',
       type: 'array',
       description:
-        'Select or upload image(s) of plants growing near this one. For captions, provide the name of the plant. If this plant has its own page, provide a link to it. ',
+        'Add images of plants growing near this one. Enter the botanical name for each plant to enable auto-linking when plant pages exist.',
       of: [
         defineArrayMember({
-          type: 'figure',
+          type: 'nearbyPlantFigure',
         }),
       ],
       group: 'growingNearby',
