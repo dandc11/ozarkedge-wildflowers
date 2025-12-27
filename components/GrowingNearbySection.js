@@ -12,8 +12,8 @@ import PortTextWrapper from './PortTextWrapper'
  * GrowingNearby component - 6th section of plant page (growing nearby)
  * @param {String} className - class name for the section
  * @param {String} documentId - the id of the document the component is being used in
- * @param {String} documentType = the doumcument type the component is being used in
- * @param {Array} growingNearbyPlantImages - list of plants that grow nearby
+ * @param {String} documentType - the document type the component is being used in
+ * @param {Array} growingNearbyPlantImages - list of plants that grow nearby (nearbyPlantFigure format)
  * @param {String} growingNearbyText - text about growing nearby
  * @param {Array} tocLinks - list of links for the table of contents
  * @param {String} isTableOfContentsOpen - section of the table of contents that is open

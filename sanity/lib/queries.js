@@ -291,11 +291,19 @@ export const GET_PLANT_PAGE_DATA = groq`
       _type == "portTextVideo" => ${videoFields()},
     },
     growingNearbyPlantList[]{
-      ...,
-      "slug": link.internalLink->slug.current,
-      "docType": link.internalLink->_type,
-      "palette": asset->metadata.palette,
-      "lqip": asset->metadata.lqip,
+      // Project data in the exact shape ImageSlider expects:
+      // - Image properties at top level
+      // - slug/docType from auto-resolved linkedPlant (single query, spread to keep flat structure)
+      _type == "nearbyPlantFigure" => {
+        ...image,
+        "palette": image.asset->metadata.palette,
+        "lqip": image.asset->metadata.lqip,
+        ...(*[_type == "nativePlant" && !(_id in path("drafts.**")) && 
+          lower(plantName.botanicalName) match lower(^.plantBotanicalName)][0]{
+          "slug": slug.current,
+          "docType": _type
+        })
+      }
     },
     growingNearbyText[]{
       _type == "teaserSection" => ${teaserSectionFields()},
