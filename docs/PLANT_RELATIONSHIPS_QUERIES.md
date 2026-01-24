@@ -1,6 +1,6 @@
 # Plant Relationship Query Patterns
 
-This document outlines GROQ query patterns for working with plant relationships via the `nearbyPlantFigure` schema and botanical name identifiers.
+This document outlines a future enhancement. It does not need to be read unless expressly indicated by the user. It outlines GROQ query patterns for working with plant relationships via the `nearbyPlantFigure` schema and botanical name identifiers.
 
 ## Core Concept
 
