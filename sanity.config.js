@@ -9,6 +9,7 @@ import { media } from 'sanity-plugin-media'
 import * as resolve from './sanity/presentation/resolve'
 import { apiVersion, dataset, projectId } from './sanity/lib/sanity.api'
 import { schema } from './schemas/schema'
+import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
 
 // Create a Set to track schema type names and prevent duplicates
 const schemaTypeNames = new Set()
@@ -46,4 +47,7 @@ export default defineConfig({
     media(),
     muxInput({ mp4_support: 'standard' }),
   ],
+  document: {
+    actions: (prev) => [...prev, OpenInPresentationAction],
+  },
 })
