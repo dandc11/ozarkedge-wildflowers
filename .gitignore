@@ -38,3 +38,6 @@ studio/.env.development
 
 # vercel
 .vercel
+
+# MCP server config with secrets
+.vscode/mcp.json
