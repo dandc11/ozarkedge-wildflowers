@@ -63,14 +63,14 @@ Before answering questions or providing code examples, use #tool:search/codebase
 
 This ensures all suggestions, code examples, and guidance are compatible with the project's current dependencies.
 
-**Expected versions (as of agent creation):**
+⚠️ **IMPORTANT**: When performing tasks or research, be mindful of the installed versions in the following crucial packages:
 
-- **sanity**: `^4.3.0`
-- **next-sanity**: `^10.0.10`
-- **Next.js**: `15.5.7`
-- **React**: `^19.2.1`
+- **sanity**
+- **next-sanity**
+- **Next.js**
+- **React**
 
-⚠️ **IMPORTANT**: If you detect version changes from the above, **alert the user** that this agent may need review and updates to reflect new API patterns, features, or breaking changes.
+You may recommend version changes to these packages, to enable new features, but do not automatically apply them or implement features that may break existing functionality without updating the packages. **alert the user** that this agent may need review and updates to reflect new API patterns, features, or breaking changes.
 
 **Version-specific considerations:**
 
@@ -97,6 +97,7 @@ When helping with Sanity.io:
 3. **Include TypeScript types** - Add type annotations when relevant for better developer experience
 4. **Show GROQ examples** - Demonstrate queries with actual GROQ syntax
 5. **Explain trade-offs** - When multiple approaches exist, explain the pros and cons
+6. **Distinguish custom vs built-in** - Know whether a pattern is a Sanity platform feature or a project customization. This affects troubleshooting (check Sanity changelogs vs repo code), extension (use an existing API vs build on custom patterns), documentation referrals (Sanity docs vs repo files), and upgrade safety (custom code using internal APIs like `useRouter` from `sanity/router` is more fragile across version bumps than public APIs)
 
 ## Common Patterns
 
@@ -370,7 +371,7 @@ import { urlFor } from '@/sanity/lib/sanity.image'
 const imageUrl = urlFor(image).width(800).height(600).url()
 ```
 
-**Custom Image Components:**
+**Custom Image Components (🔧 Project custom):**
 
 This project uses a three-tier image architecture. **Never use Next.js Image component directly.**
 
@@ -400,7 +401,7 @@ Responsive sizes are defined in `utilities/constants.js` as the `IMAGE_SIZES` ob
 
 ## Advanced Features
 
-### Auto-Linking Plants by Botanical Name (NearbyPlantFigure Pattern)
+### Auto-Linking Plants by Botanical Name (🔧 Project custom)
 
 This project has a unique pattern for automatically linking plant images to plant documents based on botanical names. This is specific to the `nearbyPlantFigure` object type and `growingNearbyPlantList` field.
 
@@ -451,13 +452,17 @@ See `docs/PLANT_RELATIONSHIPS_QUERIES.md` for comprehensive documentation on pla
 
 The Presentation tool provides live preview and click-to-edit capabilities. Content editors can view drafts in context and jump directly from preview to the relevant Studio field.
 
-**Features:**
+**Features (📦 Sanity built-in):**
 
 - Live preview of draft content
 - Click overlays to edit content directly from preview
 - Drag-and-drop reordering with shift key
 - Multiple presentation instances for different channels
 - Document-to-URL mapping with `defineLocations`
+
+**Programmatic Navigation to Presentation (🔧 Project custom):**
+
+Editors can jump from Structure to Presentation via the custom "Open in Presentation" document action (`sanity/actions/OpenInPresentationAction.js`). This action builds the correct preview URL from the document's slug and navigates using `router.navigateUrl` with the `?preview=` search parameter. See the Studio Customization section for implementation details.
 
 **Note:** The Presentation tool is available on the free tier with some limitations. Advanced features like custom perspectives may require paid plans.
 
@@ -565,17 +570,113 @@ const menuButtonColor = stegaClean(landingPageData?.menuButtonColor) || 'light'
 
 ### Studio Customization
 
-Customize desk structure, document actions, and form components:
+#### Custom Document Actions
 
-```typescript
-// Desk structure
-import { StructureBuilder } from 'sanity/desk'
+This project uses custom document actions to enhance the editing workflow. Custom actions are registered in `sanity.config.js` via the `document.actions` resolver and placed in `sanity/actions/`.
 
-export const structure = (S: StructureBuilder) =>
-  S.list()
-    .title('Content')
-    .items([S.listItem().title('Posts').child(S.documentTypeList('post'))])
+**Document Action API (📦 Sanity built-in):**
+
+A document action is a function that receives `DocumentActionProps` and returns a `DocumentActionDescription` object (or `null` to hide the action):
+
+```javascript
+// sanity/actions/MyCustomAction.js
+
+/**
+ * @param {import('sanity').DocumentActionProps} props
+ * @returns {import('sanity').DocumentActionDescription | null}
+ */
+export function MyCustomAction(props) {
+  const { id, type, draft, published, onComplete } = props
+
+  return {
+    label: 'My Action', // Button label (required)
+    icon: SomeIcon, // Icon component (optional)
+    title: 'Tooltip text', // Tooltip (optional)
+    disabled: false, // Disable state or reason string (optional)
+    tone: 'primary', // Visual tone (optional)
+    onHandle: () => {
+      // Handler when triggered (optional)
+      // perform action
+      onComplete() // Call when done
+    },
+  }
+}
 ```
+
+**Key `DocumentActionProps` fields:**
+
+- `id` — Document ID
+- `type` — Document schema type name
+- `draft` — The draft document (or `null`)
+- `published` — The published document (or `null`)
+- `onComplete` — Callback to signal the action is finished
+
+**Registration in `sanity.config.js`:**
+
+The `document.actions` resolver receives the previous (default) actions and returns a modified array. Append, prepend, filter, or reorder as needed:
+
+```javascript
+import { MyCustomAction } from './sanity/actions/MyCustomAction'
+
+export default defineConfig({
+  // ...other config
+  document: {
+    actions: (prev) => [...prev, MyCustomAction],
+  },
+})
+```
+
+**Filtering built-in actions:** Each default action has a static `action` property (e.g., `'publish'`, `'delete'`, `'duplicate'`). Filter by checking it:
+
+```javascript
+document: {
+  actions: (prev, context) =>
+    context.schemaType === 'siteSettings'
+      ? prev.filter((action) => action.action !== 'delete')
+      : prev,
+}
+```
+
+**Existing custom actions in this project (🔧 Project custom):**
+
+- `sanity/actions/OpenInPresentationAction.js` — Navigates from Structure to the Presentation tool with the correct preview URL. Supports document types that have Presentation locations configured in `sanity/presentation/resolve.js`.
+
+#### Router Navigation Between Studio Tools (📦 API / 🔧 Custom usage)
+
+To navigate programmatically between Studio tools (e.g., Structure → Presentation), use `useRouter` from `sanity/router` and `useWorkspace` from `sanity`. These are Sanity built-in hooks, but the URL construction pattern below is project-specific and may need updating if the Presentation tool's URL structure changes across Sanity versions:
+
+```javascript
+import { useWorkspace } from 'sanity'
+import { useRouter } from 'sanity/router'
+
+const router = useRouter()
+const { basePath } = useWorkspace() // e.g., '/studio'
+
+// Navigate to Presentation tool with a specific document and preview URL
+router.navigateUrl({
+  path: `${basePath}/presentation/${type}/${id}?preview=${previewUrl}`,
+})
+```
+
+**Critical:** Always include `basePath` from `useWorkspace()` when building absolute paths — the Studio may be mounted at a sub-path (e.g., `/studio`). Without it, navigation lands outside the Studio.
+
+**Presentation Tool URL Structure:**
+
+- Path: `<basePath>/presentation/<documentType>/<documentId>`
+- Search params: `?preview=<frontendPath>` (tells the iframe which page to load)
+- Example: `/studio/presentation/nativePlant/abc123?preview=/native-plants/purple-coneflower`
+
+**Intent-based navigation** (alternative approach for simpler cases):
+
+```javascript
+router.navigateIntent('edit', {
+  id: documentId,
+  type: documentType,
+  mode: 'presentation', // Opens in Presentation tool instead of Structure
+})
+```
+
+Note: `navigateIntent` with `mode: 'presentation'` opens the document pane but does **not** set the preview iframe URL. Use `navigateUrl` with the `?preview=` param when the iframe must load a specific frontend page.
 
 ### Working with Drafts
 
@@ -601,6 +702,7 @@ On the free tier, manage draft and published states using standard draft convent
 - **Client setup**: `sanity/lib/sanity.client.js` - Base Sanity client configuration
 - **API constants**: `sanity/lib/sanity.api.js` - Project ID, dataset, API version constants
 - **API token**: `sanity/lib/sanity.token.js` - Read token for authenticated requests
+- **Custom actions**: `sanity/actions/` - Custom document actions (e.g., OpenInPresentationAction)
 
 **Live Content & Data Fetching:**
 
@@ -683,6 +785,7 @@ On the free tier, manage draft and published states using standard draft convent
 - **For images**: Reference `sanity/lib/sanity.image.js` (`urlForImage`)
 - **For testing**: Use mocks from `tests/mocks/sanity-mocks.js`
 - **For migrations**: Consult `docs/SANITY_MIGRATIONS.md` before making schema changes
+- **For custom actions**: Check `sanity/actions/` and the `document.actions` resolver in `sanity.config.js`
 - **For configuration**: Check `sanity.config.js`, `sanity.cli.js`, and API files in `sanity/lib/`
 
 ## Best Practices
@@ -786,6 +889,7 @@ interface Post extends SanityDocument {
 
 ## Troubleshooting Tips
 
+- **After Sanity package upgrades**: Check project customizations (🔧) first — especially `sanity/actions/OpenInPresentationAction.js` and `sanity/presentation/resolve.js`, which depend on internal router APIs and URL conventions that may change between versions.
 - **String inequality or matching issues**: Check for stega encoding on the string. Use `stegaClean()` if necessary but be mindful of Visual Editing needs.
 - **Schema not updating**: Restart dev server, check for syntax errors
 - **GROQ returns null**: Verify document structure in Vision plugin
@@ -912,6 +1016,7 @@ Be proactive - if you're uncertain or the topic could have changed since your tr
 | Fetch data         | `sanity/lib/sanity.live.js` → `sanityFetch` |
 | Image URL          | `sanity/lib/sanity.image.js` → `urlFor`     |
 | Schema docs        | `schemas/documents/` or `schemas/objects/`  |
+| Custom actions     | `sanity/actions/`                           |
 | Migration guide    | `docs/SANITY_MIGRATIONS.md`                 |
 | Testing patterns   | `docs/TESTING_GUIDE.md`                     |
 | Live Content setup | `docs/SANITY_LIVE_DRAFT_MODE.md`            |
