@@ -1,6 +1,8 @@
 import { GiHouse } from 'react-icons/gi'
 import { defineArrayMember, defineType, defineField } from 'sanity'
 
+import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
+
 export default defineType({
   name: 'landingPage',
   title: 'Landing Page',
@@ -22,6 +24,17 @@ export default defineType({
       description:
         "This is the text for the subtitle beneath the banner. Leave it empty if you don't want any to appear.",
       type: 'text',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'Meta-description',
+      description:
+        'A brief description (one or two sentences) of this page for search engines and social media previews. Should be between 40 and 200 characters.',
+      type: 'text',
+      components: {
+        input: TextInputWithCharCount,
+      },
+      validation: [(Rule) => Rule.required(), (Rule) => Rule.max(200), (Rule) => Rule.min(40)],
     }),
     defineField({
       name: 'slug',

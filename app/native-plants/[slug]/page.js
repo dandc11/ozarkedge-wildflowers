@@ -15,6 +15,42 @@ import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
 import { PLANT_PAGE_SECTIONS, IMG_SIZES } from '../../../utilities/constants'
 import { GET_ALL_NATIVE_PLANT_PATHS_QUERY, GET_PLANT_PAGE_DATA } from '../../../sanity/lib/queries'
 import { sanityFetch } from '../../../sanity/lib/sanity.live'
+import { urlForImage } from '../../../sanity/lib/sanity.image'
+
+/**
+ * Generates metadata for an individual plant page using Sanity data.
+ */
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params
+  const { data: pageData } = await sanityFetch({
+    query: GET_PLANT_PAGE_DATA,
+    params: resolvedParams,
+    stega: false,
+  })
+
+  if (!pageData?._id) {
+    return { title: 'Plant Not Found' }
+  }
+
+  const commonName = stegaClean(pageData.plantName?.commonName) || 'Native Plant'
+  const botanicalName = stegaClean(pageData.plantName?.botanicalName) || ''
+  const title = botanicalName ? `${commonName} (${botanicalName})` : commonName
+  const description = stegaClean(pageData.metaDescription) || undefined
+  const ogImageSource = pageData.bannerImage || pageData.previewImage
+  const ogImage = ogImageSource
+    ? urlForImage(ogImageSource, { width: 1200, height: 630 })?.url()
+    : undefined
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
+  }
+}
 
 /**
  * Generate the static params for the page.

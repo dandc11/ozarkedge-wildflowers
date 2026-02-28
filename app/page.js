@@ -15,6 +15,33 @@ import {
   GET_LANDING_PAGE_DATA_QUERY,
 } from '../sanity/lib/queries'
 import { sanityFetch } from '../sanity/lib/sanity.live'
+import { urlForImage } from '../sanity/lib/sanity.image'
+
+/**
+ * Generates metadata for the home page using landing page data from Sanity.
+ */
+export async function generateMetadata() {
+  const { data } = await sanityFetch({
+    query: GET_LANDING_PAGE_DATA_QUERY,
+    stega: false,
+  })
+  const landingPageData = data?.[0] ?? null
+  const title = stegaClean(landingPageData?.titleText) || 'Ozarkedge Wildflowers'
+  const description = stegaClean(landingPageData?.metaDescription) || undefined
+  const ogImage = landingPageData?.mainImage
+    ? urlForImage(landingPageData.mainImage, { width: 1200, height: 630 })?.url()
+    : undefined
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
+  }
+}
 
 /**
  * @param {object} pageProps - props for the page

@@ -9,7 +9,7 @@ import { DisableDraftMode } from '../components/DisableDraftMode'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import { GET_MENU_ITEMS_QUERY } from '../sanity/lib/queries'
+import { GET_MENU_ITEMS_QUERY, GET_SITE_SETTINGS_QUERY } from '../sanity/lib/queries'
 import { getCurrentSeason } from '../utilities/helperUtil'
 import { sanityFetch } from '../sanity/lib/sanity.live'
 
@@ -66,7 +66,18 @@ export default async function RootLayout({ children }) {
 
 // Next.js Metadata API for app router
 export const metadata = {
-  title: 'Ozarkedge Wildflowers',
+  metadataBase: new URL('https://ozarkedgewildflowers.com'),
+  title: {
+    default: 'Ozarkedge Wildflowers | Native Plants of Arkansas',
+    template: '%s | Ozarkedge Wildflowers',
+  },
+  description:
+    'Discover native wildflowers of the Arkansas Ozarks — seasonal guides, plant profiles, and field photography from Ozarkedge.',
+  openGraph: {
+    siteName: 'Ozarkedge Wildflowers',
+    locale: 'en_US',
+    type: 'website',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
