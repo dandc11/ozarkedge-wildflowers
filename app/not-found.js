@@ -6,6 +6,11 @@ import { NOT_FOUND_PAGE_QUERY } from '../sanity/lib/queries'
 import PortTextWrapper from '../components/PortTextWrapper'
 import ResponsiveImage from '../components/ResponsiveImage'
 
+export const metadata = {
+  title: 'Page Not Found',
+  robots: { index: false, follow: false },
+}
+
 export default async function NotFound() {
   const { isEnabled: isDraftMode } = await draftMode()
   const notFoundPageQueryResponse = await sanityFetch({

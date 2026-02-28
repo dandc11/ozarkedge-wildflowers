@@ -14,6 +14,28 @@ import {
 import { IMG_SIZES } from '../../utilities/constants'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 
+/**
+ * Generates metadata for the native plants list page.
+ */
+export async function generateMetadata() {
+  const { data } = await sanityFetch({
+    query: GET_PLANT_LIST_PAGE_DATA_QUERY,
+    stega: false,
+  })
+  const pageData = data?.[0] ?? null
+  const title = stegaClean(pageData?.pageTitle) || 'Native Wildflowers at Ozarkedge'
+  const description = stegaClean(pageData?.metaDescription) || undefined
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+    },
+  }
+}
+
 const NativePlantPage = async () => {
   const { isEnabled: isDraftMode } = await draftMode()
   const nativePlantPageQueryResponse = await sanityFetch({
@@ -35,7 +57,7 @@ const NativePlantPage = async () => {
   return (
     <div className={`plant-list-page-content nav-${menuButtonColor}`}>
       <div className="plant-list-header relative ">
-        <HeadingDisplay absolute headingClassName={'text-display'}>
+        <HeadingDisplay absolute headingLevel={1} headingClassName={'text-display'}>
           <span
             className={cx('no-wrap', {
               'text-light': menuButtonColor === 'light',

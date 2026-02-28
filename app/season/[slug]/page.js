@@ -13,6 +13,40 @@ import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
 import { GET_ALL_SEASON_PATHS_QUERY, GET_SEASON_PAGE_DATA_QUERY } from '../../../sanity/lib/queries'
 import { IMG_SIZES } from '../../../utilities/constants'
 import { sanityFetch } from '../../../sanity/lib/sanity.live'
+import { urlForImage } from '../../../sanity/lib/sanity.image'
+
+/**
+ * Generates metadata for a season page using Sanity data.
+ */
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params
+  const { data: pageData } = await sanityFetch({
+    query: GET_SEASON_PAGE_DATA_QUERY,
+    params: resolvedParams,
+    stega: false,
+  })
+
+  if (!pageData?._id) {
+    return { title: 'Season Not Found' }
+  }
+
+  const seasonName = stegaClean(pageData.seasonName) || 'Season'
+  const title = `${seasonName.charAt(0).toUpperCase() + seasonName.slice(1)} Wildflowers`
+  const description = stegaClean(pageData.metaDescription) || undefined
+  const ogImage = pageData.mainImage
+    ? urlForImage(pageData.mainImage, { width: 1200, height: 630 })?.url()
+    : undefined
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
+  }
+}
 
 /**
  * Generate the static params for the page.
@@ -125,6 +159,7 @@ const SeasonPage = async (props) => {
               <HeadingDisplay
                 className={cx(`text-right`)}
                 absolute
+                headingLevel={1}
                 headingClassName={'text-display'}
               >
                 {seasonName}
