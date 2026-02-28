@@ -12,6 +12,33 @@ const PortTextWrapper = dynamic(() => import('../../components/PortTextWrapper')
 import ResponsiveImage from '../../components/ResponsiveImage'
 import { GET_ABOUT_PAGE_DATA_QUERY } from '../../sanity/lib/queries'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
+import { urlForImage } from '../../sanity/lib/sanity.image'
+
+/**
+ * Generates metadata for the about page using Sanity data.
+ */
+export async function generateMetadata() {
+  const { data } = await sanityFetch({
+    query: GET_ABOUT_PAGE_DATA_QUERY,
+    stega: false,
+  })
+  const aboutPageData = data?.[0] ?? null
+  const title = 'About Ozarkedge'
+  const description = stegaClean(aboutPageData?.metaDescription) || undefined
+  const ogImage = aboutPageData?.mainImage
+    ? urlForImage(aboutPageData.mainImage, { width: 1200, height: 630 })?.url()
+    : undefined
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
+  }
+}
 
 const AboutPage = async () => {
   const { isEnabled: isDraftMode } = await draftMode()

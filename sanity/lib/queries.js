@@ -17,6 +17,7 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
   _id,
   titleText,
   subtitleText,
+  metaDescription,
   slug,
   menuButtonColor,
   buttonOne {
@@ -46,6 +47,7 @@ export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 {
   id,
   pageTitle,
+  metaDescription,
   menuButtonColor,
   mainImage {
     ...,
@@ -211,7 +213,7 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
     _type,
     id,
     menuButtonColor,
-    metaDescription,
+    "metaDescription": aboutTeaserText,
     slug,
     mainImage {
       ...,
@@ -342,6 +344,36 @@ export const GET_PLANT_PAGE_DATA = groq`
     }
   }
 `
+
+// retrieves site settings for metadata fallbacks
+export const GET_SITE_SETTINGS_QUERY = groq`*[_type == "siteSettings"][0]{
+  title,
+  description,
+  keywords
+}`
+
+// retrieves all plant slugs, names, images, and update times for the sitemap
+export const GET_ALL_PLANTS_SITEMAP_DATA_QUERY = groq`*[_type == "nativePlant" && defined(slug.current)]{
+  "slug": slug.current,
+  "updatedAt": _updatedAt,
+  "image": previewImage.asset->url
+}`
+
+// retrieves all season slugs and update times for the sitemap
+export const GET_ALL_SEASONS_SITEMAP_DATA_QUERY = groq`*[_type == "season" && defined(slug.current)]{
+  "slug": slug.current,
+  "updatedAt": _updatedAt
+}`
+
+// retrieves the metaDescription and mainImage for the landing page (used in generateMetadata)
+export const GET_LANDING_PAGE_METADATA_QUERY = groq`*[_type == "landingPage"][0]{
+  titleText,
+  metaDescription,
+  mainImage {
+    alt,
+    asset->{ url }
+  }
+}`
 
 // gets all document data for the not found page
 export const NOT_FOUND_PAGE_QUERY = groq`*[ _type == "notFoundPage" ] {
