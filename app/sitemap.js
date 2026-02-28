@@ -56,7 +56,7 @@ export default async function sitemap() {
       changeFrequency: 'monthly',
       priority: 0.8,
       ...(plant.image && {
-        images: [plant.image],
+        images: [{ url: plant.image }],
       }),
     }))
 
