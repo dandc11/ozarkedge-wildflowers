@@ -9,7 +9,7 @@ import { DisableDraftMode } from '../components/DisableDraftMode'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import { GET_MENU_ITEMS_QUERY, GET_SITE_SETTINGS_QUERY } from '../sanity/lib/queries'
+import { GET_MENU_ITEMS_QUERY } from '../sanity/lib/queries'
 import { getCurrentSeason } from '../utilities/helperUtil'
 import { sanityFetch } from '../sanity/lib/sanity.live'
 
