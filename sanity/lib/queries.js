@@ -251,6 +251,11 @@ export const GET_PLANT_PAGE_DATA = groq`
     menuButtonColor,
     metaDescription,
     floweringSeason,
+    previewImage {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
+    },
     lede[]{
       _type == "teaserSection" => ${teaserSectionFields()},
       _type == "figure" => ${figureFields()},
@@ -363,16 +368,6 @@ export const GET_ALL_PLANTS_SITEMAP_DATA_QUERY = groq`*[_type == "nativePlant" &
 export const GET_ALL_SEASONS_SITEMAP_DATA_QUERY = groq`*[_type == "season" && defined(slug.current)]{
   "slug": slug.current,
   "updatedAt": _updatedAt
-}`
-
-// retrieves the metaDescription and mainImage for the landing page (used in generateMetadata)
-export const GET_LANDING_PAGE_METADATA_QUERY = groq`*[_type == "landingPage"][0]{
-  titleText,
-  metaDescription,
-  mainImage {
-    alt,
-    asset->{ url }
-  }
 }`
 
 // gets all document data for the not found page

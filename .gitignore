@@ -36,5 +36,8 @@ yarn-error.log*
 .env
 studio/.env.development
 
+# editor/IDE config (developer-specific)
+.vscode/mcp.json
+
 # vercel
 .vercel
