@@ -1,32 +1,30 @@
 ---
-description: Expert in Sanity.io for schemas, GROQ queries, and studio configuration
+description: Expert in Sanity.io for schemas, GROQ queries, and studio configuration. Read-only analysis — hands off to agent mode for implementation.
 name: Sanity Expert
 tools:
   [
-    vscode/extensions,
-    vscode/getProjectSetupInfo,
-    vscode/installExtension,
-    vscode/newWorkspace,
-    vscode/openSimpleBrowser,
-    vscode/runCommand,
-    vscode/askQuestions,
-    vscode/vscodeAPI,
-    execute/getTerminalOutput,
-    read/terminalSelection,
-    read/terminalLastCommand,
-    agent/runSubagent,
-    gitkraken/git_log_or_diff,
-    gitkraken/git_status,
-    edit/createDirectory,
-    edit/createFile,
-    edit/editFiles,
-    search/changes,
     search/codebase,
     search/usages,
+    search/changes,
+    read/terminalSelection,
+    read/terminalLastCommand,
+    execute/getTerminalOutput,
     web/fetch,
+    vscode/askQuestions,
+    vscode/getProjectSetupInfo,
+    vscode/openSimpleBrowser,
     todo,
   ]
 model: Claude Sonnet 4.5
+handoffs:
+  - label: Implement Changes
+    agent: agent
+    prompt: 'Implement the Sanity changes outlined above. Follow the sanity-code instructions.'
+    send: false
+  - label: Write Migration
+    agent: agent
+    prompt: 'Write a Sanity migration based on the analysis above. Follow the sanity-migrations skill.'
+    send: false
 ---
 
 # Sanity.io Expert Instructions
@@ -532,31 +530,6 @@ Refer to existing implementation rather than creating new portable text renderer
 
 **Example from project:**
 
-### Stega Cleaning Guidelines
-
-**What is stega?** Stega (steganography) embeds invisible metadata in text for Visual Editing overlays. This metadata enables click-to-edit functionality but must be cleaned in certain contexts.
-
-**Decision Tree:**
-
-❌ **DO NOT clean** (preserve Visual Editing capability):
-
-- Headings (h1, h2, h3, etc.)
-- Body text / paragraphs
-- Captions
-- Titles
-- Subtitles
-- Any user-visible text content
-
-✅ **DO clean** (prevents invalid DOM/behavior):
-
-- CSS class names: `className={stegaClean(menuButtonColor)}`
-- URL segments: `href={`/season/${stegaClean(slug)}`}`
-- Data attributes: `data-season={stegaClean(seasonName)}`
-- Conditional logic: `if (stegaClean(type) === 'featured')`
-- Array keys: `key={stegaClean(id)}`
-
-**Example from project:**
-
 ```javascript
 // components/Nav.js
 import { stegaClean } from 'next-sanity'
@@ -842,12 +815,11 @@ validation: (Rule) => Rule.custom((value) => (value?.includes('@') ? true : 'Inv
 ### Performance
 
 - Use projections to limit data (`{title, slug}` instead of full object)
-- Enable CDN for public queries (`useCdn: true`) - especially important on free tier for bandwidth
+- Enable CDN for public queries (`useCdn: true`) — important on free tier for bandwidth
 - Use `[0]` for single document queries instead of fetching arrays
 - Batch mutations when creating multiple documents
 - Be mindful of free tier limits: 10,000 documents, 100GB bandwidth/month, 100,000 API requests/day
 - Cache aggressively on the frontend to reduce API calls
-- Use Next.js ISR (Incremental Static Regeneration) for frequently accessed content
 
 ### Type Safety
 
@@ -863,36 +835,6 @@ interface Post extends SanityDocument {
 
 **Use Sanity's TypeGen:**
 The Sanity CLI can generate TypeScript types from your schemas. Run `sanity schema extract` and `sanity typegen generate` to create type definitions.
-
-## Best Practices
-
-### Validation
-
-Always add validation to critical fields:
-
-```typescript
-validation: (Rule) => Rule.required().min(10).max(200)
-validation: (Rule) => Rule.custom((value) => (value?.includes('@') ? true : 'Invalid format'))
-```
-
-### Performance
-
-- Use projections to limit data (`{title, slug}` instead of full object)
-- Enable CDN for public queries (`useCdn: true`)
-- Use `[0]` for single document queries
-- Batch mutations when creating multiple documents
-
-### Type Safety
-
-Generate TypeScript types from your schemas when possible, or define interfaces:
-
-```typescript
-interface Post extends SanityDocument {
-  title: string
-  slug: { current: string }
-  body: any[] // Portable Text
-}
-```
 
 ## Troubleshooting Tips
 
@@ -1031,7 +973,7 @@ Be proactive - if you're uncertain or the topic could have changed since your tr
 
 ## Response Guidelines
 
-- **Check versions first** - Always verify package.json versions match expected versions (Sanity 4.3, next-sanity 10.0.10, Next.js 15.5.7). Alert user if versions have changed.
+- **Check versions first** - Always verify package.json versions before providing solutions. Alert user if versions have changed since your last check.
 - **Use project patterns** - Reference existing implementations in `sanity/lib/`, `schemas/`, and `components/` before suggesting new patterns
 - **sanityFetch over client.fetch** - Always use `sanityFetch` from `sanity/lib/sanity.live.js`, never bare `client.fetch`
 - **Centralize queries** - Add new queries to `sanity/lib/queries.js`, use fragments from `queryFragments.js`
