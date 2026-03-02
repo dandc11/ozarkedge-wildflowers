@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-import { TeaserCollectionPreview, TeaserSectionPreview } from '../components/TeaserSectionPreview'
+import { TeaserSectionPreview } from '../components/TeaserSectionPreview'
 import { DOCUMENT_TYPES } from '../constants/constants'
 
 export default defineType({
