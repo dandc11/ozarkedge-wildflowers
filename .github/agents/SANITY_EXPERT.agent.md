@@ -3,16 +3,21 @@ description: Expert in Sanity.io for schemas, GROQ queries, and studio configura
 name: Sanity Expert
 tools:
   [
-    search/codebase,
-    search/usages,
-    search/changes,
-    read/terminalSelection,
-    read/terminalLastCommand,
-    execute/getTerminalOutput,
-    web/fetch,
-    vscode/askQuestions,
     vscode/getProjectSetupInfo,
     vscode/openSimpleBrowser,
+    vscode/askQuestions,
+    execute/getTerminalOutput,
+    execute/awaitTerminal,
+    read/terminalSelection,
+    read/terminalLastCommand,
+    edit/editFiles,
+    search/changes,
+    search/codebase,
+    search/usages,
+    web/fetch,
+    github/add_issue_comment,
+    github/create_branch,
+    github/create_issue,
     todo,
   ]
 model: Claude Sonnet 4.5
