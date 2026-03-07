@@ -13,6 +13,7 @@ import {
 } from '../../sanity/lib/queries'
 import { IMG_SIZES } from '../../utilities/constants'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
+import { urlForImage } from '../../sanity/lib/sanity.image'
 
 /**
  * Generates metadata for the native plants list page.
@@ -25,6 +26,9 @@ export async function generateMetadata() {
   const pageData = data?.[0] ?? null
   const title = stegaClean(pageData?.pageTitle) || 'Native Wildflowers at Ozarkedge'
   const description = stegaClean(pageData?.metaDescription) || undefined
+  const ogImage = pageData?.mainImage
+    ? urlForImage(pageData.mainImage, { width: 1200, height: 630 })?.url()
+    : undefined
 
   return {
     title,
@@ -32,6 +36,7 @@ export async function generateMetadata() {
     openGraph: {
       title,
       description,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
     },
   }
 }

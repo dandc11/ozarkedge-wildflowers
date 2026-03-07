@@ -9,7 +9,7 @@ import { DisableDraftMode } from '../components/DisableDraftMode'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import { GET_MENU_ITEMS_QUERY } from '../sanity/lib/queries'
+import { GET_MENU_ITEMS_QUERY, GET_SITE_SETTINGS_QUERY } from '../sanity/lib/queries'
 import { getCurrentSeason } from '../utilities/helperUtil'
 import { sanityFetch } from '../sanity/lib/sanity.live'
 
@@ -65,30 +65,40 @@ export default async function RootLayout({ children }) {
 }
 
 // Next.js Metadata API for app router
-export const metadata = {
-  metadataBase: new URL('https://ozarkedgewildflowers.com'),
-  title: {
-    default: 'Ozarkedge Wildflowers | Native Plants of Arkansas',
-    template: '%s | Ozarkedge Wildflowers',
-  },
-  description:
-    'Discover native wildflowers of the Arkansas Ozarks — seasonal guides, plant profiles, and field photography from Ozarkedge.',
-  openGraph: {
-    siteName: 'Ozarkedge Wildflowers',
-    locale: 'en_US',
-    type: 'website',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/site.manifest',
+export async function generateMetadata() {
+  const { data: siteSettings } = await sanityFetch({
+    query: GET_SITE_SETTINGS_QUERY,
+    perspective: 'published',
+    stega: false,
+  })
+
+  return {
+    metadataBase: new URL('https://ozarkedgewildflowers.com'),
+    title: {
+      default: 'Ozarkedge Wildflowers | Native Plants of Arkansas',
+      template: '%s | Ozarkedge Wildflowers',
+    },
+    description:
+      siteSettings?.description ||
+      'Discover native wildflowers of the Arkansas Ozarks — seasonal guides, plant profiles, and field photography from Ozarkedge.',
+    keywords: siteSettings?.keywords ?? undefined,
+    openGraph: {
+      siteName: 'Ozarkedge Wildflowers',
+      locale: 'en_US',
+      type: 'website',
+    },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+        { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+        { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
+    manifest: '/site.manifest',
+  }
 }
 
 export const viewport = {
