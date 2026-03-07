@@ -6,7 +6,7 @@
 
 All workflows are in `.github/workflows/`:
 
-- **`auto-create-issue-branch.yml`** — Triggers when issues are created
+- **`create-branch-on-issue.yml`** — Triggers when issues are created
   - Automatically creates a branch: `feature/issue-{NUMBER}-{slug}`
   - Parses issue title and generates kebab-case slug
   - Posts comment on issue with branch link
@@ -137,13 +137,13 @@ If anything fails:
 
 ## 📋 Checklist: Implementation Summary
 
-- ✅ Created `.github/workflows/auto-create-issue-branch.yml`
+- ✅ Created `.github/workflows/create-branch-on-issue.yml`
 - ✅ Created `.github/workflows/enforce-branch-naming.yml`
 - ✅ Created `.github/workflows/validate-pr-linking.yml`
 - ✅ Created `.husky/pre-push` (made executable)
 - ✅ Updated `CONTRIBUTING.md` with complete workflow guide
 - ✅ Updated all 4 issue templates with auto-create note
-- ✅ Optional helper script: `scripts/create-issue-branch.sh` (already made executable)
+- ✅ Optional helper script: `scripts/create-issue-branch.sh` (made executable)
 
 - ⏳ **MANUAL:** Configure branch protection rules on `main` (see instructions above)
 
@@ -212,9 +212,9 @@ A: See "Troubleshooting" section in CONTRIBUTING.md for options (rename branch, 
 ## 🎯 Next Steps
 
 1. ✅ Review the implementation (all files are ready)
-2. ⏳ **Configure branch protection rules** on GitHub repo (Settings → Branches → main)
-3. 📢 Communicate to team: Share CONTRIBUTING.md
-4. 🧪 Test with a dummy issue
+2. ✅ Tested end-to-end — issue #186 and #187 confirmed working
+3. ⏳ **Configure branch protection rules** on GitHub repo (Settings → Branches → main)
+4. 📢 Communicate to team: Share CONTRIBUTING.md
 5. 🚀 Start using! All team members benefit from auto-created branches and automatic validation
 
 ---
