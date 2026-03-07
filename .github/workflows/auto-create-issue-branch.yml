@@ -1,0 +1,86 @@
+name: 'Auto-Create Issue Branch'
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-branch:
+    name: Create branch from issue
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create branch from issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          # Generate slug from issue title
+          # 1. Convert to lowercase
+          # 2. Remove special characters (keep only alphanumeric and hyphens)
+          # 3. Replace spaces with hyphens
+          # 4. Collapse multiple hyphens
+          # 5. Trim leading/trailing hyphens
+          # 6. Limit to 40 chars
+          SLUG=$(echo "$ISSUE_TITLE" | \
+            tr '[:upper:]' '[:lower:]' | \
+            sed 's/[^a-z0-9 ]//g' | \
+            sed 's/ /-/g' | \
+            sed 's/-\+/-/g' | \
+            sed 's/^-//;s/-$//' | \
+            cut -c1-40)
+
+          BRANCH_NAME="feature/issue-${ISSUE_NUMBER}-${SLUG}"
+
+          echo "Creating branch: $BRANCH_NAME"
+
+          # Check if branch already exists
+          if git rev-parse --verify origin/"$BRANCH_NAME" >/dev/null 2>&1; then
+            echo "Branch already exists: $BRANCH_NAME"
+            gh issue comment "$ISSUE_NUMBER" --body "✅ Branch already exists: [\`$BRANCH_NAME\`](https://github.com/${{ github.repository }}/tree/$BRANCH_NAME)
+
+To get started:
+\`\`\`bash
+git fetch origin
+git checkout $BRANCH_NAME
+\`\`\`"
+            exit 0
+          fi
+
+          # Create the branch from main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          git push -u origin "$BRANCH_NAME"
+
+          # Comment on the issue with branch info
+          gh issue comment "$ISSUE_NUMBER" --body "✅ Branch created: [\`$BRANCH_NAME\`](https://github.com/${{ github.repository }}/tree/$BRANCH_NAME)
+
+To get started:
+\`\`\`bash
+git fetch origin
+git checkout $BRANCH_NAME
+\`\`\`
+
+When you're ready to submit your work, create a PR with the title:
+\`\`\`
+Closes #$ISSUE_NUMBER: <description>
+\`\`\`
+
+This will automatically link your PR to this issue."
+
+      - name: Assign issue to author
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" --add-assignee "${{ github.event.issue.user.login }}"

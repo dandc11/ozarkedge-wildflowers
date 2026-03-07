@@ -3,6 +3,14 @@ description: Create a new ticket for a new feature request
 title: '📖💡 Research - <title>'
 labels: ['research']
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🤖 Automated Branch Creation
+
+        When you submit this research issue, GitHub Actions will **automatically create a branch** in the format `feature/issue-{NUMBER}-{slug}` and post a comment with the branch link. You don't need to create the branch manually!
+
+        See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full workflow.
   - type: input
     id: start_date
     attributes:

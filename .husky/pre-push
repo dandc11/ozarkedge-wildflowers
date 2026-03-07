@@ -1,0 +1,65 @@
+#!/bin/bash
+
+##
+# Git Pre-Push Hook: Validate Branch Naming
+# 
+# This hook runs before git push and validates that the current branch
+# follows the naming convention: feature/issue-{NUMBER}-{slug}
+#
+# If validation fails, the push is prevented with a helpful error message.
+#
+# Location: .husky/pre-push
+# Installed by: husky install
+#
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Get the current branch name
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Skip validation for main branch
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+  exit 0
+fi
+
+echo -e "${BLUE}🔍 Validating branch name before push...${NC}"
+echo "   Branch: $BRANCH"
+
+# Check if branch matches the required pattern
+# Pattern: feature/issue-{NUMBER}-{slug}
+# Regex: ^feature/issue-[0-9]+-[a-z0-9](-?[a-z0-9])*$
+if ! [[ "$BRANCH" =~ ^feature/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
+  echo ""
+  echo -e "${RED}❌ PUSH REJECTED: Invalid branch name${NC}"
+  echo ""
+  echo "Expected format: feature/issue-{NUMBER}-{description-slug}"
+  echo ""
+  echo "Examples:"
+  echo "  ✅ feature/issue-42-add-plant-filter"
+  echo "  ✅ feature/issue-15-fix-mobile-layout"
+  echo "  ✅ feature/issue-8-update-tests"
+  echo ""
+  echo "Your branch: $BRANCH"
+  echo ""
+  echo "To fix:"
+  echo "  1. Rename your branch:"
+  echo "     git branch -m <new-branch-name>"
+  echo ""
+  echo "  2. Or create a new branch with the correct format:"
+  echo "     git checkout -b feature/issue-{NUMBER}-{description}"
+  echo "     git cherry-pick <commits-from-old-branch>"
+  echo ""
+  exit 1
+fi
+
+# Extract issue number
+ISSUE_NUMBER=$(echo "$BRANCH" | grep -oE 'issue-[0-9]+' | grep -oE '[0-9]+')
+
+echo -e "${GREEN}✅ Branch name is valid${NC}"
+echo "   Issue: #$ISSUE_NUMBER"
+echo ""
