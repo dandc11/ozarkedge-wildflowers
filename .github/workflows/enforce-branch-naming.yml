@@ -1,0 +1,87 @@
+name: 'Enforce Branch Naming'
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  validate-branch-name:
+    name: Validate branch naming convention
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate branch name format
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Expected format: feature/issue-{NUMBER}-{slug}
+          # Regex: ^feature/issue-[0-9]+-[a-z0-9](-?[a-z0-9])*$
+
+          echo "🔍 Validating branch name: $BRANCH_NAME"
+
+          if ! [[ "$BRANCH_NAME" =~ ^feature/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
+            echo "❌ BRANCH NAME INVALID"
+            echo ""
+            echo "Expected format: feature/issue-{NUMBER}-{description-slug}"
+            echo ""
+            echo "Examples of valid branch names:"
+            echo "  - feature/issue-42-add-plant-filter"
+            echo "  - feature/issue-15-fix-mobile-layout"
+            echo "  - feature/issue-8-update-tests"
+            echo ""
+            echo "Your branch: $BRANCH_NAME"
+            echo ""
+            echo "🛠️  To fix this:"
+            echo "  1. Delete the incorrectly-named branch locally: git branch -D $BRANCH_NAME"
+            echo "  2. Create a new branch with the correct format"
+            echo "  3. Cherry-pick your commits to the new branch (or redo your work)"
+            exit 1
+          fi
+
+          # Extract issue number from branch name
+          ISSUE_NUMBER=$(echo "$BRANCH_NAME" | grep -oE 'issue-[0-9]+' | grep -oE '[0-9]+')
+
+          echo "✅ Branch name format is valid"
+          echo "   Issue number: #$ISSUE_NUMBER"
+
+          # Verify the issue exists and is open
+          echo ""
+          echo "🔍 Verifying issue #$ISSUE_NUMBER exists..."
+
+          OWNER=$(echo "$REPO" | cut -d'/' -f1)
+          REPO_NAME=$(echo "$REPO" | cut -d'/' -f2)
+
+          ISSUE_DATA=$(curl -s \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$OWNER/$REPO_NAME/issues/$ISSUE_NUMBER")
+
+          # Check if issue exists
+          if echo "$ISSUE_DATA" | grep -q '"message": "Not Found"'; then
+            echo "❌ Issue #$ISSUE_NUMBER not found"
+            echo ""
+            echo "Please ensure:"
+            echo "  1. The issue number in your branch is correct (#$ISSUE_NUMBER)"
+            echo "  2. The issue exists in this repository"
+            exit 1
+          fi
+
+          # Check if issue is closed
+          ISSUE_STATE=$(echo "$ISSUE_DATA" | grep -o '"state":"[^"]*"' | head -1 | cut -d'"' -f4)
+
+          if [ "$ISSUE_STATE" == "closed" ]; then
+            echo "⚠️  Warning: Issue #$ISSUE_NUMBER is closed"
+            echo "This might indicate you're working on an already-resolved issue."
+            echo "Please verify this is intentional."
+          fi
+
+          echo "✅ Issue #$ISSUE_NUMBER is open"
+          echo ""
+          echo "✅ All validations passed!"

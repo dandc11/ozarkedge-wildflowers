@@ -6,6 +6,14 @@ body:
   - type: markdown
     attributes:
       value: |
+        ### 🤖 Automated Branch Creation
+
+        When you submit this update issue, GitHub Actions will **automatically create a branch** in the format `feature/issue-{NUMBER}-{slug}` and post a comment with the branch link. You don't need to create the branch manually!
+
+        See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full workflow.
+  - type: markdown
+    attributes:
+      value: |
         ### Helpful Documentation
         - [Sanity Upgrade Guide](https://www.sanity.io/docs/studio/upgrade)
         - [Next.js](https://nextjs.org/docs)

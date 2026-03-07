@@ -1,0 +1,110 @@
+name: 'Validate PR Linking'
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+
+jobs:
+  validate-pr-linking:
+    name: Validate PR is linked to issue
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract and validate issue number
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "🔍 Validating PR #$PR_NUMBER linking..."
+          echo ""
+          echo "Branch: $BRANCH_NAME"
+          echo "PR Title: $PR_TITLE"
+
+          # Extract issue number from branch name
+          if ! [[ "$BRANCH_NAME" =~ ^feature/issue-([0-9]+) ]]; then
+            echo "❌ Could not extract issue number from branch name"
+            echo "Branch should follow format: feature/issue-{NUMBER}-{slug}"
+            exit 1
+          fi
+
+          ISSUE_NUMBER_FROM_BRANCH="${BASH_REMATCH[1]}"
+          echo "ℹ️  Issue number from branch: #$ISSUE_NUMBER_FROM_BRANCH"
+
+          # Check if PR title contains "Closes #NUM" or "Fixes #NUM"
+          if [[ "$PR_TITLE" =~ [Cc]loses\ #([0-9]+) ]]; then
+            ISSUE_NUMBER_FROM_TITLE="${BASH_REMATCH[1]}"
+            echo "ℹ️  Issue number from PR title: #$ISSUE_NUMBER_FROM_TITLE"
+
+            # Verify they match
+            if [ "$ISSUE_NUMBER_FROM_BRANCH" != "$ISSUE_NUMBER_FROM_TITLE" ]; then
+              echo ""
+              echo "❌ MISMATCH: Branch references issue #$ISSUE_NUMBER_FROM_BRANCH but PR title references #$ISSUE_NUMBER_FROM_TITLE"
+              echo ""
+              echo "Fix this by updating your PR title to:"
+              echo "  Closes #$ISSUE_NUMBER_FROM_BRANCH: <description>"
+              exit 1
+            fi
+          elif [[ "$PR_TITLE" =~ [Ff]ixes\ #([0-9]+) ]]; then
+            ISSUE_NUMBER_FROM_TITLE="${BASH_REMATCH[1]}"
+            echo "ℹ️  Issue number from PR title: #$ISSUE_NUMBER_FROM_TITLE"
+
+            if [ "$ISSUE_NUMBER_FROM_BRANCH" != "$ISSUE_NUMBER_FROM_TITLE" ]; then
+              echo ""
+              echo "❌ MISMATCH: Branch references issue #$ISSUE_NUMBER_FROM_BRANCH but PR title references #$ISSUE_NUMBER_FROM_TITLE"
+              echo ""
+              echo "Fix this by updating your PR title to:"
+              echo "  Fixes #$ISSUE_NUMBER_FROM_BRANCH: <description>"
+              exit 1
+            fi
+          else
+            echo ""
+            echo "❌ PR title must reference the issue"
+            echo ""
+            echo "Update your PR title to start with one of:"
+            echo "  - Closes #$ISSUE_NUMBER_FROM_BRANCH: <description>"
+            echo "  - Fixes #$ISSUE_NUMBER_FROM_BRANCH: <description>"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ PR title correctly references issue #$ISSUE_NUMBER_FROM_BRANCH"
+
+      - name: Auto-link PR to issue (if not already linked)
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            const prNumber = context.issue.number;
+
+            // Extract issue number from branch
+            const match = branch.match(/issue-(\d+)/);
+            if (!match) return;
+
+            const issueNumber = parseInt(match[1]);
+
+            // Check if PR is already linked to an issue
+            const pr = context.payload.pull_request;
+            if (pr && pr.body && pr.body.includes(`#${issueNumber}`)) {
+              console.log(`✅ PR #${prNumber} is already linked to issue #${issueNumber}`);
+              return;
+            }
+
+            console.log(`🔗 Auto-linking PR #${prNumber} to issue #${issueNumber}`);
+
+            // The PR is automatically linked by GitHub when the title contains "Closes #NUM"
+            // This step is here for documentation/logging purposes
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              labels: ['ready-for-review']
+            }).catch(() => {
+              // Label might not exist, that's okay
+            });
