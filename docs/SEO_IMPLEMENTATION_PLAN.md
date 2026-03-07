@@ -1,7 +1,7 @@
 # SEO Infrastructure Implementation Plan
 
 **Branch:** `178-seo-content-author-tasks`  
-**Prerequisite for:** Issue #181 (SEO audit / structured data)  
+**Prerequisite for:** Issue #181 (Google Search Console setup)  
 **Related issues:** #177 (dev tasks), #178 (content author tasks)
 
 ---
