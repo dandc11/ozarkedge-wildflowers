@@ -1,10 +1,5 @@
 import { GiFlowers } from 'react-icons/gi'
-import {
-  defineArrayMember,
-  defineType,
-  defineField,
-  defineConfig,
-} from 'sanity'
+import { defineArrayMember, defineType, defineField, defineConfig } from 'sanity'
 
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
@@ -33,11 +28,14 @@ export default defineConfig({
       },
       validation: [
         (Rule) => Rule.required(),
-        (Rule) => Rule.max(200),
         (Rule) => Rule.min(40),
+        (Rule) =>
+          Rule.max(155).warning(
+            'Over 155 characters — Google may truncate this in search results.',
+          ),
       ],
       description:
-        'Add very brief description (one or two sentences) for search engines and teaser sections on the site. Should be between 40 and 200 characters.',
+        'A brief description (one or two sentences) for search engines and teaser sections. Aim for 40–155 characters.',
     }),
     defineField({
       name: 'mainImage',
@@ -72,8 +70,7 @@ export default defineConfig({
     defineField({
       name: 'menuButtonColor',
       title: 'Menu Button Color',
-      description:
-        'Choose light when using a dark image and dark when using a light image.',
+      description: 'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
       options: {
         list: ['light', 'dark'],
