@@ -56,8 +56,7 @@ export default defineType({
     defineField({
       name: 'slug',
       title: 'Slug',
-      description:
-        "How this page's name will appear in the url. Keep it short and avoid spaces.",
+      description: "How this page's name will appear in the url. Keep it short and avoid spaces.",
       type: 'slug',
       validation: (Rule) => Rule.required(),
       group: 'metadata',
@@ -65,8 +64,7 @@ export default defineType({
       options: {
         source: 'seasonName',
         validation: (Rule) => [Rule.unique()],
-        slugify: (input) =>
-          input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
       },
     }),
     defineField({
@@ -77,19 +75,21 @@ export default defineType({
       },
       validation: [
         (Rule) => Rule.required(),
-        (Rule) => Rule.max(200),
         (Rule) => Rule.min(40),
+        (Rule) =>
+          Rule.max(155).warning(
+            'Over 155 characters — Google may truncate this in search results.',
+          ),
       ],
       group: 'metadata',
       description:
-        'Add very brief description (one or two sentences) for search engines and teaser sections on the site. Should be between 40 and 200 characters.',
+        'A brief description (one or two sentences) for search engines and teaser sections. Aim for 40–155 characters.',
       type: 'text',
     }),
     defineField({
       name: 'menuButtonColor',
       title: 'Menu Button Color',
-      description:
-        'Choose light when using a dark image and dark when using a light image.',
+      description: 'Choose light when using a dark image and dark when using a light image.',
       type: 'string',
       group: 'images',
       options: {

@@ -312,9 +312,16 @@ export default defineType({
       components: {
         input: TextInputWithCharCount,
       },
-      validation: [(Rule) => Rule.required(), (Rule) => Rule.max(200), (Rule) => Rule.min(40)],
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.min(40),
+        (Rule) =>
+          Rule.max(155).warning(
+            'Over 155 characters — Google may truncate this in search results.',
+          ),
+      ],
       description:
-        'Add very brief description (one or two sentences) of this plant for search engines and to be presented when it is being featured on the site as a teaser section. Should be between 40 and 200 characters. Example: "Learn abou thte native Wild Hyacinth with starry yellow anthers, pale pblue flowers and gentle aroma. Find out about its habitat, pollinators, conservation status and plants growing nearby."',
+        'A brief description (one or two sentences) of this plant for search engines and teaser sections. Aim for 40–155 characters.',
       group: 'metadata',
     }),
     defineField({

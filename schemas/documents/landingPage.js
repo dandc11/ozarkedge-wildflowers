@@ -29,12 +29,19 @@ export default defineType({
       name: 'metaDescription',
       title: 'Meta-description',
       description:
-        'A brief description (one or two sentences) of this page for search engines and social media previews. Should be between 40 and 200 characters.',
+        'A brief description (one or two sentences) of this page for search engines and social media previews. Aim for 40–155 characters.',
       type: 'text',
       components: {
         input: TextInputWithCharCount,
       },
-      validation: [(Rule) => Rule.required(), (Rule) => Rule.max(200), (Rule) => Rule.min(40)],
+      validation: [
+        (Rule) => Rule.required(),
+        (Rule) => Rule.min(40),
+        (Rule) =>
+          Rule.max(155).warning(
+            'Over 155 characters — Google may truncate this in search results.',
+          ),
+      ],
     }),
     defineField({
       name: 'slug',

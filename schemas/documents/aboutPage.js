@@ -1,5 +1,5 @@
 import { GiOakLeaf } from 'react-icons/gi'
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 import { defineUrlResolver } from 'sanity-plugin-iframe-pane'
 
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
@@ -21,7 +21,8 @@ export default defineType({
     defineField({
       name: 'mainImage',
       title: 'Main Image',
-      description: 'Provide an image for the background of the landing page. This will display on desktop (wide) screen sizes. Aspect ratio 2:1, is roughly appropriate.',
+      description:
+        'Provide an image for the background of the landing page. This will display on desktop (wide) screen sizes. Aspect ratio 2:1, is roughly appropriate.',
       type: 'mainImage',
     }),
     defineField({
@@ -62,11 +63,14 @@ export default defineType({
       },
       validation: [
         (Rule) => Rule.required(),
-        (Rule) => Rule.max(200),
         (Rule) => Rule.min(40),
+        (Rule) =>
+          Rule.max(155).warning(
+            'Over 155 characters — Google may truncate this in search results.',
+          ),
       ],
       description:
-      'Add very brief description (one or two sentences) for search engines and teaser sections on the site. Should be between 40 and 200 characters.',
+        'A brief description (one or two sentences) for search engines and teaser sections. Aim for 40–155 characters.',
       type: 'text',
     }),
     defineField({
@@ -78,8 +82,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
       options: {
         validation: (Rule) => [Rule.unique()],
-        slugify: (input) =>
-          input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
       },
     }),
   ],
