@@ -1,0 +1,113 @@
+name: Create Branch on Issue
+
+on:
+  issues:
+    types: [opened, reopened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to create branch for
+        required: true
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+    steps:
+      - name: Create branch and comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.payload.issue?.number
+              ?? parseInt(context.payload.inputs?.issue_number);
+
+            if (!issueNumber) {
+              core.setFailed('Could not determine issue number');
+              return;
+            }
+
+            const { owner, repo } = context.repo;
+
+            // Fetch issue to get title (and assignee)
+            const { data: issue } = await github.rest.issues.get({
+              owner, repo, issue_number: issueNumber
+            });
+
+            // Generate branch slug from title
+            const slug = issue.title
+              .toLowerCase()
+              .replace(/[^a-z0-9 ]/g, '')
+              .trim()
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-')
+              .slice(0, 40)
+              .replace(/-$/, '');
+
+            const branchName = `feature/issue-${issueNumber}-${slug}`;
+
+            // Get SHA of main
+            const { data: mainRef } = await github.rest.git.getRef({
+              owner, repo, ref: 'heads/main'
+            });
+            const sha = mainRef.object.sha;
+
+            // Check if branch already exists
+            let branchExists = false;
+            try {
+              await github.rest.git.getRef({ owner, repo, ref: `heads/${branchName}` });
+              branchExists = true;
+            } catch (e) {
+              // 404 = doesn't exist, that's expected
+            }
+
+            if (branchExists) {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: issueNumber,
+                body: [
+                  `Branch already exists: \`${branchName}\``,
+                  '',
+                  'To get started:',
+                  '```bash',
+                  'git fetch origin',
+                  `git checkout ${branchName}`,
+                  '```'
+                ].join('\n')
+              });
+              return;
+            }
+
+            // Create the branch
+            await github.rest.git.createRef({
+              owner, repo,
+              ref: `refs/heads/${branchName}`,
+              sha
+            });
+
+            // Comment on the issue
+            await github.rest.issues.createComment({
+              owner, repo, issue_number: issueNumber,
+              body: [
+                `Branch created: \`${branchName}\``,
+                '',
+                'To get started:',
+                '```bash',
+                'git fetch origin',
+                `git checkout ${branchName}`,
+                '```',
+                '',
+                'When ready to open a PR, use this title format:',
+                '```',
+                `Closes #${issueNumber}: your description here`,
+                '```'
+              ].join('\n')
+            });
+
+            // Assign to issue opener (issues event only)
+            if (context.eventName === 'issues') {
+              await github.rest.issues.addAssignees({
+                owner, repo, issue_number: issueNumber,
+                assignees: [issue.user.login]
+              });
+            }
