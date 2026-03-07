@@ -1,6 +1,6 @@
 name: '📖 Research '
 description: Create a new ticket for a new feature request
-title: '📖💡 Research - <title>'
+title: '📖💡 Research - '
 labels: ['research']
 body:
   - type: markdown

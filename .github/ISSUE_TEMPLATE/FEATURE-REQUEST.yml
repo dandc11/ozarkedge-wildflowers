@@ -1,6 +1,6 @@
 name: '💡 Feature Request'
 description: Create a new ticket for a new feature request
-title: '💡 Enhancement - <title>'
+title: '💡 Enhancement - '
 labels: ['question']
 body:
   - type: markdown

@@ -1,8 +1,14 @@
-name: 'Auto-Create Issue Branch'
+name: Auto-Create Issue Branch
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to create branch for
+        required: true
+        type: string
 
 jobs:
   create-branch:
@@ -21,12 +27,18 @@ jobs:
       - name: Create branch from issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          ISSUE_TITLE: ${{ github.event.issue.title || '' }}
         run: |
+          # Fetch issue title from API if triggered via workflow_dispatch
+          if [ -z "$ISSUE_TITLE" ]; then
+            ISSUE_TITLE=$(gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}" --jq '.title')
+            echo "Fetched issue title from API: $ISSUE_TITLE"
+          fi
+
           # Generate slug from issue title
           # 1. Convert to lowercase
-          # 2. Remove special characters (keep only alphanumeric and hyphens)
+          # 2. Remove special characters (keep only alphanumeric and spaces)
           # 3. Replace spaces with hyphens
           # 4. Collapse multiple hyphens
           # 5. Trim leading/trailing hyphens
