@@ -1,6 +1,6 @@
 .plant-list-page-content {
   container: plant-list-page-content / inline-size;
-  overflow: auto;
+  overflow: clip;
   background-color: var(--oe-yellow-200);
 
   .plant-list-header {
@@ -118,18 +118,11 @@
 
   .plant-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, max-content));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     justify-content: center;
     gap: var(--sp-md);
     height: auto;
     align-content: start;
-  }
-
-  @container plant-list-container (min-width: 900px) {
-    .plant-card-grid {
-      height: 60rem;
-      overflow: scroll;
-    }
   }
 
   @container plant-list-page-content (width > 600px) {
@@ -169,7 +162,7 @@
 
     .plant-list-container {
       max-height: 60rem;
-      overflow-y: scroll;
+      overflow-y: auto;
 
       .btn-2 {
         margin-block-start: var(--sp-2xl);
