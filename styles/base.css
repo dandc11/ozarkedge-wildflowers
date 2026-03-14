@@ -36,6 +36,27 @@ main {
   display: none;
 }
 
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--oe-text-body);
+  border-radius: 6px;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-color: var(--oe-text-body) transparent;
+  scrollbar-width: thin;
+}
+
 *.hide-scroll::-webkit-scrollbar {
   display: none;
 }

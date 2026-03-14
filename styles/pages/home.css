@@ -94,7 +94,7 @@
     }
 
     &.spring {
-      background: var(--spring-gradient-3);
+      background: var(--spring-gradient);
     }
   }
 
