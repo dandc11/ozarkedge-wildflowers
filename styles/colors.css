@@ -141,7 +141,7 @@
   --nav-bg-dark: var(--oe-red-800);
 
   /* Gradients ----------------------------- */
-  --spring-gradient: linear-gradient(60deg, hsl(350, 72%, 52%) 5%, hsl(134, 15%, 32%) 100%);
+  --spring-gradient: linear-gradient(60deg, hsl(349.09deg 9.48% 45.49%) 5%, #455e4b);
   --summer-gradient: linear-gradient(220deg, var(--oe-purple-200) 60%, var(--oe-purple-300) 100%);
   --fall-gradient: linear-gradient(175deg, var(--oe-brown-700) 60%, var(--oe-yellow-300) 100%);
   --fall-bg-gradient: linear-gradient(160deg, var(--oe-green-yellow-900) 50%, #4d4d0c 100%);
