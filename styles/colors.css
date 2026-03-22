@@ -132,7 +132,7 @@
   --fall-accent: hsl(19, 52%, 25%);
   --winter-accent: var(--oe-grey-800);
   --spring-bg-color: hsl(98, 29%, 80%);
-  --summer-bg-color: hsl(49.35deg 98.52% 82.81%);
+  --summer-bg-color: hsl(66.32deg 43.34% 87.66%);
   --fall-bg-color: var(--oe-orange-100);
   --winter-bg-color: hsl(210, 4%, 90%);
   --winter-bg-color-2: hsl(220, 2%, 73%);
@@ -142,7 +142,17 @@
 
   /* Gradients ----------------------------- */
   --spring-gradient: linear-gradient(60deg, hsl(349.09deg 9.48% 45.49%) 5%, #455e4b);
+  --spring-gradient-2: linear-gradient(
+    60deg,
+    hsl(348.52deg 80.54% 50.99%) 5%,
+    hsl(134.4deg 17.11% 34.44%)
+  );
   --summer-gradient: linear-gradient(220deg, var(--oe-purple-200) 60%, var(--oe-purple-300) 100%);
+  --summer-gradient-2: linear-gradient(
+    90deg,
+    var(--oe-green-700) 20%,
+    var(--oe-green-yellow-900) 100%
+  );
   --fall-gradient: linear-gradient(175deg, var(--oe-brown-700) 60%, var(--oe-yellow-300) 100%);
   --fall-bg-gradient: linear-gradient(160deg, var(--oe-green-yellow-900) 50%, #4d4d0c 100%);
   --winter-gradient: linear-gradient(145deg, #3b332a 0%, hsl(27, 12%, 57%) 100%);
