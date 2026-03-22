@@ -24,8 +24,8 @@
   }
 
   &.fall {
-    --teaser-heading-color: var(--oe-green-700);
-    --teaser-bg-stripe: var(--summer-gradient-2);
+    --teaser-heading-color: #435146;
+    --teaser-bg-stripe: var(--fall-bg-gradient);
     --teaser-btn-bg-color: transparent;
     --button-border: var(--oe-white) 2px solid;
   }

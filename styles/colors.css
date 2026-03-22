@@ -154,7 +154,7 @@
     var(--oe-green-yellow-900) 100%
   );
   --fall-gradient: linear-gradient(175deg, var(--oe-brown-700) 60%, var(--oe-yellow-300) 100%);
-  --fall-bg-gradient: linear-gradient(160deg, var(--oe-green-yellow-900) 50%, #4d4d0c 100%);
+  --fall-bg-gradient: linear-gradient(168deg, #435146 30%, var(--oe-blue-green-dark-900) 100%);
   --winter-gradient: linear-gradient(145deg, #3b332a 0%, hsl(27, 12%, 57%) 100%);
   --winter-gradient-2: linear-gradient(90deg, hsl(215, 44%, 58%) 0%, hsl(216, 42%, 87%) 100%);
   --winter-gradient-3: linear-gradient(145deg, #39393e 0%, hsl(25, 13%, 18%) 100%);
