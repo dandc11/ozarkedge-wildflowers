@@ -86,6 +86,7 @@ Use `mcp_github_issue_write` with:
 - `method: create`
 - `owner: dandc11`
 - `repo: ozarkedge-wildflowers`
+- `status`: todo unless otherwise specified by the user
 - `assignees: ["dandc11"]` — **always, no exceptions**
 - `labels` — per template above
 - `title` — with correct prefix per template
