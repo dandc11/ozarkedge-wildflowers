@@ -74,9 +74,18 @@ Example: `Closes #178: Wire Site Settings into layout metadata`
 
 This ensures the PR is automatically linked to the issue and passes the validation checks.
 
+### Creating GitHub Issues
+
+When creating a GitHub issue, use `mcp_github_issue_write` with `method: create`, and always include:
+
+- `assignees: ["dandc11"]`
+- Appropriate `labels`
+
+The project board and branch are handled automatically by GitHub Actions on issue open — no manual CLI steps needed.
+
 ### Workflow Process
 
-1. Issue is created → branch is auto-created by GitHub Actions
+1. Issue is created (with assignee) → GitHub Actions automatically adds it to the project board AND creates the branch
 2. Check out the branch and make changes
 3. Commit and push to the branch
 4. Create PR with issue number in title (format: "Closes #123: ...")
