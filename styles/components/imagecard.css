@@ -7,7 +7,7 @@
   border-radius: var(--br-md);
   overflow: clip;
   transition: all 300ms ease-in-out;
-  max-width: 20rem;
+  max-width: 22rem;
   color: var(--oe-text-body);
 
   & * {

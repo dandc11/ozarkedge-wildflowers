@@ -124,16 +124,7 @@ const SeasonPage = async (props) => {
                 quality={85}
                 sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
                 wrapperClassName={wrapperClassName}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 100 10"
-                  preserveAspectRatio="none"
-                  className="header-border-svg"
-                >
-                  <polygon points="100 0 100 10 0 10" />
-                </svg>
-              </ResponsiveImage>
+              />
               <ResponsiveImage
                 alt={mobileImage?.alt || 'A picture of the Ozarkedge property'}
                 className="rounded-none"
@@ -146,16 +137,7 @@ const SeasonPage = async (props) => {
                 showCaption={false}
                 sizes={IMG_SIZES.HERO_MOBILE_SIZES}
                 wrapperClassName={cx(wrapperClassName, `mobile`)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 100 10"
-                  preserveAspectRatio="none"
-                  className="header-border-svg"
-                >
-                  <polygon points="100 7 100 10 0 10" />
-                </svg>
-              </ResponsiveImage>
+              />
               <HeadingDisplay
                 className={cx(`text-right`)}
                 absolute

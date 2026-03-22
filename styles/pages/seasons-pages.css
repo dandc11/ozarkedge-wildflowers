@@ -2,51 +2,44 @@
   --season-accent-color: var(--oe-green-800);
   --season-bg-color: #fff;
   --season-gradient: var(--spring-gradient);
+  --banner-obj-position: top;
   container: season-page-content / inline-size;
   position: relative;
+
+  background-color: var(--season-bg-color);
+
+  .banner-img img {
+    object-position: var(--banner-obj-position);
+  }
 
   &.spring {
     --season-bg-color: var(--spring-bg-color);
     --season-accent-color: var(--spring-accent);
     --season-gradient: var(--spring-gradient);
-    background-color: var(--season-bg-color);
-
-    .banner-img img {
-      object-position: top;
-    }
+    --season-title-gradient: var(--spring-gradient-2);
   }
 
   &.summer {
     --season-bg-color: var(--summer-bg-color);
     --season-accent-color: var(--summer-accent);
     --season-gradient: var(--summer-gradient);
-    background-color: var(--season-bg-color);
-
-    .banner-img img {
-      object-position: center;
-    }
+    --season-title-gradient: var(--summer-gradient-2);
+    --banner-obj-position: center;
   }
 
   &.fall {
     --season-bg-color: var(--fall-bg-color);
     --season-accent-color: var(--fall-accent);
     --season-gradient: var(--fall-gradient);
-    background-color: var(--season-bg-color);
-
-    .banner-img img {
-      object-position: 100% 15%;
-    }
+    --season-title-gradient: var(--fall-gradient);
+    --banner-obj-position: 100% 15%;
   }
 
   &.winter {
     --season-bg-color: var(--winter-bg-color);
     --season-accent-color: var(--winter-accent);
     --season-gradient: var(--winter-gradient);
-    background-color: var(--season-bg-color);
-
-    .banner-img img {
-      object-position: top;
-    }
+    --season-title-gradient: var(--winter-gradient);
   }
 
   .season-header {
@@ -54,13 +47,13 @@
     container: season-header / inline-size;
 
     .heading-display {
-      bottom: -4rem;
+      bottom: -3.2em;
       text-align: left;
       width: fit-content;
     }
 
     .heading-title {
-      background: var(--season-gradient);
+      background: var(--season-title-gradient, var(--season-gradient-2));
       background-clip: text;
       color: transparent;
       font-size: var(--fs-5xl);
@@ -75,17 +68,15 @@
 
     .banner-img {
       background-color: var(--season-bg-color);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+      transform: translateZ(0);
 
       @container season-header (width > 900px) {
         height: 85vh;
       }
 
-      .header-border-svg {
-        position: absolute;
-        bottom: -1px;
-        width: 100%;
-        height: 80px;
-        fill: var(--season-bg-color);
+      &.mobile {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 96%);
       }
     }
   }
@@ -93,7 +84,7 @@
   .season-body {
     grid-area: content;
     container: season-body / inline-size;
-    margin-block: var(--sp-xl);
+    margin-block: 0 var(--sp-xl);
     margin-inline: auto;
     width: 100%;
 
@@ -122,7 +113,7 @@
   @container season-page-content (width > 900px) {
     .season-body {
       padding-inline: 0;
-      margin-block: var(--sp-4xl);
+      margin-block: 0 var(--sp-4xl);
     }
 
     .heading-display .heading-title {
@@ -140,7 +131,7 @@
     }
 
     .season-header .heading-display {
-      bottom: -7rem;
+      bottom: -5rem;
       margin-inline-start: 7%;
 
       .text-display {

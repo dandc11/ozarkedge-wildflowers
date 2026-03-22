@@ -109,7 +109,7 @@ const TeaserSection = (props) => {
               wrapperClassName={cx(`port-text-img teaser-img`)}
             />
           )}
-          <div className="teaser-bg"></div>
+          <div className="teaser-bg-stripe"></div>
           <div className={cx(`teaser-body`, teaserBodyClassName)}>
             {bodyText && usePortText && Array.isArray(bodyText) ? (
               <PortTextWrapper

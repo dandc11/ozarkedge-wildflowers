@@ -118,11 +118,16 @@
 
   .plant-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, auto));
     justify-content: center;
     gap: var(--sp-md);
     height: auto;
     align-content: start;
+  }
+
+  .plant-card-link {
+    width: fit-content;
+    justify-self: center;
   }
 
   @container plant-list-page-content (width > 600px) {
