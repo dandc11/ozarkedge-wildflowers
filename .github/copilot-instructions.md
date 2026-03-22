@@ -76,12 +76,12 @@ This ensures the PR is automatically linked to the issue and passes the validati
 
 ### Creating GitHub Issues
 
-When creating a GitHub issue, use `mcp_github_issue_write` with `method: create`, and always include:
+Use the `/create-issue` prompt for all issue creation. It handles template selection, field pre-filling, required assignee/labels, and reminds you what automation will follow.
 
-- `assignees: ["dandc11"]`
-- Appropriate `labels`
+**Never skip these regardless of template:**
 
-The project board and branch are handled automatically by GitHub Actions on issue open — no manual CLI steps needed.
+- `assignees: ["dandc11"]` — always
+- GitHub Actions handles the rest on issue open: project board addition and feature branch creation are fully automatic
 
 ### Workflow Process
 
