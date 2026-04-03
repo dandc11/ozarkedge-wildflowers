@@ -274,7 +274,7 @@ export default defineType({
         list: [
           { title: 'Spring', value: 'spring' },
           { title: 'Summer', value: 'summer' },
-          { title: 'Fall', value: 'fall' },
+          { title: 'Autumn', value: 'fall' },
           { title: 'Winter', value: 'winter' },
         ], // <-- predefined values
       },

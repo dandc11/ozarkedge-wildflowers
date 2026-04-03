@@ -42,12 +42,12 @@ const ThumbnailGrid = (props) => {
   })
 
   return (
-    <div
+    <ul
       className={cx(`img-grid grid ${gridColumns[cols]} gap-3`, className)}
       data-sanity-edit-target
     >
       {galleryImages}
-    </div>
+    </ul>
   )
 }
 
