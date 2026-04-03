@@ -87,14 +87,18 @@
 
     &.winter {
       background: var(--winter-gradient-3);
-      .blooming-title,
-      .description p {
-        color: var(--oe-white);
-      }
     }
 
     &.spring {
       background: var(--spring-gradient);
+    }
+
+    &.spring,
+    &.winter {
+      .blooming-title,
+      .description p {
+        color: var(--oe-white);
+      }
     }
   }
 
