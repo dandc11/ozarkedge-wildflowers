@@ -7,7 +7,12 @@ import { stegaClean } from '@sanity/client/stega'
 const TeaserSlider = dynamic(() => import('../components/TeaserSlider'))
 import Button from '../components/Button'
 import ResponsiveImage from '../components/ResponsiveImage'
-import { getCurrentMonthName, titleCase, getCurrentSeason } from '../utilities/helperUtil'
+import {
+  getCurrentMonthName,
+  titleCase,
+  getCurrentSeason,
+  displaySeasonName,
+} from '../utilities/helperUtil'
 import { IMG_SIZES } from '../utilities/constants'
 import {
   GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
@@ -78,7 +83,7 @@ export default async function HomePage() {
   const teaserBodyText = seasonData?.metaDescription
   const seasonDefaultImage = seasonData?.mainImage
   const currentSeason = getCurrentSeason()?.SEASON_NAME
-  const teaserButtonLinkText = `Visit our ${currentSeason} page`
+  const teaserButtonLinkText = `Visit our ${displaySeasonName(currentSeason)} page`
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
     <span className="blooming-title fw-400">

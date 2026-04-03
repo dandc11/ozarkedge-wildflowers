@@ -205,6 +205,7 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
             <div className="plant-card-grid w-full">
               {filteredNativePlantList.slice(0, maxItemsDisplayed).map((plant, index) => (
                 <CustomLink
+                  className="plant-card-link"
                   docType={'nativePlant'}
                   slug={plant.slug?.current}
                   key={plant.slug?.current ?? plant.plantName?.botanicalName ?? index}
