@@ -1,8 +1,7 @@
 /* CSS imports must be at the top of the file */
 
-@import './base.css';
-@import './normalize.css';
 @import './variables.css';
+@import './base.css';
 @import './colors.css';
 @import './utility/utility.css';
 @import './utility/typography.css';
