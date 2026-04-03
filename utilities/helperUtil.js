@@ -150,6 +150,15 @@ export const getNatureServeRankingColors = (conservationRanking) => {
 }
 
 /**
+ * Returns the display name for a season, mapping 'fall' to 'autumn'.
+ * Keeps the internal data value ('fall') unchanged; only affects user-visible text.
+ * @param {string} [seasonName=''] - The season identifier (e.g. 'fall', 'spring')
+ * @returns {string} The display name for the season
+ */
+export const displaySeasonName = (seasonName = '') =>
+  seasonName === 'fall' ? 'autumn' : seasonName
+
+/**
  * Capitalizes the first character in the string
  * @param {string} [textString=''] - The string to be capitalized
  * @returns {string} A capitalized string

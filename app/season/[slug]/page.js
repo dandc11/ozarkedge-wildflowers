@@ -10,6 +10,7 @@ import ResponsiveImage from '../../../components/ResponsiveImage'
 import HeadingDisplay from '../../../components/HeadingDisplay'
 import FeatureSection from '../../../components/FeatureSection'
 import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
+import { displaySeasonName } from '../../../utilities/helperUtil'
 import { GET_ALL_SEASON_PATHS_QUERY, GET_SEASON_PAGE_DATA_QUERY } from '../../../sanity/lib/queries'
 import { IMG_SIZES } from '../../../utilities/constants'
 import { sanityFetch } from '../../../sanity/lib/sanity.live'
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }) {
     return { title: 'Season Not Found' }
   }
 
-  const seasonName = stegaClean(pageData.seasonName) || 'Season'
+  const seasonName = displaySeasonName(stegaClean(pageData.seasonName) || 'Season')
   const title = `${seasonName.charAt(0).toUpperCase() + seasonName.slice(1)} Wildflowers`
   const description = stegaClean(pageData.metaDescription) || undefined
   const ogImage = pageData.mainImage
@@ -112,7 +113,7 @@ const SeasonPage = async (props) => {
           >
             <section id={'seasonHeader'} className="season-header relative w-full h-full">
               <ResponsiveImage
-                alt={mainImage?.alt || `${seasonName} at Ozarkedge `}
+                alt={mainImage?.alt || `${displaySeasonName(seasonName)} at Ozarkedge `}
                 className="rounded-none w-full h-full"
                 disableHover
                 disablePointer
@@ -144,7 +145,7 @@ const SeasonPage = async (props) => {
                 headingLevel={1}
                 headingClassName={'text-display'}
               >
-                {seasonName}
+                {displaySeasonName(seasonName)}
               </HeadingDisplay>
             </section>
             <section id={'seasonBody'} className="season-body content-well">
