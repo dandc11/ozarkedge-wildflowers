@@ -17,7 +17,7 @@
   }
 
   &.summer {
-    --teaser-heading-color: var(--oe-green-700);
+    --teaser-heading-color: #864a6c;
     --teaser-bg-stripe: var(--summer-gradient-2);
     --teaser-btn-bg-color: transparent;
     --button-border: var(--oe-white) 2px solid;
