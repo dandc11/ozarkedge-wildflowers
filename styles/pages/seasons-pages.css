@@ -16,22 +16,25 @@
     --season-bg-color: var(--spring-bg-color);
     --season-accent-color: var(--spring-accent);
     --season-gradient: var(--spring-gradient);
-    --season-title-gradient: var(--spring-gradient-2);
+    --season-title-text-bg: var(--spring-gradient-2);
+    --season-title-text-desktop-bg: var(--oe-white);
   }
 
   &.summer {
     --season-bg-color: var(--summer-bg-color);
     --season-accent-color: var(--summer-accent);
     --season-gradient: var(--summer-gradient);
-    --season-title-gradient: var(--summer-gradient-2);
+    --season-title-text-bg: var(--summer-gradient-2);
+    --season-title-text-desktop-bg: var(--summer-gradient-3);
     --banner-obj-position: center;
   }
 
   &.fall {
     --season-bg-color: var(--fall-bg-color);
     --season-accent-color: var(--fall-accent);
-    --season-gradient: var(--fall-gradient);
-    --season-title-gradient: var(--fall-gradient);
+    --season-gradient: var(--fall-gradient-2);
+    --season-title-text-bg: var(--fall-bg-gradient);
+    --season-title-text-desktop-bg: var(--fall-gradient);
     --banner-obj-position: 100% 15%;
   }
 
@@ -39,7 +42,8 @@
     --season-bg-color: var(--winter-bg-color);
     --season-accent-color: var(--winter-accent);
     --season-gradient: var(--winter-gradient);
-    --season-title-gradient: var(--winter-gradient);
+    --season-title-text-desktop-bg: var(--winter-gradient);
+    --season-title-text-bg: var(--winter-gradient);
   }
 
   .season-header {
@@ -47,13 +51,13 @@
     container: season-header / inline-size;
 
     .heading-display {
-      bottom: -3.2em;
+      bottom: -4rem;
       text-align: left;
       width: fit-content;
     }
 
     .heading-title {
-      background: var(--season-title-gradient, var(--season-gradient-2));
+      background: var(--season-title-text-bg);
       background-clip: text;
       color: transparent;
       font-size: var(--fs-5xl);
@@ -84,7 +88,7 @@
   .season-body {
     grid-area: content;
     container: season-body / inline-size;
-    margin-block: 0 var(--sp-xl);
+    margin-block: var(--sp-xl);
     margin-inline: auto;
     width: 100%;
 
@@ -101,6 +105,7 @@
 
     .season-header .heading-title {
       margin-inline-end: var(--sp-xl);
+      padding-inline-start: var(--sp-2xl);
       font-size: var(--fs-7xl);
     }
 
@@ -111,15 +116,18 @@
   }
 
   @container season-page-content (width > 900px) {
-    .season-body {
-      padding-inline: 0;
-      margin-block: 0 var(--sp-4xl);
+    .season-header .heading-display {
+      bottom: -2rem;
     }
 
     .heading-display .heading-title {
       padding-inline-start: var(--sp-2xl);
       font-size: var(--fs-8xl);
       font-weight: var(--fw-900);
+    }
+    .season-body {
+      padding-inline: 0;
+      margin-block: 0 var(--sp-4xl);
     }
   }
 
@@ -129,13 +137,35 @@
         max-width: 60rem;
       }
     }
+  }
+
+  @container season-page-content (width > 1400px) {
+    &.spring,
+    &.fall {
+      .season-header .heading-display {
+        bottom: unset;
+        top: 3rem;
+
+        .heading-title {
+          background: var(--season-title-text-desktop-bg);
+          -webkit-background-clip: text;
+          background-clip: text;
+        }
+      }
+    }
+
+    &.summer,
+    &.winter {
+      .season-header .heading-display {
+        bottom: -2.75rem;
+      }
+    }
 
     .season-header .heading-display {
-      bottom: -5rem;
-      margin-inline-start: 7%;
+      margin-inline-start: 4vw;
 
       .text-display {
-        font-size: var(--fs-9xl);
+        font-size: var(--fs-8xl);
       }
     }
   }
