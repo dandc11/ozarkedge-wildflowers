@@ -38,7 +38,7 @@
   }
 
   container: teaser / inline-size;
-  background: var(--teaser-bg);
+  background: var(--teaser-bg, transparent);
   background-color: var(--teaser-bg-color);
   color: var(--teaser-text-color);
 
