@@ -15,6 +15,7 @@ jest-results.json
 
 # production
 /build
+/dist
 /studio/dist
 
 # misc
