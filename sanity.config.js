@@ -7,9 +7,14 @@ import { structureTool } from 'sanity/structure'
 import { media } from 'sanity-plugin-media'
 
 import * as resolve from './sanity/presentation/resolve'
-import { apiVersion, dataset, projectId } from './sanity/lib/sanity.api'
 import { schema } from './schemas/schema'
 import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
+
+// Use SANITY_STUDIO_* env vars — Sanity's Vite bundler only exposes these to the browser.
+// In .env.local, dotenv-expand aliases map these from the NEXT_PUBLIC_* vars that Next.js uses.
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID
+const dataset = process.env.SANITY_STUDIO_DATASET
+const apiVersion = process.env.SANITY_STUDIO_API_VERSION || '2024-10-28'
 
 // Create a Set to track schema type names and prevent duplicates
 const schemaTypeNames = new Set()
@@ -25,7 +30,6 @@ const uniqueSchemaTypes = schema.types.filter((type) => {
 })
 
 export default defineConfig({
-  basePath: '/studio',
   title: 'Ozarkedge Wildflowers',
   projectId,
   dataset,
@@ -38,6 +42,7 @@ export default defineConfig({
     presentationTool({
       resolve,
       previewUrl: {
+        origin: process.env.SANITY_STUDIO_SITE_URL || 'http://localhost:3000',
         previewMode: {
           enable: '/api/draft-mode/enable',
         },

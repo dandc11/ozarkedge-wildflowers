@@ -4,6 +4,7 @@ A Next.js 15 (App Router) site about native Arkansas wildflowers, powered by San
 
 ## Architecture
 
+- **Sanity Studio** is hosted by Sanity at `https://ozarkedgewildflowers.sanity.studio` (not embedded in the Next.js app). Deploy Studio changes with `npx sanity deploy`. See `docs/SANITY_HOSTED_STUDIO.md`.
 - **React Server Components by default.** Only add `'use client'` when hooks or browser APIs are required.
 - **Data fetching**: Always use `sanityFetch` from `sanity/lib/sanity.live.js` — never bare `client.fetch`. Pass `perspective` and `stega` based on `draftMode()`.
 - **GROQ queries**: Centralize in `sanity/lib/queries.js` using `GET_*_QUERY` naming. Use fragment functions from `sanity/lib/queryFragments.js`.
@@ -31,6 +32,7 @@ A Next.js 15 (App Router) site about native Arkansas wildflowers, powered by San
 
 - Testing: [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)
 - Sanity Live + Draft Mode: [docs/SANITY_LIVE_DRAFT_MODE.md](docs/SANITY_LIVE_DRAFT_MODE.md)
+- Sanity Hosted Studio: [docs/SANITY_HOSTED_STUDIO.md](docs/SANITY_HOSTED_STUDIO.md)
 - Migrations: [docs/SANITY_MIGRATIONS.md](docs/SANITY_MIGRATIONS.md)
 - Plant relationships: [docs/PLANT_RELATIONSHIPS_QUERIES.md](docs/PLANT_RELATIONSHIPS_QUERIES.md)
 

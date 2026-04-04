@@ -1,6 +1,6 @@
 import '../styles/global.css'
 import { Playfair_Display, Raleway } from 'next/font/google'
-import { VisualEditing } from 'next-sanity'
+import { VisualEditing } from 'next-sanity/visual-editing'
 import { draftMode } from 'next/headers'
 import { Analytics } from '@vercel/analytics/next'
 
