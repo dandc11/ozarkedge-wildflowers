@@ -35,7 +35,7 @@ Visual Editing notes
 Dev workflow
 
 - Normal browsing (fast): Draft Mode off (no `<SanityLive />`, published perspective, stega disabled).
-- Preview/drafts: enable Draft Mode via Studio Presentation or `/api/draft-mode/enable`.
+- Preview/drafts: enable Draft Mode via Studio Presentation (at https://ozarkedgewildflowers.sanity.studio) or `/api/draft-mode/enable`.
 - Exit preview: use the DisableDraftMode UI or `/api/draft-mode/disable`.
 
 Mounting guidance
