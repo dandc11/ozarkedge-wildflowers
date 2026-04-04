@@ -5,8 +5,8 @@ import { defineCliConfig } from 'sanity/cli'
 const dev = process.env.NODE_ENV !== 'production'
 loadEnvConfig(__dirname, dev, { info: () => null, error: console.error })
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || process.env.SANITY_STUDIO_PROJECT_ID
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || process.env.SANITY_STUDIO_DATASET
 
 export default defineCliConfig({
   api: { projectId, dataset },

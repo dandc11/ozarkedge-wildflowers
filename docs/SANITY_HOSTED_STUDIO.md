@@ -72,11 +72,14 @@ npx sanity deploy
 | Variable                        | Value                                        | Where                                   |
 | ------------------------------- | -------------------------------------------- | --------------------------------------- |
 | `NEXT_PUBLIC_SANITY_STUDIO_URL` | `https://ozarkedgewildflowers.sanity.studio` | Vercel (All Environments), `.env.local` |
+| `SANITY_STUDIO_SITE_URL`        | `https://ozarkedgewildflowers.com`           | Vercel (All Environments), `.env.local` |
 | `NEXT_PUBLIC_SITE_URL`          | `https://ozarkedgewildflowers.com`           | Vercel (All Environments), `.env.local` |
 
 `NEXT_PUBLIC_SANITY_STUDIO_URL` is read by the Sanity client's `stega.studioUrl` to enable click-to-edit navigation from the live site to the Studio.
 
-`NEXT_PUBLIC_SITE_URL` is used by the Presentation tool's `origin` config to know which frontend URL to load in the preview iframe.
+`SANITY_STUDIO_SITE_URL` is used by the Presentation tool's `origin` config to know which frontend URL to load in the preview iframe.
+
+`NEXT_PUBLIC_SITE_URL` is the public site URL used elsewhere in the app and should remain set to `https://ozarkedgewildflowers.com`.
 
 ### CORS Configuration
 
@@ -91,9 +94,9 @@ The following origins must be allowed in the [Sanity project settings](https://s
 
 These Studio preview components are bundled with the Studio and work in both embedded and hosted environments:
 
-- `schemas/components/ImageCollectionPreview.js` — thumbnail grid for image collections in portable text
-- `schemas/components/TeaserSectionPreview.js` — preview for teaser/feature blocks with title, body, and images
-- `schemas/components/TextInputWithCharCount.js` — text input with live character count for meta descriptions
+- `schemas/components/ImageCollectionPreview.jsx` — thumbnail grid for image collections in portable text
+- `schemas/components/TeaserSectionPreview.jsx` — preview for teaser/feature blocks with title, body, and images
+- `schemas/components/TextInputWithCharCount.jsx` — text input with live character count for meta descriptions
 
 All use only Sanity-native packages (`@sanity/ui`, `@sanity/image-url`, `sanity`, `@portabletext/react`).
 
