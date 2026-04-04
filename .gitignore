@@ -18,6 +18,9 @@ jest-results.json
 /dist
 /studio/dist
 
+# sanity generated
+sanity.types.ts
+
 # misc
 .DS_Store
 *.pem
