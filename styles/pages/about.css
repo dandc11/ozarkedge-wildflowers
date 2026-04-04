@@ -50,7 +50,7 @@
     }
   }
 
-  @container aboutpage-content (width >= 12.96l) {
+  @container aboutpage-content (width >= 1296px) {
     .banner-img img {
       object-position: 50% 35%;
     }
