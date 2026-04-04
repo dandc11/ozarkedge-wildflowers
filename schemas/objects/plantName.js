@@ -1,4 +1,3 @@
-import { defaultConfig } from 'next/dist/server/config-shared'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
@@ -21,8 +20,7 @@ export default defineType({
     defineField({
       name: 'nameInformation',
       title: 'Plant Name Information',
-      description:
-        "Add any additional information about the plant's names here.",
+      description: "Add any additional information about the plant's names here.",
       type: 'pageBodyPortableText',
     }),
   ],

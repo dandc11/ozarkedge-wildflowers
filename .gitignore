@@ -15,7 +15,12 @@ jest-results.json
 
 # production
 /build
+/dist
 /studio/dist
+
+# sanity generated
+sanity.types.ts
+.sanity/runtime/
 
 # misc
 .DS_Store

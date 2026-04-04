@@ -1,6 +1,5 @@
 import { GiOakLeaf } from 'react-icons/gi'
 import { defineField, defineType } from 'sanity'
-import { defineUrlResolver } from 'sanity-plugin-iframe-pane'
 
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 

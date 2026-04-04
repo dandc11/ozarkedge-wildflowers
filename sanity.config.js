@@ -7,9 +7,26 @@ import { structureTool } from 'sanity/structure'
 import { media } from 'sanity-plugin-media'
 
 import * as resolve from './sanity/presentation/resolve'
-import { apiVersion, dataset, projectId } from './sanity/lib/sanity.api'
 import { schema } from './schemas/schema'
 import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
+
+// Prefer SANITY_STUDIO_* env vars for Studio, but fall back to NEXT_PUBLIC_* vars
+// so local development works when only the Next.js env names are configured.
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+const dataset = process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET
+const apiVersion = process.env.SANITY_STUDIO_API_VERSION || '2024-10-28'
+
+if (!projectId) {
+  throw new Error(
+    'Missing Sanity project ID. Set SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID.',
+  )
+}
+
+if (!dataset) {
+  throw new Error(
+    'Missing Sanity dataset. Set SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET.',
+  )
+}
 
 // Create a Set to track schema type names and prevent duplicates
 const schemaTypeNames = new Set()
@@ -25,7 +42,6 @@ const uniqueSchemaTypes = schema.types.filter((type) => {
 })
 
 export default defineConfig({
-  basePath: '/studio',
   title: 'Ozarkedge Wildflowers',
   projectId,
   dataset,
@@ -38,6 +54,7 @@ export default defineConfig({
     presentationTool({
       resolve,
       previewUrl: {
+        origin: process.env.SANITY_STUDIO_SITE_URL || 'http://localhost:3000',
         previewMode: {
           enable: '/api/draft-mode/enable',
         },
