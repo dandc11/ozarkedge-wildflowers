@@ -10,11 +10,23 @@ import * as resolve from './sanity/presentation/resolve'
 import { schema } from './schemas/schema'
 import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
 
-// Use SANITY_STUDIO_* env vars — Sanity's Vite bundler only exposes these to the browser.
-// In .env.local, dotenv-expand aliases map these from the NEXT_PUBLIC_* vars that Next.js uses.
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID
-const dataset = process.env.SANITY_STUDIO_DATASET
+// Prefer SANITY_STUDIO_* env vars for Studio, but fall back to NEXT_PUBLIC_* vars
+// so local development works when only the Next.js env names are configured.
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+const dataset = process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET
 const apiVersion = process.env.SANITY_STUDIO_API_VERSION || '2024-10-28'
+
+if (!projectId) {
+  throw new Error(
+    'Missing Sanity project ID. Set SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID.',
+  )
+}
+
+if (!dataset) {
+  throw new Error(
+    'Missing Sanity dataset. Set SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET.',
+  )
+}
 
 // Create a Set to track schema type names and prevent duplicates
 const schemaTypeNames = new Set()
