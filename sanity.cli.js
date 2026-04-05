@@ -11,5 +11,8 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || process.env.SANITY_STU
 export default defineCliConfig({
   api: { projectId, dataset },
   studioHost: 'ozarkedgewildflowers',
-  autoUpdates: true,
+  deployment: {
+    autoUpdates: true,
+    appId: 'hrg7wsri48p64s5otwuso3im',
+  },
 })
