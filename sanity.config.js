@@ -54,7 +54,11 @@ export default defineConfig({
     presentationTool({
       resolve,
       previewUrl: {
-        origin: process.env.SANITY_STUDIO_SITE_URL || 'http://localhost:3000',
+        origin:
+          process.env.SANITY_STUDIO_SITE_URL ||
+          (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+            ? 'http://localhost:3000'
+            : 'https://ozarkedgewildflowers.com'),
         previewMode: {
           enable: '/api/draft-mode/enable',
         },
