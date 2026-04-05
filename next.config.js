@@ -25,6 +25,20 @@ const nextConfig = {
       },
     ]
   },
+  async headers() {
+    return [
+      {
+        // Allow Sanity Studio (hosted and local) to embed the site in an iframe
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://*.sanity.io http://localhost:3333",
+          },
+        ],
+      },
+    ]
+  },
   productionBrowserSourceMaps: true,
 }
 
