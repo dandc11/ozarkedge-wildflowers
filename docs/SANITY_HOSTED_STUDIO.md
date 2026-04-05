@@ -62,10 +62,10 @@ npx sanity deploy
 
 ### Configuration Files
 
-| File               | Purpose                                                                |
-| ------------------ | ---------------------------------------------------------------------- |
-| `sanity.config.js` | Studio configuration (plugins, presentation, document actions)         |
-| `sanity.cli.js`    | CLI config (`studioHost: 'ozarkedgewildflowers'`, `autoUpdates: true`) |
+| File               | Purpose                                                                                               |
+| ------------------ | ----------------------------------------------------------------------------------------------------- |
+| `sanity.config.js` | Studio configuration (plugins, presentation, document actions)                                        |
+| `sanity.cli.js`    | CLI config (`studioHost: 'ozarkedgewildflowers'`, `deployment.autoUpdates: true`, `deployment.appId`) |
 
 ### Environment Variables
 
