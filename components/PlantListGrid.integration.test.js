@@ -59,8 +59,10 @@ const makePlant = (overrides = {}) => ({
   },
   plantName: {
     _type: 'plantName',
-    commonName: overrides.commonName || 'Blue sage',
-    botanicalName: overrides.botanicalName || 'Salvia azurea var. grandiflora',
+    commonName: overrides.commonName ? [overrides.commonName] : ['Blue sage'],
+    botanicalName: overrides.botanicalName
+      ? [overrides.botanicalName]
+      : ['Salvia azurea var. grandiflora'],
   },
   flowerColor: overrides.flowerColor || ['blue'],
   floweringMonths: overrides.floweringMonths || [7, 8],

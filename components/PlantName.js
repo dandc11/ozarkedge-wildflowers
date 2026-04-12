@@ -17,13 +17,18 @@ const PlantName = (props) => {
   const headingClassNames = cx(`common-name text-display`, topNameClassName)
 
   function getHeadingElement(headingLevel, headingClassNames, plantName) {
+    // Use first array item for display (primary name)
+    const commonName = Array.isArray(plantName?.commonName)
+      ? plantName.commonName[0]
+      : plantName?.commonName
+
     switch (headingLevel) {
       case 1:
-        return <h1 className={headingClassNames}>{titleCase(plantName?.commonName)}</h1>
+        return <h1 className={headingClassNames}>{titleCase(commonName)}</h1>
       case 2:
-        return <h2 className={headingClassNames}>{titleCase(plantName?.commonName)}</h2>
+        return <h2 className={headingClassNames}>{titleCase(commonName)}</h2>
       case 3:
-        return <h3 className={headingClassNames}>{titleCase(plantName?.commonName)}</h3>
+        return <h3 className={headingClassNames}>{titleCase(commonName)}</h3>
       default:
         return null
     }
@@ -36,7 +41,11 @@ const PlantName = (props) => {
 
       {showBotanicalName && (
         <h3 className={cx(`botanical-name`, bottomNameClassName)}>
-          {titleCase(plantName?.botanicalName)}
+          {titleCase(
+            Array.isArray(plantName?.botanicalName)
+              ? plantName.botanicalName[0]
+              : plantName?.botanicalName,
+          )}
         </h3>
       )}
     </div>

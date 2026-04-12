@@ -8,14 +8,26 @@ export default defineType({
     defineField({
       name: 'botanicalName',
       title: 'Botanical Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
+      description:
+        'Primary botanical name first, then alternate names. First name used for slugs and display on cards.',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'commonName',
       title: 'Common Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
+      description:
+        'Primary common name first, then alternate names. First name used for slugs and display on cards.',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'nameInformation',
