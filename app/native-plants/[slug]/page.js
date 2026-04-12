@@ -32,8 +32,13 @@ export async function generateMetadata({ params }) {
     return { title: 'Plant Not Found' }
   }
 
-  const commonName = stegaClean(pageData.plantName?.commonName) || 'Native Plant'
-  const botanicalName = stegaClean(pageData.plantName?.botanicalName) || ''
+  // Use first array items for metadata
+  const commonName = Array.isArray(pageData.plantName?.commonName)
+    ? stegaClean(pageData.plantName.commonName[0])
+    : stegaClean(pageData.plantName?.commonName) || 'Native Plant'
+  const botanicalName = Array.isArray(pageData.plantName?.botanicalName)
+    ? stegaClean(pageData.plantName.botanicalName[0])
+    : stegaClean(pageData.plantName?.botanicalName) || ''
   const title = botanicalName ? `${commonName} (${botanicalName})` : commonName
   const description = stegaClean(pageData.metaDescription) || undefined
   const ogImageSource = pageData.bannerImage || pageData.previewImage

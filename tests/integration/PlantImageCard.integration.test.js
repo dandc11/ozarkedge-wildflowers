@@ -19,7 +19,7 @@ describe('PlantImageCard Integration', () => {
     console.log('Executing PlantImageCard integration test body')
     render(
       <PlantImageCard
-        plantName={{ commonName: 'Wild Bergamot', botanicalName: 'Monarda fistulosa' }}
+        plantName={{ commonName: ['Wild Bergamot'], botanicalName: ['Monarda fistulosa'] }}
         titleText="Wild Bergamot"
         image={{
           _type: 'image',
