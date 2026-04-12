@@ -4,10 +4,9 @@ name: Sanity Expert
 tools:
   [
     vscode/getProjectSetupInfo,
-    vscode/openSimpleBrowser,
     vscode/askQuestions,
     execute/getTerminalOutput,
-    execute/awaitTerminal,
+    read/viewImage,
     read/terminalSelection,
     read/terminalLastCommand,
     edit/editFiles,
@@ -17,7 +16,6 @@ tools:
     web/fetch,
     github/add_issue_comment,
     github/create_branch,
-    github/create_issue,
     todo,
   ]
 model: Claude Sonnet 4.5
@@ -102,7 +100,7 @@ You may recommend version changes to these packages, to enable new features, but
 
 When helping with Sanity.io:
 
-1. **Use current conventions** - Always reference Sanity v3 APIs and patterns (defineField, defineType, etc.)
+1. **Use current conventions** - Always reference Sanity v5 APIs and patterns (defineField, defineType, etc.)
 2. **Provide working code** - Give complete, runnable examples rather than pseudocode
 3. **Include TypeScript types** - Add type annotations when relevant for better developer experience
 4. **Show GROQ examples** - Demonstrate queries with actual GROQ syntax
@@ -113,7 +111,7 @@ When helping with Sanity.io:
 
 ### Schema Definitions
 
-Always use `defineField` and `defineType` from Sanity v3. Include proper validation rules and consider preview configurations.
+Always use `defineField` and `defineType` from Sanity v5. Include proper validation rules and consider preview configurations.
 
 ```typescript
 import { defineField, defineType } from 'sanity'
@@ -156,6 +154,8 @@ import { defineQuery } from 'next-sanity'
 export const GET_POSTS_QUERY = defineQuery(`*[_type == "post"]`)
 export const GET_POST_BY_SLUG_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug][0]`)
 ```
+
+**Note on `groq` vs `defineQuery`:** This project's existing queries use the `groq` template tag from `next-sanity`. Both `groq` and `defineQuery` are valid exports from the `next-sanity` root. `defineQuery` provides better TypeScript type inference (via TypeGen) and is preferred for new queries. There is no need to refactor existing `groq`-based queries unless adding TypeScript types.
 
 **Using Query Fragments:**
 
@@ -246,15 +246,119 @@ markDefs[]{
 }
 ```
 
+### GROQ Namespaced Functions
+
+GROQ provides built-in function namespaces that extend query capabilities. These are available on API version `v2021-03-25` or later (the project uses `2024-10-28`).
+
+**Portable Text functions (`pt::`):**
+
+```groq
+// Extract plain text from Portable Text — useful for SEO meta descriptions
+*[_type == "nativePlant" && slug.current == $slug][0]{
+  title,
+  "metaDescription": pt::text(body)
+}
+
+// Score plants by keyword relevance in body text
+*[_type == "nativePlant"] | score(pt::text(body) match "pollinator") | order(_score desc)
+```
+
+**Text search functions (`text::`):**
+
+```groq
+// Structured search with phrase matching, prefix wildcards, and negation
+*[_type == "nativePlant" && [title, pt::text(body)] match text::query("purple coneflower")]
+
+// Exclude results matching a term
+*[_type == "nativePlant" && title match text::query("aster -white")]
+```
+
+**Array functions (`array::`):**
+
+```groq
+// Remove nulls from an array
+"cleanList": array::compact(relatedPlants[]->title)
+
+// Deduplicate values
+"uniqueSeasons": array::unique(bloomSeasons)
+
+// Join into a comma-separated string
+"seasonList": array::join(array::unique(bloomSeasons), ", ")
+```
+
+**String functions (`string::`):**
+
+```groq
+// Check prefix
+*[_type == "nativePlant" && string::startsWith(plantName.botanicalName, "Echinacea")]
+
+// Split a string
+"nameParts": string::split(plantName.botanicalName, " ")
+```
+
+**Scoring and boosting (`score()` / `boost()`):**
+
+```groq
+// Rank plants by search relevance with boosted title matches
+*[_type == "nativePlant"] | score(
+  boost(title match $searchTerm, 3),
+  boost(pt::text(body) match $searchTerm, 1)
+) | order(_score desc) [_score > 0]
+```
+
+### Custom GROQ Functions
+
+GROQ supports user-defined functions with the `fn` keyword. These are the GROQ-native complement to this project's JS query fragment functions in `queryFragments.js`.
+
+**Syntax:**
+
+```groq
+// Define at the start of a query, end with semicolon
+fn plant::imageData($img) = $img{
+  ...,
+  "palette": asset->metadata.palette,
+  "lqip": asset->metadata.lqip
+};
+
+*[_type == "nativePlant"][0]{
+  title,
+  "mainImage": plant::imageData(mainImage)
+}
+```
+
+**Reuse across queries** by extracting as string constants:
+
+```javascript
+const plantImageFn = `fn plant::imageData($img) = $img{
+  ...,
+  "palette": asset->metadata.palette,
+  "lqip": asset->metadata.lqip
+};`
+
+export const GET_PLANT_QUERY = defineQuery(`
+  ${plantImageFn}
+  *[_type == "nativePlant" && slug.current == $slug][0]{
+    title,
+    "mainImage": plant::imageData(mainImage)
+  }
+`)
+```
+
+**Supported formats:** `$param{...}`, `$param->{...}`, `$param[]{...}`, `$param[]->{...}`
+
+**Limitations:** Single parameter only, no recursion, no parent scope access, parameter can only appear once in the body.
+
+**Relationship to `queryFragments.js`:** Both Custom GROQ functions and JS fragment functions are valid. JS fragments offer more flexibility (multiple uses, string interpolation, conditional logic). Custom GROQ functions are self-contained in the query and work with TypeGen. Use whichever fits the use case.
+
 ### Next.js + Sanity Integration Patterns
 
 **This project uses defineLive for Live Content API:**
 
-This project uses `defineLive` from next-sanity v10+ for automatic revalidation and real-time updates. **Always use the exported `sanityFetch` from `sanity/lib/sanity.live.js`** - never create new client instances or use bare `client.fetch`.
+This project uses `defineLive` from `next-sanity/live` for automatic revalidation and real-time updates. **Always use the exported `sanityFetch` from `sanity/lib/sanity.live.js`** - never create new client instances or use bare `client.fetch`.
 
 ```javascript
 // sanity/lib/sanity.live.js
-import { defineLive } from 'next-sanity'
+import { defineLive } from 'next-sanity/live'
 import { client } from './sanity.client'
 
 const token = process.env.SANITY_API_READ_TOKEN
@@ -302,6 +406,9 @@ export default async function Page() {
 
 ```javascript
 // app/layout.js
+import { VisualEditing } from 'next-sanity/visual-editing'
+import { SanityLive } from '@/sanity/lib/sanity.live'
+
 const isProd = process.env.NODE_ENV === 'production'
 const shouldMountSanityLive = isProd || isDraftMode
 
@@ -462,6 +569,8 @@ See `docs/PLANT_RELATIONSHIPS_QUERIES.md` for comprehensive documentation on pla
 
 The Presentation tool provides live preview and click-to-edit capabilities. Content editors can view drafts in context and jump directly from preview to the relevant Studio field.
 
+**Studio Hosting:** Sanity Studio is hosted externally at `https://ozarkedgewildflowers.sanity.studio` — it is **not** embedded in the Next.js app. Local development uses `npx sanity dev`. Studio deploys use `npx sanity deploy`. See `docs/SANITY_HOSTED_STUDIO.md` for full details.
+
 **Features (📦 Sanity built-in):**
 
 - Live preview of draft content
@@ -475,6 +584,8 @@ The Presentation tool provides live preview and click-to-edit capabilities. Cont
 Editors can jump from Structure to Presentation via the custom "Open in Presentation" document action (`sanity/actions/OpenInPresentationAction.js`). This action builds the correct preview URL from the document's slug and navigates using `router.navigateUrl` with the `?preview=` search parameter. See the Studio Customization section for implementation details.
 
 **Note:** The Presentation tool is available on the free tier with some limitations. Advanced features like custom perspectives may require paid plans.
+
+**Deprecated Hooks (next-sanity v12.1.0+):** Do not use `useDraftModeEnvironment`, `useDraftModePerspective`, or `useIsLivePreview` — these are deprecated. Use `draftMode()` from `next/headers` and the `perspective`/`stega` params on `sanityFetch` instead.
 
 ### Portable Text
 
@@ -678,6 +789,111 @@ On the free tier, manage draft and published states using standard draft convent
 *[_id == $id || _id == "drafts." + $id][0]
 ```
 
+### Structure Builder Customization
+
+The Structure tool's default view lists all document types as flat document lists. For better editor experience, use Structure Builder to create singletons, group types, and add custom panes.
+
+**Current state:** This project uses `structureTool()` with no customization. Singleton document types (siteSettings, landingPage, aboutPage, plantListPage, notFound, menu) appear as document lists, which is suboptimal since editors should edit a single document rather than pick from a list.
+
+**Singleton pattern:**
+
+```javascript
+// structure/index.js
+import { structureTool } from 'sanity/structure'
+
+export const structure = (S) =>
+  S.list()
+    .title('Content')
+    .items([
+      // Singleton — opens directly to the document editor
+      S.listItem()
+        .id('siteSettings')
+        .schemaType('siteSettings')
+        .title('Site Settings')
+        .child(S.editor().id('siteSettings').schemaType('siteSettings').documentId('siteSettings')),
+      S.divider(),
+      // Regular document type lists
+      S.documentTypeListItem('nativePlant').title('Native Plants'),
+      S.documentTypeListItem('season').title('Seasons'),
+    ])
+```
+
+**Register in `sanity.config.js`:**
+
+```javascript
+import { structure } from './structure'
+
+plugins: [structureTool({ structure })]
+```
+
+**Grouping document types:**
+
+```javascript
+S.listItem()
+  .title('Pages')
+  .child(
+    S.list()
+      .title('Pages')
+      .items([
+        S.documentTypeListItem('landingPage').title('Landing Page'),
+        S.documentTypeListItem('aboutPage').title('About Page'),
+        S.documentTypeListItem('plantListPage').title('Plant List Page'),
+        S.documentTypeListItem('notFound').title('404 Page'),
+      ]),
+  )
+```
+
+### Dataset Embeddings & Semantic Search
+
+Sanity supports dataset embeddings for meaning-based search using `text::semanticSimilarity()` in GROQ.
+
+**Availability:**
+
+- New datasets: Available on **all plans** including free tier (`sanity datasets create <name> --embeddings`)
+- Existing datasets: Currently **enterprise-only** to enable embeddings
+
+**How it works:**
+
+```groq
+// Semantic search — match by meaning, not just keywords
+*[_type == "nativePlant"]
+  | score(text::semanticSimilarity("purple flowers that attract butterflies"))
+  | order(_score desc)
+
+// Hybrid: combine keyword matching and semantic scoring
+*[_type == "nativePlant"]
+  | score(
+      [title, pt::text(body)] match text::query("coneflower"),
+      text::semanticSimilarity("drought-tolerant native wildflower")
+    )
+  | order(_score desc)
+```
+
+**Relevance to this project:** If a plant search feature is planned, dataset embeddings would enable natural-language search across plant descriptions. The existing dataset would need to be recreated with `--embeddings` or the project would need to upgrade to enable embeddings on the existing dataset.
+
+### Sanity Functions (Experimental)
+
+Functions are serverless code that runs on Sanity's infrastructure, triggered by document events (create, update, delete). Currently **experimental**.
+
+**Use cases:** Content validation, cache invalidation, SEO checks, automated enrichment.
+
+**Setup:** Functions use Blueprints configuration (`sanity.blueprint.ts`) and deploy via `npx sanity deploy`. They run on Node.js 22.x.
+
+**Relevance to this project:** Low priority currently — the project has no complex automation needs. Worth considering if content workflows grow more complex (e.g., auto-validating botanical names, triggering Vercel revalidation on publish).
+
+### API Version Guidance
+
+The project's GROQ API version is `2024-10-28` (set in `sanity/lib/sanity.api.js` and `sanity.config.js`).
+
+**API versions are non-breaking** — upgrading unlocks new features without removing old ones. When recommending features that require a newer API version, note the requirement and suggest updating.
+
+**Features requiring `2025-02-19` or later:**
+
+- `sanity::versionOf()` and `sanity::partOfRelease()` — Content Releases queries
+- Enhanced `text::query()` capabilities
+
+**To update:** Change the `apiVersion` value in `sanity/lib/sanity.api.js` and `sanity.config.js`.
+
 ## Project Documentation & Resources
 
 **Core Sanity Configuration:**
@@ -718,8 +934,10 @@ On the free tier, manage draft and published states using standard draft convent
 
 **Studio Access:**
 
-- **Studio page**: `app/studio/[[...tool]]/page.js` - Studio route handler
-- **Studio HTML**: `public/studio/index.html` - Fallback HTML for no-JS scenarios
+- **Hosted Studio**: `https://ozarkedgewildflowers.sanity.studio` - Production Studio (deployed with `npx sanity deploy`)
+- **Local Studio**: `npx sanity dev` - Development Studio at `localhost:3333`
+- **Studio config**: `sanity.config.js` (root level) - Shared between hosted and local
+- **Hosted Studio docs**: `docs/SANITY_HOSTED_STUDIO.md` - Setup and deployment guide
 
 **Migrations:**
 

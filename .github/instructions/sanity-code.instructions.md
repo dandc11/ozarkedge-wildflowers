@@ -65,6 +65,5 @@ className={stegaClean(menuButtonColor)}
 
 ## Schema Conventions
 
-- Use `defineField` and `defineType` from Sanity v3+.
-- Use `defineField` and `defineType` from Sanity v3+.
+- Use `defineField` and `defineType` from Sanity v5+.
 - Check current Sanity version in [`package.json`](../../package.json) before suggesting API patterns.

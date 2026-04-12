@@ -26,7 +26,7 @@ Always consult the latest documentation for updates:
 - [Migrating Schema and Content](https://www.sanity.io/docs/content-lake/schema-and-content-migrations) - Main migration guide
 - [Content Migration Cheat Sheet](https://www.sanity.io/docs/content-lake/content-migration-cheatsheet) - Common migration patterns
 - [Schema Migration Principles](https://www.sanity.io/docs/content-lake/important-considerations-for-schema-and-content-migrations) - Production considerations
-- [CLI Migration Reference](https://www.sanity.io/docs/cli-reference/cli-migration) - CLI command reference
+- [CLI Migration Reference](https://www.sanity.io/docs/cli-reference/cli-migrations) - CLI command reference
 - [Schema Change Management Course](https://www.sanity.io/learn/course/handling-schema-changes-confidently) - Interactive learning
 
 ## Core Principles
@@ -44,7 +44,7 @@ Always consult the latest documentation for updates:
 1. **Create migration scaffold**:
 
    ```bash
-   sanity migration create
+   sanity migrations create
    ```
 
    This creates `/migrations/<migration-id>/index.ts`
@@ -58,13 +58,13 @@ Always consult the latest documentation for updates:
 1. **List available migrations**:
 
    ```bash
-   sanity migration list
+   sanity migrations list
    ```
 
 2. **Always dry-run first** (default behavior):
 
    ```bash
-   sanity migration run <migration-id>
+   sanity migrations run <migration-id>
    ```
 
    Review the output carefully before proceeding.
@@ -72,13 +72,16 @@ Always consult the latest documentation for updates:
 3. **Execute the migration**:
 
    ```bash
-   sanity migration run <migration-id> --no-dry-run
+   sanity migrations run <migration-id> --no-dry-run
    ```
 
 4. **Useful flags**:
    - `--dataset <name>` - Target specific dataset
    - `--concurrency <n>` - Control parallel requests (1-10, default 6)
-   - `--no-progress` - Show detailed logs
+   - `--no-dry-run` - Execute the migration (default is dry-run)
+   - `--no-confirm` - Skip confirmation prompt before executing
+   - `--no-progress` - Hide progress bar, show detailed mutation logs
+   - `--api-version <version>` - Override API version (defaults to v2024-01-29)
    - `--from-export=<file.tar.gz>` - Dry-run against export file
 
 ### Safety Checklist (Every Migration)
@@ -86,7 +89,7 @@ Always consult the latest documentation for updates:
 ✅ **Before running**:
 
 1. Back up the dataset: `sanity dataset export`
-2. Run `sanity migration list` to confirm migration ID
+2. Run `sanity migrations list` to confirm migration ID
 3. Run dry-run and review all patches
 4. Verify GROQ filter targets only intended documents
 5. Test on staging/development dataset first (for production)
@@ -243,6 +246,90 @@ migrate: {
 }
 ```
 
+### Find and Update Deeply Nested Objects
+
+Use the `node()` handler to visit every value in a document tree. Return a mutation to transform matching nodes:
+
+```ts
+import { defineMigration, set } from 'sanity/migrate'
+
+export default defineMigration({
+  title: 'Add tracking field to all link objects',
+  migrate: {
+    node(node, path, context) {
+      if (node._type === 'link') {
+        return set({ ...node, tracking: true })
+      }
+    },
+  },
+})
+```
+
+The `node()` handler automatically traverses the entire document, including Portable Text blocks, arrays, and nested objects. Use `object()` to visit only object nodes, or `array()` for array nodes.
+
+### Using extractWithPath for Document Context
+
+When you need access to document-level fields while updating nested objects, use `extractWithPath` from `@sanity/mutator` with the `document()` handler:
+
+```ts
+import { extractWithPath } from '@sanity/mutator'
+import { at, defineMigration, set } from 'sanity/migrate'
+
+export default defineMigration({
+  title: 'Update nested objects using document context',
+  migrate: {
+    document(doc) {
+      // '..' is JSONMatch recursive descent — matches at any depth
+      const matches = extractWithPath('..[_type=="plantName"]', doc)
+      if (matches.length === 0) return
+
+      return matches.map(({ path, value }) =>
+        at(
+          path,
+          set({
+            ...value,
+            source: doc.title,
+          }),
+        ),
+      )
+    },
+  },
+})
+```
+
+Use `node()` when you only need the matched node itself. Use `extractWithPath` with `document()` when you need to reference other fields from the parent document. See [JSONMatch documentation](https://www.sanity.io/docs/content-lake/json-match) for path expression syntax.
+
+### Migrate Using Content Releases
+
+Run migrations into a content release instead of writing directly to existing documents. This decouples the migration from the live dataset:
+
+```ts
+import { defineMigration, createOrReplace } from 'sanity/migrate'
+
+const RELEASE_ID = 'release-id'
+
+export default defineMigration({
+  title: 'Content release migration',
+  documentTypes: ['nativePlant'],
+  // Only run on published documents, skip versions
+  filter: `!(_id in path('versions.**'))`,
+  migrate: {
+    async document(doc, context) {
+      const newDoc = {
+        _type: 'nativePlant',
+        _id: `versions.${RELEASE_ID}.${doc._id}`,
+        // Carry over and transform any fields
+        ...doc,
+        newField: 'value',
+      }
+      return [createOrReplace(newDoc)]
+    },
+  },
+})
+```
+
+Create the release first via the Content Releases API, then use the release name as `RELEASE_ID`. See [Content Releases API docs](https://www.sanity.io/docs/apis-and-sdks/content-releases-api).
+
 ## Schema Management
 
 ### Deprecating Fields Before Migration
@@ -312,7 +399,7 @@ For production projects, follow this 12-step workflow:
 2. **Clone to staging** - Test on non-production dataset
 3. **Update schema** - Add `deprecated` markers with clear reasons
 4. **Validate** - Run `sanity documents validate`
-5. **Create migration** - `sanity migration create`
+5. **Create migration** - `sanity migrations create`
 6. **Dry-run in staging** - Review all patches
 7. **Execute in staging** - Run with `--no-dry-run`
 8. **Update app code** - Write defensive code supporting both models
@@ -346,12 +433,15 @@ See [Content Migration Cheat Sheet](https://www.sanity.io/docs/content-lake/cont
 - Convert reference to array of references
 - Convert string to Portable Text
 - Convert Portable Text to plain text
+- Convert string to localized i18n array
 - Migrate inline objects to references
 - Deduplicate arrays
 - Delete documents by type
 - Sort array by reference property
 - Backfill missing initial values
 - Shift Portable Text headings
+- Correct heading nesting
+- Find and update deeply nested objects
 - Convert URLs to internal references
 - Migrate using content releases
 
@@ -364,7 +454,7 @@ See [Content Migration Cheat Sheet](https://www.sanity.io/docs/content-lake/cont
 - `patch(documentId, operations)` - Create document patch
 - `createIfNotExists(document)` - Create if missing
 - `createOrReplace(document)` - Create or overwrite
-- `delete_(documentId)` - Delete document (note underscore)
+- `del(documentId)` - Delete document (also exported as `delete_`)
 
 **Operations** (use with `at()`):
 
@@ -376,11 +466,18 @@ See [Content Migration Cheat Sheet](https://www.sanity.io/docs/content-lake/cont
 - `prepend(value)` - Add to array start
 - `replace(items, {_key})` - Replace array items
 
-**Path helpers**:
+**Path helpers** (from `'sanity'`, not `'sanity/migrate'`):
 
-- `at(path, operation)` - Target specific field
 - `pathsAreEqual(path1, path2)` - Compare paths
 - `stringToPath(string)` - Convert to path array
+
+**Path helpers** (from `'sanity/migrate'`):
+
+- `at(path, operation)` - Target specific field
+
+**Document tree traversal** (from `'@sanity/mutator'`):
+
+- `extractWithPath(pattern, document)` - Find nested values using JSONMatch patterns
 
 **Migration structure**:
 
@@ -393,7 +490,7 @@ See [TypeScript API reference](https://www.sanity.io/docs/reference/api/sanity/m
 ### Logging Best Practices
 
 - Log counts, skipped items, document IDs
-- Use `--no-progress` flag for detailed output
+- Use `--no-progress` flag to hide the progress bar and see detailed mutation output
 - Be explicit about skip conditions
 
 ### Webhook Considerations
@@ -407,8 +504,8 @@ See [TypeScript API reference](https://www.sanity.io/docs/reference/api/sanity/m
 ```json
 {
   "scripts": {
-    "migrate:field-rename:dry-run": "sanity migration run field-rename",
-    "migrate:field-rename": "sanity migration run field-rename --no-dry-run"
+    "migrate:field-rename:dry-run": "sanity migrations run field-rename",
+    "migrate:field-rename": "sanity migrations run field-rename --no-dry-run"
   }
 }
 ```
@@ -419,7 +516,7 @@ See [TypeScript API reference](https://www.sanity.io/docs/reference/api/sanity/m
 - Always exclude drafts for published content: `!(_id in path("drafts.**"))`
 - Test migrations on development dataset before production
 - Document all migrations in version control
-- Reference `docs/NEARBY_PLANTS_MIGRATION.md` for real-world example
+- Prior migration examples in `/migrations/`: `convert-nearby-plants/`, `cleanup-nearby-plants-duplicates/`, `rename-pagebodyportabletext-objects/`
 
 ## Remember
 
