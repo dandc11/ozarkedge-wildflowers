@@ -59,12 +59,8 @@ const PlantImageCard = React.memo(
           />
           <div className="flex flex-wrap">
             <p className="img-card-body fs-xs font-body">
-              <span className="flowering uppercase font-xxs">
-                {' '}
-                {floweringMonths && getMonthNames()}{' '}
-              </span>{' '}
-              |{' '}
-              <span className="uppercase font-xxs">
+              <span className="flowering uppercase"> {floweringMonths && getMonthNames()} </span>{' '}
+              <span className="habitats">
                 {' '}
                 {Array.isArray(habitatType) ? habitatType.join(', ') : habitatType}{' '}
               </span>

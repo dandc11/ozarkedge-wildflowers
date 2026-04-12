@@ -267,8 +267,8 @@ const mockNativePlantData = {
   ],
   plantName: {
     _type: 'plantName',
-    botanicalName: 'Salvia azurea var. grandiflora',
-    commonName: 'Blue sage',
+    botanicalName: ['Salvia azurea var. grandiflora'],
+    commonName: ['Blue sage'],
     nameInformation: [
       {
         _key: 'f4df990c3386',

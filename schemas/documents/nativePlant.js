@@ -42,7 +42,13 @@ export default defineType({
     },
     prepare(selection) {
       const { commonName, botanicalName } = selection
-      const slug = `${commonName}-${botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200)
+      // Use first array items for slug generation
+      const firstCommon = Array.isArray(commonName) ? commonName[0] : commonName
+      const firstBotanical = Array.isArray(botanicalName) ? botanicalName[0] : botanicalName
+      const slug = `${firstCommon}-${firstBotanical}`
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .slice(0, 200)
       return {
         ...selection,
         subtitle: `/${slug}`,
@@ -208,14 +214,26 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: (doc) =>
-          `${doc?.plantName?.commonName}-${doc?.plantName?.botanicalName}`
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .slice(0, 200),
+        source: (doc) => {
+          // Use first array items for slug generation
+          const commonName = Array.isArray(doc?.plantName?.commonName)
+            ? doc.plantName.commonName[0]
+            : doc?.plantName?.commonName
+          const botanicalName = Array.isArray(doc?.plantName?.botanicalName)
+            ? doc.plantName.botanicalName[0]
+            : doc?.plantName?.botanicalName
+          return `${commonName}-${botanicalName}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200)
+        },
       },
-      hidden: ({ document }) =>
-        !document?.plantName?.commonName || !document?.plantName?.botanicalName,
+      hidden: ({ document }) => {
+        const commonName = Array.isArray(document?.plantName?.commonName)
+          ? document.plantName.commonName[0]
+          : document?.plantName?.commonName
+        const botanicalName = Array.isArray(document?.plantName?.botanicalName)
+          ? document.plantName.botanicalName[0]
+          : document?.plantName?.botanicalName
+        return !commonName || !botanicalName
+      },
       preview: {
         select: {
           title: 'plantName.commonName',
@@ -223,8 +241,14 @@ export default defineType({
         },
         prepare(selection) {
           const { title, subtitle } = selection
+          // Use first array items for slug preview
+          const firstTitle = Array.isArray(title) ? title[0] : title
+          const firstSubtitle = Array.isArray(subtitle) ? subtitle[0] : subtitle
           return {
-            title: `${title}-${subtitle}`.toLowerCase().replace(/\s+/g, '-').slice(0, 200),
+            title: `${firstTitle}-${firstSubtitle}`
+              .toLowerCase()
+              .replace(/\s+/g, '-')
+              .slice(0, 200),
           }
         },
       },

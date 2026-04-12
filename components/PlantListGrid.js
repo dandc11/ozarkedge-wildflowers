@@ -100,13 +100,21 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
 
   // Create the name options for the filter, sorted alphabetically by common name
   const NAME_OPTIONS = useMemo(() => {
-    const names = nativePlantList.map((plant) => plant.plantName)
-    const uniqueNames = [...new Set(names)]
-    const fullNames = [
-      ...uniqueNames.map((name) => name.commonName),
-      ...uniqueNames.map((name) => name.botanicalName),
-    ].map((name) => ({ value: name, label: name }))
-    const alphaNames = fullNames.sort((a, b) => {
+    // Flatten array names into individual entries
+    const allNames = nativePlantList.flatMap((plant) => {
+      const commonNames = Array.isArray(plant.plantName.commonName)
+        ? plant.plantName.commonName
+        : [plant.plantName.commonName]
+      const botanicalNames = Array.isArray(plant.plantName.botanicalName)
+        ? plant.plantName.botanicalName
+        : [plant.plantName.botanicalName]
+      return [...commonNames, ...botanicalNames]
+    })
+
+    const uniqueNames = [...new Set(allNames)]
+    const nameOptions = uniqueNames.map((name) => ({ value: name, label: name }))
+
+    const alphaNames = nameOptions.sort((a, b) => {
       if (a.label < b.label) {
         return -1
       }
@@ -165,10 +173,18 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
     })
     .map((plant) => plant)
     .sort((a, b) => {
-      if (a.plantName.commonName < b.plantName.commonName) {
+      // Sort by first common name
+      const aCommonName = Array.isArray(a.plantName.commonName)
+        ? a.plantName.commonName[0]
+        : a.plantName.commonName
+      const bCommonName = Array.isArray(b.plantName.commonName)
+        ? b.plantName.commonName[0]
+        : b.plantName.commonName
+
+      if (aCommonName < bCommonName) {
         return -1
       }
-      if (a.plantName.commonName > b.plantName.commonName) {
+      if (aCommonName > bCommonName) {
         return 1
       }
       return 0

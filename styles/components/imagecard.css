@@ -58,6 +58,7 @@
       line-height: var(--sp-md);
       padding-top: var(--sp-xxs);
       font-size: var(--fs-xs);
+      font-family: var(--font-raleway);
     }
   }
 
