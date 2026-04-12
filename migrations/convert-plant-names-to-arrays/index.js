@@ -41,7 +41,7 @@ export default defineMigration({
   filter: '!(_id in path("drafts.**"))',
 
   migrate: {
-    document(doc, context) {
+    document(doc) {
       const { plantName } = doc
 
       // Skip if plantName doesn't exist or is already in array format
@@ -57,7 +57,7 @@ export default defineMigration({
 
       // If both are already arrays, no migration needed
       if (commonNameIsArray && botanicalNameIsArray) {
-        context.log(`Skipping ${doc._id}: names already in array format`)
+        console.log(`Skipping ${doc._id}: names already in array format`)
         return
       }
 
@@ -69,11 +69,11 @@ export default defineMigration({
         const commonNameArray = splitAndTrimNames(commonName)
         if (commonNameArray.length > 0) {
           operations.push(at('plantName.commonName', set(commonNameArray)))
-          context.log(
+          console.log(
             `Converting commonName: "${commonName}" → [${commonNameArray.map((n) => `"${n}"`).join(', ')}]`,
           )
         } else {
-          context.log(`WARNING: ${doc._id} has empty commonName after splitting`)
+          console.log(`WARNING: ${doc._id} has empty commonName after splitting`)
         }
       }
 
@@ -82,11 +82,11 @@ export default defineMigration({
         const botanicalNameArray = splitAndTrimNames(botanicalName)
         if (botanicalNameArray.length > 0) {
           operations.push(at('plantName.botanicalName', set(botanicalNameArray)))
-          context.log(
+          console.log(
             `Converting botanicalName: "${botanicalName}" → [${botanicalNameArray.map((n) => `"${n}"`).join(', ')}]`,
           )
         } else {
-          context.log(`WARNING: ${doc._id} has empty botanicalName after splitting`)
+          console.log(`WARNING: ${doc._id} has empty botanicalName after splitting`)
         }
       }
 
