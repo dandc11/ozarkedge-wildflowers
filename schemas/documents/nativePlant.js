@@ -35,14 +35,13 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'plantName.botanicalName',
       media: 'previewImage', // Use the previewImage field as thumbnail
       commonName: 'plantName.commonName',
       botanicalName: 'plantName.botanicalName',
     },
     prepare(selection) {
       const { commonName, botanicalName } = selection
-      // Use first array items for slug generation
+      // Use first array items for display and slug generation
       const firstCommon = Array.isArray(commonName) ? commonName[0] : commonName
       const firstBotanical = Array.isArray(botanicalName) ? botanicalName[0] : botanicalName
       const slug = `${firstCommon}-${firstBotanical}`
@@ -51,6 +50,7 @@ export default defineType({
         .slice(0, 200)
       return {
         ...selection,
+        title: firstBotanical,
         subtitle: `/${slug}`,
       }
     },
