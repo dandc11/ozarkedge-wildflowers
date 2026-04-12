@@ -163,10 +163,16 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
       const isFloweringMonthMatched = getMatched(monthsSelected, plant.floweringMonths)
       const isHabitatTypeMatched = getMatched(habitatsSelected, plant.habitatType)
       const isFlowerColorMatched = getMatched(colorsSelected, plant.flowerColor)
-      const isNameMatched = getMatched(nameSelected, [
-        plant.plantName.commonName,
-        plant.plantName.botanicalName,
-      ])
+      // Flatten both name arrays into a single array for matching
+      const allPlantNames = [
+        ...(Array.isArray(plant.plantName.commonName)
+          ? plant.plantName.commonName
+          : [plant.plantName.commonName]),
+        ...(Array.isArray(plant.plantName.botanicalName)
+          ? plant.plantName.botanicalName
+          : [plant.plantName.botanicalName]),
+      ]
+      const isNameMatched = getMatched(nameSelected, allPlantNames)
       return (
         isNameMatched && isHabitatTypeMatched && isFloweringMonthMatched && isFlowerColorMatched
       )
