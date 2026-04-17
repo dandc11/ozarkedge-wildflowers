@@ -26,7 +26,13 @@ export const urlForImage = (source, options) => {
   // If options are provided, apply them to the image URL
   if (options) {
     const { width, height, quality = 80 } = options
-    return imageBuilder.image(source).width(width).height(height).quality(quality).auto('format')
+    let builder = imageBuilder.image(source).width(width).quality(quality).auto('format')
+    // Only set height when explicitly provided — omitting it lets the Sanity
+    // builder apply the user's crop without forcing an aspect ratio
+    if (height) {
+      builder = builder.height(height)
+    }
+    return builder
   }
 
   return imageBuilder?.image(source).auto('format')

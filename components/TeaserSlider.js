@@ -2,7 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 
-import { CURRENT_MONTH_NUMBER, SEASONS } from '../utilities/constants'
+import { CURRENT_MONTH_NUMBER, IMG_SIZES, SEASONS } from '../utilities/constants'
 import { getCurrentMonthName, getCurrentSeason, titleCase } from '../utilities/helperUtil'
 
 import Heading from './Heading'
@@ -108,6 +108,7 @@ const TeaserSlider = (props) => {
                 showCaption={false}
                 // loading="eager"
                 figureClassName="h-full w-full"
+                sizes={IMG_SIZES.TEASER}
                 wrapperClassName="teaser-image rounded-lg w-full mb-3xl bg-oe-green-yellow-200"
                 className="w-full h-full"
               />
