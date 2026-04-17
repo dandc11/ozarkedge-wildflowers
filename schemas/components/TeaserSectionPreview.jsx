@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Flex, Grid, Card, Text, Heading, Box } from '@sanity/ui'
 import { useClient } from 'sanity'
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import { PortableText } from '@portabletext/react'
 
 /**
@@ -116,7 +116,7 @@ const ImageThumbnailGrid = ({ builder, images }) => {
 export const TeaserSectionPreview = (props) => {
   const { title, images, bodyText, link } = props
   const client = useClient({ apiVersion: '2024-10-28' })
-  const builder = useMemo(() => imageUrlBuilder(client), [client])
+  const builder = useMemo(() => createImageUrlBuilder(client), [client])
 
   return (
     <Card tone="positive">
