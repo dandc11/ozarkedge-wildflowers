@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Flex, Grid, Card, Text, Heading } from '@sanity/ui'
 import { useClient } from 'sanity'
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 
 /**
  * Builds a thumbnail URL from a Sanity image source using the Studio client.
@@ -32,7 +32,7 @@ const buildThumbUrl = (builder, source, width = 200, height = 150) => {
 export const ImageCollectionPreview = (props) => {
   const { collection } = props
   const client = useClient({ apiVersion: '2024-10-28' })
-  const builder = useMemo(() => imageUrlBuilder(client), [client])
+  const builder = useMemo(() => createImageUrlBuilder(client), [client])
 
   return (
     <Card tone="positive">
