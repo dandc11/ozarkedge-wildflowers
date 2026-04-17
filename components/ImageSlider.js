@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 import CustomLink from './CustomLink'
 import ResponsiveImage from './ResponsiveImage'
 import Button from './Button'
+import { IMG_SIZES } from '../utilities/constants'
 
 /**
  * ImageSlider Component - Displays a horizontal slider of images. If the images have links, they will be wrapped in a link. If the images have no links, they will open in a lightbox when clicked.
@@ -47,7 +48,7 @@ const ImageSlider = ({
               figureClassName={`img `}
               wrapperClassName={``}
               image={image}
-              sizes="(max-width: 800px) 150px, 240px"
+              sizes={IMG_SIZES.IMAGE_SLIDER}
               placeholder={``}
               showCaption={true}
               loading="lazy"
@@ -60,7 +61,7 @@ const ImageSlider = ({
             figureClassName={`img `}
             wrapperClassName={``}
             image={image}
-            sizes="(max-width: 800px) 150px, 240px"
+            sizes={IMG_SIZES.IMAGE_SLIDER}
             lightboxIdentifier={lightboxIdentifier}
             placeholder={``}
             showCaption={true}

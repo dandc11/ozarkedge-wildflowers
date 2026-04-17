@@ -53,10 +53,11 @@ const ResponsiveImage = ({
   const imgWidth = parseInt(width, 10) || 1600
   const imgHeight = parseInt(height, 10) || Math.round(imgWidth * 0.75)
 
-  // Build the image URL safely; if the builder is unavailable, fall back to empty string
+  // Build the image URL safely; if the builder is unavailable, fall back to empty string.
+  // Only pass width (not height) so the Sanity image-url builder applies the user's crop
+  // without forcing an aspect ratio. CSS object-fit handles visual cropping in the browser.
   const imageBuilder = urlForImage(image, {
     width: imgWidth,
-    height: imgHeight,
     quality,
   })
   let imageUrl = ''

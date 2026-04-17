@@ -5,14 +5,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // Use remotePatterns instead of deprecated domains
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.sanity.io',
-        pathname: '/images/**',
-      },
-    ],
+    // Bypass /_next/image proxy — request images directly from Sanity CDN
+    // at the exact resolution needed for each srcset entry
+    loader: 'custom',
+    loaderFile: './sanity/lib/sanity.loader.js',
     // Predefine qualities used across the app to avoid future warnings
     qualities: [75, 80, 85, 90, 95],
   },
