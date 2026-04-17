@@ -9,6 +9,7 @@ import {
   getCurrentSeason,
 } from '../utilities/helperUtil'
 import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
+import { IMG_SIZES } from '../utilities/constants'
 import Heading from './Heading'
 import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
@@ -106,6 +107,7 @@ const TeaserSection = (props) => {
               captionStyle="insetLeft"
               figureClassName={cx(`w-full`)}
               width={560}
+              sizes={IMG_SIZES.TEASER}
               wrapperClassName={cx(`port-text-img teaser-img`)}
             />
           )}

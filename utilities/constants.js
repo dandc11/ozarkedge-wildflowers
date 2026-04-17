@@ -90,15 +90,27 @@ export const HABITAT_OPTIONS = [
   { label: 'Wetland', value: 'Wetland' },
 ]
 
+// 0px at ≤900px is intentional: desktop banner is display:none at mobile widths,
+// so the browser picks the smallest srcset variant and avoids a wasted download.
 export const HERO_DESKTOP_SIZES = '(max-width: 900px) 0px, 100vw'
 export const HERO_MOBILE_SIZES = '(min-width: 901px) 0px, 100vw'
-export const PORT_TEXT_SIZES = '(min-width: 600px) 85vw, (min-width: 700px) 580px, 90vw'
+// Portable text images: content well maxes out at ~55rem (880px). At ≥700px
+// viewports the image is capped at 580px; at ≥600px it fills 85% of viewport;
+// below 600px it fills 90%. Ordered largest-first so the first match wins.
+export const PORT_TEXT_SIZES = '(min-width: 700px) 580px, (min-width: 600px) 85vw, 90vw'
+// Teaser/feature image: at ≥800px it sits in a grid column capped at 45rem (720px);
+// below that it fills most of the viewport.
+export const TEASER_SIZES = '(min-width: 800px) 720px, 90vw'
+// Image slider thumbnails: compact thumbnails in a horizontal scroll at all widths.
+export const IMAGE_SLIDER_SIZES = '(max-width: 800px) 150px, 240px'
 export const THUMBNAIL_GRID_SIZES = '(min-width: 400px) 432px, 35vw'
 
 export const IMG_SIZES = {
   HERO_DESKTOP_SIZES: HERO_DESKTOP_SIZES,
   HERO_MOBILE_SIZES: HERO_MOBILE_SIZES,
   PORT_TEXT: PORT_TEXT_SIZES,
+  TEASER: TEASER_SIZES,
+  IMAGE_SLIDER: IMAGE_SLIDER_SIZES,
   THUMBNAIL_GRID: THUMBNAIL_GRID_SIZES,
 }
 
