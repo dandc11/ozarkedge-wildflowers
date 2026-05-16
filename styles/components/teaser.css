@@ -11,9 +11,10 @@
 
   &.spring {
     --teaser-heading-color: #7f696d;
+    --teaser-text-color: #504346;
     --teaser-bg-stripe: var(--spring-gradient);
     --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
+    --button-border: var(--teaser-text-color) 2px solid;
   }
 
   &.summer {
@@ -45,7 +46,7 @@
   button {
     background: var(--teaser-btn-bg-color);
     border: var(--button-border);
-    color: var(--oe-white);
+    color: var(--teaser-text-color);
   }
 
   .heading {
