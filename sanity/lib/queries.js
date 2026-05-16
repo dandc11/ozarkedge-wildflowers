@@ -306,7 +306,7 @@ export const GET_PLANT_PAGE_DATA = groq`
         "palette": image.asset->metadata.palette,
         "lqip": image.asset->metadata.lqip,
         ...(*[_type == "nativePlant" && !(_id in path("drafts.**")) && 
-          lower(plantName.botanicalName) match lower(^.plantBotanicalName)][0]{
+          lower(plantName.botanicalName[0]) match lower(^.plantBotanicalName)][0]{
           "slug": slug.current,
           "docType": _type
         })
