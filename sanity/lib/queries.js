@@ -94,7 +94,7 @@ export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = groq`*[ _type == "native
       "palette": asset->metadata.palette,
       "lqip": asset->metadata.lqip,
     },
-    "caption": plantName,
+    "caption": plantName.botanicalName[0],
     "slug": slug.current,
   }`
 

@@ -88,17 +88,22 @@
     &.winter {
       background: var(--winter-gradient-3);
     }
-
+    /* 
     &.spring {
       background: var(--spring-gradient);
-    }
+    } */
 
-    &.spring,
+    /* &.spring, */
     &.winter {
       .blooming-title,
-      .description p {
+      .description p,
+      figure.img figcaption {
         color: var(--oe-white);
       }
+    }
+
+    figure.img figcaption {
+      color: var(--oe-text-body);
     }
   }
 

@@ -65,10 +65,10 @@ const TeaserSlider = (props) => {
       btnThemeClass = 'btn-1'
   }
 
-  const sliderPlants = images
+  const sliderPlants = (images ?? [])
     .filter((plant) => plant.image)
     .map((plant) => {
-      plant.image.caption = plant.caption?.commonName
+      plant.image.caption = plant.caption
       plant.image.docType = 'nativePlant'
       plant.image.slug = plant.slug
       return plant.image
@@ -98,6 +98,7 @@ const TeaserSlider = (props) => {
                 className={`teaser-image-slider overflow-hidden`}
                 sliderImages={sliderPlants}
                 lightboxIdentifier={lightboxIdentifier}
+                useLinks
               />
             ) : (
               <ResponsiveImage
