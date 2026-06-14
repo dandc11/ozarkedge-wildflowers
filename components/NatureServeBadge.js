@@ -37,7 +37,7 @@ const NatureServeBadge = (props) => {
   let classNames = cx('natureserve-badge', className, { expanded: isExpanded })
 
   return (
-    <div
+    <button
       id={'natureServeBadge'}
       className={classNames}
       style={{
@@ -45,6 +45,7 @@ const NatureServeBadge = (props) => {
         color: `var(${textColorVariable})`,
       }}
       onClick={toggleIsExpanded}
+      aria-expanded={isExpanded}
     >
       <span
         className="natureserve-badge-text"
@@ -56,7 +57,7 @@ const NatureServeBadge = (props) => {
         {rankingText}
         <IconInfo strokeColorVariable={textColorVariable} />
       </span>
-    </div>
+    </button>
   )
 }
 

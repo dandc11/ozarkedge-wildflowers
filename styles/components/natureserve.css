@@ -52,11 +52,17 @@
   align-self: flex-start;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: none;
 
   &:hover,
   &:active {
     opacity: 0.9;
     transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
 
   .natureserve-badge-text {

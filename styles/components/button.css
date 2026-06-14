@@ -21,6 +21,11 @@
     background-position: 25% 0;
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--oe-white);
+    outline-offset: 3px;
+  }
+
   &.btn-expand {
     width: 100%;
     box-shadow: none;

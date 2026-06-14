@@ -46,6 +46,7 @@ export default async function RootLayout({ children }) {
       <body className={`oe-site-body ${currentSeason.SEASON_NAME}`}>
         {shouldMountSanityLive && <SanityLive />}
         <ContextProviders>
+          <a href="#page-content" className="skip-link">Skip to main content</a>
           <Nav menuData={menuData?.data} />
           <main id={`page-content`} className={`relative`}>
             {children}

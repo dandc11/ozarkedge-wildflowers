@@ -69,13 +69,24 @@ const ResponsiveImage = ({
     }
   }
 
+  const handleKeyDown = onClick
+    ? (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick(e)
+        }
+      }
+    : undefined
+
   return (
     <div id={id} className={cx('img-wrapper text-sm', wrapperClassName)} {...props}>
       <figure
         className={cx(figureClassName)}
         onClick={onClick}
+        onKeyDown={handleKeyDown}
         data-lightboxjs={lightboxIdentifier}
         data-key={id}
+        {...(onClick ? { role: 'button', tabIndex: 0 } : {})}
       >
         <Image
           alt={stegaClean(imageAlt)}

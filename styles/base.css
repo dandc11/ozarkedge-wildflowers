@@ -92,6 +92,41 @@ a[href] {
   cursor: pointer;
 }
 
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 999;
+  padding: var(--sp-sm) var(--sp-ml);
+  background: var(--oe-text-body);
+  color: var(--oe-white);
+  font-weight: var(--fw-700);
+  text-decoration: none;
+  border-radius: 0 0 var(--br-md) 0;
+
+  &:focus-visible {
+    top: 0;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 img,
 picture {
   max-width: 100%;
@@ -224,6 +259,11 @@ img {
   p {
     color: #ffffff !important;
   }
+  button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 }
 
 .common-name {
@@ -243,5 +283,15 @@ img {
 
   hr {
     margin-block: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

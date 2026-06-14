@@ -79,6 +79,7 @@ const Heading = (props) => {
     textTypeClass = 'thin',
   } = props
   const tableOfContentsRef = useRef(null)
+  const circleButtonRef = useRef(null)
   const [tableOfContentsOpen, setTableOfContentsOpen] = useState(false)
   const toggleTableOfContents = () => {
     setTableOfContentsOpen(!tableOfContentsOpen)
@@ -102,6 +103,37 @@ const Heading = (props) => {
     return () => document.removeEventListener('click', onClickOutside)
   }, [])
 
+  // Move focus to first ToC link when opened
+  useEffect(() => {
+    if (tableOfContentsOpen) {
+      const firstLink = tableOfContentsRef.current?.querySelector('a')
+      firstLink?.focus()
+    }
+  }, [tableOfContentsOpen])
+
+  // Close when focus leaves the toc-wrapper entirely
+  const handleTocBlur = (e) => {
+    if (!e.relatedTarget) return
+    if (!tableOfContentsRef.current?.contains(e.relatedTarget)) {
+      setTableOfContentsOpen(false)
+    }
+  }
+
+  // Escape from within the ToC closes it and returns focus to circle
+  const handleTocKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setTableOfContentsOpen(false)
+      circleButtonRef.current?.focus()
+    }
+  }
+
+  // Escape on the circle button closes ToC when open
+  const handleCircleKeyDown = (e) => {
+    if (e.key === 'Escape' && tableOfContentsOpen) {
+      setTableOfContentsOpen(false)
+    }
+  }
+
   const currentSeason = getCurrentSeason()
   const circleColor = circleColorClass ? `${circleColorClass}` : currentSeason.ACCENT_COLOR_VAR
   const circleClassName = cx(
@@ -122,6 +154,9 @@ const Heading = (props) => {
             'grid-rows-1fr': tableOfContentsOpen,
             'grid-rows-0': !tableOfContentsOpen,
           })}
+          inert={!tableOfContentsOpen}
+          onBlur={handleTocBlur}
+          onKeyDown={handleTocKeyDown}
         >
           <div className="overflow-hidden relative">
             <TableOfContents className={cx('p-in-xl')} links={tocLinks} />
@@ -134,7 +169,16 @@ const Heading = (props) => {
         headingChildren={children}
         headingBgClass={headingBgClass}
       >
-        {showCircle && <div className={circleClassName} onClick={toggleTableOfContents}></div>}
+        {showCircle && (
+          <button
+            ref={circleButtonRef}
+            className={circleClassName}
+            onClick={toggleTableOfContents}
+            onKeyDown={handleCircleKeyDown}
+            aria-expanded={tableOfContentsOpen}
+            aria-label="Toggle table of contents"
+          />
+        )}
         {children}
       </HeadingElement>
     </div>
