@@ -11,9 +11,13 @@
 
   &.spring {
     --teaser-heading-color: #7f696d;
-    --teaser-text-color: #504346;
     --teaser-bg-stripe: var(--spring-gradient);
     --teaser-btn-bg-color: transparent;
+    --button-border: var(--oe-white) 2px solid;
+  }
+
+  &.spring.teaser-slider {
+    --teaser-text-color: #504346;
     --button-border: var(--teaser-text-color) 2px solid;
   }
 
