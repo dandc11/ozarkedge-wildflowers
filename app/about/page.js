@@ -1,15 +1,14 @@
-import cx from 'classnames'
 import React, { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { stegaClean } from '@sanity/client/stega'
 
 import { getUniqueImagesFromDocument } from '../../utilities/imageUtil'
-import Heading from '../../components/Heading'
 // Dynamically import heavy client components to reduce initial compile size
 const LightboxGallery = dynamic(() => import('../../components/LightboxGallery'))
 const PortTextWrapper = dynamic(() => import('../../components/PortTextWrapper'))
 import ResponsiveImage from '../../components/ResponsiveImage'
+import WelcomeSection from '../../components/WelcomeSection'
 import { GET_ABOUT_PAGE_DATA_QUERY } from '../../sanity/lib/queries'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 import { urlForImage } from '../../sanity/lib/sanity.image'
@@ -67,7 +66,7 @@ const AboutPage = async () => {
           className={`about-content nav-${stegaClean(aboutPageData.menuButtonColor)} overflow-hidden flex flex-col items-center relative`}
           key={aboutPageData.id}
         >
-          <header className="header-section relative w-full h-full">
+          <header className="header-section relative w-full">
             <ResponsiveImage
               image={aboutPageData.mainImage}
               alt={aboutPageData.mainImage?.alt || 'A picture of the Ozarkedge property'}
@@ -88,26 +87,52 @@ const AboutPage = async () => {
               wrapperClassName="banner-img mobile w-full"
               className=""
             />
-            <Heading
-              className={'content-center text-display '}
-              showCircle={false}
-              textTypeClass={'text-display'}
-              headingClassName={'no-wrap text-white bg-oe-blue-dark-500 px-6 pb-xxs mb-0'}
-            >
-              About Ozarkedge
-            </Heading>
+            <div className="about-banner-overlap">
+              <div className="about-banner-card">
+                <p className="about-banner-eyebrow">
+                  <span className="about-banner-circle" aria-hidden="true" />
+                  About Ozarkedge
+                </p>
+                <h1 className="about-banner-heading">
+                  {aboutPageData.title || 'The people, the place, and the plants'}
+                </h1>
+                {aboutPageData.bannerStandfirst && (
+                  <p className="about-banner-standfirst">{aboutPageData.bannerStandfirst}</p>
+                )}
+              </div>
+            </div>
           </header>
-          <div className="content-well">
-            <Suspense>
-              <PortTextWrapper
-                className={`relative z-10 mt-2xl`}
-                lightboxIdentifier={'about'}
-                documentId={docId}
-                documentType={docType}
-                value={aboutPageData.body}
-              />
-            </Suspense>
-          </div>
+
+          <WelcomeSection
+            introPhoto={aboutPageData.introPhoto}
+            ecoRegionMap={aboutPageData.ecoRegionMap}
+            introBody={aboutPageData.introBody}
+            locationBody={aboutPageData.locationBody}
+            showButtons={false}
+          />
+
+          {aboutPageData.body && (
+            <section className="our-story-section w-full">
+              <hr className="our-story-rule" />
+              <div className="our-story-inner">
+                <div className="our-story-head">
+                  <p className="our-story-eyebrow">
+                    <span className="our-story-circle" aria-hidden="true" />
+                    Our Story
+                  </p>
+                  <h2 className="our-story-heading">How Ozarkedge came to be</h2>
+                </div>
+                <Suspense>
+                  <PortTextWrapper
+                    lightboxIdentifier={'about'}
+                    documentId={docId}
+                    documentType={docType}
+                    value={aboutPageData.body}
+                  />
+                </Suspense>
+              </div>
+            </section>
+          )}
         </div>
       )}
     </>

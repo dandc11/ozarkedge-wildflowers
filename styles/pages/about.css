@@ -3,11 +3,15 @@
   width: 100%;
   height: auto;
   padding: 0;
-  background-color: var(--oe-green-yellow-300);
+  background-color: var(--btf-bg-color);
 
+  /* Banner image ------------------------------------------ */
   .header-section {
+    position: relative;
+
     .banner-img {
       background-color: var(--oe-green-yellow-200);
+      height: 460px;
 
       img {
         border-radius: 0;
@@ -17,36 +21,153 @@
     }
   }
 
-  .heading {
-    margin-block-start: -1rem;
-
-    .heading-title {
-      width: fit-content;
-      color: var(--oe-white);
-      position: relative;
-      padding-inline: 1rem;
-    }
-
-    .heading-bg {
-      background-color: var(--oe-blue-dark-500);
-      width: 100%;
-      position: absolute;
-    }
+  /* Floating white card overlapping the bottom of the banner */
+  .about-banner-overlap {
+    margin-top: -86px;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    padding: 0 28px;
   }
 
-  @container aboutpage-content (width > 900px) {
-    .banner-img {
-      height: 70vh;
+  .about-banner-card {
+    background: var(--oe-white);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--br-lg);
+    padding: var(--sp-2xl);
+    width: min(100%, 720px);
+  }
+
+  .about-banner-eyebrow {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+    font-family: var(--font-raleway);
+    font-weight: var(--fw-700);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--oe-orange-700);
+    margin: 0 0 var(--sp-md);
+  }
+
+  .about-banner-circle {
+    position: absolute;
+    z-index: -1;
+    left: -1.15rem;
+    top: -13px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--oe-red-200);
+    opacity: 0.85;
+    display: block;
+  }
+
+  .about-banner-heading {
+    font-family: var(--font-playfair-display);
+    font-weight: var(--fw-700);
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    line-height: 1.05;
+    margin: 0 0 var(--sp-sm);
+    color: #78350f;
+    background: linear-gradient(to right, #c2410c, #78350f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-wrap: balance;
+  }
+
+  .about-banner-standfirst {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--oe-text-body);
+    max-width: 60ch;
+    margin: var(--sp-md) 0 0;
+  }
+
+  /* "Our Story" section ----------------------------------- */
+  .our-story-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px var(--sp-4xl);
+  }
+
+  .our-story-rule {
+    border: none;
+    border-top: 2px solid var(--oe-grey-200);
+    margin: 0;
+  }
+
+  .our-story-inner {
+    padding-top: var(--sp-3xl);
+  }
+
+  .our-story-head {
+    text-align: center;
+    margin-bottom: var(--sp-2xl);
+  }
+
+  .our-story-eyebrow {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+    font-family: var(--font-raleway);
+    font-weight: var(--fw-700);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--oe-orange-700);
+    margin: 0 0 var(--sp-md);
+  }
+
+  .our-story-circle {
+    position: absolute;
+    z-index: -1;
+    left: -1.15rem;
+    top: -13px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--oe-red-200);
+    opacity: 0.85;
+    display: block;
+  }
+
+  .our-story-heading {
+    font-family: var(--font-playfair-display);
+    font-weight: var(--fw-700);
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    line-height: 1.05;
+    margin: 0;
+    color: #78350f;
+    background: linear-gradient(to right, #c2410c, #78350f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @container aboutpage-content (width <= 820px) {
+    .header-section .banner-img {
+      height: 300px;
     }
 
-    .heading {
-      text-align: right;
-      padding-left: var(--sp-lg);
+    .about-banner-overlap {
+      margin-top: -52px;
+      padding: 0 16px;
     }
 
-    .port-text {
-      margin-top: var(--sp-4xl);
-      order: 2;
+    .about-banner-card {
+      padding: var(--sp-xl);
+    }
+
+    .our-story-section {
+      padding-inline: var(--sp-lg);
+    }
+
+    .our-story-inner {
+      padding-top: var(--sp-2xl);
     }
   }
 

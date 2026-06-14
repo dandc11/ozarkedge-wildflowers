@@ -104,6 +104,9 @@ export const TEASER_SIZES = '(min-width: 800px) 720px, 90vw'
 // Image slider thumbnails: compact thumbnails in a horizontal scroll at all widths.
 export const IMAGE_SLIDER_SIZES = '(max-width: 800px) 150px, 240px'
 export const THUMBNAIL_GRID_SIZES = '(min-width: 400px) 432px, 35vw'
+// Welcome section splits: at ≥820px the image occupies roughly half of 1180px max-width (~560px);
+// below that breakpoint it fills the full container width.
+export const WELCOME_SPLIT_SIZES = '(min-width: 820px) 560px, 100vw'
 
 export const IMG_SIZES = {
   HERO_DESKTOP_SIZES: HERO_DESKTOP_SIZES,
@@ -112,6 +115,7 @@ export const IMG_SIZES = {
   TEASER: TEASER_SIZES,
   IMAGE_SLIDER: IMAGE_SLIDER_SIZES,
   THUMBNAIL_GRID: THUMBNAIL_GRID_SIZES,
+  WELCOME_SPLIT: WELCOME_SPLIT_SIZES,
 }
 
 export const FLOWER_COLOR_OPTIONS = [

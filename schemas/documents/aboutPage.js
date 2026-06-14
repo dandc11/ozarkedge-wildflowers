@@ -49,9 +49,45 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'introPhoto',
+      title: 'Welcome Section — Intro Photo',
+      description:
+        'A wide landscape or meadow photo used in the "Welcome" split on the landing page and About page.',
+      type: 'mainImage',
+    }),
+    defineField({
+      name: 'ecoRegionMap',
+      title: 'Welcome Section — Eco-Region Map',
+      description:
+        'The Ozark Plateaus elevation/eco-region map used in the "Who & where" split. Upload eco-region.jpg from the design assets.',
+      type: 'mainImage',
+    }),
+    defineField({
+      name: 'introBody',
+      title: 'Welcome Section — Intro Copy',
+      description:
+        'Body text for the "Welcome" split (what Ozarkedge is and what the plant index covers). Keep to 2–3 short paragraphs — this is introductory copy paired with a side image.',
+      type: 'textOnlyPortText',
+    }),
+    defineField({
+      name: 'locationBody',
+      title: 'Welcome Section — Location Copy',
+      description:
+        'Body text for the "Who & where" split (geographic context of the Ozark Plateaus). Keep to 2–3 short paragraphs — this is introductory copy paired with the eco-region map.',
+      type: 'textOnlyPortText',
+    }),
+    defineField({
+      name: 'bannerStandfirst',
+      title: 'About Banner — Standfirst',
+      description:
+        'A short tagline displayed beneath the banner heading on the About page (e.g. "A family\'s long acquaintance with one corner of the Arkansas Ozarks…"). Optional.',
+      type: 'text',
+    }),
+    defineField({
       name: 'body',
-      title: 'Page Body Text',
-      description: 'This is the text for the body of the page.',
+      title: 'Our Story',
+      description:
+        'The full about page narrative — displayed under the "Our Story" section heading. Supports rich text, images, and galleries.',
       type: 'pageBodyPortableText',
     }),
     defineField({

@@ -4,11 +4,22 @@ import { CURRENT_MONTH_NUMBER } from '../../utilities/constants'
 
 import {
   imageCollectionFields,
+  imageFields,
   videoFields,
   figureFields,
   blockFields,
   teaserSectionFields,
+  textOnlyPortableTextFields,
 } from './queryFragments'
+
+// retrieves welcome section data from the about page (used on both landing page and about page)
+export const GET_WELCOME_SECTION_QUERY = groq`
+*[_type == "aboutPage"][0] {
+  ${imageFields('introPhoto')},
+  ${imageFields('ecoRegionMap')},
+  ${textOnlyPortableTextFields('introBody')},
+  ${textOnlyPortableTextFields('locationBody')},
+}`
 
 // retrieves langing page data
 export const GET_LANDING_PAGE_DATA_QUERY = groq`
@@ -212,8 +223,10 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
     _id,
     _type,
     id,
+    title,
     menuButtonColor,
     "metaDescription": aboutTeaserText,
+    bannerStandfirst,
     slug,
     mainImage {
       ...,
@@ -225,6 +238,10 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
       "palette": asset->metadata.palette,
       "lqip": asset->metadata.lqip,
     },
+    ${imageFields('introPhoto')},
+    ${imageFields('ecoRegionMap')},
+    ${textOnlyPortableTextFields('introBody')},
+    ${textOnlyPortableTextFields('locationBody')},
     body[]{
       _type == "figure" => ${figureFields()},
       _type == "block" => ${blockFields()},
