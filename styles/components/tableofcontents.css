@@ -14,6 +14,13 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+
+      &:focus-visible {
+        font-weight: var(--fw-500);
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
     }
 
     a:after {

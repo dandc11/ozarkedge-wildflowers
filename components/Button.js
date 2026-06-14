@@ -16,6 +16,7 @@ const ChevronDown = ({ strokeWidth = 1 }) => {
         strokeWidth={strokeWidth}
         stroke="black"
         className="icon chevron-down m-bk-xxs"
+        aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
       </svg>
@@ -33,6 +34,7 @@ const PlusCircle = ({ strokeWidth = 1 }) => {
         strokeWidth={strokeWidth}
         stroke="currentColor"
         className="icon plus-circle"
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"
@@ -54,6 +56,7 @@ const MinusCircle = ({ strokeWidth = 1 }) => {
         strokeWidth={strokeWidth}
         stroke="currentColor"
         className="icon minus-circle"
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"
@@ -65,7 +68,7 @@ const MinusCircle = ({ strokeWidth = 1 }) => {
   )
 }
 
-const ChevronUp = (strokeWidth = 1) => {
+const ChevronUp = ({ strokeWidth = 1 }) => {
   return (
     <>
       <svg
@@ -75,6 +78,7 @@ const ChevronUp = (strokeWidth = 1) => {
         strokeWidth={strokeWidth}
         stroke="currentColor"
         className="icon chevron-up"
+        aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
       </svg>
@@ -82,7 +86,7 @@ const ChevronUp = (strokeWidth = 1) => {
   )
 }
 
-const ChevronRight = (strokeWidth = 1) => {
+const ChevronRight = ({ strokeWidth = 1 }) => {
   return (
     <>
       <svg
@@ -92,6 +96,7 @@ const ChevronRight = (strokeWidth = 1) => {
         strokeWidth={strokeWidth}
         stroke="currentColor"
         className="w-10 h-10"
+        aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 4.5l7.5 7.5-7.5 7.5" />
       </svg>
@@ -99,7 +104,7 @@ const ChevronRight = (strokeWidth = 1) => {
   )
 }
 
-const ChevronLeft = (strokeWidth = 1) => {
+const ChevronLeft = ({ strokeWidth = 1 }) => {
   return (
     <>
       <svg
@@ -109,6 +114,7 @@ const ChevronLeft = (strokeWidth = 1) => {
         strokeWidth={strokeWidth}
         stroke="currentColor"
         className="w-10 h-10"
+        aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 19.5l-7.5-7.5 7.5-7.5" />
       </svg>

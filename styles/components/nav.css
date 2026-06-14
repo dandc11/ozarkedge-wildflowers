@@ -103,6 +103,13 @@ body:has(.nav-dark) {
     &:hover {
       color: var(--oe-red-200);
     }
+
+    &:focus-visible {
+      color: var(--oe-red-200);
+      outline: 2px solid var(--oe-red-200);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
   }
 
   .nav-icon {

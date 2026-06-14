@@ -39,9 +39,10 @@ const NatureServeMessage = (props) => {
               'https://explorer.natureserve.org/AboutTheData/DataTypes/ConservationStatusCategories'
             }
             target="_blank"
+            rel="noopener noreferrer"
           >
             {' '}
-            NatureServe.
+            NatureServe<span className="sr-only"> (opens in new window)</span>.
           </a>
         </p>
         <div

@@ -51,7 +51,8 @@ const Nav = ({ menuData }) => {
   const HamburgerButton = ({ isMenuOpen, setIsMenuOpen }) => {
     return (
       <button
-        aria-label="Open the main menu"
+        aria-label={isMenuOpen ? 'Close the main menu' : 'Open the main menu'}
+        aria-expanded={isMenuOpen}
         className={cx('nav-icon flex flex-col justify-between')}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
@@ -78,6 +79,7 @@ const Nav = ({ menuData }) => {
           </div>
           <div id="menuImageContainer" className={cx(`nav-img`)}>
             <ResponsiveImage
+              alt=""
               className={cx(`rounded-none w-full h-full`)}
               disableHover
               figureClassName={'h-full'}
@@ -89,6 +91,7 @@ const Nav = ({ menuData }) => {
               wrapperClassName="lg-img h-full"
             />
             <ResponsiveImage
+              alt=""
               className={cx(`rounded-none w-full h-full`)}
               disableHover
               figureClassName={'h-full'}

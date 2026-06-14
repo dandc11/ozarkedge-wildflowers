@@ -12,6 +12,7 @@ const IconInfo = ({ strokeColorVariable, className, svgClassName }) => {
         stroke={`var(${strokeColorVariable})`}
         className={`icon info ${svgClassName}`}
         shapeRendering="geometricPrecision"
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"

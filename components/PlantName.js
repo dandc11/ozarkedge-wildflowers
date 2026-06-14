@@ -33,6 +33,8 @@ const PlantName = (props) => {
         return null
     }
   }
+  const BotanicalHeading = `h${Math.min(headingLevel + 1, 6)}`
+
   return (
     <div className={cx(`plant-name-wrapper `, className)}>
       {showCommonName && <>{getHeadingElement(headingLevel, headingClassNames, plantName)}</>}
@@ -40,13 +42,13 @@ const PlantName = (props) => {
       {showSeparator && <hr className={`h-rule w-full`}></hr>}
 
       {showBotanicalName && (
-        <h3 className={cx(`botanical-name`, bottomNameClassName)}>
+        <BotanicalHeading className={cx(`botanical-name`, bottomNameClassName)}>
           {titleCase(
             Array.isArray(plantName?.botanicalName)
               ? plantName.botanicalName[0]
               : plantName?.botanicalName,
           )}
-        </h3>
+        </BotanicalHeading>
       )}
     </div>
   )
