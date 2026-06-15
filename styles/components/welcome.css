@@ -3,6 +3,7 @@
 .welcome-section {
   container: welcome / inline-size;
   background-color: var(--btf-bg-color);
+  width: 100%;
 
   .welcome-inner {
     max-width: 1180px;
