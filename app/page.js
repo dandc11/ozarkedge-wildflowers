@@ -163,8 +163,8 @@ export default async function HomePage() {
           </section>
           {welcomeData?.introBody?.length > 0 && (
             <WelcomeSection
-              introPhoto={welcomeData.introPhoto}
-              ecoRegionMap={welcomeData.ecoRegionMap}
+              introImage={welcomeData.introImage}
+              locationImage={welcomeData.locationImage}
               introBody={welcomeData.introBody}
               locationBody={welcomeData.locationBody}
               showButtons={true}

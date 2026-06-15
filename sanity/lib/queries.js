@@ -15,8 +15,8 @@ import {
 // retrieves welcome section data from the about page (used on both landing page and about page)
 export const GET_WELCOME_SECTION_QUERY = groq`
 *[_type == "aboutPage"][0] {
-  ${figureFields('introPhoto')},
-  ${figureFields('ecoRegionMap')},
+  ${imageFields('introImage')},
+  ${imageFields('locationImage')},
   ${textOnlyPortableTextFields('introBody')},
   ${textOnlyPortableTextFields('locationBody')},
 }`
@@ -238,8 +238,8 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
       "palette": asset->metadata.palette,
       "lqip": asset->metadata.lqip,
     },
-    ${imageFields('introPhoto')},
-    ${imageFields('ecoRegionMap')},
+    ${imageFields('introImage')},
+    ${imageFields('locationImage')},
     ${textOnlyPortableTextFields('introBody')},
     ${textOnlyPortableTextFields('locationBody')},
     body[]{

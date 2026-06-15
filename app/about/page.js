@@ -105,8 +105,8 @@ const AboutPage = async () => {
 
           {aboutPageData.introBody?.length > 0 && (
             <WelcomeSection
-              introPhoto={aboutPageData.introPhoto}
-              ecoRegionMap={aboutPageData.ecoRegionMap}
+              introImage={aboutPageData.introImage}
+              locationImage={aboutPageData.locationImage}
               introBody={aboutPageData.introBody}
               locationBody={aboutPageData.locationBody}
               showButtons={false}

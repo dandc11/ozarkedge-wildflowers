@@ -11,7 +11,7 @@ const splitBodyComponents = {
   },
 }
 
-const WelcomeSection = ({ introPhoto, ecoRegionMap, introBody, locationBody, showButtons = true }) => {
+const WelcomeSection = ({ introImage, locationImage, introBody, locationBody, showButtons = true }) => {
   return (
     <section className="welcome-section">
       <div className="welcome-inner">
@@ -33,11 +33,11 @@ const WelcomeSection = ({ introPhoto, ecoRegionMap, introBody, locationBody, sho
             )}
           </div>
           <div className="welcome-media">
-            {introPhoto ? (
+            {introImage ? (
               <ResponsiveImage
-                image={introPhoto}
-                alt={introPhoto.alt || 'The Ozarkedge property'}
-                lqip={introPhoto.lqip}
+                image={introImage}
+                alt={introImage.alt || 'The Ozarkedge property'}
+                lqip={introImage.lqip}
                 sizes={IMG_SIZES.WELCOME_SPLIT}
                 figureClassName="welcome-figure"
                 className="welcome-media-img"
@@ -67,19 +67,19 @@ const WelcomeSection = ({ introPhoto, ecoRegionMap, introBody, locationBody, sho
             )}
           </div>
           <div className="welcome-media">
-            {ecoRegionMap ? (
+            {locationImage ? (
               <figure className="welcome-eco-fig">
                 <ResponsiveImage
-                  image={ecoRegionMap}
-                  alt={ecoRegionMap.alt || 'Elevation map of the Ozark Plateaus across northern Arkansas and southern Missouri'}
-                  lqip={ecoRegionMap.lqip}
+                  image={locationImage}
+                  alt={locationImage.alt || 'Elevation map of the Ozark Plateaus across northern Arkansas and southern Missouri'}
+                  lqip={locationImage.lqip}
                   sizes={IMG_SIZES.WELCOME_SPLIT}
                   figureClassName="welcome-figure"
                   className="welcome-media-img"
                   showCaption={false}
                 />
-                {ecoRegionMap.caption && (
-                  <figcaption className="welcome-eco-caption">{ecoRegionMap.caption}</figcaption>
+                {locationImage.caption && (
+                  <figcaption className="welcome-eco-caption">{locationImage.caption}</figcaption>
                 )}
               </figure>
             ) : (
