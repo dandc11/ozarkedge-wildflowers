@@ -1,5 +1,7 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { AltTextInput } from '../components/AltTextInput'
+
 export default defineType({
   name: 'mainImage',
   type: 'image',
@@ -24,6 +26,7 @@ export default defineType({
       title: 'Alternative text',
       description: 'A very brief description of the image. Important for SEO and accessibility.',
       validation: (Rule) => Rule.error('You have to fill out the alternative text.').required(),
+      components: { input: AltTextInput },
     }),
   ],
   preview: {
