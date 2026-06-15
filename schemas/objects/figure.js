@@ -1,11 +1,12 @@
 import { defineField, defineType } from 'sanity'
 
-import { AltTextInput } from '../components/AltTextInput'
+import { ImageInputWithAltFill } from '../components/ImageInputWithAltFill'
 
 export default defineType({
   name: 'figure',
   title: 'Image',
   type: 'image',
+  components: { input: ImageInputWithAltFill },
   options: {
     hotspot: true,
     metadata: [
@@ -44,7 +45,6 @@ export default defineType({
       validation: (Rule) => Rule.error('Alternative text is required.').required(),
       description:
         'A very brief description of the image that will appear only in the html - important for SEO and accessiblity.',
-      components: { input: AltTextInput },
     }),
     defineField({
       name: 'caption',
