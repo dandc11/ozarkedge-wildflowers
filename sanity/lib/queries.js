@@ -15,8 +15,8 @@ import {
 // retrieves welcome section data from the about page (used on both landing page and about page)
 export const GET_WELCOME_SECTION_QUERY = groq`
 *[_type == "aboutPage"][0] {
-  ${imageFields('introPhoto')},
-  ${imageFields('ecoRegionMap')},
+  ${figureFields('introPhoto')},
+  ${figureFields('ecoRegionMap')},
   ${textOnlyPortableTextFields('introBody')},
   ${textOnlyPortableTextFields('locationBody')},
 }`

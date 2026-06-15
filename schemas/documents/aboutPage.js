@@ -53,14 +53,14 @@ export default defineType({
       title: 'Welcome Section — Intro Photo',
       description:
         'A wide landscape or meadow photo used in the "Welcome" split on the landing page and About page.',
-      type: 'mainImage',
+      type: 'figure',
     }),
     defineField({
       name: 'ecoRegionMap',
       title: 'Welcome Section — Eco-Region Map',
       description:
         'The Ozark Plateaus elevation/eco-region map used in the "Who & where" split. Upload eco-region.jpg from the design assets.',
-      type: 'mainImage',
+      type: 'figure',
     }),
     defineField({
       name: 'introBody',
