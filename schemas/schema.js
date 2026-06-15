@@ -3,6 +3,7 @@ import menu from './documents/menu'
 import mainImage from './objects/mainImage'
 import menuItem from './objects/menuItem'
 import figure from './objects/figure'
+import simpleImage from './objects/simpleImage'
 import nearbyPlantFigure from './objects/nearbyPlantFigure'
 import pageBodyPortableText from './objects/pageBodyPortableText'
 import textOnlyPortText from './objects/textOnlyPortText'
@@ -29,6 +30,7 @@ export const schema = {
     button,
     mainImage,
     figure,
+    simpleImage,
     nearbyPlantFigure,
     pageBodyPortableText,
     textOnlyPortText,
