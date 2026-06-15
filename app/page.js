@@ -161,13 +161,15 @@ export default async function HomePage() {
               </div>
             </div>
           </section>
-          <WelcomeSection
-            introPhoto={welcomeData?.introPhoto}
-            ecoRegionMap={welcomeData?.ecoRegionMap}
-            introBody={welcomeData?.introBody}
-            locationBody={welcomeData?.locationBody}
-            showButtons={true}
-          />
+          {welcomeData?.introBody?.length > 0 && (
+            <WelcomeSection
+              introPhoto={welcomeData.introPhoto}
+              ecoRegionMap={welcomeData.ecoRegionMap}
+              introBody={welcomeData.introBody}
+              locationBody={welcomeData.locationBody}
+              showButtons={true}
+            />
+          )}
           <div data-season={currentSeason} className={`btf w-full`} tag={'section'}>
             <Suspense>
               <TeaserSlider

@@ -103,13 +103,15 @@ const AboutPage = async () => {
             </div>
           </header>
 
-          <WelcomeSection
-            introPhoto={aboutPageData.introPhoto}
-            ecoRegionMap={aboutPageData.ecoRegionMap}
-            introBody={aboutPageData.introBody}
-            locationBody={aboutPageData.locationBody}
-            showButtons={false}
-          />
+          {aboutPageData.introBody?.length > 0 && (
+            <WelcomeSection
+              introPhoto={aboutPageData.introPhoto}
+              ecoRegionMap={aboutPageData.ecoRegionMap}
+              introBody={aboutPageData.introBody}
+              locationBody={aboutPageData.locationBody}
+              showButtons={false}
+            />
+          )}
 
           {aboutPageData.body && (
             <section className="our-story-section w-full">
