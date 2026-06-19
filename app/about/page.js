@@ -115,7 +115,7 @@ const AboutPage = async () => {
 
           {aboutPageData.body && (
             <section className="our-story-section w-full">
-              <hr className="our-story-rule" />
+              {aboutPageData.introBody?.length > 0 && <hr className="our-story-rule" />}
               <div className="our-story-inner">
                 <div className="our-story-head">
                   <p className="our-story-eyebrow">

@@ -69,7 +69,7 @@
     font-family: var(--font-playfair-display);
     font-weight: var(--fw-700);
     font-size: clamp(2rem, 4.6vw, 3.1rem);
-    line-height: 1.05;
+    line-height: 1.2;
     margin: 0 0 var(--sp-sm);
     color: #78350f;
     background: linear-gradient(to right, #c2410c, #78350f);
@@ -139,7 +139,7 @@
     font-family: var(--font-playfair-display);
     font-weight: var(--fw-700);
     font-size: clamp(1.9rem, 4vw, 2.8rem);
-    line-height: 1.05;
+    line-height: 1.2;
     margin: 0;
     color: #78350f;
     background: linear-gradient(to right, #c2410c, #78350f);
