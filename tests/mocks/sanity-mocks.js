@@ -515,22 +515,11 @@ const mockLandingPageData = {
     lqip: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...',
     palette: { dominant: { background: '#6B8E23', foreground: '#fff' } },
   },
-  buttonOne: {
-    buttonLabel: 'button one label',
-    slug: 'native-plants',
-    docType: 'plantListPage',
-  },
-  buttonTwo: {
-    buttonLabel: 'button two label',
-    slug: 'about',
-    docType: 'aboutPage',
-  },
 }
 
 const mockAboutPageData = {
   _id: 'mock-about',
   _type: 'aboutPage',
-  title: 'About Ozarkedge',
   slug: { current: 'about' },
   menuButtonColor: 'dark',
   mainImage: {

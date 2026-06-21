@@ -8,6 +8,7 @@ import { media } from 'sanity-plugin-media'
 
 import * as resolve from './sanity/presentation/resolve'
 import { schema } from './schemas/schema'
+import { structure } from './sanity/structure'
 import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
 
 // Prefer SANITY_STUDIO_* env vars for Studio, but fall back to NEXT_PUBLIC_* vars
@@ -49,8 +50,7 @@ export default defineConfig({
     types: uniqueSchemaTypes,
   },
   plugins: [
-    // structureTool({ defaultDocumentNode }),
-    structureTool(),
+    structureTool({ structure }),
     presentationTool({
       resolve,
       previewUrl: {
@@ -69,6 +69,9 @@ export default defineConfig({
     muxInput({ mp4_support: 'standard' }),
   ],
   document: {
-    actions: (prev) => [...prev, OpenInPresentationAction],
+    actions: (prev, context) =>
+      context.schemaType === 'welcomeSection'
+        ? [...prev.filter((action) => action.action !== 'duplicate'), OpenInPresentationAction]
+        : [...prev, OpenInPresentationAction],
   },
 })

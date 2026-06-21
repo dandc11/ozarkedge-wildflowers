@@ -13,11 +13,6 @@ export default defineType({
   // __experimental_actions: ['update', 'publish' /* 'create', 'delete' */],
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-    }),
-    defineField({
       name: 'mainImage',
       title: 'Main Image',
       description:
@@ -49,9 +44,17 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'storyHeading',
+      title: 'Story Heading',
+      description:
+        'Suggested: "How Ozarkedge came to be". This is the heading for the "Our Story" section.',
+      type: 'string',
+    }),
+    defineField({
       name: 'body',
-      title: 'Page Body Text',
-      description: 'This is the text for the body of the page.',
+      title: 'Our Story',
+      description:
+        'The full about page narrative — displayed under the "Our Story" section heading. Supports rich text, images, and galleries.',
       type: 'pageBodyPortableText',
     }),
     defineField({

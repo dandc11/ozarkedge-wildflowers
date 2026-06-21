@@ -1,0 +1,149 @@
+/* Welcome Section — landing page "Welcome" splits and About page orientation splits */
+
+.welcome-section {
+  container: welcome / inline-size;
+  background-color: var(--btf-bg-color);
+  width: 100%;
+
+  .welcome-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: var(--sp-4xl) 28px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4xl);
+  }
+
+  /* Split layout ----------------------------------------- */
+  .welcome-split {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2.5rem, 4cqi, 3rem);
+    align-items: center;
+  }
+
+  /* Eyebrow ----------------------------------------------- */
+  .welcome-eyebrow {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+    font-family: var(--font-raleway);
+    font-weight: var(--fw-700);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--oe-orange-700);
+    margin: 0 0 var(--sp-md);
+  }
+
+  .welcome-circle {
+    position: absolute;
+    z-index: -1;
+    left: -1.15rem;
+    top: -13px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--oe-green-200);
+    opacity: 0.85;
+    display: block;
+  }
+
+  /* Heading ----------------------------------------------- */
+  .welcome-heading {
+    font-family: var(--font-playfair-display);
+    font-weight: var(--fw-700);
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.2;
+    margin: 0 0 var(--sp-sm);
+    color: #78350f;
+    background: linear-gradient(to right, #c2410c, #78350f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-wrap: balance;
+  }
+
+  /* Body copy --------------------------------------------- */
+  .welcome-lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--oe-text-body);
+    max-width: 46ch;
+    margin: var(--sp-md) 0 0;
+  }
+
+  /* Button link ------------------------------------------- */
+  .welcome-actions {
+    margin-top: var(--sp-xl);
+  }
+
+  /* Media ------------------------------------------------- */
+  .welcome-media-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--br-lg);
+    box-shadow: var(--shadow-lg);
+    display: block;
+  }
+
+  .welcome-media-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--br-lg);
+    background: var(--oe-grey-200);
+  }
+
+  /* Eco-region figure ------------------------------------- */
+  .welcome-eco-fig {
+    margin: 0;
+  }
+
+  .welcome-eco-caption {
+    font-family: var(--font-raleway);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--oe-grey-600);
+    margin-top: var(--sp-sm);
+    line-height: 1.5;
+    display: block;
+  }
+
+  /* Divider ----------------------------------------------- */
+  .welcome-rule {
+    border: none;
+    border-top: 1px solid var(--oe-grey-200);
+    margin: 0;
+  }
+
+  /* Desktop: reverse split (image left, text right) ------- */
+  @container welcome (width > 820px) {
+    .welcome-split--reverse .welcome-media {
+      order: -1;
+    }
+  }
+
+  /* Mobile ----------------------------------------------- */
+  @container welcome (width <= 820px) {
+    .welcome-inner {
+      padding: var(--sp-2xl) var(--sp-lg);
+      gap: var(--sp-2xl);
+    }
+
+    .welcome-split {
+      grid-template-columns: 1fr;
+      gap: var(--sp-xl);
+    }
+
+    .welcome-lead {
+      max-width: none;
+    }
+
+    .welcome-media-img,
+    .welcome-media-placeholder {
+      max-width: 40rem;
+      margin-inline: auto;
+    }
+  }
+}

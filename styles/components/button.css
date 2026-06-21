@@ -1,14 +1,27 @@
-[class^='btn-'] {
+/* Shared pill-button base — both the generic [class^='btn-'] system and the
+.welcome-btn text-link pattern use this padding/radius/shadow/transition. */
+[class^='btn-'],
+.welcome-btn {
   padding: var(--sp-ml) var(--sp-xl);
-  width: 300px;
   color: var(--oe-white);
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
+  font-size: 1rem;
+  font-weight: var(--fw-400, 400);
   border-radius: var(--br-lg);
+  background-size: 300% 100%;
+  box-shadow: var(--shadow-md);
+  transition: all 0.5s ease-in-out;
+
+  &:focus-visible {
+    outline: 2px solid var(--oe-white);
+    outline-offset: 3px;
+  }
+}
+
+[class^='btn-'] {
+  width: 300px;
+  cursor: pointer;
   align-self: center;
   border: none;
-  background-size: 300% 100%;
-  transition: all 0.5s ease-in-out;
 
   @container (width > 600px) {
     width: auto;
@@ -17,13 +30,7 @@
 
   &:hover,
   &:active {
-    /* transition: all 0.3s ease-in-out; */
     background-position: 25% 0;
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--oe-white);
-    outline-offset: 3px;
   }
 
   &.btn-expand {
@@ -32,6 +39,30 @@
     color: var(--oe-text-body);
     margin: 0;
   }
+}
+
+/* Pill-style text link button (e.g. Welcome split CTAs, hero CTA) ------- */
+.welcome-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  font-family: var(--font-raleway);
+  background: var(--btn-gradient-5);
+  text-decoration: none;
+
+  &:hover,
+  &:active {
+    background-position: 100% 0;
+    transform: translateY(-1px);
+  }
+}
+
+.welcome-btn-arrow {
+  transition: transform 0.25s ease;
+}
+
+.welcome-btn:hover .welcome-btn-arrow {
+  transform: translateX(3px);
 }
 
 .btn-1 {
@@ -67,5 +98,12 @@
   &.info {
     width: var(--sp-ml);
     height: var(--sp-ml);
+  }
+}
+
+@media (width > 820px) {
+  [class^='btn'],
+  .welcome-btn {
+    font-size: 1.125rem;
   }
 }

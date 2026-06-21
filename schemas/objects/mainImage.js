@@ -1,9 +1,12 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { ImageInputWithAltFill } from '../components/ImageInputWithAltFill'
+
 export default defineType({
   name: 'mainImage',
   type: 'image',
   title: 'Image',
+  components: { input: ImageInputWithAltFill },
   options: {
     hotspot: true,
     metadata: [

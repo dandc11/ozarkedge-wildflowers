@@ -174,4 +174,5 @@
   --btn-gradient-5: linear-gradient(90deg, var(--oe-red-800) 0%, var(--oe-red-700) 100%);
   --btn-gradient-6: linear-gradient(to right, hsl(14, 87%, 15%) 0%, hsl(14, 90%, 12%) 100%);
   --btn-fall: var(--oe-orange-600);
+  --btf-bg-color: #fef9c3;
 }

@@ -51,6 +51,7 @@ body {
   min-block-size: 100svh;
   line-height: 1.15;
   overflow-x: hidden;
+  background-color: var(--oe-white);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

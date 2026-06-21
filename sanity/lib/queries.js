@@ -4,11 +4,24 @@ import { CURRENT_MONTH_NUMBER } from '../../utilities/constants'
 
 import {
   imageCollectionFields,
+  imageFields,
   videoFields,
   figureFields,
   blockFields,
   teaserSectionFields,
+  textOnlyPortableTextFields,
 } from './queryFragments'
+
+// retrieves welcome section data from its own singleton document (used on both landing page and about page)
+export const GET_WELCOME_SECTION_QUERY = groq`
+*[_id == "welcomeSection"][0] {
+  introHeading,
+  ${imageFields('introImage')},
+  ${textOnlyPortableTextFields('introBody')},
+  locationHeading,
+  ${imageFields('locationImage')},
+  ${textOnlyPortableTextFields('locationBody')},
+}`
 
 // retrieves langing page data
 export const GET_LANDING_PAGE_DATA_QUERY = groq`
@@ -20,16 +33,6 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
   metaDescription,
   slug,
   menuButtonColor,
-  buttonOne {
-    buttonLabel,
-   "slug": buttonLink.internalLink->slug.current,
-    "docType": buttonLink.internalLink->_type
-  }, 
-  buttonTwo {
-    buttonLabel,
-    "slug": buttonLink.internalLink->slug.current,
-    "docType": buttonLink.internalLink->_type
-  }, 
   mainImage {
     ...,
     "palette": asset->metadata.palette,
@@ -45,7 +48,6 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
 export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 *[_type == "plantListPage"]
 {
-  id,
   pageTitle,
   metaDescription,
   menuButtonColor,
@@ -211,9 +213,9 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
   {
     _id,
     _type,
-    id,
     menuButtonColor,
     "metaDescription": aboutTeaserText,
+    storyHeading,
     slug,
     mainImage {
       ...,
