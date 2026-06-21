@@ -12,12 +12,14 @@ import {
   textOnlyPortableTextFields,
 } from './queryFragments'
 
-// retrieves welcome section data from the about page (used on both landing page and about page)
+// retrieves welcome section data from its own singleton document (used on both landing page and about page)
 export const GET_WELCOME_SECTION_QUERY = groq`
-*[_type == "aboutPage"][0] {
+*[_id == "welcomeSection"][0] {
+  introHeading,
   ${imageFields('introImage')},
-  ${imageFields('locationImage')},
   ${textOnlyPortableTextFields('introBody')},
+  locationHeading,
+  ${imageFields('locationImage')},
   ${textOnlyPortableTextFields('locationBody')},
 }`
 
@@ -31,16 +33,6 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
   metaDescription,
   slug,
   menuButtonColor,
-  buttonOne {
-    buttonLabel,
-   "slug": buttonLink.internalLink->slug.current,
-    "docType": buttonLink.internalLink->_type
-  }, 
-  buttonTwo {
-    buttonLabel,
-    "slug": buttonLink.internalLink->slug.current,
-    "docType": buttonLink.internalLink->_type
-  }, 
   mainImage {
     ...,
     "palette": asset->metadata.palette,
@@ -56,7 +48,6 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
 export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 *[_type == "plantListPage"]
 {
-  id,
   pageTitle,
   metaDescription,
   menuButtonColor,
@@ -222,11 +213,9 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
   {
     _id,
     _type,
-    id,
-    title,
     menuButtonColor,
     "metaDescription": aboutTeaserText,
-    bannerStandfirst,
+    storyHeading,
     slug,
     mainImage {
       ...,
@@ -238,10 +227,6 @@ export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
       "palette": asset->metadata.palette,
       "lqip": asset->metadata.lqip,
     },
-    ${imageFields('introImage')},
-    ${imageFields('locationImage')},
-    ${textOnlyPortableTextFields('introBody')},
-    ${textOnlyPortableTextFields('locationBody')},
     body[]{
       _type == "figure" => ${figureFields()},
       _type == "block" => ${blockFields()},

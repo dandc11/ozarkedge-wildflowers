@@ -13,11 +13,6 @@ export default defineType({
   // __experimental_actions: ['update', 'publish' /* 'create', 'delete' */],
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-    }),
-    defineField({
       name: 'mainImage',
       title: 'Main Image',
       description:
@@ -49,39 +44,11 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'introImage',
-      title: 'Welcome Section — Intro Photo',
+      name: 'storyHeading',
+      title: 'Story Heading',
       description:
-        'A wide landscape or meadow photo used in the "Welcome" split on the landing page and About page.',
-      type: 'simpleImage',
-    }),
-    defineField({
-      name: 'locationImage',
-      title: 'Welcome Section — Location Image',
-      description:
-        'The Ozark Plateaus elevation/eco-region map used in the "Who & where" split. Upload eco-region.jpg from the design assets.',
-      type: 'simpleImage',
-    }),
-    defineField({
-      name: 'introBody',
-      title: 'Welcome Section — Intro Copy',
-      description:
-        'Body text for the "Welcome" split (what Ozarkedge is and what the plant index covers). Keep to 2–3 short paragraphs — this is introductory copy paired with a side image.',
-      type: 'textOnlyPortText',
-    }),
-    defineField({
-      name: 'locationBody',
-      title: 'Welcome Section — Location Copy',
-      description:
-        'Body text for the "Who & where" split (geographic context of the Ozark Plateaus). Keep to 2–3 short paragraphs — this is introductory copy paired with the eco-region map.',
-      type: 'textOnlyPortText',
-    }),
-    defineField({
-      name: 'bannerStandfirst',
-      title: 'About Banner — Standfirst',
-      description:
-        'A short tagline displayed beneath the banner heading on the About page (e.g. "A family\'s long acquaintance with one corner of the Arkansas Ozarks…"). Optional.',
-      type: 'text',
+        'Suggested: "How Ozarkedge came to be". This is the heading for the "Our Story" section.',
+      type: 'string',
     }),
     defineField({
       name: 'body',

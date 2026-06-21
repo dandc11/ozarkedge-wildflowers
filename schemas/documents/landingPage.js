@@ -1,5 +1,5 @@
 import { GiHouse } from 'react-icons/gi'
-import { defineArrayMember, defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 import { TextInputWithCharCount } from '../components/TextInputWithCharCount'
 
@@ -78,20 +78,6 @@ export default defineType({
       options: {
         list: ['light', 'dark'],
       },
-    }),
-    defineField({
-      name: 'buttonOne',
-      title: 'Button One',
-      description:
-        'The button will only appear if you provide a value for the text and the link field.',
-      type: 'button',
-    }),
-    defineField({
-      name: 'buttonTwo',
-      title: 'Button Two',
-      description:
-        'The button will only appear if you provide a value for the text and the link field.',
-      type: 'button',
     }),
   ],
 })

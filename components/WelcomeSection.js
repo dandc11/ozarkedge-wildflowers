@@ -11,83 +11,112 @@ const splitBodyComponents = {
   },
 }
 
-const WelcomeSection = ({ introImage, locationImage, introBody, locationBody, showButtons = true }) => {
+const WelcomeSection = ({
+  introImage,
+  locationImage,
+  introBody,
+  locationBody,
+  introHeading,
+  locationHeading,
+  showButtons = true,
+  eyebrowText = 'Welcome',
+}) => {
+  const hasIntro = introBody?.length > 0
+  const hasLocation = locationBody?.length > 0
+
   return (
     <section className="welcome-section">
       <div className="welcome-inner">
-
-        <div className="welcome-split">
-          <div className="welcome-text">
-            <p className="welcome-eyebrow">
-              <span className="welcome-circle" aria-hidden="true" />
-              Welcome
-            </p>
-            <h2 className="welcome-heading">A field guide to our corner of the Ozarks</h2>
-            {introBody && <PortableText value={introBody} components={splitBodyComponents} />}
-            {showButtons && (
-              <div className="welcome-actions">
-                <Link className="welcome-btn" href="/native-plants/">
-                  Browse native plants <span className="welcome-btn-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            )}
-          </div>
-          <div className="welcome-media">
-            {introImage ? (
-              <ResponsiveImage
-                image={introImage}
-                alt={introImage.alt || 'The Ozarkedge property'}
-                lqip={introImage.lqip}
-                sizes={IMG_SIZES.WELCOME_SPLIT}
-                figureClassName="welcome-figure"
-                className="welcome-media-img"
-              />
-            ) : (
-              <div className="welcome-media-placeholder" aria-hidden="true" />
-            )}
-          </div>
-        </div>
-
-        <hr className="welcome-rule" />
-
-        <div className="welcome-split welcome-split--reverse">
-          <div className="welcome-text">
-            <p className="welcome-eyebrow">
-              <span className="welcome-circle" aria-hidden="true" />
-              Who &amp; where
-            </p>
-            <h2 className="welcome-heading">Rooted in the Ozark Highlands</h2>
-            {locationBody && <PortableText value={locationBody} components={splitBodyComponents} />}
-            {showButtons && (
-              <div className="welcome-actions">
-                <Link className="welcome-btn" href="/about">
-                  About the project <span className="welcome-btn-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            )}
-          </div>
-          <div className="welcome-media">
-            {locationImage ? (
-              <figure className="welcome-eco-fig">
+        {hasIntro && (
+          <div className="welcome-split">
+            <div className="welcome-text">
+              <p className="welcome-eyebrow">
+                <span className="welcome-circle" aria-hidden="true" />
+                {eyebrowText}
+              </p>
+              <h2 className="welcome-heading">
+                {introHeading || 'A field guide to our corner of the Ozarks'}
+              </h2>
+              <PortableText value={introBody} components={splitBodyComponents} />
+              {showButtons && (
+                <div className="welcome-actions">
+                  <Link className="welcome-btn" href="/native-plants/">
+                    Our native plant index{' '}
+                    <span className="welcome-btn-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className="welcome-media">
+              {introImage ? (
                 <ResponsiveImage
-                  image={locationImage}
-                  alt={locationImage.alt || 'Elevation map of the Ozark Plateaus across northern Arkansas and southern Missouri'}
-                  lqip={locationImage.lqip}
+                  image={introImage}
+                  alt={introImage.alt || 'The Ozarkedge property'}
+                  lqip={introImage.lqip}
                   sizes={IMG_SIZES.WELCOME_SPLIT}
                   figureClassName="welcome-figure"
                   className="welcome-media-img"
-                  showCaption={false}
                 />
-                {locationImage.caption && (
-                  <figcaption className="welcome-eco-caption">{locationImage.caption}</figcaption>
-                )}
-              </figure>
-            ) : (
-              <div className="welcome-media-placeholder" aria-hidden="true" />
-            )}
+              ) : (
+                <div className="welcome-media-placeholder" aria-hidden="true" />
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
+        {hasIntro && hasLocation && <hr className="welcome-rule" />}
+
+        {hasLocation && (
+          <div className="welcome-split welcome-split--reverse">
+            <div className="welcome-text">
+              <p className="welcome-eyebrow">
+                <span className="welcome-circle" aria-hidden="true" />
+                Where we are
+              </p>
+              <h2 className="welcome-heading">
+                {locationHeading || 'Rooted in the Ozark Highlands'}
+              </h2>
+              <PortableText value={locationBody} components={splitBodyComponents} />
+              {showButtons && (
+                <div className="welcome-actions">
+                  <Link className="welcome-btn" href="/about#our-story-heading">
+                    Read our story{' '}
+                    <span className="welcome-btn-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className="welcome-media">
+              {locationImage ? (
+                <figure className="welcome-eco-fig">
+                  <ResponsiveImage
+                    image={locationImage}
+                    alt={
+                      locationImage.alt ||
+                      'Elevation map of the Ozark Plateaus across northern Arkansas and southern Missouri'
+                    }
+                    lqip={locationImage.lqip}
+                    sizes={IMG_SIZES.WELCOME_SPLIT}
+                    figureClassName="welcome-figure"
+                    className="welcome-media-img"
+                    showCaption={false}
+                  />
+                  {locationImage.caption && (
+                    <figcaption className="welcome-eco-caption">
+                      {locationImage.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ) : (
+                <div className="welcome-media-placeholder" aria-hidden="true" />
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

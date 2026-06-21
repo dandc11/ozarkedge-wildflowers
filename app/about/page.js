@@ -9,7 +9,7 @@ const LightboxGallery = dynamic(() => import('../../components/LightboxGallery')
 const PortTextWrapper = dynamic(() => import('../../components/PortTextWrapper'))
 import ResponsiveImage from '../../components/ResponsiveImage'
 import WelcomeSection from '../../components/WelcomeSection'
-import { GET_ABOUT_PAGE_DATA_QUERY } from '../../sanity/lib/queries'
+import { GET_ABOUT_PAGE_DATA_QUERY, GET_WELCOME_SECTION_QUERY } from '../../sanity/lib/queries'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 import { urlForImage } from '../../sanity/lib/sanity.image'
 
@@ -47,8 +47,16 @@ const AboutPage = async () => {
     stega: isDraftMode,
   })
   const aboutPageData = aboutQueryResponse?.data?.[0] ?? null
+
+  const welcomeQueryResponse = await sanityFetch({
+    query: GET_WELCOME_SECTION_QUERY,
+    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    stega: isDraftMode,
+  })
+  const welcomeData = welcomeQueryResponse?.data ?? null
+
   const fullImageArray = getUniqueImagesFromDocument(aboutPageData)
-  const docId = aboutPageData.id
+  const docId = aboutPageData._id
   const docType = 'aboutPage'
 
   return (
@@ -64,8 +72,9 @@ const AboutPage = async () => {
       {aboutPageData && (
         <div
           className={`about-content nav-${stegaClean(aboutPageData.menuButtonColor)} overflow-hidden flex flex-col items-center relative`}
-          key={aboutPageData.id}
+          key={aboutPageData._id}
         >
+          <h1 className="sr-only">About Ozarkedge</h1>
           <header className="header-section relative w-full">
             <ResponsiveImage
               image={aboutPageData.mainImage}
@@ -78,51 +87,44 @@ const AboutPage = async () => {
               className="w-full h-full"
             />
             <ResponsiveImage
-              image={aboutPageData.mobileImage}
+              image={aboutPageData.mobileImage ? aboutPageData.mobileImage : aboutPageData.mainImage}
               alt={aboutPageData.mobileImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
               disablePointer
               loading="eager"
               figureClassName="h-full w-full"
               wrapperClassName="banner-img mobile w-full"
-              className=""
+              className="w-full h-full"
             />
-            <div className="about-banner-overlap">
-              <div className="about-banner-card">
-                <p className="about-banner-eyebrow">
-                  <span className="about-banner-circle" aria-hidden="true" />
-                  About Ozarkedge
-                </p>
-                <h1 className="about-banner-heading">
-                  {aboutPageData.title || 'The people, the place, and the plants'}
-                </h1>
-                {aboutPageData.bannerStandfirst && (
-                  <p className="about-banner-standfirst">{aboutPageData.bannerStandfirst}</p>
-                )}
-              </div>
-            </div>
           </header>
 
-          {aboutPageData.introBody?.length > 0 && (
+          {(welcomeData?.introBody?.length > 0 || welcomeData?.locationBody?.length > 0) && (
             <WelcomeSection
-              introImage={aboutPageData.introImage}
-              locationImage={aboutPageData.locationImage}
-              introBody={aboutPageData.introBody}
-              locationBody={aboutPageData.locationBody}
+              introImage={welcomeData.introImage}
+              locationImage={welcomeData.locationImage}
+              introBody={welcomeData.introBody}
+              locationBody={welcomeData.locationBody}
+              introHeading={welcomeData.introHeading}
+              locationHeading={welcomeData.locationHeading}
               showButtons={false}
+              eyebrowText="About Ozarkedge"
             />
           )}
 
           {aboutPageData.body && (
             <section className="our-story-section w-full">
-              {aboutPageData.introBody?.length > 0 && <hr className="our-story-rule" />}
+              {(welcomeData?.introBody?.length > 0 || welcomeData?.locationBody?.length > 0) && (
+                <hr className="our-story-rule" />
+              )}
               <div className="our-story-inner">
                 <div className="our-story-head">
                   <p className="our-story-eyebrow">
                     <span className="our-story-circle" aria-hidden="true" />
                     Our Story
                   </p>
-                  <h2 className="our-story-heading">How Ozarkedge came to be</h2>
+                  <h2 id="our-story-heading" className="our-story-heading">
+                    {aboutPageData.storyHeading || 'How Ozarkedge came to be'}
+                  </h2>
                 </div>
                 <Suspense>
                   <PortTextWrapper

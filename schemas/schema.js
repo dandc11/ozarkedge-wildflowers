@@ -9,13 +9,13 @@ import pageBodyPortableText from './objects/pageBodyPortableText'
 import textOnlyPortText from './objects/textOnlyPortText'
 import plantName from './objects/plantName'
 import aboutPage from './documents/aboutPage'
+import welcomeSection from './documents/welcomeSection'
 import nativePlant from './documents/nativePlant'
 import landingPage from './documents/landingPage'
 import plantListPage from './documents/plantListPage'
 import pollinator from './documents/pollinator'
 import notFoundPage from './documents/notFound'
 import link from './objects/link'
-import button from './objects/button'
 import season from './documents/season'
 import portTextVideo from './objects/portTextVideo'
 import imageCollection from './objects/imageCollection'
@@ -27,7 +27,6 @@ export const schema = {
   types: [
     siteSettings,
     link,
-    button,
     mainImage,
     figure,
     simpleImage,
@@ -42,6 +41,7 @@ export const schema = {
     pollinator,
     plantListPage,
     aboutPage,
+    welcomeSection,
     landingPage,
     notFoundPage,
     menu,

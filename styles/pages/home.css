@@ -1,6 +1,5 @@
 /* Landing Page ********************************/
 .homepage-content {
-  --btf-bg-color: #fef9c3;
   container: homepage-content / inline-size;
   height: auto;
 
@@ -57,6 +56,10 @@
   }
 
   .homepage-cta {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
     .btn-2 {
       background: var(--btn-gradient-5);
     }
@@ -109,9 +112,9 @@
 
   @container homepage-content (width > 600px) {
     .homepage-cta {
-      display: flex;
-      justify-content: center;
+      margin-bottom: 0;
     }
+
     .homepage-title .title {
       line-height: 1.25;
     }
@@ -130,14 +133,8 @@
     }
 
     .homepage-cta {
-      display: flex;
       justify-content: end;
       padding-block-start: var(--sp-2xl);
-
-      .btn-1,
-      .btn-2 {
-        width: auto;
-      }
     }
 
     .blooming-now {

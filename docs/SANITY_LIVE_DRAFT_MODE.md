@@ -37,6 +37,7 @@ Dev workflow
 - Normal browsing (fast): Draft Mode off (no `<SanityLive />`, published perspective, stega disabled).
 - Preview/drafts: enable Draft Mode via Studio Presentation (at https://ozarkedgewildflowers.sanity.studio) or `/api/draft-mode/enable`.
 - Exit preview: use the DisableDraftMode UI or `/api/draft-mode/disable`.
+- Automated/headless browser tooling cannot enable Draft Mode itself: `/api/draft-mode/enable` requires a signed secret from `.env.local`, which should never be read or exposed to such tooling. As a result, unpublished content is invisible to automated preview/screenshot tools — verify draft-only UI changes with a screenshot from an actual logged-in browser session instead.
 
 Mounting guidance
 

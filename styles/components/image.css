@@ -5,6 +5,8 @@
   /* image in portable text */
   &.port-text-img {
     z-index: 0;
+    max-width: 900px;
+    margin-inline: auto;
   }
 
   .aspect-thumbnail {

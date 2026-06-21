@@ -31,6 +31,8 @@ npm run lint:fix     # Prettier + ESLint fix
 
 **Stega cleaning** — Use `stegaClean()` only for non-editable DOM values (class names, URLs, keys, data attributes). Never clean user-visible text — it needs steganography markers for Visual Editing.
 
+**Draft content & automated preview tools** — Draft-only Sanity content (unpublished edits) is invisible to automated browser/preview tooling, since the default `sanityFetch` perspective is `published` and Draft Mode requires hitting `/api/draft-mode/enable` with a secret from `.env.local`. Never read or expose that secret to enable Draft Mode programmatically. When verifying UI changes that depend on unpublished content, ask the developer for a screenshot instead.
+
 ## Code Style
 
 - ES2022+: `const` by default, async/await, optional chaining, nullish coalescing, JSDoc for exported functions.

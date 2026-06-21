@@ -5,7 +5,6 @@ import cx from 'classnames'
 import { stegaClean } from '@sanity/client/stega'
 
 const TeaserSlider = dynamic(() => import('../components/TeaserSlider'))
-import Button from '../components/Button'
 import ResponsiveImage from '../components/ResponsiveImage'
 import WelcomeSection from '../components/WelcomeSection'
 import {
@@ -123,7 +122,7 @@ export default async function HomePage() {
               wrapperClassName="absolute bg-img w-full"
             />
             <ResponsiveImage
-              image={landingPageData.mobileImage}
+              image={landingPageData.mobileImage ? landingPageData.mobileImage : landingPageData.mainImage}
               alt={landingPageData.mobileImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
               disablePointer
@@ -141,35 +140,14 @@ export default async function HomePage() {
               <p className={`subtitle fs-md `}>{landingPageData.subtitleText}</p>
             </div>
             <div className={`homepage-cta `}>
-              <div className={`cta-buttons flex flex-col`}>
-                {landingPageData.buttonOne && (
-                  <Button
-                    className={`btn-1 bp-900:mb-xl`}
-                    slug={landingPageData.buttonOne?.slug}
-                    linkDocType={landingPageData.buttonOne?.docType}
-                  ></Button>
-                )}
-                {landingPageData.buttonTwo && (
-                  <Button
-                    className={`btn-5 bp-900:ml-8`}
-                    slug={landingPageData.buttonTwo.slug}
-                    linkDocType={landingPageData.buttonTwo.docType}
-                  >
-                    Explore native wildflowers
-                  </Button>
-                )}
-              </div>
+              <a className="welcome-btn" href="#bloomingNow">
+                See what&apos;s blooming in {titleCase(thisMonth)}{' '}
+                <span className="welcome-btn-arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
             </div>
           </section>
-          {welcomeData?.introBody?.length > 0 && (
-            <WelcomeSection
-              introImage={welcomeData.introImage}
-              locationImage={welcomeData.locationImage}
-              introBody={welcomeData.introBody}
-              locationBody={welcomeData.locationBody}
-              showButtons={true}
-            />
-          )}
           <div data-season={currentSeason} className={`btf w-full`} tag={'section'}>
             <Suspense>
               <TeaserSlider
@@ -188,6 +166,17 @@ export default async function HomePage() {
               />
             </Suspense>
           </div>
+          {(welcomeData?.introBody?.length > 0 || welcomeData?.locationBody?.length > 0) && (
+            <WelcomeSection
+              introImage={welcomeData.introImage}
+              locationImage={welcomeData.locationImage}
+              introBody={welcomeData.introBody}
+              locationBody={welcomeData.locationBody}
+              introHeading={welcomeData.introHeading}
+              locationHeading={welcomeData.locationHeading}
+              showButtons={true}
+            />
+          )}
         </div>
       )}
     </>
