@@ -64,7 +64,7 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background: var(--oe-red-200);
+    background: var(--oe-green-200);
     opacity: 0.85;
     display: block;
   }
