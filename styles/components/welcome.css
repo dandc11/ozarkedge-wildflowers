@@ -145,5 +145,9 @@
       max-width: 40rem;
       margin-inline: auto;
     }
+
+    .welcome-actions {
+      text-align: center;
+    }
   }
 }

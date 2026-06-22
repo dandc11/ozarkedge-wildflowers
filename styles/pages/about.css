@@ -94,6 +94,14 @@
     .our-story-inner {
       padding-top: var(--sp-2xl);
     }
+
+    .welcome-text {
+      text-align: center;
+    }
+
+    .welcome-lead {
+      text-align: left;
+    }
   }
 
   @container aboutpage-content (width >= 1296px) {
