@@ -36,7 +36,6 @@ const nextConfig = {
       },
     ]
   },
-  productionBrowserSourceMaps: true,
 }
 
 module.exports = withBundleAnalyzer(nextConfig)
