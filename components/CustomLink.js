@@ -17,6 +17,7 @@ import { getPathFromDocType } from '../utilities/helperUtil'
  * @param {string} props.className - The CSS class to be applied to the link.
  * @param {boolean} props.scroll - Whether or not to scroll to the top of the page when the link is clicked.
  * @param {boolean} props.id - Whether or not to scroll to the top of the page when the link is clicked.
+ * @param {function} [props.onClick] - Optional click handler forwarded to the underlying anchor (fires for mouse and keyboard activation).
  *
  * @returns {ReactElement} The CustomLink component.
  * @category Components
@@ -32,6 +33,7 @@ const CustomLink = ({
   id,
   children,
   className = '',
+  onClick,
 }) => {
   const path = docType ? getPathFromDocType(docType, slug) : ''
   let fullPath = ''
@@ -48,7 +50,7 @@ const CustomLink = ({
           {children}
         </a>
       ) : ( */}
-      <Link href={fullPath} className={className} scroll={true}>
+      <Link href={fullPath} className={className} scroll={true} onClick={onClick}>
         {children}
       </Link>
       {/* )} */}
