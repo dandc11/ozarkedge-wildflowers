@@ -153,3 +153,32 @@
   width: 3rem;
   height: 80vh;
 }
+
+/* Circular overlay button for navigating from an image to its linked page
+   (rendered by InteractiveImage when navigationSlug/navigationDocType are set). */
+.image-nav-button {
+  position: absolute;
+  top: var(--sp-xs);
+  right: var(--sp-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-xs);
+  border: none;
+  border-radius: 9999px;
+  background-color: hsl(0 0% 100% / 0.9);
+  box-shadow: var(--shadow-md);
+  color: var(--oe-grey-800);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-500);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: var(--oe-white);
+    color: var(--oe-grey-900);
+  }
+}

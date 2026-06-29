@@ -52,7 +52,7 @@ const InteractiveImage = ({
       {navigationSlug && navigationDocType && (
         <button
           onClick={handleNavigationClick}
-          className="absolute top-2 right-2 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-2 shadow-md transition-all duration-200 text-sm font-medium text-gray-800 hover:text-gray-900"
+          className="image-nav-button"
           title={`View ${navigationDocType} page`}
           aria-label={`Navigate to ${navigationSlug} page`}
         >

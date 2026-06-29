@@ -6,7 +6,7 @@ export const mainDocuments = defineDocuments([
     filter: `_type == "nativePlant" && slug.current == $slug`,
   },
   {
-    route: '/seasons/:slug',
+    route: '/season/:slug',
     filter: `_type == "season" && slug.current == $slug`,
   },
 ])

@@ -33,14 +33,14 @@ const Nav = ({ menuData }) => {
   const menuListItems = menuItems.map((item, index) => {
     return (
       <li
-        key={index}
+        key={item.menuItemLink?.slug || item.title || index}
         className="nav-list-item text-display flex justify-start items-center"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <CustomLink
           docType={item.menuItemLink.docType}
           slug={item.menuItemLink.slug}
           className="nav-list-item-link"
+          onClick={() => setIsMenuOpen(false)}
         >
           {item.title}
         </CustomLink>

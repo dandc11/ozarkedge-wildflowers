@@ -40,7 +40,10 @@ const ImageSlider = ({
 } = {}) => {
   const listItems = sliderImages?.map((image, index) => {
     return (
-      <li key={index} className={`relative flex flex-col h-full`}>
+      <li
+        key={image.slug || image.asset?._ref || index}
+        className={`relative flex flex-col h-full`}
+      >
         {useLinks && image.slug ? (
           // if the image has a link, wrap it in a link
           <CustomLink docType={image.docType} slug={image.slug}>
