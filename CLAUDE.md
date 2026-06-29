@@ -1,6 +1,6 @@
 # Ozarkedge Wildflowers
 
-Next.js 15 (App Router) site about native Arkansas wildflowers. Sanity.io CMS, PostCSS, deployed on Vercel. **No TypeScript. No Tailwind CSS. Tailwind was fully removed — do not add Tailwind classes.**
+Next.js 16 (App Router) site about native Arkansas wildflowers. Sanity.io CMS, PostCSS, deployed on Vercel. **JS-first — TypeScript is used only where convenient (Server Actions in `app/actions.ts`, migration scripts under `migrations/`). No Tailwind CSS. Tailwind was fully removed — do not add Tailwind classes.**
 
 ## Commands
 
