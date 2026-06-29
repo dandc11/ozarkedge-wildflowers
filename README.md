@@ -44,7 +44,7 @@ Add these to `.env.local` (git-ignored). Values come from the Sanity project set
 |---|---|---|
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | ✅ | Sanity project ID used by the client |
 | `NEXT_PUBLIC_SANITY_DATASET` | ✅ | Sanity dataset name (e.g. `production`) |
-| `NEXT_PUBLIC_SANITY_API_VERSION` | ✅ | Sanity API version date (defaults to `2024-10-28` if unset) |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | optional | Sanity API version date (defaults to `2024-10-28` if unset) |
 | `SANITY_API_READ_TOKEN` | ✅ | Server-side read token for Draft Mode / authenticated reads |
 | `NEXT_PUBLIC_SANITY_STUDIO_URL` | optional | URL of the hosted Studio, used for "open in Studio" links |
 | `NEXT_PUBLIC_LIGHTBOX_LICENSE_KEY` | optional | License key for `lightbox.js-react` |
