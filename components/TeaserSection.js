@@ -63,13 +63,6 @@ const TeaserSection = (props) => {
     usePortText = true,
   } = props
 
-  /**
-   * TODO:
-   * - Revisit Teaser/Feature components to see if they can be combined
-   * - Add support for multiple images
-   * - Add support for teaser theme
-   */
-
   const headingText = headingChildren ? headingChildren : titleText ? titleText : ''
   const cleanedTheme = stegaClean(teaserTheme)
 

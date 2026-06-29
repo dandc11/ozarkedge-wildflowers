@@ -74,7 +74,6 @@ const TeaserSlider = (props) => {
       return plant.image
     })
 
-  // TODO: update this with dynamic params for more use cases
   const teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
   return (
     <>
