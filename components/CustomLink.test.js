@@ -112,7 +112,7 @@ describe('CustomLink Component', () => {
       expect(link).toHaveAttribute('data-scroll', 'true')
     })
 
-    it('sets scroll prop to true (hardcoded in component)', () => {
+    it('forwards scroll={false} to the underlying link', () => {
       getPathFromDocType.mockReturnValue('/test')
 
       render(
@@ -122,8 +122,8 @@ describe('CustomLink Component', () => {
       )
 
       const link = screen.getByTestId('next-link')
-      // Component hardcodes scroll={true} regardless of prop value
-      expect(link).toHaveAttribute('data-scroll', 'true')
+      // The scroll prop is honored (forwarded to next/link), not hardcoded
+      expect(link).toHaveAttribute('data-scroll', 'false')
     })
   })
 
