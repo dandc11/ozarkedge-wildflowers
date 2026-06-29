@@ -166,6 +166,11 @@ export const displaySeasonName = (seasonName = '') =>
 export const titleCase = (textString = '') =>
   textString.charAt(0).toUpperCase() + textString.slice(1)
 
+/**
+ * Returns the season object matching a given season name.
+ * @param {string} season - The season name (e.g. 'spring', 'summer', 'fall', 'winter')
+ * @returns {object|undefined} The matching season object from SEASONS, or undefined if not found
+ */
 export const getSeasonObject = (season) => {
   const seasonObject = Object.values(SEASONS).find((s) => s.SEASON_NAME === season)
   return seasonObject
