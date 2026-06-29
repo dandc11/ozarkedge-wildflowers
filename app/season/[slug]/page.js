@@ -70,8 +70,6 @@ export async function generateStaticParams() {
 }
 
 const SeasonPage = async (props) => {
-  /** TODO: 2. TEASER - retrieve FeatureSection data for teaser section - add to query, dereference in query, and pass to FeatureSection component (replacing TeaserSection)
-   */
   const { isEnabled: isDraftMode } = await draftMode()
   const params = await props.params
   const [{ data: pageData }] = await Promise.all([
