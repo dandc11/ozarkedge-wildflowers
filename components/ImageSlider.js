@@ -41,7 +41,7 @@ const ImageSlider = ({
   const listItems = sliderImages?.map((image, index) => {
     return (
       <li
-        key={image.asset?._ref || image.slug || index}
+        key={image.slug || image.asset?._ref || index}
         className={`relative flex flex-col h-full`}
       >
         {useLinks && image.slug ? (
