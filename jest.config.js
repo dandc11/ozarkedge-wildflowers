@@ -56,5 +56,15 @@ const customJestConfig = {
   restoreMocks: true,
 }
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig)
+// next/jest overrides `transformIgnorePatterns`, so resolve its config first and
+// then patch it to transform the ESM-only @portabletext/* packages (ESM since v5)
+// through SWC for Jest's CommonJS runtime.
+// createJestConfig returns an async function so it can load the (async) Next.js config.
+module.exports = async () => {
+  const config = await createJestConfig(customJestConfig)()
+  config.transformIgnorePatterns = [
+    '/node_modules/(?!@portabletext/)',
+    '^.+\\.module\\.(css|sass|scss)$',
+  ]
+  return config
+}
