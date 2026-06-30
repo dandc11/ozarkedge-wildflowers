@@ -6,7 +6,7 @@
     "build": "next build",
     "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
-    "lint": "npx eslint . --ignore-path .gitignore",
+    "lint": "eslint .",
     "lint:fix": "npm run format && npm run lint -- --fix",
     "migrate": "sanity exec migrations/rename-pagebodyportabletext-objects/index.ts --with-user-token",
     "start": "next start",

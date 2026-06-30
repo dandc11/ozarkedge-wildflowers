@@ -15,8 +15,6 @@ import PlantImageCard from '../../components/PlantImageCard'
 
 describe('PlantImageCard Integration', () => {
   it('renders plant name, months, and habitat', () => {
-    // eslint-disable-next-line no-console
-    console.log('Executing PlantImageCard integration test body')
     render(
       <PlantImageCard
         plantName={{ commonName: ['Wild Bergamot'], botanicalName: ['Monarda fistulosa'] }}
