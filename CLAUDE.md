@@ -33,6 +33,17 @@ npm run lint:fix     # Prettier + ESLint fix
 
 **Draft content & automated preview tools** — Draft-only Sanity content (unpublished edits) is invisible to automated browser/preview tooling, since the default `sanityFetch` perspective is `published` and Draft Mode requires hitting `/api/draft-mode/enable` with a secret from `.env.local`. Never read or expose that secret to enable Draft Mode programmatically. When verifying UI changes that depend on unpublished content, ask the developer for a screenshot instead.
 
+## Skills
+
+Canonical Agent Skills live in `.claude/skills/*/SKILL.md`. `.github/skills/*/SKILL.md` are symlinks to the same files, kept in sync automatically so GitHub Copilot CLI (which also scans `.github/skills/`) sees identical content — never edit a `.github/skills/` file directly, edit the `.claude/skills/` original.
+
+- **image-components** — three-tier image architecture (`ResponsiveImage`/`InteractiveImage`/never raw `<Image>`) and required GROQ image metadata
+- **sanity-migrations** — safe migration authoring/execution workflow
+- **testing** — Jest + RTL conventions and Sanity mock data workflow
+- **groq-queries** — query naming, fragments, dereferencing, and polymorphic Portable Text projection
+- **github-issue-and-branch-workflow** — issue templates/labels and the CI-enforced branch/PR naming rules
+- **pr-self-review** — repo-specific pre-PR checklist (pattern compliance, a11y, styles, security, testing)
+
 ## Code Style
 
 - ES2022+: `const` by default, async/await, optional chaining, nullish coalescing, JSDoc for exported functions.
@@ -48,6 +59,8 @@ npm run lint:fix     # Prettier + ESLint fix
 - Branch format: `feature/issue-{NUMBER}-{slug}` — GitHub Actions auto-creates the branch when an issue is opened
 - PR title format: `Closes #{NUMBER}: Description` or `Fixes #{NUMBER}: Description`. The `validate-pr-linking` Action **requires** the title to start with `Closes #N`/`Fixes #N` where `N` matches the issue number in the branch name — a non-conforming title (e.g. `… (part of #N)`) fails the check. This means **one issue per PR**: for follow-up or sub-tasks of an umbrella issue, open a dedicated issue (so its own `Closes #N` is accurate) rather than pointing multiple PRs at the umbrella.
 - Always assign `dandc11` when creating issues; use the `/create-issue` prompt for issue creation
+- New issues are automatically added to the [Ozarkedge project board](https://github.com/users/dandc11/projects/1) by the `add-issues-to-project` Action — no manual step needed
+- Every new issue must get an appropriate label from the existing set (`bug`, `enhancement`, `documentation`, `devops`, `dependencies`, `sanity`, `audit`, `research`, `question`, `Studio`, `help wanted`) — don't leave issues unlabeled
 - Workflow: issue created → GitHub Actions creates branch → check out branch → commit/push → PR → merge
 
 See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
