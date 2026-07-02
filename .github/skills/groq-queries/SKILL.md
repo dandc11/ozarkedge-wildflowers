@@ -1,0 +1,1 @@
+../../../.claude/skills/groq-queries/SKILL.md

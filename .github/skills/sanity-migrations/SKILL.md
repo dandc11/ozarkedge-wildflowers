@@ -1,0 +1,1 @@
+../../../.claude/skills/sanity-migrations/SKILL.md
