@@ -51,7 +51,7 @@ Based on the chosen template, pre-fill what can be inferred from the user's requ
 
 ### 🛠️ Update / Tech Debt
 
-- **Labels:** `studio`, `devops`
+- **Labels:** `Studio`, `devops`
 - **Title prefix:** `🛠️ Update `
 - Pre-fill: `summary` from user's context
 - Ask user for: packages being updated
@@ -59,7 +59,7 @@ Based on the chosen template, pre-fill what can be inferred from the user's requ
 
 ### Generic (no template)
 
-- **Labels:** choose the most appropriate from: `bug`, `enhancement`, `documentation`, `refactor`, `question`
+- **Labels:** choose the most appropriate from: `bug`, `enhancement`, `documentation`, `question`
 - Use this body structure:
 
 ```
