@@ -36,8 +36,8 @@ Use the `/create-issue` prompt (`.github/prompts/create-issue.prompt.md`) as the
 | 🐛 Bug Report | `bug` | `🐛 [BUG] - ` |
 | 💡 Feature Request | `question` | `💡 Enhancement - ` |
 | 📖 Research | `research` | `📖💡 Research - ` |
-| 🛠️ Update / Tech Debt | `studio`, `devops` | `🛠️ Update ` |
-| Generic (no template) | choose from: `bug`, `enhancement`, `documentation`, `refactor`, `question` | none |
+| 🛠️ Update / Tech Debt | `Studio`, `devops` | `🛠️ Update ` |
+| Generic (no template) | choose from: `bug`, `enhancement`, `documentation`, `question` | none |
 
 Generic body structure:
 
