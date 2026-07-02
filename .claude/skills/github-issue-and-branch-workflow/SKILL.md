@@ -17,7 +17,7 @@ This repo automates issue → branch → PR linking with GitHub Actions that **f
 6. Developer opens a PR titled `Closes #{NUMBER}: <description>` or `Fixes #{NUMBER}: <description>`.
 7. `validate-pr-linking.yml` runs on PR open/edit/sync and **fails the check** if the PR title doesn't start with `Closes #N`/`Fixes #N`, or if `N` doesn't match the issue number embedded in the branch name.
 
-See [docs/BRANCH_AUTOMATION_SETUP.md](../../docs/BRANCH_AUTOMATION_SETUP.md) for the full setup and troubleshooting guide.
+See [docs/BRANCH_AUTOMATION_SETUP.md](../../../docs/BRANCH_AUTOMATION_SETUP.md) for the full setup and troubleshooting guide.
 
 ## Exact Enforced Rules
 

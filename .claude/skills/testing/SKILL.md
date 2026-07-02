@@ -18,9 +18,9 @@ This skill provides the detailed methodology for writing tests in the ozarkedge-
 
 - **Test runner**: Jest 29 with jsdom environment
 - **Component testing**: @testing-library/react 16
-- **Shared render helpers**: [tests/utils/test-utils.js](../../tests/utils/test-utils.js) — `render`, `renderWithoutProviders`
-- **Mock data**: [tests/mocks/sanity-mocks.js](../../tests/mocks/sanity-mocks.js) — `createMockSanityImage`, mock documents
-- **Jest config**: [jest.config.js](../../jest.config.js), [jest.setup.js](../../jest.setup.js), [jest.env.js](../../jest.env.js)
+- **Shared render helpers**: [tests/utils/test-utils.js](../../../tests/utils/test-utils.js) — `render`, `renderWithoutProviders`
+- **Mock data**: [tests/mocks/sanity-mocks.js](../../../tests/mocks/sanity-mocks.js) — `createMockSanityImage`, mock documents
+- **Jest config**: [jest.config.js](../../../jest.config.js), [jest.setup.js](../../../jest.setup.js), [jest.env.js](../../../jest.env.js)
 
 ## Sanity Mock Data Workflow
 
