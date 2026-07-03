@@ -42,8 +42,8 @@
         bottom: 0;
         background-color: hsl(from var(--oe-surface) h s l / 0.71);
         padding-block: 0.05rem;
-        padding-inline-start: 0.25rem;
-        padding-inline-end: 0.5rem;
+        padding-inline-start: var(--sp-xxs);
+        padding-inline-end: var(--sp-xs);
         z-index: 10;
         color: var(--oe-black);
         font-size: 0.65rem;
@@ -139,8 +139,8 @@
   }
 
   @container content-well (width >= 900px) {
-    margin-block: 4rem;
-    margin-inline: 1.5rem;
+    margin-block: var(--sp-3xl);
+    margin-inline: var(--sp-lg);
     gap: var(--sp-md);
   }
 
@@ -165,7 +165,7 @@
   justify-content: center;
   padding: var(--sp-xs);
   border: none;
-  border-radius: 9999px;
+  border-radius: var(--br-pill);
   background-color: hsl(from var(--oe-surface) h s l / 0.9);
   box-shadow: var(--shadow-md);
   color: var(--oe-grey-800);

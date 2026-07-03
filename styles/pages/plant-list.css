@@ -159,7 +159,7 @@
     .plant-list-layout-wrapper {
       grid-template-columns: 3fr 1fr;
       grid-template-areas: 'plant-list description';
-      gap: 1.5rem;
+      gap: var(--sp-lg);
       align-items: start;
       justify-items: start;
       padding-block: var(--sp-2xl);

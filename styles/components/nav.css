@@ -124,7 +124,7 @@ body:has(.nav-dark) {
     width: 2rem;
     height: 4px;
     background-color: var(--nav-bg-color);
-    margin: 0.25rem 0;
+    margin: var(--sp-xxs) 0;
   }
 
   .nav-img {
