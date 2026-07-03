@@ -124,11 +124,18 @@
   --oe-surface-muted: var(--oe-grey-100); /* inset/raised panels */
   --oe-link: var(--oe-link-blue); /* large-text only (3.64:1); needs a darker step for small inline links */
 
-  /* Season theming — remapped per season; see #260 */
+  /* Season palette — raw per-season values. Consumed ONLY by the --season-*
+     aliases in styles/seasons.css; components never reference these. */
   --spring-accent: var(--oe-blue-green-light-900);
   --summer-accent: var(--oe-green-yellow-600);
   --fall-accent: hsl(19, 52%, 25%);
   --winter-accent: var(--oe-grey-800);
+  /* Bespoke teaser tints (from the old teaser.css literals) — candidates to
+     reconcile with the ramps in the #266 perceptual pass. */
+  --spring-heading-color: #7f696d;
+  --spring-text-color: #504346;
+  --summer-heading-color: #864a6c;
+  --fall-heading-color: #435146; /* close to --oe-green-800 */
   --spring-bg-color: hsl(98, 29%, 80%);
   --summer-bg-color: hsl(66.32deg 43.34% 87.66%);
   --fall-bg-color: var(--oe-orange-100);

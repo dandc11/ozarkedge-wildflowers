@@ -1,0 +1,94 @@
+/* Season theming — the single season file (#260).
+
+   Convention: ONE switching mechanism — a season class (spring | summer |
+   fall | winter) on a wrapper element remaps the --season-* aliases for its
+   subtree:
+     - app/layout.js puts the current-date season on <body> (site chrome).
+     - Season pages apply their Sanity seasonName on .season-page.
+     - Teaser/feature sections apply their Sanity featureTheme class.
+   Sanity-driven wrapper classes win over the body class via normal cascade
+   (nearest wrapper). Components consume ONLY --season-* aliases; the raw
+   per-season palette (--spring-*, gradients, teaser tints) lives in
+   styles/colors.css. No per-season token styling belongs anywhere else. */
+
+:root {
+  /* Neutral fallbacks — <body> always carries a season class, so these
+     only matter for out-of-tree fragments and tests. */
+  --season-accent: var(--oe-green-800);
+  --season-bg: var(--oe-surface);
+  --season-banner-position: top;
+  --season-title-gradient: var(--oe-text-body);
+  --season-title-gradient-desktop: var(--oe-white);
+  --season-stripe: transparent;
+  --season-heading-color: var(--oe-white);
+  --season-slider-text-color: var(--oe-white);
+  --season-btn-bg: var(--btn-gradient-1);
+  --season-btn-color: var(--oe-white);
+  --season-footer-bg: var(--oe-grey-900);
+}
+
+/* Each block sets the FULL working set so nested cross-season wrappers
+   (e.g. a fall-themed feature on the summer homepage) can't inherit stray
+   values from an outer season. */
+.spring {
+  --season-accent: var(--spring-accent);
+  --season-bg: var(--spring-bg-color);
+  --season-banner-position: top;
+  --season-title-gradient: var(--spring-gradient-2);
+  --season-title-gradient-desktop: var(--oe-white);
+  --season-stripe: var(--spring-gradient);
+  --season-heading-color: var(--spring-heading-color);
+  --season-slider-text-color: var(--spring-text-color);
+  --season-btn-bg: var(--btn-gradient-1);
+  --season-btn-color: var(--oe-white);
+  --season-footer-bg: var(--oe-green-700);
+}
+
+.summer {
+  --season-accent: var(--summer-accent);
+  --season-bg: var(--summer-bg-color);
+  --season-banner-position: center;
+  --season-title-gradient: var(--summer-gradient-2);
+  --season-title-gradient-desktop: var(--summer-gradient-3);
+  --season-stripe: var(--summer-gradient-2);
+  --season-heading-color: var(--summer-heading-color);
+  --season-slider-text-color: var(--summer-heading-color);
+  --season-btn-bg: var(--btn-gradient-2);
+  --season-btn-color: var(--oe-white);
+  --season-footer-bg: var(--oe-blue-green-light-800);
+}
+
+.fall {
+  --season-accent: var(--fall-accent);
+  --season-bg: var(--fall-bg-color);
+  --season-banner-position: 100% 15%;
+  --season-title-gradient: var(--fall-bg-gradient);
+  --season-title-gradient-desktop: var(--fall-gradient);
+  --season-stripe: var(--fall-bg-gradient);
+  --season-heading-color: var(--fall-heading-color);
+  --season-slider-text-color: var(--oe-white);
+  --season-btn-bg: var(--btn-gradient-1);
+  --season-btn-color: var(--oe-white);
+  --season-footer-bg: var(--oe-red-900);
+}
+
+.winter {
+  --season-accent: var(--winter-accent);
+  --season-bg: var(--winter-bg-color);
+  --season-banner-position: top;
+  --season-title-gradient: var(--winter-gradient);
+  --season-title-gradient-desktop: var(--winter-gradient);
+  --season-stripe: var(--winter-gradient-3);
+  --season-heading-color: var(--oe-grey-700);
+  --season-slider-text-color: var(--oe-white);
+  --season-btn-bg: var(--btn-gradient-3);
+  --season-btn-color: var(--oe-blue-dark-600);
+  --season-footer-bg: var(--oe-grey-800);
+
+  /* Winter-only: the "Blooming now" panel goes dark with light text.
+     Other seasons leave these unset — consumers fall back (home.css). */
+  --season-blooming-bg: var(--winter-gradient-3);
+  --season-blooming-title: var(--oe-white);
+  --season-blooming-text: var(--oe-white);
+  --season-blooming-caption: var(--oe-white);
+}

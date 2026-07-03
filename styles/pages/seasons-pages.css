@@ -1,49 +1,14 @@
+/* Season pages — the wrapper's season class (Sanity seasonName, applied in
+   app/season/[slug]/page.js) remaps the --season-* aliases (seasons.css);
+   this file only consumes them. */
 .season-page {
-  --season-accent-color: var(--oe-green-800);
-  --season-bg-color: var(--oe-surface);
-  --season-gradient: var(--spring-gradient);
-  --banner-obj-position: top;
   container: season-page-content / inline-size;
   position: relative;
 
-  background-color: var(--season-bg-color);
+  background-color: var(--season-bg);
 
   .banner-img img {
-    object-position: var(--banner-obj-position);
-  }
-
-  &.spring {
-    --season-bg-color: var(--spring-bg-color);
-    --season-accent-color: var(--spring-accent);
-    --season-gradient: var(--spring-gradient);
-    --season-title-text-bg: var(--spring-gradient-2);
-    --season-title-text-desktop-bg: var(--oe-white);
-  }
-
-  &.summer {
-    --season-bg-color: var(--summer-bg-color);
-    --season-accent-color: var(--summer-accent);
-    --season-gradient: var(--summer-gradient);
-    --season-title-text-bg: var(--summer-gradient-2);
-    --season-title-text-desktop-bg: var(--summer-gradient-3);
-    --banner-obj-position: center;
-  }
-
-  &.fall {
-    --season-bg-color: var(--fall-bg-color);
-    --season-accent-color: var(--fall-accent);
-    --season-gradient: var(--fall-gradient-2);
-    --season-title-text-bg: var(--fall-bg-gradient);
-    --season-title-text-desktop-bg: var(--fall-gradient);
-    --banner-obj-position: 100% 15%;
-  }
-
-  &.winter {
-    --season-bg-color: var(--winter-bg-color);
-    --season-accent-color: var(--winter-accent);
-    --season-gradient: var(--winter-gradient);
-    --season-title-text-desktop-bg: var(--winter-gradient);
-    --season-title-text-bg: var(--winter-gradient);
+    object-position: var(--season-banner-position);
   }
 
   .season-header {
@@ -57,7 +22,7 @@
     }
 
     .heading-title {
-      background: var(--season-title-text-bg);
+      background: var(--season-title-gradient);
       background-clip: text;
       color: transparent;
       font-size: var(--fs-5xl);
@@ -71,7 +36,7 @@
     }
 
     .banner-img {
-      background-color: var(--season-bg-color);
+      background-color: var(--season-bg);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
       transform: translateZ(0);
 
@@ -147,7 +112,7 @@
         top: 3rem;
 
         .heading-title {
-          background: var(--season-title-text-desktop-bg);
+          background: var(--season-title-gradient-desktop);
           -webkit-background-clip: text;
           background-clip: text;
         }
@@ -174,6 +139,10 @@
   .teaser {
     .feature-layout-grid {
       padding: 0;
+    }
+
+    &.feature .heading {
+      background-color: var(--season-bg);
     }
   }
 }

@@ -65,48 +65,25 @@
     }
   }
 
+  /* Season bg flows from the body's season class (fixes the old
+     winter bug that painted an accent color as the background). */
   .btf {
-    &[data-season='spring'] {
-      background-color: var(--spring-bg-color);
-    }
-
-    &[data-season='summer'] {
-      background-color: var(--summer-bg-color);
-    }
-
-    &[data-season='fall'] {
-      background-color: var(--fall-bg-color);
-    }
-
-    &[data-season='winter'] {
-      background: var(--winter-accent);
-    }
+    background-color: var(--season-bg);
   }
 
   .blooming-now {
+    /* Winter defines the --season-blooming-* overrides (seasons.css);
+       other seasons fall back to the normal teaser treatment. */
+    background: var(--season-blooming-bg, none);
+    --teaser-heading-color: var(--season-blooming-title, var(--season-heading-color));
+    --teaser-text-color: var(--season-blooming-text, var(--season-slider-text-color));
+
     .blooming-title {
       text-transform: uppercase;
     }
 
-    &.winter {
-      background: var(--winter-gradient-3);
-    }
-    /* 
-    &.spring {
-      background: var(--spring-gradient);
-    } */
-
-    /* &.spring, */
-    &.winter {
-      .blooming-title,
-      .description p,
-      figure.img figcaption {
-        color: var(--oe-white);
-      }
-    }
-
     figure.img figcaption {
-      color: var(--oe-text-body);
+      color: var(--season-blooming-caption, var(--oe-text-body));
     }
   }
 

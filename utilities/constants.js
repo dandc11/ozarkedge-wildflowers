@@ -39,34 +39,25 @@ export const MONTH_OPTIONS = [
   { label: 'December', value: 12 },
 ]
 
+/* Season CSS theming flows through the --season-* aliases in
+   styles/seasons.css (keyed off a season class on a wrapper element) —
+   these constants only carry the name + month mapping. */
 export const SEASONS = {
   SPRING: {
     SEASON_NAME: 'spring',
     SEASON_MONTHS: [3, 4, 5],
-    ACCENT_COLOR_VAR: '--spring-accent',
-    BG_COLOR_VAR: '--oe-green-300',
-    BG_GRADIENT_VAR: '--spring-gradient',
   },
   SUMMER: {
     SEASON_NAME: 'summer',
     SEASON_MONTHS: [6, 7, 8],
-    ACCENT_COLOR_VAR: '--summer-accent',
-    BG_COLOR_VAR: '--summer-bg-color',
-    BG_GRADIENT_VAR: '--summer-gradient',
   },
   FALL: {
     SEASON_NAME: 'fall',
     SEASON_MONTHS: [9, 10, 11],
-    ACCENT_COLOR_VAR: '--fall-accent',
-    BG_COLOR_VAR: '--fall-bg-color',
-    BG_GRADIENT_VAR: '--fall-gradient',
   },
   WINTER: {
     SEASON_NAME: 'winter',
     SEASON_MONTHS: [12, 1, 2],
-    ACCENT_COLOR_VAR: '--winter-accent',
-    BG_COLOR_VAR: '  --oe-blue-dark-100',
-    BG_GRADIENT_VAR: '--winter-gradient',
   },
 }
 
