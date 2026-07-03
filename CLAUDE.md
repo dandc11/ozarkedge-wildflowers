@@ -69,6 +69,7 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 ## Docs
 
 - [Design system reference (canonical)](DESIGN.md)
+- [CSS engineering guidelines](docs/CSS_GUIDELINES.md)
 - [Testing guide](docs/TESTING_GUIDE.md)
 - [Sanity Live + Draft Mode](docs/SANITY_LIVE_DRAFT_MODE.md)
 - [Sanity Hosted Studio](docs/SANITY_HOSTED_STUDIO.md)
