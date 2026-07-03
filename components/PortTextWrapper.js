@@ -32,9 +32,7 @@ const portTextComponents = {
   listItem: {
     // Ex. 1: customizing common list types
     bullet: ({ children }) => (
-      <li className={`list-item list-inside`} style={{ listStyleType: ' disclosure-closed' }}>
-        {children}
-      </li>
+      <li className={`list-item list-inside disclosure-closed`}>{children}</li>
     ),
     number: ({ children }) => <li className={`list-item list-inside`}>{children}</li>,
   },

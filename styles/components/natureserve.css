@@ -6,13 +6,21 @@
   margin-inline: var(--sp-xl);
   border-radius: 0.375rem;
 
+  /* --ns-bg / --ns-color are set inline by the components (data-driven
+     NatureServe ranking colors); rules here stay static. */
   .natureserve-message-text {
     display: flex;
     gap: var(--sp-xs);
     z-index: 0;
     font-size: var(--fs-sm);
     background-color: transparent;
+    color: var(--ns-color, var(--oe-white));
     padding: var(--sp-md);
+
+    > p {
+      background-color: var(--ns-bg, transparent);
+      color: var(--ns-color, var(--oe-white));
+    }
   }
 
   .natureserve-icon-info {
@@ -40,11 +48,14 @@
     border-radius: 0.375rem;
     top: 0;
     left: 0;
+    background-color: var(--ns-bg, transparent);
   }
 }
 
 .natureserve-badge {
   padding: var(--sp-xxs) var(--sp-sm);
+  background-color: var(--ns-bg, transparent);
+  color: var(--ns-color, var(--oe-white));
   text-align: center;
   border-radius: 0.75rem;
   white-space: nowrap;
