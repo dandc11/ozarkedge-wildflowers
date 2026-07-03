@@ -53,4 +53,21 @@
   --br-sm: 0.125rem;
   --br-md: 0.375rem;
   --br-lg: 0.5rem;
+  --br-pill: 9999px;
 }
+
+/* Breakpoints (documentation — CSS custom properties cannot be used inside
+   @media/@container prelude, so these live as a documented canonical set):
+
+     500px · 600px · 750px · 800px · 900px · 1200px · 1400px · 1600px
+
+   Known drift (candidates to consolidate in a follow-up): 820px (button.css),
+   1000px, 1296px. New queries must pick from the canonical set.
+
+   Spacing conventions:
+   - margin / padding / gap use the --sp-* scale.
+   - Positional offsets (top/left/bottom/right of decorative elements) are
+     component geometry, not spacing rhythm — raw values allowed.
+   - Off-scale spacing literals that remain are flagged in #261 pending a
+     deliberate re-scale decision (e.g. 2.5rem appears 5x; the scale jumps
+     2rem -> 3rem with no step between). */

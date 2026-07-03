@@ -4,7 +4,7 @@
   background-color: var(--oe-green-200);
 
   .heading {
-    margin-block-start: -1.5rem;
+    margin-block-start: calc(-1 * var(--sp-lg));
   }
   .heading,
   .plant-pg-port-text {
@@ -20,7 +20,7 @@
   }
 
   .plant-pg-port-text {
-    margin-block: min(5vh, 2rem);
+    margin-block: min(5vh, var(--sp-xl));
 
     @container (min-width: 600px) {
       margin-block-start: min(10vh, 3rem) min(10vh, 1rem);

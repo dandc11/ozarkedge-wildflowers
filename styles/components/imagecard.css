@@ -35,7 +35,7 @@
 
   .img-card-description {
     container: img-card-description / inline-size;
-    padding-block: 0.75rem;
+    padding-block: var(--sp-sm);
     padding-inline: 0.45rem;
     text-align: left;
     margin-left: var(--sp-xxs);

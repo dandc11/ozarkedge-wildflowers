@@ -2,7 +2,7 @@
 
 .plant-page {
   .plant-page-header {
-    margin-block-start: -3rem;
+    margin-block-start: calc(-1 * var(--sp-2xl));
     transition: all 0.5s ease-in-out;
   }
 
@@ -174,8 +174,8 @@
 
     .plant-page-header {
       flex-direction: row;
-      margin-block-start: -12rem;
-      padding-block-start: 2rem;
+      margin-block-start: calc(-1 * var(--sp-6xl));
+      padding-block-start: var(--sp-xl);
       margin-inline-end: 5cqi;
       justify-content: end;
     }

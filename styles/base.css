@@ -178,7 +178,7 @@ select {
   bottom: 2%;
   right: 2%;
   z-index: 1000;
-  padding: 0.5rem 0.75rem;
+  padding: var(--sp-xs) var(--sp-sm);
   background-color: var(--oe-yellow-500);
   color: var(--oe-black);
   border: 1px solid var(--oe-black);
@@ -190,12 +190,12 @@ select {
 .content-well > *:not(.w-full) {
   container: content-well / inline-size;
   width: clamp(8rem, 90cqi, 60rem);
-  margin-block: min(5vh, 2rem);
+  margin-block: min(5vh, var(--sp-xl));
   margin-inline: auto;
 
   @container (min-width: 600px) {
     width: clamp(35rem, 85cqi, 55rem);
-    margin-block: min(10vh, 3rem);
+    margin-block: min(10vh, var(--sp-2xl));
   }
 }
 

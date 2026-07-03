@@ -42,7 +42,7 @@
   }
 
   .title {
-    padding-bottom: 0.25rem;
+    padding-bottom: var(--sp-xxs);
     font-size: clamp(1.5rem, calc(1.5rem + 4cqi), 4rem);
     font-weight: 700;
     letter-spacing: 0.025em;
@@ -58,7 +58,7 @@
   .homepage-cta {
     display: flex;
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: var(--sp-2xl);
 
     .btn-2 {
       background: var(--btn-gradient-5);
