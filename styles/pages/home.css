@@ -42,7 +42,7 @@
   }
 
   .title {
-    padding-bottom: var(--sp-xxs);
+    padding-bottom: var(--sp-1);
     font-size: clamp(1.5rem, calc(1.5rem + 4cqi), 4rem);
     font-weight: 700;
     letter-spacing: 0.025em;
@@ -50,7 +50,7 @@
   }
 
   .subtitle {
-    padding-block-start: var(--sp-xxs);
+    padding-block-start: var(--sp-1);
     font-weight: 500;
     line-height: 1.5;
   }
@@ -58,7 +58,7 @@
   .homepage-cta {
     display: flex;
     justify-content: center;
-    margin-bottom: var(--sp-2xl);
+    margin-bottom: var(--sp-12);
 
     .btn-2 {
       background: var(--btn-gradient-5);
@@ -100,7 +100,7 @@
   @container homepage-content (width >= 900px) {
     .atf {
       justify-content: start;
-      padding-inline: var(--sp-xl);
+      padding-inline: var(--sp-8);
     }
 
     .homepage-title {
@@ -111,11 +111,11 @@
 
     .homepage-cta {
       justify-content: end;
-      padding-block-start: var(--sp-2xl);
+      padding-block-start: var(--sp-12);
     }
 
     .blooming-now {
-      padding-left: var(--sp-lg);
+      padding-left: var(--sp-6);
     }
   }
 
@@ -130,6 +130,6 @@
 
 @container homepage-content (width >= 500px) {
   .blooming-heading .heading-title {
-    padding-inline: var(--sp-md);
+    padding-inline: var(--sp-4);
   }
 }

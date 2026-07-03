@@ -2,7 +2,7 @@
 
 .plant-page {
   .plant-page-header {
-    margin-block-start: calc(-1 * var(--sp-2xl));
+    margin-block-start: calc(-1 * var(--sp-12));
     transition: all 0.5s ease-in-out;
   }
 
@@ -20,8 +20,8 @@
       background-color: var(--oe-white);
       max-width: 32rem;
       width: 90%;
-      padding-block-end: var(--sp-sm);
-      padding-inline: var(--sp-xl);
+      padding-block-end: var(--sp-3);
+      padding-inline: var(--sp-8);
       box-shadow: var(--shadow-sm);
 
       button {
@@ -29,8 +29,8 @@
         width: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        gap: var(--sp-xxs);
-        margin-block-end: var(--sp-md);
+        gap: var(--sp-1);
+        margin-block-end: var(--sp-4);
         align-items: center;
       }
 
@@ -39,8 +39,8 @@
       } */
 
       .toc {
-        padding-block-end: var(--sp-lg);
-        padding-block-start: var(--sp-xxs);
+        padding-block-end: var(--sp-6);
+        padding-block-start: var(--sp-1);
       }
 
       @media screen and (max-width: 1000px) {
@@ -51,7 +51,7 @@
     }
 
     .plant-pg-port-text {
-      margin-block-start: var(--sp-md);
+      margin-block-start: var(--sp-4);
     }
   }
 
@@ -63,7 +63,7 @@
       'right-sidebar'
       'content-well';
 
-    padding-block-end: var(--sp-4xl);
+    padding-block-end: var(--sp-24);
 
     .content-well {
       container: content-well / inline-size;
@@ -88,7 +88,7 @@
   #growingNearby {
     @container growingNearbyText (width >= 600px) {
       .image-slider {
-        padding-inline: var(--sp-2xl);
+        padding-inline: var(--sp-12);
       }
     }
   }
@@ -96,7 +96,7 @@
   @media screen and (min-width: 500px) {
     .plant-page-header {
       .plant-intro {
-        padding-inline: var(--sp-xl);
+        padding-inline: var(--sp-8);
       }
     }
   }
@@ -104,8 +104,8 @@
   @media screen and (min-width: 800px) {
     .plant-page-header {
       .plant-intro {
-        padding-block: var(--sp-md);
-        padding-inline: var(--sp-2xl);
+        padding-block: var(--sp-4);
+        padding-inline: var(--sp-12);
       }
     }
 
@@ -132,9 +132,9 @@
     .plant-page-header {
       .plant-intro {
         z-index: 10;
-        gap: var(--sp-lg);
-        padding-block-start: var(--sp-lg);
-        padding-inline: var(--sp-2xl);
+        gap: var(--sp-6);
+        padding-block-start: var(--sp-6);
+        padding-inline: var(--sp-12);
         max-width: 100%;
         width: fit-content;
         flex-direction: row;
@@ -145,8 +145,8 @@
 
         .toc {
           max-width: 23rem;
-          padding-block-start: var(--sp-md);
-          padding-inline-start: var(--sp-md);
+          padding-block-start: var(--sp-4);
+          padding-inline-start: var(--sp-4);
         }
       }
 
@@ -161,7 +161,7 @@
 
     .toc-wrapper {
       justify-content: start;
-      margin-block-start: var(--sp-xxs);
+      margin-block-start: var(--sp-1);
     }
   }
 
@@ -174,8 +174,8 @@
 
     .plant-page-header {
       flex-direction: row;
-      margin-block-start: calc(-1 * var(--sp-6xl));
-      padding-block-start: var(--sp-xl);
+      margin-block-start: calc(-1 * var(--sp-48));
+      padding-block-start: var(--sp-8);
       margin-inline-end: 5cqi;
       justify-content: end;
     }
@@ -202,8 +202,8 @@
 
       .sidebar-content-wrapper {
         top: 2.5rem;
-        padding: var(--sp-lg) var(--sp-xl);
-        margin-inline-end: var(--sp-lg);
+        padding: var(--sp-6) var(--sp-8);
+        margin-inline-end: var(--sp-6);
       }
     }
   }

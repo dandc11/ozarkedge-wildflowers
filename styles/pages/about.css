@@ -25,7 +25,7 @@
   .our-story-section {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 0 28px var(--sp-4xl);
+    padding: 0 28px var(--sp-24);
   }
 
   .our-story-rule {
@@ -35,12 +35,12 @@
   }
 
   .our-story-inner {
-    padding-top: var(--sp-3xl);
+    padding-top: var(--sp-16);
   }
 
   .our-story-head {
     text-align: center;
-    margin-bottom: var(--sp-2xl);
+    margin-bottom: var(--sp-12);
   }
 
   .our-story-eyebrow {
@@ -53,7 +53,7 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--oe-orange-700);
-    margin: 0 0 var(--sp-md);
+    margin: 0 0 var(--sp-4);
   }
 
   .our-story-circle {
@@ -88,11 +88,11 @@
     }
 
     .our-story-section {
-      padding-inline: var(--sp-lg);
+      padding-inline: var(--sp-6);
     }
 
     .our-story-inner {
-      padding-top: var(--sp-2xl);
+      padding-top: var(--sp-12);
     }
 
     .welcome-text {

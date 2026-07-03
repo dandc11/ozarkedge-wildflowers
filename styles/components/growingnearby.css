@@ -4,13 +4,13 @@
   background-color: var(--oe-green-200);
 
   .heading {
-    margin-block-start: calc(-1 * var(--sp-lg));
+    margin-block-start: calc(-1 * var(--sp-6));
   }
   .heading,
   .plant-pg-port-text {
     width: clamp(8rem, 90cqi, 60rem);
     margin-inline: auto;
-    margin-block-start: var(--sp-md);
+    margin-block-start: var(--sp-4);
   }
 
   @container growingNearby (min-width: 600px) {
@@ -20,7 +20,7 @@
   }
 
   .plant-pg-port-text {
-    margin-block: min(5vh, var(--sp-xl));
+    margin-block: min(5vh, var(--sp-8));
 
     @container (min-width: 600px) {
       margin-block-start: min(10vh, 3rem) min(10vh, 1rem);

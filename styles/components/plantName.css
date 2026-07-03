@@ -1,8 +1,8 @@
 .common-name {
-  padding-block: var(--sp-xs);
+  padding-block: var(--sp-2);
 }
 .botanical-name {
-  padding-block: var(--sp-xxs);
+  padding-block: var(--sp-1);
 }
 
 .plant-name-wrapper {

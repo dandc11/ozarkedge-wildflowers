@@ -78,7 +78,7 @@
 .skeleton-filters-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-md);
+  gap: var(--sp-4);
 }
 
 .skeleton-filter-input {

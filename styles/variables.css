@@ -16,21 +16,26 @@
   --fs-9xl: 8rem;
   --fs-10xl: 10rem;
 
-  /* Spacing-------------------------------*/
-  --sp-xxs: 0.25rem;
-  --sp-xs: 0.5rem;
-  --sp-sm: 0.75rem;
-  --sp-md: 1rem;
-  --sp-ml: 1.25rem;
-  --sp-lg: 1.5rem;
-  --sp-xl: 2rem;
-  --sp-2xl: 3rem;
-  --sp-3xl: 4rem;
-  --sp-4xl: 6rem;
-  --sp-5xl: 8rem;
-  --sp-6xl: 12rem;
-  --sp-7xl: 16rem;
-  --sp-8xl: 24rem;
+  /* Spacing — numeric 4px-base scale: the number is the px value ÷ 4 at the
+     16px root (--sp-1 = 4px … --sp-96 = 384px). rem units so spacing tracks
+     the user's font-size preference. New steps insert by number (as --sp-10
+     did) without renaming neighbors. Utility class names (.m-xxs, .p-in-md…)
+     keep their t-shirt names — they are a separate naming layer. */
+  --sp-1: 0.25rem; /* 4px */
+  --sp-2: 0.5rem; /* 8px */
+  --sp-3: 0.75rem; /* 12px */
+  --sp-4: 1rem; /* 16px */
+  --sp-5: 1.25rem; /* 20px */
+  --sp-6: 1.5rem; /* 24px */
+  --sp-8: 2rem; /* 32px */
+  --sp-10: 2.5rem; /* 40px */
+  --sp-12: 3rem; /* 48px */
+  --sp-16: 4rem; /* 64px */
+  --sp-24: 6rem; /* 96px */
+  --sp-32: 8rem; /* 128px */
+  --sp-48: 12rem; /* 192px */
+  --sp-64: 16rem; /* 256px */
+  --sp-96: 24rem; /* 384px */
 
   /* Font Weight---------------------------*/
   --fw-100: 100;
@@ -68,6 +73,5 @@
    - margin / padding / gap use the --sp-* scale.
    - Positional offsets (top/left/bottom/right of decorative elements) are
      component geometry, not spacing rhythm — raw values allowed.
-   - Off-scale spacing literals that remain are flagged in #261 pending a
-     deliberate re-scale decision (e.g. 2.5rem appears 5x; the scale jumps
-     2rem -> 3rem with no step between). */
+   - Remaining off-scale spacing literals are deliberate exceptions and must
+     carry a justifying comment (see docs/CSS_GUIDELINES.md). */

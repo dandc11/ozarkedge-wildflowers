@@ -8,7 +8,7 @@
   width: 100%;
   min-height: 100vh;
   background-color: #0e0202;
-  padding-inline: var(--sp-lg);
+  padding-inline: var(--sp-6);
 
   * {
     color: inherit;
@@ -19,7 +19,7 @@
     text-align: center;
     max-width: 80vw;
     line-height: 1.25;
-    font-size: var(--sp-md);
+    font-size: var(--sp-4);
     font-weight: 700;
     opacity: 0;
     animation: textFadeIn 1s ease-out forwards;
@@ -29,13 +29,13 @@
   h1 {
     position: relative;
     line-height: 1.25;
-    font-size: var(--sp-md);
+    font-size: var(--sp-4);
 
     z-index: 0;
     color: var(--oe-white);
 
     .first-word {
-      font-size: var(--sp-lg);
+      font-size: var(--sp-6);
       white-space: nowrap;
     }
 
@@ -46,7 +46,7 @@
 
   .circle-img,
   .message {
-    margin-block-start: var(--sp-lg);
+    margin-block-start: var(--sp-6);
   }
 
   .message {
@@ -81,7 +81,7 @@
   .page-not-found {
     display: grid;
     grid: 1fr 1fr/ 5fr 4fr;
-    gap: 0 var(--sp-2xl);
+    gap: 0 var(--sp-12);
     grid-template-areas:
       'img heading'
       'img message';
@@ -93,10 +93,10 @@
       text-align: left;
 
       h1 {
-        font-size: var(--sp-lg);
+        font-size: var(--sp-6);
 
         .first-word {
-          font-size: var(--sp-2xl);
+          font-size: var(--sp-12);
         }
       }
     }
@@ -105,11 +105,11 @@
       grid-area: message;
       justify-self: self-start;
       align-self: self-start;
-      margin-block-start: var(--sp-lg);
+      margin-block-start: var(--sp-6);
 
       .port-text {
         text-align: left;
-        font-size: var(--sp-lg);
+        font-size: var(--sp-6);
       }
     }
 

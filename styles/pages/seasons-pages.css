@@ -53,7 +53,7 @@
   .season-body {
     grid-area: content;
     container: season-body / inline-size;
-    margin-block: var(--sp-xl);
+    margin-block: var(--sp-8);
     margin-inline: auto;
     width: 100%;
 
@@ -69,14 +69,14 @@
     }
 
     .season-header .heading-title {
-      margin-inline-end: var(--sp-xl);
-      padding-inline-start: var(--sp-2xl);
+      margin-inline-end: var(--sp-8);
+      padding-inline-start: var(--sp-12);
       font-size: var(--fs-7xl);
     }
 
     .season-body {
       padding-inline: 0;
-      margin-block: var(--sp-3xl);
+      margin-block: var(--sp-16);
     }
   }
 
@@ -86,13 +86,13 @@
     }
 
     .heading-display .heading-title {
-      padding-inline-start: var(--sp-2xl);
+      padding-inline-start: var(--sp-12);
       font-size: var(--fs-8xl);
       font-weight: var(--fw-900);
     }
     .season-body {
       padding-inline: 0;
-      margin-block: 0 var(--sp-4xl);
+      margin-block: 0 var(--sp-24);
     }
   }
 
