@@ -74,3 +74,4 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 - [Sanity Migrations](docs/SANITY_MIGRATIONS.md)
 - [Branch automation setup](docs/BRANCH_AUTOMATION_SETUP.md)
 - [Plant relationships queries](docs/PLANT_RELATIONSHIPS_QUERIES.md)
+- [Design system plan (#197)](docs/DESIGN_SYSTEM_PLAN.md)
