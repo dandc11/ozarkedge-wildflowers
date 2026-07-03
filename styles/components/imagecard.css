@@ -35,10 +35,10 @@
 
   .img-card-description {
     container: img-card-description / inline-size;
-    padding-block: var(--sp-sm);
+    padding-block: var(--sp-3);
     padding-inline: 0.45rem;
     text-align: left;
-    margin-left: var(--sp-xxs);
+    margin-left: var(--sp-1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,17 +46,17 @@
 
   /* PlantName component container */
   .plant-name-wrapper {
-    padding-right: var(--sp-xs);
+    padding-right: var(--sp-2);
 
     .common-name {
-      padding-bottom: var(--sp-xxs);
-      line-height: var(--sp-md);
+      padding-bottom: var(--sp-1);
+      line-height: var(--sp-4);
       font-size: var(--fs-sm);
     }
 
     .botanical-name {
-      line-height: var(--sp-md);
-      padding-top: var(--sp-xxs);
+      line-height: var(--sp-4);
+      padding-top: var(--sp-1);
       font-size: var(--fs-xs);
       font-family: var(--font-raleway);
     }
@@ -65,7 +65,7 @@
   .flowering,
   .habitats {
     span {
-      margin-right: var(--sp-xxs);
+      margin-right: var(--sp-1);
     }
   }
 

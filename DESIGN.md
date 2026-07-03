@@ -26,20 +26,22 @@ typography:
     fontSize: 0.875rem
     fontWeight: 500
 spacing:
-  xxs: 0.25rem
-  xs: 0.5rem
-  sm: 0.75rem
-  md: 1rem
-  ml: 1.25rem
-  lg: 1.5rem
-  xl: 2rem
-  2xl: 3rem
-  3xl: 4rem
-  4xl: 6rem
-  5xl: 8rem
-  6xl: 12rem
-  7xl: 16rem
-  8xl: 24rem
+  # numeric 4px-base scale — number = px ÷ 4 at the 16px root (--sp-{n})
+  1: 0.25rem # 4px
+  2: 0.5rem # 8px
+  3: 0.75rem # 12px
+  4: 1rem # 16px
+  5: 1.25rem # 20px
+  6: 1.5rem # 24px
+  8: 2rem # 32px
+  10: 2.5rem # 40px
+  12: 3rem # 48px
+  16: 4rem # 64px
+  24: 6rem # 96px
+  32: 8rem # 128px
+  48: 12rem # 192px
+  64: 16rem # 256px
+  96: 24rem # 384px
 rounded:
   sm: 0.125rem
   md: 0.375rem
@@ -105,17 +107,22 @@ per-season palette (`--spring-*`, gradients, teaser tints) lives in
 
 ## Layout & Spacing
 
-- **Spacing scale**: `--sp-xxs` (0.25rem) → `--sp-8xl` (24rem), 14 steps
-  (`styles/variables.css`). `margin` / `padding` / `gap` use the scale;
-  negative rhythm margins use `calc(-1 * var(--sp-*))`.
+- **Spacing scale**: numeric 4px-base — `--sp-1` (4px) → `--sp-96` (384px),
+  where the number is the px value ÷ 4 at the 16px root
+  (`styles/variables.css`). rem units so spacing tracks the user's font-size
+  preference. New steps insert by number without renaming neighbors.
+  `margin` / `padding` / `gap` use the scale; negative rhythm margins use
+  `calc(-1 * var(--sp-*))`. Utility class names (`.m-xxs`, `.p-in-md`, …)
+  are a separate naming layer and keep their t-shirt sizes.
 - **Positional offsets** (`top`/`left`/`bottom`/`right` of decorative
   elements) are component geometry, not spacing rhythm — raw values allowed.
 - **Breakpoints** (documentation-only set; custom properties can't appear in
   `@media`/`@container` preludes): 500 · 600 · 750 · 800 · 900 · 1200 ·
   1400 · 1600 px. New queries pick from this set.
 - **Container queries are first-class** — components respond to their
-  container (`container:` declarations throughout), not the viewport, except
-  where genuinely viewport-bound.
+  container, not the viewport, except where genuinely viewport-bound (the
+  fixed nav overlay). Engineering guidance — including when **not** to
+  containerize — lives in [docs/CSS_GUIDELINES.md](docs/CSS_GUIDELINES.md).
 
 ## Elevation & Depth
 

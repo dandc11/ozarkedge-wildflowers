@@ -8,8 +8,8 @@
 
     .heading-display {
       position: absolute;
-      padding-left: var(--sp-md);
-      margin-block: var(--sp-4xl) 0;
+      padding-left: var(--sp-4);
+      margin-block: var(--sp-24) 0;
     }
 
     .heading-title {
@@ -40,8 +40,8 @@
   .plant-list-layout-wrapper {
     justify-items: center;
     min-height: 34rem;
-    padding-inline: var(--sp-md);
-    padding-block: var(--sp-lg);
+    padding-inline: var(--sp-4);
+    padding-block: var(--sp-6);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -59,7 +59,7 @@
   }
   .description {
     order: 1;
-    margin-block-end: var(--sp-md);
+    margin-block-end: var(--sp-4);
     padding-block-end: 0;
     width: 100%;
   }
@@ -69,7 +69,7 @@
 
     .btn-2 {
       margin-inline: auto;
-      margin-block-start: var(--sp-md);
+      margin-block-start: var(--sp-4);
     }
   }
 
@@ -80,15 +80,15 @@
     width: 100%;
     background-color: var(--oe-green-200);
     border-radius: var(--br-md);
-    margin-block-end: var(--sp-xl);
-    padding-inline: var(--sp-lg);
-    padding-block-start: var(--sp-sm);
-    padding-block-end: var(--sp-lg);
+    margin-block-end: var(--sp-8);
+    padding-inline: var(--sp-6);
+    padding-block-start: var(--sp-3);
+    padding-block-end: var(--sp-6);
 
     legend {
       font-size: var(--fs-lg);
       font-weight: var(--fw-600);
-      margin-bottom: var(--sp-md);
+      margin-bottom: var(--sp-4);
     }
 
     .plant-list-field {
@@ -102,7 +102,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-block-end: var(--sp-xs);
+    margin-block-end: var(--sp-2);
   }
 
   .fieldset-show-more-container {
@@ -120,7 +120,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, auto));
     justify-content: center;
-    gap: var(--sp-md);
+    gap: var(--sp-4);
     height: auto;
     align-content: start;
   }
@@ -142,7 +142,7 @@
   @container plant-list-page-content (width >= 900px) {
     .plant-list-header {
       .heading-display {
-        padding-left: var(--sp-lg);
+        padding-left: var(--sp-6);
       }
 
       .heading-title {
@@ -159,10 +159,10 @@
     .plant-list-layout-wrapper {
       grid-template-columns: 3fr 1fr;
       grid-template-areas: 'plant-list description';
-      gap: var(--sp-lg);
+      gap: var(--sp-6);
       align-items: start;
       justify-items: start;
-      padding-block: var(--sp-2xl);
+      padding-block: var(--sp-12);
     }
 
     .plant-list-container {
@@ -170,15 +170,15 @@
       overflow-y: auto;
 
       .btn-2 {
-        margin-block-start: var(--sp-2xl);
+        margin-block-start: var(--sp-12);
       }
     }
 
     .plant-list-fieldset {
       margin-block-end: 0;
       margin-inline: 0;
-      padding-block-start: var(--sp-md);
-      padding-block-end: var(--sp-md);
+      padding-block-start: var(--sp-4);
+      padding-block-end: var(--sp-4);
     }
 
     .fieldset-show-more-container {
@@ -190,7 +190,7 @@
     }
 
     .info-section {
-      gap: var(--sp-md);
+      gap: var(--sp-4);
       justify-content: start;
 
       .description {

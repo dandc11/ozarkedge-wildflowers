@@ -5,7 +5,7 @@
   width: 100%;
   z-index: 10;
   background-color: transparent;
-  margin-bottom: var(--sp-md);
+  margin-bottom: var(--sp-4);
   color: var(--oe-text-body);
 
   &:has(.heading-display) {
@@ -24,9 +24,9 @@
     position: relative;
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     font-weight: var(--fw-300);
-    line-height: var(--sp-xl);
-    padding-inline: var(--sp-md);
-    padding-block: var(--sp-xxs);
+    line-height: var(--sp-8);
+    padding-inline: var(--sp-4);
+    padding-block: var(--sp-1);
 
     &.thin {
       font-weight: var(--fw-200);
@@ -46,8 +46,8 @@
       top: -1.2rem;
       left: -1.5rem;
       z-index: -1;
-      width: var(--sp-3xl);
-      height: var(--sp-3xl);
+      width: var(--sp-16);
+      height: var(--sp-16);
       font-style: normal;
       border-radius: 50%;
       z-index: -10;
@@ -68,30 +68,30 @@
         background-color: var(--oe-red-300);
         z-index: 50;
         left: -1rem;
-        width: var(--sp-2xl);
-        height: var(--sp-2xl);
+        width: var(--sp-12);
+        height: var(--sp-12);
       }
     }
   }
 
   .toc-wrapper {
     position: absolute;
-    /* top: var(--sp-xs); */
-    left: var(--sp-md);
+    /* top: var(--sp-2); */
+    left: var(--sp-4);
     display: grid;
     z-index: 50;
     transition: all 0.5s ease-in-out;
 
     .toc {
-      padding-inline: var(--sp-lg);
+      padding-inline: var(--sp-6);
       width: 20rem;
     }
   }
 
   @container heading (width > 500px) {
     .heading-title {
-      padding-inline: var(--sp-lg);
-      padding-block: var(--sp-sm);
+      padding-inline: var(--sp-6);
+      padding-block: var(--sp-3);
     }
   }
 
@@ -104,7 +104,7 @@
   @container heading (width > 750px) {
     .heading-title {
       padding-inline: 0;
-      padding-block: var(--sp-md);
+      padding-block: var(--sp-4);
 
       .heading-circle {
         left: -3rem;
@@ -119,7 +119,7 @@
     width: 100%;
     right: 0;
     z-index: 10;
-    margin-bottom: var(--sp-md);
+    margin-bottom: var(--sp-4);
 
     .heading-title {
       font-size: clamp(1.5rem, 5vw, 3rem);
