@@ -1,0 +1,134 @@
+/* Dev-only component workbench (#269). Imported by app/dev/workbench/page.js
+   directly (NOT via global.css) so none of this ships with production pages.
+   The route itself 404s outside development. */
+
+.workbench {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding: var(--sp-8) var(--sp-6) var(--sp-24);
+  background-color: var(--oe-surface);
+
+  .wb-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-6);
+    padding-block: var(--sp-4);
+    margin-block-end: var(--sp-8);
+    border-bottom: 2px solid var(--oe-outline);
+  }
+
+  .wb-title {
+    font-family: var(--font-playfair-display);
+    font-size: var(--fs-2xl);
+  }
+
+  .wb-control {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    border: 1px solid var(--oe-outline);
+    border-radius: var(--br-md);
+    padding: var(--sp-2) var(--sp-3);
+
+    legend {
+      font-size: var(--fs-xxs);
+      color: var(--oe-grey-600);
+      padding-inline: var(--sp-1);
+    }
+  }
+
+  .wb-season-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    padding: var(--sp-1) var(--sp-3);
+    border-radius: var(--br-pill);
+    font-size: var(--fs-xs);
+    cursor: pointer;
+    background-color: var(--oe-surface-muted);
+
+    &.active {
+      background-color: var(--season-accent);
+      color: var(--oe-white);
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .wb-item {
+    margin-block-end: var(--sp-12);
+  }
+
+  .wb-item-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--sp-3);
+    margin-block-end: var(--sp-2);
+  }
+
+  .wb-item-title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-600);
+  }
+
+  .wb-item-note {
+    font-size: var(--fs-xs);
+    color: var(--oe-grey-600);
+  }
+
+  .wb-width-readout {
+    margin-inline-start: auto;
+    font-size: var(--fs-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--oe-secondary);
+    border: 1px solid var(--oe-outline);
+    border-radius: var(--br-pill);
+    padding: 0 var(--sp-3);
+  }
+
+  /* The drag handle. Components inside respond to their own container
+     declarations; this wrapper only constrains available inline size.
+     min-width keeps the handle reachable; the dashed edge marks the zone. */
+  .wb-resizable {
+    resize: horizontal;
+    overflow: auto;
+    min-width: 320px;
+    max-width: 100%;
+    border: 2px dashed var(--oe-grey-300);
+    border-radius: var(--br-md);
+    padding: var(--sp-2);
+  }
+
+  /* Emulations of page-level named containers some components query. */
+  .wb-emulate-homepage-content {
+    container: homepage-content / inline-size;
+  }
+
+  .wb-emulate-content-well {
+    container: content-well / inline-size;
+  }
+
+  .wb-inline-control {
+    margin-block-end: var(--sp-3);
+    font-size: var(--fs-xs);
+
+    select {
+      font-size: inherit;
+      padding: var(--sp-1);
+      border: 1px solid var(--oe-grey-400);
+      border-radius: var(--br-sm);
+      background-color: var(--oe-surface);
+    }
+  }
+
+  /* Footer is position-agnostic here; give it room to be judged. */
+  .wb-item .footer {
+    position: static;
+  }
+}
