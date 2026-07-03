@@ -2,8 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 
-import { CURRENT_MONTH_NUMBER, IMG_SIZES, SEASONS } from '../utilities/constants'
-import { getCurrentMonthName, getCurrentSeason, titleCase } from '../utilities/helperUtil'
+import { CURRENT_MONTH_NUMBER, IMG_SIZES } from '../utilities/constants'
 
 import Heading from './Heading'
 import ImageSlider from './ImageSlider'
@@ -45,26 +44,6 @@ const TeaserSlider = (props) => {
     className = '',
     gridClassName = '',
   } = props
-  const thisMonth = getCurrentMonthName()
-  const currentSeason = getCurrentSeason()?.SEASON_NAME
-  let btnThemeClass
-  switch (currentSeason) {
-    case 'spring':
-      btnThemeClass = 'btn-1'
-      break
-    case 'summer':
-      btnThemeClass = 'btn-2'
-      break
-    case 'fall':
-      btnThemeClass = 'btn-3'
-      break
-    case 'winter':
-      btnThemeClass = 'btn-4'
-      break
-    default:
-      btnThemeClass = 'btn-1'
-  }
-
   const sliderPlants = (images ?? [])
     .filter((plant) => plant.image)
     .map((plant) => {
@@ -80,7 +59,7 @@ const TeaserSlider = (props) => {
       {images && (
         <section
           id={id}
-          className={cx(`teaser teaser-slider justify-center w-full`, currentSeason, className)}
+          className={cx(`teaser teaser-slider justify-center w-full`, className)}
         >
           <div
             className={cx('teaser-slider-grid p-md w-full', gridClassName, {
@@ -121,7 +100,7 @@ const TeaserSlider = (props) => {
                 <p>{bodyText}</p>
               )}
               <Button
-                className={cx(btnThemeClass, `m-bk-xl`)}
+                className={cx('btn-season', `m-bk-xl`)}
                 slug={buttonLinkSlug}
                 linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
                 urlParams={teaserUrlParams}

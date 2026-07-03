@@ -56,7 +56,6 @@ const TeaserSection = (props) => {
     linkSlug,
     linkMetaDescription,
     linkMainImage,
-    seasonThemeObj,
     showButton = true,
     teaserTheme,
     titleText,

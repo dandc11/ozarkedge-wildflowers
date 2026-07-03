@@ -81,6 +81,12 @@
 .btn-5 {
   background: var(--btn-gradient-5);
 }
+/* Season-themed button — colors flow from the --season-* aliases
+   (seasons.css); replaces the old per-season btn-1..4 switch in JS. */
+.btn-season {
+  background: var(--season-btn-bg);
+  color: var(--season-btn-color);
+}
 
 .icon {
   &.chevron-down,

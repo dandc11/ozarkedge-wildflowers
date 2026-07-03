@@ -1,50 +1,18 @@
 /* Teaser Components ****************************/
 
-/* Teaser base styles */
+/* Teaser base styles — season variation flows entirely through the
+   --season-* aliases (styles/seasons.css); no per-season selectors here. */
 .teaser {
   --teaser-bg-color: transparent;
-  --teaser-bg-stripe: transparent;
+  --teaser-bg-stripe: var(--season-stripe);
   --teaser-text-color: var(--oe-white);
-  --teaser-heading-color: var(--oe-white);
-  --teaser-btn-bg-color: var(--oe-red-700);
-  --button-border: none;
+  --teaser-heading-color: var(--season-heading-color);
+  --teaser-btn-bg-color: transparent;
+  --button-border: var(--oe-white) 2px solid;
 
-  &.spring {
-    --teaser-heading-color: #7f696d;
-    --teaser-bg-stripe: var(--spring-gradient);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
-  }
-
-  &.spring.teaser-slider {
-    --teaser-text-color: #504346;
+  &.teaser-slider {
+    --teaser-text-color: var(--season-slider-text-color);
     --button-border: var(--teaser-text-color) 2px solid;
-  }
-
-  &.summer {
-    --teaser-heading-color: #864a6c;
-    --teaser-bg-stripe: var(--summer-gradient-2);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
-  }
-
-  &.summer.teaser-slider {
-    --teaser-text-color: #864a6c;
-    --button-border: var(--teaser-text-color) 2px solid;
-  }
-
-  &.fall {
-    --teaser-heading-color: #435146;
-    --teaser-bg-stripe: var(--fall-bg-gradient);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
-  }
-
-  &.winter {
-    --teaser-heading-color: var(--oe-grey-700);
-    --teaser-bg-stripe: var(--winter-gradient-3);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
   }
 
   container: teaser / inline-size;
@@ -160,10 +128,6 @@
 .feature {
   width: 100%;
   margin-block: var(--sp-2xl);
-
-  .heading {
-    background-color: var(--season-bg-color);
-  }
 
   .teaser-body,
   .teaser-img {
