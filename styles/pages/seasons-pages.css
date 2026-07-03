@@ -1,6 +1,6 @@
 .season-page {
   --season-accent-color: var(--oe-green-800);
-  --season-bg-color: #fff;
+  --season-bg-color: var(--oe-surface);
   --season-gradient: var(--spring-gradient);
   --banner-obj-position: top;
   container: season-page-content / inline-size;

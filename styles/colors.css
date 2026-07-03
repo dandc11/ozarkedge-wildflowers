@@ -3,6 +3,8 @@
   --oe-black: hsl(0, 0%, 0%);
   --oe-text-body: hsl(240, 3%, 15%);
   --oe-link-blue: hsl(217, 91%, 60%);
+
+  /* Primitive ramps — raw hues; keep names + values stable (re-derivation is a separate issue) */
   --oe-grey-100: hsl(0, 0%, 96%);
   --oe-grey-200: hsl(0, 0%, 88%);
   --oe-grey-300: hsl(0, 0%, 76%);
@@ -75,15 +77,6 @@
   --oe-blue-dark-700: hsl(216, 50%, 26%);
   --oe-blue-dark-800: hsl(216, 50%, 18%);
   --oe-blue-dark-900: hsl(216, 50%, 10%);
-  --oe-brown-100: hsl(30, 100%, 96%);
-  --oe-brown-200: hsl(30, 100%, 88%);
-  --oe-brown-300: hsl(30, 100%, 76%);
-  --oe-brown-400: hsl(30, 100%, 58%);
-  --oe-brown-500: hsl(30, 100%, 50%);
-  --oe-brown-600: hsl(30, 100%, 42%);
-  --oe-brown-700: hsl(30, 100%, 33%);
-  --oe-brown-800: hsl(30, 100%, 25%);
-  --oe-brown-900: hsl(30, 100%, 15%);
   --oe-purple-100: hsl(260deg, 60%, 85%);
   --oe-purple-200: hsl(260deg, 55%, 75%);
   --oe-purple-300: hsl(260deg, 50%, 65%);
@@ -102,15 +95,6 @@
   --oe-red-700: hsl(0, 100%, 25%);
   --oe-red-800: hsl(0, 100%, 20%);
   --oe-red-900: hsl(0, 100%, 5%);
-  --oe-red-bright-100: hsl(348.29deg 94.59% 96%);
-  --oe-red-bright-200: hsl(348.29deg 94.59% 88%);
-  --oe-red-bright-300: hsl(348.29deg 94.59% 76%);
-  --oe-red-bright-400: hsl(348.29deg 94.59% 58%);
-  --oe-red-bright-500: hsl(348.29deg 94.59% 43.53%);
-  --oe-red-bright-600: hsl(348.29deg 94.59% 38.53%);
-  --oe-red-bright-700: hsl(348.29deg 94.59% 33.53%);
-  --oe-red-bright-800: hsl(348.29deg 94.59% 28.53%);
-  --oe-red-bright-900: hsl(348.29deg 94.59% 23.53%);
   --oe-pink-100: hsl(336, 100%, 96%);
   --oe-pink-200: hsl(336, 100%, 88%);
   --oe-pink-300: hsl(336, 100%, 76%);
@@ -120,6 +104,8 @@
   --oe-pink-700: hsl(336, 100%, 33%);
   --oe-pink-800: hsl(336, 100%, 25%);
   --oe-pink-900: hsl(336, 100%, 15%);
+
+  /* Conservation status (NatureServe) — domain-fixed, do not tokenize away */
   --oe-presumed-extirpated: hsl(0, 0%, 40%);
   --oe-possibly-extirpated: hsl(60, 10%, 60%);
   --oe-critically-imperiled: hsl(0, 100%, 70%);
@@ -127,6 +113,18 @@
   --oe-vulnerable: hsl(60, 100%, 76%);
   --oe-apparently-secure: hsl(204, 100%, 70%);
   --oe-secure: hsl(216, 50%, 42%);
+
+  /* Semantic aliases (design.md vocab) — reference primitives above (#259) */
+  --oe-primary: var(--oe-red-700); /* brand red, 11 refs */
+  --oe-secondary: var(--oe-blue-green-dark-700); /* teal; -700 (5.20:1 on white AA), not -600 (4.42:1 fails) */
+  --oe-surface: var(--oe-white);
+  --oe-on-surface: var(--oe-text-body);
+  --oe-error: var(--oe-red-500); /* 6.38:1 on white (AA) */
+  --oe-outline: var(--oe-grey-200); /* hairline dividers; use --oe-grey-400 for perceivable control edges */
+  --oe-surface-muted: var(--oe-grey-100); /* inset/raised panels */
+  --oe-link: var(--oe-link-blue); /* large-text only (3.64:1); needs a darker step for small inline links */
+
+  /* Season theming — remapped per season; see #260 */
   --spring-accent: var(--oe-blue-green-light-900);
   --summer-accent: var(--oe-green-yellow-600);
   --fall-accent: hsl(19, 52%, 25%);
@@ -139,6 +137,7 @@
   --winter-bg-color-3: hsl(222, 15%, 29%);
   --nav-bg-color: var(--oe-white);
   --nav-bg-dark: var(--oe-red-800);
+  --nav-bg-panel: var(--oe-grey-900); /* dark nav/overlay/image surfaces (was #181517 / #18170c) */
 
   /* Gradients ----------------------------- */
   --spring-gradient: linear-gradient(60deg, hsl(349.09deg 9.48% 45.49%) 5%, #455e4b);

@@ -8,7 +8,7 @@ body:has(.nav-dark) {
   position: fixed;
   font-size: var(--fs-xl);
   z-index: 50;
-  background-color: #181517;
+  background-color: var(--nav-bg-panel);
   font-family: var(--font-primary);
 
   &.nav-active {
@@ -71,7 +71,7 @@ body:has(.nav-dark) {
 
       .overlay {
         display: none;
-        background-color: #18170c;
+        background-color: var(--nav-bg-panel);
       }
     }
   }
@@ -134,7 +134,7 @@ body:has(.nav-dark) {
     top: 0;
     z-index: -20;
     grid-area: image;
-    background-color: #18170c;
+    background-color: var(--nav-bg-panel);
 
     img {
       position: absolute;

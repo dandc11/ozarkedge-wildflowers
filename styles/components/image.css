@@ -40,7 +40,7 @@
       &.inset-right {
         position: absolute;
         bottom: 0;
-        background-color: #ffffffb5;
+        background-color: hsl(from var(--oe-surface) h s l / 0.71);
         padding-block: 0.05rem;
         padding-inline-start: 0.25rem;
         padding-inline-end: 0.5rem;
@@ -166,7 +166,7 @@
   padding: var(--sp-xs);
   border: none;
   border-radius: 9999px;
-  background-color: hsl(0 0% 100% / 0.9);
+  background-color: hsl(from var(--oe-surface) h s l / 0.9);
   box-shadow: var(--shadow-md);
   color: var(--oe-grey-800);
   font-size: var(--fs-xs);
