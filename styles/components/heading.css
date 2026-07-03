@@ -60,7 +60,7 @@
       &.has-toc:hover {
         width: 4.25rem;
         height: 4.25rem;
-        background-color: var(--oe-red-bright-300);
+        background-color: var(--oe-red-300);
         cursor: pointer;
       }
 
