@@ -27,7 +27,7 @@ npm run lint:fix     # Prettier + ESLint fix
 
 **Images** — Use `<ResponsiveImage>` (server/static) or `<InteractiveImage>` (client/lightbox). Never Next.js `<Image>` directly. Always include `lqip` and `palette` in image queries.
 
-**Styles** — All styles go in `/styles/`. Never inline styles in components (data-driven values bridge through inline custom properties). Use PostCSS, CSS nesting, and CSS variables from `styles/variables.css`, `styles/colors.css`, and `styles/seasons.css`. **[DESIGN.md](DESIGN.md) is the canonical design-system reference** (tokens, tiers, season model, usage rules).
+**Styles** — All styles go in `/styles/`. Never inline styles in components (data-driven values bridge through inline custom properties). Use PostCSS, CSS nesting, and CSS variables from `styles/variables.css`, `styles/colors.css`, and `styles/seasons.css`. **[DESIGN.md](DESIGN.md) is the canonical design-system reference** (tokens, tiers, season model, usage rules). Any change/addition/removal of tokens or major style patterns must update DESIGN.md in the same PR.
 
 **Stega cleaning** — Use `stegaClean()` only for non-editable DOM values (class names, URLs, keys, data attributes). Never clean user-visible text — it needs steganography markers for Visual Editing.
 
