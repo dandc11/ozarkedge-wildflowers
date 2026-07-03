@@ -56,6 +56,7 @@ styles/colors.css, styles/variables.css, styles/global.css  (+ the relevant comp
 - **NOT** W3C DTCG-JSON, Style Dictionary, or any token-transformation pipeline — deliberately out of scope (overkill for a single project). **CSS custom properties in `/styles/*.css` remain the runtime source of truth;** DESIGN.md's frontmatter mirrors them and is kept in sync by hand.
 - **Both tools read the repo.** Claude Code reads the files directly; Claude Design ingests `DESIGN.md` + `/styles/*.css` via its **Codebase context** (design.md is built for design-tool interoperability). There is no separate copy to drift.
 - The Claude Design **"Design system" picker is a convenience snapshot, not the source of truth** — a registered system can drift. Rely on Codebase context (always fresh); register the finalized system there only *once* tokens settle (after #259–#261).
+- **Sync rule: any change, addition, or removal of tokens or major style patterns must update `DESIGN.md` in the same PR.** The frontmatter mirrors the semantic tier; the body documents tiers, the season model, and usage rules. A token diff without a matching DESIGN.md diff is incomplete.
 
 ## Per-issue cadence (#197)
 
