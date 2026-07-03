@@ -43,6 +43,7 @@ Canonical Agent Skills live in `.claude/skills/*/SKILL.md`. `.github/skills/*/SK
 - **groq-queries** — query naming, fragments, dereferencing, and polymorphic Portable Text projection
 - **github-issue-and-branch-workflow** — issue templates/labels and the CI-enforced branch/PR naming rules
 - **pr-self-review** — repo-specific pre-PR checklist (pattern compliance, a11y, styles, security, testing)
+- **claude-design-workflow** — the Claude Code ↔ Claude Design loop for design-system work: divergent/convergent split, thin-brief handoff, four approval gates, DESIGN.md (design.md convention) as shared source of truth
 
 ## Code Style
 
