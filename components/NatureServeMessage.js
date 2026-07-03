@@ -11,8 +11,11 @@ const NatureServeMessage = (props) => {
   return (
     <div className="natureserve-message">
       <div
+        /* Data-driven ranking colors bridge into CSS via custom properties;
+           static rules in natureserve.css consume --ns-bg / --ns-color. */
         style={{
-          color: `var(${textColorVariable})`,
+          '--ns-bg': `var(${bgColorVariable})`,
+          '--ns-color': `var(${textColorVariable})`,
         }}
         className="natureserve-message-text"
       >
@@ -21,20 +24,12 @@ const NatureServeMessage = (props) => {
           strokeColorVariable={textColorVariable}
           svgClassName="natureserve-icon-svg"
         />
-        <p
-          style={{
-            backgroundColor: `var(${bgColorVariable})`,
-            color: `var(${textColorVariable})`,
-          }}
-        >
+        <p>
           Classified as <strong>{rankingText}</strong> based on the NatureServe
           Global Conservation Status Ranks. For more information on the
           rankings, visit
           <a
             className="natureserve-link"
-            style={{
-              color: `var(${textColorVariable})`,
-            }}
             href={
               'https://explorer.natureserve.org/AboutTheData/DataTypes/ConservationStatusCategories'
             }
@@ -45,13 +40,7 @@ const NatureServeMessage = (props) => {
             NatureServe<span className="sr-only"> (opens in new window)</span>.
           </a>
         </p>
-        <div
-          className="natureserve-message-bg"
-          style={{
-            backgroundColor: `var(${bgColorVariable})`,
-            color: `var(${textColorVariable})`,
-          }}
-        ></div>
+        <div className="natureserve-message-bg"></div>
       </div>
     </div>
   )
