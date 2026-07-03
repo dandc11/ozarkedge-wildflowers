@@ -56,8 +56,8 @@
     font-size: clamp(1.9rem, 4vw, 3rem);
     line-height: 1.2;
     margin: 0 0 var(--sp-sm);
-    color: #78350f;
-    background: linear-gradient(to right, #c2410c, #78350f);
+    color: var(--oe-orange-800);
+    background: linear-gradient(to right, var(--oe-orange-600), var(--oe-orange-800));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

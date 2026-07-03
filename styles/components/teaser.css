@@ -299,7 +299,7 @@
 
         figcaption {
           border-bottom-left-radius: 0.5rem;
-          background-color: #ffffffb5;
+          background-color: hsl(from var(--oe-surface) h s l / 0.71);
         }
       }
     }

@@ -67,7 +67,7 @@
 
 /* Filter skeleton elements */
 .skeleton-fieldset {
-  background-color: hsl(80.63deg 34.12% 78.83%);
+  background-color: var(--oe-surface-muted);
 }
 
 .skeleton-legend {

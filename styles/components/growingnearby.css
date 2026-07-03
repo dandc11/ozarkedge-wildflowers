@@ -1,7 +1,7 @@
 #growingNearby {
   container: growingNearby / inline-size;
   z-index: 0;
-  background-color: hsl(67.65deg 31.22% 79.8%);
+  background-color: var(--oe-green-200);
 
   .heading {
     margin-block-start: -1.5rem;

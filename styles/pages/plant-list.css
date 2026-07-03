@@ -78,7 +78,7 @@
     border: none;
     order: 2;
     width: 100%;
-    background-color: hsl(80.63deg 34.12% 78.83%);
+    background-color: var(--oe-green-200);
     border-radius: var(--br-md);
     margin-block-end: var(--sp-xl);
     padding-inline: var(--sp-lg);
