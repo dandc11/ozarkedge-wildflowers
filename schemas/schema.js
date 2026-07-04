@@ -22,6 +22,10 @@ import imageCollection from './objects/imageCollection'
 import teaserSection from './objects/teaserSection'
 import thumbnailImage from './objects/thumbnailImage'
 import feature from './objects/feature'
+import curatedTool from './documents/curatedTool'
+import ecoregion from './documents/ecoregion'
+import fieldNote from './documents/fieldNote'
+import changingLandscapePage from './documents/changingLandscapePage'
 
 export const schema = {
   types: [
@@ -49,5 +53,9 @@ export const schema = {
     teaserSection,
     thumbnailImage,
     feature,
+    curatedTool,
+    ecoregion,
+    fieldNote,
+    changingLandscapePage,
   ],
 }

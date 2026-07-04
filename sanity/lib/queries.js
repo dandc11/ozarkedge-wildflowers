@@ -394,3 +394,111 @@ export const NOT_FOUND_PAGE_QUERY = groq`*[ _type == "notFoundPage" ] {
     },
   }
 }`
+
+// ---------------------------------------------------------------------------
+// A Changing Landscape section
+// ---------------------------------------------------------------------------
+
+// Reusable field-note teaser projection (used on the section landing page).
+const fieldNoteTeaserFields = `
+  _id,
+  "docType": _type,
+  title,
+  "slug": slug.current,
+  metaDescription,
+  publishedAt,
+  mainImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  },
+  season->{
+    seasonName,
+    "slug": slug.current,
+  },
+`
+
+// retrieves the "A Changing Landscape" section landing page, its curated shelf,
+// and the most recent field-note teasers
+export const GET_CHANGING_LANDSCAPE_PAGE_DATA_QUERY = groq`
+*[_type == "changingLandscapePage"][0]
+{
+  _id,
+  _type,
+  title,
+  metaDescription,
+  menuButtonColor,
+  sourcesNote,
+  shelfHeading,
+  fieldNotesHeading,
+  slug,
+  mainImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  },
+  intro[]{
+    _type == "figure" => ${figureFields()},
+    _type == "block" => ${blockFields()},
+    _type == "imageCollection" => ${imageCollectionFields()},
+    _type == "portTextVideo" => ${videoFields()},
+    _type == "teaserSection" => ${teaserSectionFields()},
+  },
+  "curatedTools": *[_type == "curatedTool"] | order(sortOrder asc, name asc) {
+    _id,
+    name,
+    url,
+    category,
+    goodFor,
+    watchOut,
+    regionTags,
+    sortOrder,
+  },
+  "fieldNotes": *[_type == "fieldNote" && defined(slug.current)] | order(publishedAt desc)[0...12] {
+    ${fieldNoteTeaserFields}
+  },
+}`
+
+// retrieves the slugs of all published field notes (for generateStaticParams)
+export const GET_ALL_FIELD_NOTE_SLUGS_QUERY = groq`*[ _type == "fieldNote" && defined(slug.current)][].slug.current`
+
+// retrieves a single field note by slug
+export const GET_FIELD_NOTE_PAGE_DATA_QUERY = groq`*[ _type == "fieldNote" && slug.current == $slug][0]
+{
+  _id,
+  _type,
+  title,
+  metaDescription,
+  publishedAt,
+  slug,
+  mainImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  },
+  body[]{
+    _type == "teaserSection" => ${teaserSectionFields()},
+    _type == "figure" => ${figureFields()},
+    _type == "block" => ${blockFields()},
+    _type == "imageCollection" => ${imageCollectionFields()},
+    _type == "portTextVideo" => ${videoFields()},
+  },
+  season->{
+    seasonName,
+    "slug": slug.current,
+  },
+  ecoregions[]->{
+    name,
+    epaCode,
+    "slug": slug.current,
+  },
+  species[]->{
+    plantName,
+    "slug": slug.current,
+    previewImage {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
+    },
+  },
+}`

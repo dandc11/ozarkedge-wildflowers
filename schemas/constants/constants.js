@@ -5,6 +5,9 @@ export const DOCUMENT_TYPES = [
     { type: 'plantListPage' },
     { type: 'season' },
     { type: 'pollinator' },
+    { type: 'fieldNote' },
+    { type: 'ecoregion' },
+    { type: 'changingLandscapePage' },
 ];
 
 export const DOCTYPE_PATH_PREFIXES = {

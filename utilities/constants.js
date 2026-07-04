@@ -5,6 +5,8 @@ export const DOCTYPE_PATH_PREFIXES = {
   landingPage: '',
   plantListPage: '/',
   pollinator: '/pollinator/',
+  changingLandscapePage: '/',
+  fieldNote: '/a-changing-landscape/field-notes/',
 }
 
 export const CURRENT_MONTH_NUMBER = new Date(Date.now()).getMonth() + 1
