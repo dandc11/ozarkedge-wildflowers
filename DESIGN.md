@@ -69,7 +69,7 @@ Three tiers, loaded in this order by `styles/global.css`:
 
 1. **Primitive** — raw 9-step hue ramps in `styles/colors.css`:
    `--oe-{hue}-{100..900}` for grey, yellow, orange, green, green-yellow,
-   blue-green-light, blue-green-dark, blue-dark, purple, pink, red.
+   blue-green-light, blue-green-dark, blue-dark, red (9 hue ramps).
    Components should rarely touch these directly.
 2. **Semantic** — the working set (mirrored in the frontmatter above):
    `--oe-primary`, `--oe-secondary`, `--oe-surface`, `--oe-on-surface`,
