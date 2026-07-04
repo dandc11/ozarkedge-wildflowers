@@ -74,4 +74,11 @@ export default defineConfig({
         ? [...prev.filter((action) => action.action !== 'duplicate'), OpenInPresentationAction]
         : [...prev, OpenInPresentationAction],
   },
+  // Vision (raw GROQ) and Releases (release scheduling) are developer/admin
+  // tools that aren't relevant to editor-level users. Hide them for anyone
+  // without the administrator role.
+  tools: (prev, context) => {
+    const isAdmin = context.currentUser?.roles?.some((role) => role.name === 'administrator')
+    return isAdmin ? prev : prev.filter((tool) => tool.name !== 'vision' && tool.name !== 'releases')
+  },
 })
