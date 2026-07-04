@@ -14,24 +14,27 @@
   --oe-grey-700: hsl(0, 0%, 33%);
   --oe-grey-800: hsl(0, 0%, 25%);
   --oe-grey-900: hsl(0, 0%, 15%);
+  /* Light half (100-500) held at pure yellow: desaturating it would drop a
+     step below the locked pure-yellow 500 and visibly invert perceived
+     brightness. Only the free darks (600-900) warm hue 60->44 (amber, not olive). */
   --oe-yellow-100: hsl(60, 100%, 96%);
-  --oe-yellow-200: hsl(60, 100%, 88%);
+  --oe-yellow-200: hsl(60, 100%, 88%); /* locked — plant-list bg */
   --oe-yellow-300: hsl(60, 100%, 76%);
   --oe-yellow-400: hsl(60, 100%, 58%);
-  --oe-yellow-500: hsl(60, 100%, 50%);
-  --oe-yellow-600: hsl(60, 100%, 42%);
-  --oe-yellow-700: hsl(60, 100%, 33%);
-  --oe-yellow-800: hsl(60, 100%, 25%);
-  --oe-yellow-900: hsl(60, 100%, 15%);
+  --oe-yellow-500: hsl(60, 100%, 50%); /* locked — selection bg (base.css) */
+  --oe-yellow-600: hsl(54, 94%, 42%); /* warmed to amber (was 60,100%) */
+  --oe-yellow-700: hsl(50, 92%, 33%); /* warmed to amber (was 60,100%) */
+  --oe-yellow-800: hsl(46, 90%, 25%); /* warmed to amber (was 60,100%) */
+  --oe-yellow-900: hsl(44, 88%, 15%); /* warmed to amber (was 60,100%) */
   --oe-orange-100: hsl(30, 100%, 96%);
-  --oe-orange-200: hsl(30, 100%, 88%);
-  --oe-orange-300: hsl(30, 100%, 76%);
-  --oe-orange-400: hsl(30, 100%, 58%);
+  --oe-orange-200: hsl(30, 80%, 88%); /* saturation eased from 100% (soften neon tint) */
+  --oe-orange-300: hsl(30, 90%, 76%); /* saturation eased from 100% */
+  --oe-orange-400: hsl(30, 97%, 58%); /* saturation eased from 100% */
   --oe-orange-500: hsl(30, 100%, 50%);
-  --oe-orange-600: hsl(30, 100%, 42%);
-  --oe-orange-700: hsl(30, 100%, 33%);
-  --oe-orange-800: hsl(30, 100%, 25%);
-  --oe-orange-900: hsl(30, 100%, 15%);
+  --oe-orange-600: hsl(30, 100%, 42%); /* locked — btn-fall, growing-nearby gradient */
+  --oe-orange-700: hsl(30, 100%, 33%); /* locked — welcome/about heading */
+  --oe-orange-800: hsl(30, 100%, 25%); /* locked — welcome/about gradient + heading */
+  --oe-orange-900: hsl(30, 100%, 15%); /* darks would warm toward brown once fall headings are restyled (#275) */
   --oe-green-100: hsl(84, 50%, 93%);
   --oe-green-200: hsl(82, 36%, 82%);
   --oe-green-300: hsl(80, 30%, 76%);
@@ -77,15 +80,6 @@
   --oe-blue-dark-700: hsl(216, 50%, 26%);
   --oe-blue-dark-800: hsl(216, 50%, 18%);
   --oe-blue-dark-900: hsl(216, 50%, 10%);
-  --oe-purple-100: hsl(260deg, 60%, 85%);
-  --oe-purple-200: hsl(260deg, 55%, 75%);
-  --oe-purple-300: hsl(260deg, 50%, 65%);
-  --oe-purple-400: hsl(260deg, 47.95%, 57.06%);
-  --oe-purple-500: hsl(260deg, 47.95%, 47%);
-  --oe-purple-600: hsl(260deg, 50%, 37%);
-  --oe-purple-700: hsl(260deg, 55%, 27%);
-  --oe-purple-800: hsl(260deg, 60%, 17%);
-  --oe-purple-900: hsl(260deg, 65%, 7%);
   --oe-red-100: hsl(0, 100%, 96%);
   --oe-red-200: hsl(0, 90%, 82%);
   --oe-red-300: hsl(0, 100%, 66%);
@@ -95,15 +89,6 @@
   --oe-red-700: hsl(0, 100%, 25%);
   --oe-red-800: hsl(0, 100%, 20%);
   --oe-red-900: hsl(0, 100%, 10%);
-  --oe-pink-100: hsl(336, 100%, 96%);
-  --oe-pink-200: hsl(336, 100%, 88%);
-  --oe-pink-300: hsl(336, 100%, 76%);
-  --oe-pink-400: hsl(336, 100%, 58%);
-  --oe-pink-500: hsl(336, 100%, 50%);
-  --oe-pink-600: hsl(336, 100%, 42%);
-  --oe-pink-700: hsl(336, 100%, 33%);
-  --oe-pink-800: hsl(336, 100%, 25%);
-  --oe-pink-900: hsl(336, 100%, 15%);
 
   /* Conservation status (NatureServe) — domain-fixed, do not tokenize away */
   --oe-presumed-extirpated: hsl(0, 0%, 40%);
@@ -135,7 +120,7 @@
   --spring-heading-color: #7f696d;
   --spring-text-color: #504346;
   --summer-heading-color: #864a6c;
-  --fall-heading-color: #435146; /* close to --oe-green-800 */
+  --fall-heading-color: #435146; /* bespoke muted teal; nearest ramp step is blue-green-light-900 (ΔE 6.4), still off-palette — kept intentionally (#275) */
   --spring-bg-color: hsl(98, 29%, 80%);
   --summer-bg-color: hsl(66.32deg 43.34% 87.66%);
   --fall-bg-color: var(--oe-orange-100);
@@ -150,7 +135,6 @@
   --spring-gradient: linear-gradient(60deg, hsl(349.09deg 9.48% 45.49%) 5%, #455e4b);
   --spring-gradient-2: linear-gradient(360deg, #772a2a 5%, #9f3a5c);
   --spring-gradient-3: linear-gradient(60deg, hsl(0, 56%, 93%) 10%, hsl(0, 0%, 100%) 100%);
-  --summer-gradient: linear-gradient(190deg, var(--oe-purple-200) 60%, var(--oe-purple-300) 100%);
   --summer-gradient-2: linear-gradient(90deg, #7f4c6b 0%, #a45650 100%);
   --summer-gradient-3: linear-gradient(90deg, #543191 0%, var(--oe-green-yellow-900) 100%);
   --fall-gradient: linear-gradient(175deg, #faf0d7 7%, #f3d589 100%);
@@ -159,7 +143,7 @@
   --winter-gradient-2: linear-gradient(90deg, hsl(215, 44%, 58%) 0%, hsl(216, 42%, 87%) 100%);
   --winter-gradient-3: linear-gradient(145deg, #39393e 0%, hsl(25, 13%, 18%) 100%);
 
-  --btn-gradient-1: linear-gradient(to right, hsl(337, 67%, 54%), var(--oe-pink-600));
+  --btn-gradient-1: linear-gradient(to right, var(--oe-red-500), var(--oe-red-700)); /* was rose→pink-600; retired with the pink ramp (#266). White label AA on both stops. */
   --btn-gradient-2: linear-gradient(
     to right,
     var(--oe-blue-green-dark-500),
