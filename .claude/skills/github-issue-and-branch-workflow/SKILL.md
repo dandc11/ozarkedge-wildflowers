@@ -11,7 +11,7 @@ This repo automates issue → branch → PR linking with GitHub Actions that **f
 
 1. An issue is created (or reopened).
 2. `create-branch-on-issue.yml` auto-creates a branch named `feature/issue-{NUMBER}-{slug}` off `main` (slug is a kebab-cased, 40-char-max truncation of the issue title) and comments on the issue with the branch name. The issue is also auto-assigned to whoever opened it.
-3. `add-issues-to-project.yml` auto-adds the issue to the [Ozarkedge project board](https://github.com/users/dandc11/projects/1) — no manual `gh project` command needed.
+3. `add-issues-to-project.yml` auto-adds the issue to the [Ozarkedge project board](https://github.com/users/dandc11/projects/1). It's **PAT-based** (`ADD_TO_PROJECT_PAT`) and has failed silently before, so confirm the issue actually landed — see *Project Board Organization* below.
 4. Developer checks out the branch, commits, and pushes.
 5. `enforce-branch-naming.yml` runs on every push (except to `main`) and **rejects the push** if the branch name doesn't match `feature/issue-{NUMBER}-{slug}`, or if the referenced issue number doesn't exist.
 6. Developer opens a PR titled `Closes #{NUMBER}: <description>` or `Fixes #{NUMBER}: <description>`.
@@ -65,3 +65,18 @@ When creating via the GitHub MCP tools: `owner: dandc11`, `repo: ozarkedge-wildf
 ## After Creating
 
 Tell the user the issue number/URL, that the branch (`feature/issue-{NUMBER}-{slug}`) will auto-create within ~15 seconds, and the expected PR title format.
+
+## Project Board Organization
+
+Beyond the auto-add, organize each issue so the board stays legible. Set these on triage:
+
+**Custom single-select fields** (in the [project](https://github.com/users/dandc11/projects/1); needs the Projects UI or a `gh` token with `project` scope):
+- **Priority** — `P1` / `P2` / `P3`.
+- **Workstream** — `Design System` / `Content` / `Studio` / `DevOps` / `Testing`. The ongoing *area* an issue belongs to; grouping board views by it is what de-clutters.
+
+**Milestone vs. sub-issue vs. Workstream — how to choose (they're independent; an issue can have all three):**
+- **Milestone = the *when*** — a delivery arc / goal, time- or goal-bound, that may span multiple umbrellas or standalone issues. Create with `gh api repos/dandc11/ozarkedge-wildflowers/milestones -f title=…`; assign with `gh issue edit <n> --milestone "<title>"`.
+- **Sub-issue = the *what*** — decomposition of one umbrella into its constituent work, with progress rollup on the parent. Use when a big issue literally breaks into smaller ones. Not `gh`-native; link via GraphQL `addSubIssue(input:{issueId, subIssueId})` (needs each issue's node id) or the issue UI. Reserve for true decomposition — don't sub-issue merely *related* work (keep that as a cross-reference or shared milestone).
+- **Workstream field = the *where*** — the ongoing area, independent of any milestone or parent.
+
+**Board-membership caveat:** the auto-add PAT (`ADD_TO_PROJECT_PAT`, classic, `repo` + `project` scopes) has silently expired before, stopping issues from landing on the board for weeks. Both token-dependent workflows now open an `[automation-failure]` tracker issue on failure (from #287) — if that issue appears, rotate the PAT and update the repo secret, then re-run the failed runs. Always confirm a new issue actually landed on the board.
