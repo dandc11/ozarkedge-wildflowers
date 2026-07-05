@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
   // Fetch the menu data from Sanity with proper perspective/stega
   const menuData = await sanityFetch({
     query: GET_MENU_ITEMS_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const currentSeason = getCurrentSeason()

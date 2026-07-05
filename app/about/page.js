@@ -43,14 +43,14 @@ const AboutPage = async () => {
   const { isEnabled: isDraftMode } = await draftMode()
   const aboutQueryResponse = await sanityFetch({
     query: GET_ABOUT_PAGE_DATA_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const aboutPageData = aboutQueryResponse?.data?.[0] ?? null
 
   const welcomeQueryResponse = await sanityFetch({
     query: GET_WELCOME_SECTION_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const welcomeData = welcomeQueryResponse?.data ?? null
