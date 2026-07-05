@@ -12,3 +12,44 @@ jobs:
         with:
           project-url: https://github.com/users/dandc11/projects/1
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+
+  # Fail loudly (#287): if the token-dependent job above fails, de-dupe onto a
+  # single open [automation-failure] tracker issue so a broken PAT can't rot
+  # silently. Uses the built-in GITHUB_TOKEN (no extra secret). Copy this job
+  # into any other token-dependent workflow.
+  notify-failure:
+    needs: add-to-project
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update the automation-failure tracker issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '[automation-failure]';
+            const { owner, repo } = context.repo;
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const body = [
+              `⚠️ **${context.workflow}** failed (event: \`${context.eventName}\`).`,
+              '',
+              `Run: ${runUrl}`,
+              '',
+              'Often a token/permission problem. If the run log shows `Bad credentials`, a PAT secret (e.g. `ADD_TO_PROJECT_PAT`) has expired — rotate it (classic PAT, `repo` + `project` scopes), update the repo secret, then re-run the failed runs. Otherwise check the run log.',
+              '',
+              'cc @dandc11',
+            ].join('\n');
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const tracker = issues.find((i) => !i.pull_request && i.title.includes(marker));
+            if (tracker) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: tracker.number, body });
+            } else {
+              await github.rest.issues.create({
+                owner, repo,
+                title: `${marker} token-dependent automation failure`,
+                body,
+              });
+            }
