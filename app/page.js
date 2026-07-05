@@ -61,28 +61,28 @@ export default async function HomePage() {
   // Current season data (centralized query)
   const seasonQueryResponse = await sanityFetch({
     query: GET_CURRENT_SEASON_DATA_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const seasonData = seasonQueryResponse?.data?.[0] ?? null
 
   const bloomingQueryResponse = await sanityFetch({
     query: GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const bloomingPlantArray = bloomingQueryResponse?.data ?? []
 
   const landingPageQueryResponse = await sanityFetch({
     query: GET_LANDING_PAGE_DATA_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const landingPageData = landingPageQueryResponse?.data?.[0] ?? null
 
   const welcomeQueryResponse = await sanityFetch({
     query: GET_WELCOME_SECTION_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const welcomeData = welcomeQueryResponse?.data ?? null

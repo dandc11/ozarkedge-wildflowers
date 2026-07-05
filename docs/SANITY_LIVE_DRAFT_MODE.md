@@ -19,7 +19,7 @@ export default async function Page() {
   const { isEnabled: isDraftMode } = await draftMode()
   const { data } = await sanityFetch({
     query: GET_SOME_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   // ...
