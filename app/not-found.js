@@ -15,7 +15,7 @@ export default async function NotFound() {
   const { isEnabled: isDraftMode } = await draftMode()
   const notFoundPageQueryResponse = await sanityFetch({
     query: NOT_FOUND_PAGE_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const notFoundPageData = notFoundPageQueryResponse?.data?.[0] ?? null

@@ -76,7 +76,7 @@ const SeasonPage = async (props) => {
     sanityFetch({
       query: GET_SEASON_PAGE_DATA_QUERY,
       params,
-      perspective: isDraftMode ? 'previewDrafts' : 'published',
+      perspective: isDraftMode ? 'drafts' : 'published',
       stega: isDraftMode,
     }),
   ])

@@ -99,7 +99,7 @@ const NativePlantPage = async (props) => {
     sanityFetch({
       query: GET_PLANT_PAGE_DATA,
       params,
-      perspective: isDraftMode ? 'previewDrafts' : 'published',
+      perspective: isDraftMode ? 'drafts' : 'published',
       stega: isDraftMode,
     }),
   ])

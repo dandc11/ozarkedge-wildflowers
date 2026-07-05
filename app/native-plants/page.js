@@ -45,14 +45,14 @@ const NativePlantPage = async () => {
   const { isEnabled: isDraftMode } = await draftMode()
   const nativePlantPageQueryResponse = await sanityFetch({
     query: GET_PLANT_LIST_PAGE_DATA_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const nativePlantPageData = nativePlantPageQueryResponse?.data?.[0] ?? null
 
   const nativePlantListQueryResponse = await sanityFetch({
     query: GET_NATIVE_PLANT_LIST_DATA_QUERY,
-    perspective: isDraftMode ? 'previewDrafts' : 'published',
+    perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
   const nativePlantList = nativePlantListQueryResponse?.data ?? []
