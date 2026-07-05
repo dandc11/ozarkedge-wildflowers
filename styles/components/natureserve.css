@@ -1,34 +1,42 @@
 .natureserve-message {
   position: relative;
   display: inline-flex;
-  margin-bottom: var(--sp-md);
+  margin-bottom: var(--sp-4);
   max-width: 64rem;
-  margin-inline: var(--sp-xl);
+  margin-inline: var(--sp-8);
   border-radius: 0.375rem;
 
+  /* --ns-bg / --ns-color are set inline by the components (data-driven
+     NatureServe ranking colors); rules here stay static. */
   .natureserve-message-text {
     display: flex;
-    gap: var(--sp-xs);
+    gap: var(--sp-2);
     z-index: 0;
     font-size: var(--fs-sm);
     background-color: transparent;
-    padding: var(--sp-md);
+    color: var(--ns-color, var(--oe-white));
+    padding: var(--sp-4);
+
+    > p {
+      background-color: var(--ns-bg, transparent);
+      color: var(--ns-color, var(--oe-white));
+    }
   }
 
   .natureserve-icon-info {
     display: inline-block;
-    padding-right: var(--sp-xs);
+    padding-right: var(--sp-2);
   }
 
   .natureserve-icon-svg {
     display: inline;
-    margin-bottom: var(--sp-xxs);
+    margin-bottom: var(--sp-1);
   }
 
   .natureserve-link {
     display: inline;
     text-decoration: underline;
-    text-underline-offset: var(--sp-xxs);
+    text-underline-offset: var(--sp-1);
     color: inherit;
   }
 
@@ -40,11 +48,14 @@
     border-radius: 0.375rem;
     top: 0;
     left: 0;
+    background-color: var(--ns-bg, transparent);
   }
 }
 
 .natureserve-badge {
-  padding: var(--sp-xxs) var(--sp-sm);
+  padding: var(--sp-1) var(--sp-3);
+  background-color: var(--ns-bg, transparent);
+  color: var(--ns-color, var(--oe-white));
   text-align: center;
   border-radius: 0.75rem;
   white-space: nowrap;
@@ -67,7 +78,7 @@
 
   .natureserve-badge-text {
     display: inline-flex;
-    gap: var(--sp-xs);
+    gap: var(--sp-2);
     font-size: var(--fs-xs);
     font-weight: var(--fw-400);
     align-items: center;

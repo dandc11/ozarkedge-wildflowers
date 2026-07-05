@@ -27,7 +27,7 @@ npm run lint:fix     # Prettier + ESLint fix
 
 **Images** — Use `<ResponsiveImage>` (server/static) or `<InteractiveImage>` (client/lightbox). Never Next.js `<Image>` directly. Always include `lqip` and `palette` in image queries.
 
-**Styles** — All styles go in `/styles/`. Never inline styles in components. Use PostCSS, CSS nesting, and CSS variables from `styles/variables.css` and `styles/colors.css`.
+**Styles** — All styles go in `/styles/`. Never inline styles in components (data-driven values bridge through inline custom properties). Use PostCSS, CSS nesting, and CSS variables from `styles/variables.css`, `styles/colors.css`, and `styles/seasons.css`. **[DESIGN.md](DESIGN.md) is the canonical design-system reference** (tokens, tiers, season model, usage rules). Any change/addition/removal of tokens or major style patterns must update DESIGN.md in the same PR.
 
 **Stega cleaning** — Use `stegaClean()` only for non-editable DOM values (class names, URLs, keys, data attributes). Never clean user-visible text — it needs steganography markers for Visual Editing.
 
@@ -43,6 +43,7 @@ Canonical Agent Skills live in `.claude/skills/*/SKILL.md`. `.github/skills/*/SK
 - **groq-queries** — query naming, fragments, dereferencing, and polymorphic Portable Text projection
 - **github-issue-and-branch-workflow** — issue templates/labels and the CI-enforced branch/PR naming rules
 - **pr-self-review** — repo-specific pre-PR checklist (pattern compliance, a11y, styles, security, testing)
+- **claude-design-workflow** — the Claude Code ↔ Claude Design loop for design-system work: divergent/convergent split, thin-brief handoff, four approval gates, DESIGN.md (design.md convention) as shared source of truth
 
 ## Code Style
 
@@ -67,9 +68,12 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 
 ## Docs
 
+- [Design system reference (canonical)](DESIGN.md)
+- [CSS engineering guidelines](docs/CSS_GUIDELINES.md)
 - [Testing guide](docs/TESTING_GUIDE.md)
 - [Sanity Live + Draft Mode](docs/SANITY_LIVE_DRAFT_MODE.md)
 - [Sanity Hosted Studio](docs/SANITY_HOSTED_STUDIO.md)
 - [Sanity Migrations](docs/SANITY_MIGRATIONS.md)
 - [Branch automation setup](docs/BRANCH_AUTOMATION_SETUP.md)
 - [Plant relationships queries](docs/PLANT_RELATIONSHIPS_QUERIES.md)
+- [Design system plan (#197)](docs/DESIGN_SYSTEM_PLAN.md)

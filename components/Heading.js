@@ -3,7 +3,6 @@
 import cx from 'classnames'
 import React, { useState, useEffect, useRef } from 'react'
 
-import { getCurrentSeason } from '../utilities/helperUtil'
 import TableOfContents from './TableOfContents'
 
 const HeadingElement = ({
@@ -134,8 +133,7 @@ const Heading = (props) => {
     }
   }
 
-  const currentSeason = getCurrentSeason()
-  const circleColor = circleColorClass ? `${circleColorClass}` : currentSeason.ACCENT_COLOR_VAR
+  const circleColor = circleColorClass || null
   const circleClassName = cx(
     'heading-circle',
     {

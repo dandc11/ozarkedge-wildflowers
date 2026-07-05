@@ -38,11 +38,11 @@
   .subtitle {
     color: transparent;
     background-clip: text;
-    background-image: linear-gradient(to right, #c2410c, #78350f);
+    background-image: linear-gradient(to right, var(--oe-orange-600), var(--oe-orange-800));
   }
 
   .title {
-    padding-bottom: 0.25rem;
+    padding-bottom: var(--sp-1);
     font-size: clamp(1.5rem, calc(1.5rem + 4cqi), 4rem);
     font-weight: 700;
     letter-spacing: 0.025em;
@@ -50,7 +50,7 @@
   }
 
   .subtitle {
-    padding-block-start: var(--sp-xxs);
+    padding-block-start: var(--sp-1);
     font-weight: 500;
     line-height: 1.5;
   }
@@ -58,55 +58,32 @@
   .homepage-cta {
     display: flex;
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: var(--sp-12);
 
     .btn-2 {
       background: var(--btn-gradient-5);
     }
   }
 
+  /* Season bg flows from the body's season class (fixes the old
+     winter bug that painted an accent color as the background). */
   .btf {
-    &[data-season='spring'] {
-      background-color: var(--spring-bg-color);
-    }
-
-    &[data-season='summer'] {
-      background-color: var(--summer-bg-color);
-    }
-
-    &[data-season='fall'] {
-      background-color: var(--fall-bg-color);
-    }
-
-    &[data-season='winter'] {
-      background: var(--winter-accent);
-    }
+    background-color: var(--season-bg);
   }
 
   .blooming-now {
+    /* Winter defines the --season-blooming-* overrides (seasons.css);
+       other seasons fall back to the normal teaser treatment. */
+    background: var(--season-blooming-bg, none);
+    --teaser-heading-color: var(--season-blooming-title, var(--season-heading-color));
+    --teaser-text-color: var(--season-blooming-text, var(--season-slider-text-color));
+
     .blooming-title {
       text-transform: uppercase;
     }
 
-    &.winter {
-      background: var(--winter-gradient-3);
-    }
-    /* 
-    &.spring {
-      background: var(--spring-gradient);
-    } */
-
-    /* &.spring, */
-    &.winter {
-      .blooming-title,
-      .description p,
-      figure.img figcaption {
-        color: var(--oe-white);
-      }
-    }
-
     figure.img figcaption {
-      color: var(--oe-text-body);
+      color: var(--season-blooming-caption, var(--oe-text-body));
     }
   }
 
@@ -123,7 +100,7 @@
   @container homepage-content (width >= 900px) {
     .atf {
       justify-content: start;
-      padding-inline: var(--sp-xl);
+      padding-inline: var(--sp-8);
     }
 
     .homepage-title {
@@ -134,11 +111,11 @@
 
     .homepage-cta {
       justify-content: end;
-      padding-block-start: var(--sp-2xl);
+      padding-block-start: var(--sp-12);
     }
 
     .blooming-now {
-      padding-left: var(--sp-lg);
+      padding-left: var(--sp-6);
     }
   }
 
@@ -153,6 +130,6 @@
 
 @container homepage-content (width >= 500px) {
   .blooming-heading .heading-title {
-    padding-inline: var(--sp-md);
+    padding-inline: var(--sp-4);
   }
 }

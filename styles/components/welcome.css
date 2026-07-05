@@ -8,17 +8,17 @@
   .welcome-inner {
     max-width: 1180px;
     margin: 0 auto;
-    padding: var(--sp-4xl) 28px;
+    padding: var(--sp-24) 28px;
     display: flex;
     flex-direction: column;
-    gap: var(--sp-4xl);
+    gap: var(--sp-24);
   }
 
   /* Split layout ----------------------------------------- */
   .welcome-split {
     display: grid;
     grid-template-columns: 1.05fr 0.95fr;
-    gap: clamp(2.5rem, 4cqi, 3rem);
+    gap: clamp(var(--sp-10), 4cqi, var(--sp-12));
     align-items: center;
   }
 
@@ -33,7 +33,7 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--oe-orange-700);
-    margin: 0 0 var(--sp-md);
+    margin: 0 0 var(--sp-4);
   }
 
   .welcome-circle {
@@ -55,9 +55,9 @@
     font-weight: var(--fw-700);
     font-size: clamp(1.9rem, 4vw, 3rem);
     line-height: 1.2;
-    margin: 0 0 var(--sp-sm);
-    color: #78350f;
-    background: linear-gradient(to right, #c2410c, #78350f);
+    margin: 0 0 var(--sp-3);
+    color: var(--oe-orange-800);
+    background: linear-gradient(to right, var(--oe-orange-600), var(--oe-orange-800));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -70,12 +70,12 @@
     line-height: 1.7;
     color: var(--oe-text-body);
     max-width: 46ch;
-    margin: var(--sp-md) 0 0;
+    margin: var(--sp-4) 0 0;
   }
 
   /* Button link ------------------------------------------- */
   .welcome-actions {
-    margin-top: var(--sp-xl);
+    margin-top: var(--sp-8);
   }
 
   /* Media ------------------------------------------------- */
@@ -105,7 +105,7 @@
     font-style: italic;
     font-size: 0.875rem;
     color: var(--oe-grey-600);
-    margin-top: var(--sp-sm);
+    margin-top: var(--sp-3);
     line-height: 1.5;
     display: block;
   }
@@ -127,13 +127,13 @@
   /* Mobile ----------------------------------------------- */
   @container welcome (width <= 820px) {
     .welcome-inner {
-      padding: var(--sp-2xl) var(--sp-lg);
-      gap: var(--sp-2xl);
+      padding: var(--sp-12) var(--sp-6);
+      gap: var(--sp-12);
     }
 
     .welcome-split {
       grid-template-columns: 1fr;
-      gap: var(--sp-xl);
+      gap: var(--sp-8);
     }
 
     .welcome-lead {

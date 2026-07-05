@@ -148,7 +148,7 @@ export default async function HomePage() {
               </a>
             </div>
           </section>
-          <div data-season={currentSeason} className={`btf w-full`} tag={'section'}>
+          <div className={`btf w-full`} tag={'section'}>
             <Suspense>
               <TeaserSlider
                 bodyText={teaserBodyText}

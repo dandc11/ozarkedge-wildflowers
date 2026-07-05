@@ -2,7 +2,7 @@
 .welcome-btn text-link pattern use this padding/radius/shadow/transition. */
 [class^='btn-'],
 .welcome-btn {
-  padding: var(--sp-ml) var(--sp-xl);
+  padding: var(--sp-5) var(--sp-8);
   color: var(--oe-white);
   font-size: 1rem;
   font-weight: var(--fw-400, 400);
@@ -45,7 +45,7 @@
 .welcome-btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-sm);
+  gap: var(--sp-3);
   font-family: var(--font-raleway);
   background: var(--btn-gradient-5);
   text-decoration: none;
@@ -81,6 +81,12 @@
 .btn-5 {
   background: var(--btn-gradient-5);
 }
+/* Season-themed button — colors flow from the --season-* aliases
+   (seasons.css); replaces the old per-season btn-1..4 switch in JS. */
+.btn-season {
+  background: var(--season-btn-bg);
+  color: var(--season-btn-color);
+}
 
 .icon {
   &.chevron-down,
@@ -91,13 +97,13 @@
 
   &.plus-circle,
   &.minus-circle {
-    width: var(--sp-lg);
-    height: var(--sp-lg);
+    width: var(--sp-6);
+    height: var(--sp-6);
   }
 
   &.info {
-    width: var(--sp-ml);
-    height: var(--sp-ml);
+    width: var(--sp-5);
+    height: var(--sp-5);
   }
 }
 

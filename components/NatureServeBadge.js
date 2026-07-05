@@ -40,20 +40,16 @@ const NatureServeBadge = (props) => {
     <button
       id={'natureServeBadge'}
       className={classNames}
+      /* Data-driven ranking colors bridge into CSS via custom properties;
+         static rules in natureserve.css consume --ns-bg / --ns-color. */
       style={{
-        backgroundColor: `var(${bgColorVariable})`,
-        color: `var(${textColorVariable})`,
+        '--ns-bg': `var(${bgColorVariable})`,
+        '--ns-color': `var(${textColorVariable})`,
       }}
       onClick={toggleIsExpanded}
       aria-expanded={isExpanded}
     >
-      <span
-        className="natureserve-badge-text"
-        style={{
-          backgroundColor: `var(${bgColorVariable})`,
-          color: `var(${textColorVariable})`,
-        }}
-      >
+      <span className="natureserve-badge-text">
         {rankingText}
         <IconInfo strokeColorVariable={textColorVariable} />
       </span>

@@ -8,7 +8,7 @@ body:has(.nav-dark) {
   position: fixed;
   font-size: var(--fs-xl);
   z-index: 50;
-  background-color: #181517;
+  background-color: var(--nav-bg-panel);
   font-family: var(--font-primary);
 
   &.nav-active {
@@ -71,7 +71,7 @@ body:has(.nav-dark) {
 
       .overlay {
         display: none;
-        background-color: #18170c;
+        background-color: var(--nav-bg-panel);
       }
     }
   }
@@ -85,12 +85,12 @@ body:has(.nav-dark) {
   }
 
   .nav-list {
-    margin-block-start: var(--sp-4xl);
-    margin-inline-start: var(--sp-ml);
+    margin-block-start: var(--sp-24);
+    margin-inline-start: var(--sp-5);
   }
 
   .nav-list-item {
-    margin-bottom: var(--sp-md);
+    margin-bottom: var(--sp-4);
     animation: fadeIn 1s ease-in forwards;
     opacity: 0;
   }
@@ -124,7 +124,7 @@ body:has(.nav-dark) {
     width: 2rem;
     height: 4px;
     background-color: var(--nav-bg-color);
-    margin: 0.25rem 0;
+    margin: var(--sp-1) 0;
   }
 
   .nav-img {
@@ -134,7 +134,7 @@ body:has(.nav-dark) {
     top: 0;
     z-index: -20;
     grid-area: image;
-    background-color: #18170c;
+    background-color: var(--nav-bg-panel);
 
     img {
       position: absolute;
@@ -160,14 +160,14 @@ body:has(.nav-dark) {
 
   @media screen and (min-width: 600px) {
     .nav-list {
-      margin-inline-start: var(--sp-3xl);
+      margin-inline-start: var(--sp-16);
     }
   }
 
   @media screen and (min-width: 900px) {
     .nav-list {
-      margin-block-start: var(--sp-6xl);
-      margin-inline-start: var(--sp-2xl);
+      margin-block-start: var(--sp-48);
+      margin-inline-start: var(--sp-12);
     }
   }
 

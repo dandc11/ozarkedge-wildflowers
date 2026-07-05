@@ -47,6 +47,8 @@ studio/.env.development
 # editor/IDE config (developer-specific)
 .vscode/mcp.json
 .vscode/.env.mcp
+.claude/launch.json
+.claude/worktrees/
 
 # vercel
 .vercel

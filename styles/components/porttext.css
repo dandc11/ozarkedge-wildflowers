@@ -1,10 +1,10 @@
 .port-text {
   max-width: 64rem;
-  /* margin-block-end: var(--sp-lg); */
+  /* margin-block-end: var(--sp-6); */
 
   & > * {
     color: inherit;
-    margin-block-end: var(--sp-lg);
+    margin-block-end: var(--sp-6);
   }
 
   a[href] {
@@ -22,7 +22,7 @@
 
     &.list-decimal {
       list-style-type: decimal;
-      padding-inline-start: var(--sp-sm);
+      padding-inline-start: var(--sp-3);
     }
 
     &.list-inside {

@@ -1,50 +1,18 @@
 /* Teaser Components ****************************/
 
-/* Teaser base styles */
+/* Teaser base styles — season variation flows entirely through the
+   --season-* aliases (styles/seasons.css); no per-season selectors here. */
 .teaser {
   --teaser-bg-color: transparent;
-  --teaser-bg-stripe: transparent;
+  --teaser-bg-stripe: var(--season-stripe);
   --teaser-text-color: var(--oe-white);
-  --teaser-heading-color: var(--oe-white);
-  --teaser-btn-bg-color: var(--oe-red-700);
-  --button-border: none;
+  --teaser-heading-color: var(--season-heading-color);
+  --teaser-btn-bg-color: transparent;
+  --button-border: var(--oe-white) 2px solid;
 
-  &.spring {
-    --teaser-heading-color: #7f696d;
-    --teaser-bg-stripe: var(--spring-gradient);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
-  }
-
-  &.spring.teaser-slider {
-    --teaser-text-color: #504346;
+  &.teaser-slider {
+    --teaser-text-color: var(--season-slider-text-color);
     --button-border: var(--teaser-text-color) 2px solid;
-  }
-
-  &.summer {
-    --teaser-heading-color: #864a6c;
-    --teaser-bg-stripe: var(--summer-gradient-2);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
-  }
-
-  &.summer.teaser-slider {
-    --teaser-text-color: #864a6c;
-    --button-border: var(--teaser-text-color) 2px solid;
-  }
-
-  &.fall {
-    --teaser-heading-color: #435146;
-    --teaser-bg-stripe: var(--fall-bg-gradient);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
-  }
-
-  &.winter {
-    --teaser-heading-color: var(--oe-grey-700);
-    --teaser-bg-stripe: var(--winter-gradient-3);
-    --teaser-btn-bg-color: transparent;
-    --button-border: var(--oe-white) 2px solid;
   }
 
   container: teaser / inline-size;
@@ -130,15 +98,15 @@
   }
 
   @container teaser (width > 800px) {
-    padding-inline: var(--sp-xl);
-    margin-block: var(--sp-xl);
+    padding-inline: var(--sp-8);
+    margin-block: var(--sp-8);
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto max-content;
     grid-template-areas:
       'heading image-slider'
       'teaser-body image-slider'
       'teaser-body image-slider';
-    gap: 0 1.5rem;
+    gap: 0 var(--sp-6);
 
     .heading {
       .heading-title {
@@ -159,11 +127,7 @@
 /* Teaser Section (single image) */
 .feature {
   width: 100%;
-  margin-block: var(--sp-2xl);
-
-  .heading {
-    background-color: var(--season-bg-color);
-  }
+  margin-block: var(--sp-12);
 
   .teaser-body,
   .teaser-img {
@@ -172,12 +136,12 @@
     .port-text *,
     p {
       color: var(--teaser-text-color);
-      padding-inline: var(--sp-md);
+      padding-inline: var(--sp-4);
     }
   }
 
   .teaser-body {
-    line-height: var(--sp-xl);
+    line-height: var(--sp-8);
   }
 
   .teaser-bg-stripe {
@@ -194,7 +158,7 @@
       'body';
 
     .heading {
-      margin-bottom: var(--sp-xs);
+      margin-bottom: var(--sp-2);
       grid-area: heading;
       width: 100%;
 
@@ -202,7 +166,7 @@
         font-style: italic;
         font-weight: var(--fw-300);
         font-size: var(--fs-3xl);
-        line-height: var(--sp-2xl);
+        line-height: var(--sp-12);
       }
     }
 
@@ -216,7 +180,7 @@
     .teaser-body {
       container: teaser-body / inline-size;
       grid-area: body;
-      padding-top: var(--sp-lg);
+      padding-top: var(--sp-6);
 
       [class^='btn-'] {
         margin-inline: auto;
@@ -227,7 +191,7 @@
     .teaser-img {
       grid-area: image;
       width: auto;
-      margin-inline: var(--sp-lg);
+      margin-inline: var(--sp-6);
       background-color: transparent;
       justify-self: center;
     }
@@ -236,12 +200,12 @@
       .teaser-body {
         [class^='btn-'] {
           width: auto;
-          margin-inline: var(--sp-lg) 0;
+          margin-inline: var(--sp-6) 0;
         }
         .port-text *,
         p {
           color: var(--teaser-text-color);
-          padding-inline: var(--sp-lg);
+          padding-inline: var(--sp-6);
           font-size: var(--fs-md);
         }
       }
@@ -252,13 +216,13 @@
         margin-bottom: 0;
       }
       .heading-title {
-        padding-inline: var(--sp-md);
+        padding-inline: var(--sp-4);
       }
     }
 
     @container teaser (width > 800px) {
-      padding-inline: var(--sp-2xl);
-      margin-block: var(--sp-xl);
+      padding-inline: var(--sp-12);
+      margin-block: var(--sp-8);
       grid-template-columns: auto minmax(auto, 33em) minmax(auto, 45rem) auto;
       grid-template-rows: auto auto;
 
@@ -266,7 +230,7 @@
         grid-column: 2 / 3;
 
         .heading-title {
-          line-height: var(--sp-3xl);
+          line-height: var(--sp-16);
           font-size: var(--fs-4xl);
         }
       }
@@ -280,14 +244,14 @@
       .teaser-body {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
-        padding-top: var(--sp-xl);
+        padding-top: var(--sp-8);
       }
 
       .teaser-img {
         grid-column: 3/4;
         grid-row: 1 / -1;
-        margin-block-start: 2rem;
-        margin-inline: 0 var(--sp-md);
+        margin-block-start: var(--sp-8);
+        margin-inline: 0 var(--sp-4);
         background-color: transparent;
 
         img {
@@ -299,7 +263,7 @@
 
         figcaption {
           border-bottom-left-radius: 0.5rem;
-          background-color: #ffffffb5;
+          background-color: hsl(from var(--oe-surface) h s l / 0.71);
         }
       }
     }

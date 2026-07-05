@@ -132,9 +132,6 @@ describe('helperUtil.js', () => {
       expect(result).toEqual({
         SEASON_NAME: 'spring',
         SEASON_MONTHS: [3, 4, 5],
-        ACCENT_COLOR_VAR: expect.any(String),
-        BG_COLOR_VAR: expect.any(String),
-        BG_GRADIENT_VAR: expect.any(String),
       })
     })
 

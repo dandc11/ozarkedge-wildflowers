@@ -64,7 +64,7 @@ body {
 
 main {
   height: 100%;
-  line-height: var(--sp-lg);
+  line-height: var(--sp-6);
 }
 
 /* Balance text wrapping on headings */
@@ -104,7 +104,7 @@ a[href] {
   top: -100%;
   left: 0;
   z-index: 999;
-  padding: var(--sp-sm) var(--sp-ml);
+  padding: var(--sp-3) var(--sp-5);
   background: var(--oe-text-body);
   color: var(--oe-white);
   font-weight: var(--fw-700);
@@ -178,7 +178,7 @@ select {
   bottom: 2%;
   right: 2%;
   z-index: 1000;
-  padding: 0.5rem 0.75rem;
+  padding: var(--sp-2) var(--sp-3);
   background-color: var(--oe-yellow-500);
   color: var(--oe-black);
   border: 1px solid var(--oe-black);
@@ -190,12 +190,12 @@ select {
 .content-well > *:not(.w-full) {
   container: content-well / inline-size;
   width: clamp(8rem, 90cqi, 60rem);
-  margin-block: min(5vh, 2rem);
+  margin-block: min(5vh, var(--sp-8));
   margin-inline: auto;
 
   @container (min-width: 600px) {
     width: clamp(35rem, 85cqi, 55rem);
-    margin-block: min(10vh, 3rem);
+    margin-block: min(10vh, var(--sp-12));
   }
 }
 
@@ -203,10 +203,10 @@ select {
   position: relative;
 
   .heading-wrapper {
-    gap: var(--sp-md);
+    gap: var(--sp-4);
 
     @container content-well (min-width: 600px) {
-      gap: var(--sp-xl);
+      gap: var(--sp-8);
       flex-direction: row;
     }
   }
@@ -268,10 +268,10 @@ img {
 }
 
 .common-name {
-  padding-block: var(--sp-xs);
+  padding-block: var(--sp-2);
 }
 .botanical-name {
-  padding-block: var(--sp-xxs);
+  padding-block: var(--sp-1);
   font-weight: var(--fw-500);
 }
 

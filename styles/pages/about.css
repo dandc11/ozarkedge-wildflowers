@@ -25,7 +25,7 @@
   .our-story-section {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 0 28px var(--sp-4xl);
+    padding: 0 28px var(--sp-24);
   }
 
   .our-story-rule {
@@ -35,12 +35,12 @@
   }
 
   .our-story-inner {
-    padding-top: var(--sp-3xl);
+    padding-top: var(--sp-16);
   }
 
   .our-story-head {
     text-align: center;
-    margin-bottom: var(--sp-2xl);
+    margin-bottom: var(--sp-12);
   }
 
   .our-story-eyebrow {
@@ -53,7 +53,7 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--oe-orange-700);
-    margin: 0 0 var(--sp-md);
+    margin: 0 0 var(--sp-4);
   }
 
   .our-story-circle {
@@ -75,8 +75,8 @@
     font-size: clamp(1.9rem, 4vw, 2.8rem);
     line-height: 1.2;
     margin: 0;
-    color: #78350f;
-    background: linear-gradient(to right, #c2410c, #78350f);
+    color: var(--oe-orange-800);
+    background: linear-gradient(to right, var(--oe-orange-600), var(--oe-orange-800));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -88,11 +88,11 @@
     }
 
     .our-story-section {
-      padding-inline: var(--sp-lg);
+      padding-inline: var(--sp-6);
     }
 
     .our-story-inner {
-      padding-top: var(--sp-2xl);
+      padding-top: var(--sp-12);
     }
 
     .welcome-text {
