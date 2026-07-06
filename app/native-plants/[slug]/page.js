@@ -16,6 +16,7 @@ import { PLANT_PAGE_SECTIONS, IMG_SIZES } from '../../../utilities/constants'
 import { GET_ALL_NATIVE_PLANT_PATHS_QUERY, GET_PLANT_PAGE_DATA } from '../../../sanity/lib/queries'
 import { sanityFetch } from '../../../sanity/lib/sanity.live'
 import { urlForImage } from '../../../sanity/lib/sanity.image'
+import { editAttribute } from '../../../sanity/lib/editAttribute'
 
 /**
  * Generates metadata for an individual plant page using Sanity data.
@@ -154,6 +155,8 @@ const NativePlantPage = async (props) => {
                 quality={85}
                 sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
                 wrapperClassName={`banner-img w-full`}
+                data-sanity-edit-target="true"
+                data-sanity={editAttribute(docId, docType, 'bannerImage')}
               />
               <ResponsiveImage
                 className={`relative w-full h-full cover`}
@@ -169,6 +172,8 @@ const NativePlantPage = async (props) => {
                 sizes={IMG_SIZES.HERO_MOBILE_SIZES}
                 showCaption={false}
                 wrapperClassName={`banner-img mobile w-full`}
+                data-sanity-edit-target="true"
+                data-sanity={editAttribute(docId, docType, 'mobileImage')}
               />
             </div>
           )}

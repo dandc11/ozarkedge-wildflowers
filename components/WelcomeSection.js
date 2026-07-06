@@ -1,10 +1,10 @@
 import { PortableText } from '@portabletext/react'
-import { createDataAttribute } from 'next-sanity'
 import Link from 'next/link'
 import React from 'react'
 
 import ResponsiveImage from './ResponsiveImage'
 import { IMG_SIZES } from '../utilities/constants'
+import { editAttribute } from '../sanity/lib/editAttribute'
 
 const splitBodyComponents = {
   block: {
@@ -29,10 +29,7 @@ const WelcomeSection = ({
 
   // Build `data-sanity` edit targets so Visual Editing overlays land on the
   // image field (standalone images carry no stega markers of their own).
-  const imageDataAttr = (path) =>
-    documentId && documentType
-      ? createDataAttribute({ id: documentId, type: documentType, path }).toString()
-      : undefined
+  const imageDataAttr = (path) => editAttribute(documentId, documentType, path)
 
   return (
     <section className="welcome-section">

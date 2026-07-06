@@ -14,6 +14,7 @@ import {
 import { IMG_SIZES } from '../../utilities/constants'
 import { sanityFetch } from '../../sanity/lib/sanity.live'
 import { urlForImage } from '../../sanity/lib/sanity.image'
+import { editAttribute } from '../../sanity/lib/editAttribute'
 
 /**
  * Generates metadata for the native plants list page.
@@ -85,6 +86,8 @@ const NativePlantPage = async () => {
           quality={95}
           sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
           wrapperClassName="banner-img"
+          data-sanity-edit-target="true"
+          data-sanity={editAttribute(nativePlantPageData?._id, 'plantListPage', 'mainImage')}
         />
         <ResponsiveImage
           alt={nativePlantPageData?.pageTitle}
@@ -102,6 +105,8 @@ const NativePlantPage = async () => {
           quality={95}
           sizes={IMG_SIZES.HERO_MOBILE_SIZES}
           wrapperClassName="banner-img mobile"
+          data-sanity-edit-target="true"
+          data-sanity={editAttribute(nativePlantPageData?._id, 'plantListPage', 'mobileImage')}
         />
       </div>
       <PlantListGridWrapper

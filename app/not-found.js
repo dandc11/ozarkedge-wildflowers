@@ -3,6 +3,7 @@ import { draftMode } from 'next/headers'
 
 import { sanityFetch } from '../sanity/lib/sanity.live'
 import { NOT_FOUND_PAGE_QUERY } from '../sanity/lib/queries'
+import { editAttribute } from '../sanity/lib/editAttribute'
 import PortTextWrapper from '../components/PortTextWrapper'
 import ResponsiveImage from '../components/ResponsiveImage'
 
@@ -35,7 +36,13 @@ export default async function NotFound() {
         </div>
       )}
       <div className="message">
-        <PortTextWrapper className={`relative`} value={notFoundPageData.message} />
+        <PortTextWrapper
+          className={`relative`}
+          value={notFoundPageData.message}
+          documentId={notFoundPageData._id}
+          documentType={notFoundPageData._type}
+          portableTextPath={'message'}
+        />
       </div>
       <div className="circle-img">
         <ResponsiveImage
@@ -47,6 +54,8 @@ export default async function NotFound() {
           figureClassName="h-full w-full"
           wrapperClassName="w-full h-full"
           className="w-full h-full rounded-none cover"
+          data-sanity-edit-target="true"
+          data-sanity={editAttribute(notFoundPageData._id, notFoundPageData._type, 'image')}
         />
       </div>
     </div>

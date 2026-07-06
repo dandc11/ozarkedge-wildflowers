@@ -50,6 +50,8 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
 export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 *[_type == "plantListPage"]
 {
+  _id,
+  _type,
   pageTitle,
   metaDescription,
   menuButtonColor,

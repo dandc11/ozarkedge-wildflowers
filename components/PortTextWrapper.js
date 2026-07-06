@@ -1,10 +1,10 @@
 import { PortableText } from '@portabletext/react'
-import { createDataAttribute } from 'next-sanity'
 import cx from 'classnames'
 import Link from 'next/link'
 import React from 'react'
 
 import { getPathFromDocType } from '../utilities/helperUtil'
+import { editAttribute } from '../sanity/lib/editAttribute'
 
 // Import heavy block components directly; when they are Client Components,
 // Next.js will treat them as client boundaries automatically.
@@ -89,12 +89,8 @@ const PortTextWrapper = (props) => {
   // collections, videos) don't carry stega markers, so they need this attribute.
   // Returns undefined when we lack the document/field context to resolve a path.
   const makeMediaDataAttr = (blockKey) =>
-    documentId && documentType && portableTextPath && blockKey
-      ? createDataAttribute({
-          id: documentId,
-          type: documentType,
-          path: `${portableTextPath}[_key=="${blockKey}"]`,
-        }).toString()
+    blockKey
+      ? editAttribute(documentId, documentType, `${portableTextPath}[_key=="${blockKey}"]`)
       : undefined
 
   // Compose a components map that SSRs text but defers media blocks to the client

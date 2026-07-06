@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 import LightboxGallery from '../../../components/LightboxGallery'
 import PortTextWrapper from '../../../components/PortTextWrapper'
 import ResponsiveImage from '../../../components/ResponsiveImage'
+import { editAttribute } from '../../../sanity/lib/editAttribute'
 import HeadingDisplay from '../../../components/HeadingDisplay'
 import FeatureSection from '../../../components/FeatureSection'
 import { getUniqueImagesFromDocument } from '../../../utilities/imageUtil'
@@ -100,7 +101,7 @@ const SeasonPage = async (props) => {
   const fullImageArray = getUniqueImagesFromDocument(pageData)
   const wrapperClassName = cx(`banner-img relative w-full`)
   const docId = pageData._id
-  const docType = 'seasonPage'
+  const docType = 'season'
 
   return (
     <>
@@ -123,6 +124,8 @@ const SeasonPage = async (props) => {
                 quality={85}
                 sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
                 wrapperClassName={wrapperClassName}
+                data-sanity-edit-target="true"
+                data-sanity={editAttribute(docId, docType, 'mainImage')}
               />
               <ResponsiveImage
                 alt={mobileImage?.alt || 'A picture of the Ozarkedge property'}
@@ -136,6 +139,8 @@ const SeasonPage = async (props) => {
                 showCaption={false}
                 sizes={IMG_SIZES.HERO_MOBILE_SIZES}
                 wrapperClassName={cx(wrapperClassName, `mobile`)}
+                data-sanity-edit-target="true"
+                data-sanity={editAttribute(docId, docType, 'mobileImage')}
               />
               <HeadingDisplay
                 className={cx(`text-right`)}
