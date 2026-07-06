@@ -174,6 +174,8 @@ export default async function HomePage() {
               locationBody={welcomeData.locationBody}
               introHeading={welcomeData.introHeading}
               locationHeading={welcomeData.locationHeading}
+              documentId={welcomeData._id}
+              documentType={welcomeData._type}
               showButtons={true}
             />
           )}
