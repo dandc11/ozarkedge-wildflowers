@@ -4,6 +4,7 @@ import React from 'react'
 
 import ResponsiveImage from './ResponsiveImage'
 import { IMG_SIZES } from '../utilities/constants'
+import { editAttribute } from '../sanity/lib/editAttribute'
 
 const splitBodyComponents = {
   block: {
@@ -20,9 +21,15 @@ const WelcomeSection = ({
   locationHeading,
   showButtons = true,
   eyebrowText = 'Welcome',
+  documentId,
+  documentType,
 }) => {
   const hasIntro = introBody?.length > 0
   const hasLocation = locationBody?.length > 0
+
+  // Build `data-sanity` edit targets so Visual Editing overlays land on the
+  // image field (standalone images carry no stega markers of their own).
+  const imageDataAttr = (path) => editAttribute(documentId, documentType, path)
 
   return (
     <section className="welcome-section">
@@ -58,6 +65,8 @@ const WelcomeSection = ({
                   sizes={IMG_SIZES.WELCOME_SPLIT}
                   figureClassName="welcome-figure"
                   className="welcome-media-img"
+                  data-sanity-edit-target="true"
+                  data-sanity={imageDataAttr('introImage')}
                 />
               ) : (
                 <div className="welcome-media-placeholder" aria-hidden="true" />
@@ -104,6 +113,8 @@ const WelcomeSection = ({
                     figureClassName="welcome-figure"
                     className="welcome-media-img"
                     showCaption={false}
+                    data-sanity-edit-target="true"
+                    data-sanity={imageDataAttr('locationImage')}
                   />
                   {locationImage.caption && (
                     <figcaption className="welcome-eco-caption">

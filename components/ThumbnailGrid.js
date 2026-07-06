@@ -14,6 +14,7 @@ const ThumbnailGrid = (props) => {
     thumbnailWidth = 100,
     lightboxIdentifier = '',
     showCaptions = false,
+    dataSanityAttr,
   } = props
   const gridColumns = {
     1: 'grid-cols-1',
@@ -45,6 +46,7 @@ const ThumbnailGrid = (props) => {
     <ul
       className={cx(`img-grid grid ${gridColumns[cols]} gap-3`, className)}
       data-sanity-edit-target
+      data-sanity={dataSanityAttr}
     >
       {galleryImages}
     </ul>

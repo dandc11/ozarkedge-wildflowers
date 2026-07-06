@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { getPathFromDocType } from '../utilities/helperUtil'
+import { editAttribute } from '../sanity/lib/editAttribute'
 
 // Import heavy block components directly; when they are Client Components,
 // Next.js will treat them as client boundaries automatically.
@@ -82,13 +83,27 @@ const PortTextWrapper = (props) => {
     documentType = '', // Added prop
     portableTextPath, // Added prop
   } = props
+
+  // Build a `data-sanity` edit-target string for a media block so Visual Editing
+  // can map an overlay click to the block's field. Non-text blocks (images,
+  // collections, videos) don't carry stega markers, so they need this attribute.
+  // Returns undefined when we lack the document/field context to resolve a path.
+  const makeMediaDataAttr = (blockKey) =>
+    blockKey
+      ? editAttribute(documentId, documentType, `${portableTextPath}[_key=="${blockKey}"]`)
+      : undefined
+
   // Compose a components map that SSRs text but defers media blocks to the client
   const componentsWithCallback = {
     ...portTextComponents,
     types: {
       ...portTextComponents.types,
       figure: (typeProps) => (
-        <PTFigure portTextProps={typeProps} lightboxIdentifier={lightboxIdentifier} />
+        <PTFigure
+          portTextProps={typeProps}
+          lightboxIdentifier={lightboxIdentifier}
+          dataSanityAttr={makeMediaDataAttr(typeProps.value?._key)}
+        />
       ),
       imageCollection: (typeProps) => (
         <PTThumbnailGrid
@@ -98,9 +113,15 @@ const PortTextWrapper = (props) => {
           maxItems={12}
           lightboxIdentifier={lightboxIdentifier}
           showCaptions
+          dataSanityAttr={makeMediaDataAttr(typeProps.value?._key)}
         />
       ),
-      portTextVideo: (typeProps) => <PTVideo portTextProps={typeProps} />,
+      portTextVideo: (typeProps) => (
+        <PTVideo
+          portTextProps={typeProps}
+          dataSanityAttr={makeMediaDataAttr(typeProps.value?._key)}
+        />
+      ),
       teaserSection: (typeProps) => <PTTeaser portTextProps={typeProps?.value} />,
     },
   }

@@ -15,6 +15,8 @@ import {
 // retrieves welcome section data from its own singleton document (used on both landing page and about page)
 export const GET_WELCOME_SECTION_QUERY = groq`
 *[_id == "welcomeSection"][0] {
+  _id,
+  _type,
   introHeading,
   ${imageFields('introImage')},
   ${textOnlyPortableTextFields('introBody')},
@@ -48,6 +50,8 @@ export const GET_LANDING_PAGE_DATA_QUERY = groq`
 export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 *[_type == "plantListPage"]
 {
+  _id,
+  _type,
   pageTitle,
   metaDescription,
   menuButtonColor,

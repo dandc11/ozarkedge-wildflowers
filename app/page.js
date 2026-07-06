@@ -22,6 +22,7 @@ import {
 } from '../sanity/lib/queries'
 import { sanityFetch } from '../sanity/lib/sanity.live'
 import { urlForImage } from '../sanity/lib/sanity.image'
+import { editAttribute } from '../sanity/lib/editAttribute'
 
 /**
  * Generates metadata for the home page using landing page data from Sanity.
@@ -120,6 +121,8 @@ export default async function HomePage() {
               quality={85}
               sizes={IMG_SIZES.HERO_DESKTOP_SIZES}
               wrapperClassName="absolute bg-img w-full"
+              data-sanity-edit-target="true"
+              data-sanity={editAttribute(landingPageData._id, 'landingPage', 'mainImage')}
             />
             <ResponsiveImage
               image={landingPageData.mobileImage ? landingPageData.mobileImage : landingPageData.mainImage}
@@ -132,6 +135,8 @@ export default async function HomePage() {
               figureClassName="h-full w-full"
               wrapperClassName="absolute bg-img mobile w-full"
               className="w-full h-full"
+              data-sanity-edit-target="true"
+              data-sanity={editAttribute(landingPageData._id, 'landingPage', 'mobileImage')}
             />
             <div className={`homepage-title text-center p-in-md`}>
               <h1 className={`title text-dynamic-title text-display`}>
@@ -174,6 +179,8 @@ export default async function HomePage() {
               locationBody={welcomeData.locationBody}
               introHeading={welcomeData.introHeading}
               locationHeading={welcomeData.locationHeading}
+              documentId={welcomeData._id}
+              documentType={welcomeData._type}
               showButtons={true}
             />
           )}
