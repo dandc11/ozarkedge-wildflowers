@@ -44,3 +44,9 @@ Mounting guidance
 - Always-on live (mount everywhere) maximizes immediacy but can cause dev churn.
 - Prod + Draft Mode (recommended): live in prod for quick user-facing updates; in dev, live only during Draft Mode to keep local browsing fast.
 - Draft Mode only: no live in prod; rely on webhooks for revalidation.
+
+Read token (`SANITY_API_READ_TOKEN`)
+
+- `sanity/lib/sanity.live.js` passes this token to `defineLive` as **both** `serverToken` and `browserToken`.
+- `browserToken` is shipped to the browser during Draft Mode so the live-preview client can read draft content, so the token **MUST be a read-only Viewer-role token** — never Editor/Deploy/Admin. A write-capable token in `browserToken` would be exposed to anyone in a preview session.
+- Manage the token in Sanity → Manage → API → Tokens. If it is ever over-privileged, mint a dedicated Viewer token and rotate. Never read or expose the token value in AI chat context (see CLAUDE.md).

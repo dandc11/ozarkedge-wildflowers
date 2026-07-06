@@ -12,7 +12,7 @@ export const mainDocuments = defineDocuments([
 ])
 
 export const locations = {
-  settings: defineLocations({
+  siteSettings: defineLocations({
     message: 'This document is used on all pages',
     tone: 'caution',
   }),
@@ -65,5 +65,21 @@ export const locations = {
         },
       ],
     }),
+  }),
+  welcomeSection: defineLocations({
+    message: 'This document renders the Welcome section on the Home and About pages',
+    tone: 'positive',
+    locations: [
+      { title: 'Home', href: '/' },
+      { title: 'About', href: '/about' },
+    ],
+  }),
+  menu: defineLocations({
+    message: 'This document renders the site navigation menu on all pages',
+    tone: 'caution',
+  }),
+  notFoundPage: defineLocations({
+    message: 'This document renders the 404 (Page Not Found) page',
+    tone: 'caution',
   }),
 }
