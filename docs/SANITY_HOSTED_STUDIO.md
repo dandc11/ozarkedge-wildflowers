@@ -45,6 +45,8 @@ npx sanity deploy
 
 This deploys to https://ozarkedgewildflowers.sanity.studio.
 
+> **Required Studio dependency — do not remove `styled-components`.** With `deployment.autoUpdates: true`, `sanity deploy` validates that every Studio dependency is **declared in `package.json`** (not merely present transitively). `styled-components` is a required peer of `sanity` / `@sanity/ui` / `@sanity/vision` / `@sanity/visual-editing`. The Next.js app never imports it directly (styles live in `/styles`), so a "remove unused dependency" pass will look correct but will break `sanity deploy` with `Error: Declared dependency 'styled-components' is not installed`. Keep it declared.
+
 ### Schema Deployment
 
 After changing schema definitions, deploy the schema to the dataset for the Dashboard:

@@ -48,7 +48,8 @@
     "react-select": "^5.8.0",
     "sanity": "^5.31.1",
     "sanity-plugin-media": "^4.1.1",
-    "sanity-plugin-mux-input": "^2.8.0"
+    "sanity-plugin-mux-input": "^2.8.0",
+    "styled-components": "^6.4.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "16.2.10",
