@@ -106,6 +106,8 @@ const AboutPage = async () => {
               locationBody={welcomeData.locationBody}
               introHeading={welcomeData.introHeading}
               locationHeading={welcomeData.locationHeading}
+              documentId={welcomeData._id}
+              documentType={welcomeData._type}
               showButtons={false}
               eyebrowText="About Ozarkedge"
             />
@@ -131,6 +133,7 @@ const AboutPage = async () => {
                     lightboxIdentifier={'about'}
                     documentId={docId}
                     documentType={docType}
+                    portableTextPath={'body'}
                     value={aboutPageData.body}
                   />
                 </Suspense>
