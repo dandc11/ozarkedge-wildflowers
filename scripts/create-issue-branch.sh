@@ -36,21 +36,23 @@ if [[ -z "$ISSUE_TITLE" ]]; then
   exit 1
 fi
 
-# Convert title to kebab-case slug
+# Convert title to kebab-case slug (matches create-branch-on-issue.yml exactly,
+# so branch names are identical regardless of whether the Action or this script
+# creates them):
 # 1. Convert to lowercase
-# 2. Replace spaces with hyphens
-# 3. Remove special characters (keep only alphanumeric and hyphens)
-# 4. Collapse multiple hyphens into one
-# 5. Trim leading/trailing hyphens
+# 2. Remove special characters (keep only alphanumeric and spaces)
+# 3. Trim leading/trailing whitespace
+# 4. Replace spaces with hyphens
+# 5. Collapse multiple hyphens into one
+# 6. Truncate to 40 chars, THEN strip a trailing hyphen left by truncation
 SLUG=$(echo "$ISSUE_TITLE" | \
   tr '[:upper:]' '[:lower:]' | \
   sed 's/[^a-z0-9 ]//g' | \
-  sed 's/ /-/g' | \
-  sed 's/-\+/-/g' | \
-  sed 's/^-//;s/-$//')
+  sed 's/^ *//;s/ *$//' | \
+  sed 's/ \+/-/g' | \
+  sed 's/-\+/-/g')
 
-# Limit slug to reasonable length (max 40 chars to keep total branch name reasonable)
-SLUG=$(echo "$SLUG" | cut -c1-40)
+SLUG=$(echo "$SLUG" | cut -c1-40 | sed 's/-$//')
 
 BRANCH_NAME="feature/issue-${ISSUE_NUMBER}-${SLUG}"
 

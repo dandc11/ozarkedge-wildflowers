@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### 🤖 Automated Branch Creation
+        ### 🌿 Branch Naming
 
-        When you submit this update issue, GitHub Actions will **automatically create a branch** in the format `feature/issue-{NUMBER}-{slug}` and post a comment with the branch link. You don't need to create the branch manually!
+        When you pick up this issue, create a branch in the format `feature/issue-{NUMBER}-{slug}` (run `./scripts/create-issue-branch.sh` for an interactive helper).
 
         See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full workflow.
   - type: markdown

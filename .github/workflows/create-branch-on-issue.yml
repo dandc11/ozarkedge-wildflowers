@@ -1,8 +1,11 @@
 name: Create Branch on Issue
 
+# Manual-only (#302): branches used to auto-create on issue open, but that meant
+# the fork point went stale for anything that sat in the backlog before pickup.
+# Branches are now created at pickup time instead (see
+# .claude/skills/github-issue-and-branch-workflow/SKILL.md). This workflow is
+# kept as a manual escape hatch via workflow_dispatch.
 on:
-  issues:
-    types: [opened, reopened]
   workflow_dispatch:
     inputs:
       issue_number:
@@ -20,8 +23,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const issueNumber = context.payload.issue?.number
-              ?? parseInt(context.payload.inputs?.issue_number);
+            const issueNumber = parseInt(context.payload.inputs?.issue_number);
 
             if (!issueNumber) {
               core.setFailed('Could not determine issue number');
@@ -30,7 +32,7 @@ jobs:
 
             const { owner, repo } = context.repo;
 
-            // Fetch issue to get title (and assignee)
+            // Fetch issue to get title
             const { data: issue } = await github.rest.issues.get({
               owner, repo, issue_number: issueNumber
             });
@@ -103,14 +105,6 @@ jobs:
                 '```'
               ].join('\n')
             });
-
-            // Assign to issue opener (issues event only)
-            if (context.eventName === 'issues') {
-              await github.rest.issues.addAssignees({
-                owner, repo, issue_number: issueNumber,
-                assignees: [issue.user.login]
-              });
-            }
 
   # Fail loudly (#287): if the job above fails, de-dupe onto a single open
   # [automation-failure] tracker issue. Uses the built-in GITHUB_TOKEN.

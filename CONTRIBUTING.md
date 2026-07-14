@@ -2,30 +2,25 @@
 
 ## Workflow Overview
 
-This project uses a **fully automated GitHub issue → branch → PR workflow**. When you create an issue, a branch is automatically created. Pushing to that branch and creating a PR is validated automatically by GitHub Actions to ensure everything is properly linked.
+This project uses a **GitHub issue → branch → PR workflow**, with the branch/PR conventions enforced automatically by GitHub Actions. You create the branch yourself when you start work — see below — and pushing to it or opening a PR is validated automatically to ensure everything is properly linked.
 
-**Key benefit:** No manual branch setup. Issues automatically get branches. Everything is traced back to the issue.
+**Key benefit:** Everything is traced back to the issue, and the branch always forks from current `main`.
 
-## Working on Issues: The Automated Flow
+## Working on Issues: The Flow
 
 ### Step 1: Create an Issue
 
-When you create a new issue on GitHub:
+When you create a new issue on GitHub, it's submitted with one of our templates (Bug Report, Feature Request, etc.) and automatically added to the project board.
 
-1. The issue is submitted with one of our templates (Bug Report, Feature Request, etc.)
-2. **GitHub Actions automatically creates a branch** with the format: `feature/issue-{NUMBER}-{slug}`
-3. **A comment is posted** on the issue with the branch name and how to check it out
+### Step 2: Create Your Branch When You Pick Up the Issue
 
-### Step 2: Check Out the Auto-Created Branch
-
-Once the branch is created (you'll see the comment appear within seconds):
+Branches are **not** created when the issue is opened — they're created when work actually starts, so the branch forks from current `main` instead of going stale in the backlog. Use the helper script:
 
 ```bash
-git fetch origin
-git checkout feature/issue-{NUMBER}-{slug}
+./scripts/create-issue-branch.sh
 ```
 
-It's already there waiting for you. No manual branch creation needed.
+It prompts for the issue number and title, generates the branch name (`feature/issue-{NUMBER}-{slug}`), and checks it out. (Claude follows the same convention automatically — see `.claude/skills/github-issue-and-branch-workflow/SKILL.md`.)
 
 ### Step 3: Work on Your Branch
 
@@ -71,7 +66,7 @@ GitHub Actions runs `validate-pr-linking` workflow:
 
 ## Branch Naming Convention
 
-Branches are automatically named following this format: `feature/issue-{NUMBER}-{slug}`
+Branches follow this format: `feature/issue-{NUMBER}-{slug}`
 
 | Part                 | Example                   | Purpose                                  |
 | -------------------- | ------------------------- | ---------------------------------------- |
@@ -81,7 +76,7 @@ Branches are automatically named following this format: `feature/issue-{NUMBER}-
 
 ### Examples
 
-| Issue                                    | Auto-Generated Branch                      |
+| Issue                                    | Branch Name                                |
 | ---------------------------------------- | ------------------------------------------ |
 | #15: Fix layout bug on mobile            | `feature/issue-15-fix-layout-bug-mobile`   |
 | #8: Add unit tests for Plant component   | `feature/issue-8-add-unit-tests-component` |
@@ -129,9 +124,9 @@ Your branch: my-cool-feature
 
 ## Troubleshooting
 
-### "Branch already exists when I created the issue"
+### "The branch already exists"
 
-This sometimes happens if an issue is re-opened or if the workflow runs twice. The comment on the issue will show you the existing branch — just check it out:
+Someone (possibly you, earlier) already ran `./scripts/create-issue-branch.sh` for this issue. Just check it out:
 
 ```bash
 git fetch origin
@@ -188,30 +183,14 @@ git push --no-verify
 
 However, the remote GitHub Actions checks will still run and will reject non-conforming branch names. It's better to fix the branch name.
 
-## Optional: Local Branch Helper Script
-
-If you prefer to manually create branches locally (not recommended, since auto-creation is faster), we have an optional helper:
-
-```bash
-./scripts/create-issue-branch.sh
-```
-
-This script:
-
-- Prompts for an issue number and title
-- Generates the proper branch name
-- Creates and checks out the branch locally
-
-However, **you still need to push to origin**, and the branch **must match the auto-created name** for validation to pass. It's simpler to let GitHub Actions create the branch when you create the issue.
-
 ## Best Practices
 
 - ✅ **One issue per branch** — don't combine multiple issues into a single branch
+- ✅ **Create your branch at pickup time**, not before — that's what keeps it forked from current `main` (see Step 2 above)
 - ✅ **Link all PRs to issues** — use `Closes #42` in PR title
 - ✅ **Delete merged branches** — keep the repo clean after your PR is merged
 - ✅ **Make focused commits** — keep commits logically organized and well-described
 - ✅ **Amend commits if needed** — before you push, you can rewrite history on your own branch
-- ❌ **Don't manually create branches** — let GitHub Actions do it automatically
 - ❌ **Don't ignore validation errors** — they're there to keep things organized
 
 ## Questions?

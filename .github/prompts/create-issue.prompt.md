@@ -97,5 +97,5 @@ Use `mcp_github_issue_write` with:
 After creation, tell the user:
 
 - The issue number and URL
-- That GitHub Actions will automatically add it to the project board and create the feature branch within ~15 seconds
-- The expected branch name: `feature/issue-{NUMBER}-{slug}`
+- That GitHub Actions will automatically add it to the project board within ~15 seconds
+- That the branch (`feature/issue-{NUMBER}-{slug}`) is created when work on the issue actually starts, not now — see `.claude/skills/github-issue-and-branch-workflow/SKILL.md`
