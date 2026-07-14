@@ -49,10 +49,15 @@ SLUG=$(echo "$ISSUE_TITLE" | \
   tr '[:upper:]' '[:lower:]' | \
   sed 's/[^a-z0-9 ]//g' | \
   sed 's/^ *//;s/ *$//' | \
-  sed 's/ \+/-/g' | \
-  sed 's/-\+/-/g')
+  sed 's/  */-/g' | \
+  sed 's/--*/-/g')
 
 SLUG=$(echo "$SLUG" | cut -c1-40 | sed 's/-$//')
+
+if [[ -z "$SLUG" ]]; then
+  echo -e "${RED}Error: issue title produces an empty slug; include at least one letter/number in the title${NC}"
+  exit 1
+fi
 
 BRANCH_NAME="feature/issue-${ISSUE_NUMBER}-${SLUG}"
 

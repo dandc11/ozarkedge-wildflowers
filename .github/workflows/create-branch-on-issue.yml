@@ -47,6 +47,11 @@ jobs:
               .slice(0, 40)
               .replace(/-$/, '');
 
+            if (!slug) {
+              core.setFailed('Issue title produces an empty slug; include at least one letter/number in the title');
+              return;
+            }
+
             const branchName = `feature/issue-${issueNumber}-${slug}`;
 
             // Get SHA of main
