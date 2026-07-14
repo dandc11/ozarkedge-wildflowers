@@ -56,7 +56,14 @@ Where:
 - Issue #178 "SEO: Content author tasks" → `feature/issue-178-seo-content-author-tasks`
 - Issue #181 "Set up Google Search Console" → `feature/issue-181-set-up-google-search-console`
 
-**If the branch already exists** (auto-created when the issue was opened), simply check it out:
+Branches are created at **pickup time** (when work on the issue actually starts), not when the issue is opened — this keeps the fork point on current `main` instead of going stale in the backlog. Create it with:
+
+```bash
+git fetch origin main
+git checkout -b feature/issue-{NUMBER}-{slug} origin/main
+```
+
+or run `./scripts/create-issue-branch.sh` for an interactive prompt. **If the branch already exists** (someone else started it), simply check it out:
 
 ```bash
 git fetch origin
@@ -83,12 +90,12 @@ Use the `/create-issue` prompt for all issue creation. It handles template selec
 **Never skip these regardless of template:**
 
 - `assignees: ["dandc11"]` — always
-- GitHub Actions handles the rest on issue open: project board addition and feature branch creation are fully automatic
+- GitHub Actions automatically adds the issue to the project board on open. The feature branch is **not** auto-created — create it yourself at pickup time (see *Branch Naming Convention* above).
 
 ### Workflow Process
 
-1. Issue is created (with assignee) → GitHub Actions automatically adds it to the project board AND creates the branch
-2. Check out the branch and make changes
+1. Issue is created (with assignee) → GitHub Actions automatically adds it to the project board
+2. When you pick up the issue, create the branch off current `main` and check it out
 3. Commit and push to the branch
 4. Create PR with issue number in title (format: "Closes #123: ...")
 5. Validation workflows check branch name and PR linking
