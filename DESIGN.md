@@ -53,10 +53,11 @@ rounded:
 
 ## Overview / Brand & Voice
 
-A photography-led field guide to native wildflowers of the Arkansas Ozarks.
-**Photography is the brand** — design anchors the visitor and must never
-compete with the imagery. No wordmark. Voice is calm, plain-spoken, and
-field-guide accurate: name the plant, the season, the place.
+A non-commercial photography-led field guide to native wildflowers of the Arkansas Ozarks.
+**Photography is the primary torch-bearer of the brand** — design anchors the
+visitor and should resist competing with the imagery. When designing around text, stay
+close to existing site copy. Paraphrasing, correcting grammar, and recontextualizing existing
+copy is fine but avoid inventing new text whole cloth unless there's no alternative.
 
 The token system is deliberately minimal and lives in `/styles/` as CSS
 custom properties (no Tailwind, no CSS-in-JS, no token build pipeline).
@@ -145,6 +146,7 @@ skill for the ResponsiveImage/InteractiveImage tiers).
 
 ## Do's and Don'ts
 
+- **Do** call it out when code or requests violate these guidelines.
 - **Do** consume the semantic tier (`--oe-primary` etc.) and season aliases
   (`--season-*`); **don't** hardcode color literals or reference
   `--{season}-*` palette values outside `styles/seasons.css`.
