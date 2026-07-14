@@ -1,5 +1,7 @@
 # Issue-to-Branch Automation: Implementation Complete
 
+> **Update (#302):** branches are no longer auto-created on issue open — that let a branch's fork point go stale if the issue sat in the backlog before pickup. Branch creation now happens at **pickup time** instead (by the developer or Claude, off current `main`); everything else on this page — naming/validation/PR-linking — is unchanged. See [CONTRIBUTING.md](../CONTRIBUTING.md) and `.claude/skills/github-issue-and-branch-workflow/SKILL.md` for the current flow. The sections below describing `create-branch-on-issue.yml` reflect the original (superseded) design.
+
 ## ✅ What's Been Implemented
 
 ### 1. GitHub Actions Workflows (3 new workflows)
@@ -97,10 +99,10 @@ All workflows are in `.github/workflows/`:
 ```
 Developer creates issue #42
     ↓
-Auto-create workflow creates feature/issue-42-${slug}
+(later, at pickup time) Developer creates feature/issue-42-${slug} off current main
 Branch is now ready to work on
 
-Developer checks out branch and makes changes
+Developer makes changes
     ↓
 Developer pushes to origin
 
@@ -171,7 +173,7 @@ Once branch protection is configured, you can test with:
 
 | Before                             | After                                          |
 | ---------------------------------- | ---------------------------------------------- |
-| Manually create branches per issue | Branches auto-create when issue is created     |
+| Manually create branches per issue | Branch created at pickup time, off current `main`, following a fixed format |
 | No enforcement of branch naming    | Branch name validation on every push           |
 | Manual linking of PR to issue      | Automatic linking if PR title has `Closes #42` |
 | Can push non-conforming branches   | Cannot push unless branch matches format       |
