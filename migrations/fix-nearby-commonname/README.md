@@ -40,5 +40,5 @@ count(*[_type=="nativePlant"].growingNearbyPlantList[defined(commonName) && comm
 
 ## Notes
 
-- Published docs corrected this way will need re-publishing if you want the change live (the patch writes to the document as fetched; confirm draft/published handling for your workflow).
+- Patching a published document ID updates the live (published) content immediately. Only edits made to drafts require publishing — if you patch drafts, publish those documents for the change to go live.
 - See the `sanity-migrations` skill for the full safety checklist.
