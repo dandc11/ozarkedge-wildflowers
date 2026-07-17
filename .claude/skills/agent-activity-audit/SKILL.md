@@ -142,5 +142,5 @@ Compare a field across two snapshots to bound *when* a value changed, independen
 
 ## Related
 
-- Incident this skill grew out of: memory `project_nearby_commonname_incident`.
+- Incidents/research this skill grew out of: Issues #304 (commonName overwrite) and #305 (audit tooling + findings).
 - `sanity-migrations` skill for safe write/rollback workflow.
