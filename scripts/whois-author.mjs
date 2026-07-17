@@ -1,6 +1,10 @@
 /** READ-ONLY: identify transaction author ppMH48DLM (human vs robot vs agent). */
 const projectId = 'zljsx9u1'
 const token = process.env.SANITY_AUTH_TOKEN
+if (!token) {
+  console.error('No SANITY_AUTH_TOKEN. Run with --with-user-token.')
+  process.exit(1)
+}
 // Pass `-- --author=<id>` to resolve a different identity; defaults to the incident author.
 const TARGET = (process.argv.find((a) => a.startsWith('--author=')) || '--author=ppMH48DLM').split('=')[1]
 const h = { Authorization: `Bearer ${token}` }
@@ -12,11 +16,15 @@ async function j(url) {
 
 // 1) Project detail: members (humans) + robots
 const proj = await j(`https://api.sanity.io/v2021-06-07/projects/${projectId}`)
-if (proj.ok) {
+if (!proj.ok) {
+  console.error(`\nProject endpoint status=${proj.status}: ${String(proj.body).slice(0, 200)}`)
+} else {
   const members = proj.body.members || []
   console.log(`\nMembers (${members.length}):`)
   for (const m of members) {
-    console.log(`  id=${m.id} robot=${!!m.isRobot} roles=${(m.roles||[]).map(r=>r.name).join(',')}${m.id===TARGET?'   <== TARGET':''}`)
+    console.log(
+      `  id=${m.id} robot=${!!m.isRobot} roles=${(m.roles || []).map((r) => r.name).join(',')}${m.id === TARGET ? '   <== TARGET' : ''}`
+    )
   }
 }
 

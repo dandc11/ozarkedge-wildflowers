@@ -7,6 +7,10 @@
 const projectId = 'zljsx9u1'
 const dataset = 'prod'
 const token = process.env.SANITY_AUTH_TOKEN
+if (!token) {
+  console.error('No SANITY_AUTH_TOKEN. Run with --with-user-token.')
+  process.exit(1)
+}
 const h = { Authorization: `Bearer ${token}` }
 
 // Known identities on this project (from /projects/<id> members + tokens)

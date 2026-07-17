@@ -1,8 +1,7 @@
 /**
  * READ-ONLY investigation: pull the Sanity History (transactions) API for a few
- * affected nativePlant docs to find WHEN growingNearbyPlantList[].commonName was
- * overwritten with plantBotanicalName, and WHO authored the transaction.
- *
+ * nativePlant docs to see WHEN each doc was mutated and WHO authored each transaction.
+ * (On Free plan, mutation bodies are gated via `excludeContent=true`, so this prints metadata only.)
  * Run: npx sanity exec scripts/investigate-history.mjs --with-user-token
  * (--with-user-token populates SANITY_AUTH_TOKEN; token is never printed.)
  */
