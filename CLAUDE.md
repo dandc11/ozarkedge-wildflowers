@@ -54,6 +54,7 @@ Canonical Agent Skills live in `.claude/skills/*/SKILL.md`. `.github/skills/*/SK
 
 - Never attach or reference `.env.local` in AI chat context. Rotate immediately if credentials are exposed.
 - Mux API credentials are stored in the Sanity dataset (`secrets.mux`), not in env vars.
+- **Never put proper names or personally identifying information (real people's names, emails, phone numbers, addresses) in code, comments, docs, or skills.** Refer to people by role instead (e.g. "the content editor", "the project owner"). Sanity/GitHub **identifiers** (member ids like `pdGwIDhXG`, `sanityUserId`, usernames) are fine — they're opaque and non-identifying. This does not apply to legitimate site content (e.g. a wildflower's common name, image alt text) or to dataset backups, which faithfully snapshot that content.
 
 ## Git Workflow
 
@@ -74,6 +75,7 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 - [Sanity Live + Draft Mode](docs/SANITY_LIVE_DRAFT_MODE.md)
 - [Sanity Hosted Studio](docs/SANITY_HOSTED_STUDIO.md)
 - [Sanity Migrations](docs/SANITY_MIGRATIONS.md)
+- [Backup & rollback runbook](docs/BACKUP_AND_ROLLBACK.md)
 - [Branch automation setup](docs/BRANCH_AUTOMATION_SETUP.md)
 - [Plant relationships queries](docs/PLANT_RELATIONSHIPS_QUERIES.md)
 - [Design system plan (#197)](docs/DESIGN_SYSTEM_PLAN.md)
