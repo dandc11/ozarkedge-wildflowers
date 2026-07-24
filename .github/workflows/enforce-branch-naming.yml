@@ -63,7 +63,9 @@ jobs:
           fi
 
           # Extract issue number from branch name
-          ISSUE_NUMBER=$(echo "$BRANCH_NAME" | grep -oE 'issue-[0-9]+' | grep -oE '[0-9]+')
+          # head -1: a slug may itself contain "issue-<digits>" (e.g.
+          # feature/issue-42-refactor-issue-99-handler); take only the first match.
+          ISSUE_NUMBER=$(echo "$BRANCH_NAME" | grep -oE 'issue-[0-9]+' | head -1 | grep -oE '[0-9]+')
 
           echo "✅ Branch name format is valid"
           echo "   Issue number: #$ISSUE_NUMBER"

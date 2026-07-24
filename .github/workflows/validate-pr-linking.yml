@@ -26,12 +26,12 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           echo "PR Title: $PR_TITLE"
 
-          # Validate the branch shape and extract the issue number.
+          # Extract the issue number from the branch and confirm the issue exists.
           # Accepts an optional `claude/` provenance prefix (Claude-authored
           # branches) and a {feature,research,fix} type — group 3 is the number.
-          # Because `enforce-branch-naming` only skips the harness scratch shape
-          # (`claude/<slug>`), this PR-time check is a strict backstop for any
-          # branch that reached a PR: shape here, issue existence just below.
+          # This validates the prefix+type+number for linking, not the full slug
+          # shape (that's enforce-branch-naming's job at push time); the existence
+          # check just below is a PR-time backstop.
           if ! [[ "$BRANCH_NAME" =~ ^(claude/)?(feature|research|fix)/issue-([0-9]+) ]]; then
             echo "❌ Could not extract issue number from branch name"
             echo "Branch should follow format: {type}/issue-{NUMBER}-{slug}"
