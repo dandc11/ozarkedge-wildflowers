@@ -8,7 +8,7 @@ body:
       value: |
         ### 🌿 Branch Naming
 
-        When you pick up this issue, create a branch in the format `feature/issue-{NUMBER}-{slug}` (run `./scripts/create-issue-branch.sh` for an interactive helper).
+        When you pick up this issue, create a branch in the format `{type}/issue-{NUMBER}-{slug}` — for research issues `research/` is the natural type (run `./scripts/create-issue-branch.sh` for an interactive helper). Claude-authored branches add a leading `claude/` prefix.
 
         See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full workflow.
   - type: input

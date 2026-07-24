@@ -20,7 +20,7 @@ Branches are **not** created when the issue is opened — they're created when w
 ./scripts/create-issue-branch.sh
 ```
 
-It prompts for the issue number and title, generates the branch name (`feature/issue-{NUMBER}-{slug}`), and checks it out. (Claude follows the same convention automatically — see `.claude/skills/github-issue-and-branch-workflow/SKILL.md`.)
+It prompts for the issue number, branch type, and title, generates the branch name (`{type}/issue-{NUMBER}-{slug}`, where `{type}` ∈ `feature`/`research`/`fix`), and checks it out. (Claude follows the same convention automatically, adding a leading `claude/` prefix to mark its branches — see `.claude/skills/github-issue-and-branch-workflow/SKILL.md`.)
 
 ### Step 3: Work on Your Branch
 
@@ -42,7 +42,7 @@ git push origin feature/issue-{NUMBER}-{slug}
 **After you push:**
 
 - GitHub Actions runs `enforce-branch-naming` workflow
-- Validates the branch name follows `feature/issue-{NUMBER}-*` format
+- Validates the branch name follows `{type}/issue-{NUMBER}-*` format (optional `claude/` prefix; harness `claude/…` scratch branches are skipped)
 - Ensures the referenced issue exists and is open
 - ❌ If invalid, the push check fails with a clear error message
 - ✅ If valid, the check passes and GitHub marks it as successful
@@ -66,13 +66,14 @@ GitHub Actions runs `validate-pr-linking` workflow:
 
 ## Branch Naming Convention
 
-Branches follow this format: `feature/issue-{NUMBER}-{slug}`
+Branches follow this format: `{type}/issue-{NUMBER}-{slug}` (optionally prefixed with `claude/`)
 
-| Part                 | Example                   | Purpose                                  |
-| -------------------- | ------------------------- | ---------------------------------------- |
-| `feature/`           | `feature/`                | Indicates this is feature/issue work     |
-| `issue-{NUMBER}`     | `issue-42`                | GitHub issue number                      |
-| `{description-slug}` | `add-native-plant-filter` | Kebab-case slug derived from issue title |
+| Part                 | Example                   | Purpose                                                             |
+| -------------------- | ------------------------- | ------------------------------------------------------------------ |
+| `claude/` (optional) | `claude/`                 | Provenance: present on Claude-authored branches, absent on human ones |
+| `{type}/`            | `feature/`                | Work type — `feature` (default), `research` (spikes), or `fix` (bugs) |
+| `issue-{NUMBER}`     | `issue-42`                | GitHub issue number                                                |
+| `{description-slug}` | `add-native-plant-filter` | Kebab-case slug derived from issue title                           |
 
 ### Examples
 
@@ -84,11 +85,13 @@ Branches follow this format: `feature/issue-{NUMBER}-{slug}`
 
 **Note:** Slugs are automatically shortened to ~40 characters to keep branch names reasonable. Examples: `feature/issue-42-add-native-filter` instead of `feature/issue-42-add-native-wildflower-plant-filter`
 
+**Provenance prefix:** Claude Code sessions prefix their branches with `claude/` (e.g. `claude/feature/issue-42-add-native-filter`) so it's clear at a glance who authored the branch; human contributors use the bare form. CI accepts either and enforces the identical shape and issue-existence check. (Cloud/web Claude sessions also start on a harness-assigned `claude/…` scratch branch, which CI skips — it's just a landing pad.)
+
 ## Validation & Enforcement
 
 ### What Gets Checked
 
-- **Branch name format** — must be `feature/issue-{NUMBER}-*`
+- **Branch name format** — must be `{type}/issue-{NUMBER}-*` (`{type}` ∈ feature/research/fix, optional `claude/` prefix)
 - **Issue existence** — the issue number must exist in the repository
 - **Issue status** — the issue should be open (not closed/archived)
 - **PR title linking** — PR title must contain `Closes #NUM` or `Fixes #NUM`
@@ -110,12 +113,14 @@ You'll see a clear error message. For example:
 ```
 ❌ BRANCH NAME INVALID
 
-Expected format: feature/issue-{NUMBER}-{description-slug}
+Expected format: <type>/issue-{NUMBER}-{description-slug}
+  <type> ∈ {feature, research, fix}; optionally prefixed with claude/
 
 Examples of valid branch names:
   - feature/issue-42-add-plant-filter
-  - feature/issue-15-fix-mobile-layout
-  - feature/issue-8-update-tests
+  - research/issue-15-spike-image-pipeline
+  - fix/issue-8-mobile-layout
+  - claude/feature/issue-42-add-plant-filter   (Claude-authored)
 
 Your branch: my-cool-feature
 ```
@@ -169,7 +174,7 @@ git push -u origin feature/issue-42-correct-name
 
 Check the GitHub Actions workflow logs (go to your PR → click the failing check). Common issues:
 
-- **Branch name doesn't match pattern:** Rename your branch to `feature/issue-{NUMBER}-{slug}`
+- **Branch name doesn't match pattern:** Rename your branch to `{type}/issue-{NUMBER}-{slug}` (`{type}` ∈ feature/research/fix)
 - **PR title missing issue reference:** Update PR title to include `Closes #42` or `Fixes #42`
 - **Issue number mismatch:** Branch says `#42` but PR title says `#43` — make them match
 

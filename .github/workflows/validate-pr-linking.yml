@@ -26,15 +26,35 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           echo "PR Title: $PR_TITLE"
 
-          # Extract issue number from branch name
-          if ! [[ "$BRANCH_NAME" =~ ^feature/issue-([0-9]+) ]]; then
+          # Extract the issue number from the branch and confirm the issue exists.
+          # Accepts an optional `claude/` provenance prefix (Claude-authored
+          # branches) and a {feature,research,fix} type — group 3 is the number.
+          # This validates the prefix+type+number for linking, not the full slug
+          # shape (that's enforce-branch-naming's job at push time); the existence
+          # check just below is a PR-time backstop.
+          if ! [[ "$BRANCH_NAME" =~ ^(claude/)?(feature|research|fix)/issue-([0-9]+) ]]; then
             echo "❌ Could not extract issue number from branch name"
-            echo "Branch should follow format: feature/issue-{NUMBER}-{slug}"
+            echo "Branch should follow format: {type}/issue-{NUMBER}-{slug}"
+            echo "  {type} ∈ {feature, research, fix}; optionally prefixed with claude/"
+            echo "Your branch: $BRANCH_NAME"
             exit 1
           fi
 
-          ISSUE_NUMBER_FROM_BRANCH="${BASH_REMATCH[1]}"
+          ISSUE_NUMBER_FROM_BRANCH="${BASH_REMATCH[3]}"
           echo "ℹ️  Issue number from branch: #$ISSUE_NUMBER_FROM_BRANCH"
+
+          # Verify the referenced issue actually exists (mirrors enforce-branch-naming).
+          OWNER=$(echo "$REPO" | cut -d'/' -f1)
+          REPO_NAME=$(echo "$REPO" | cut -d'/' -f2)
+          ISSUE_DATA=$(curl -s \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$OWNER/$REPO_NAME/issues/$ISSUE_NUMBER_FROM_BRANCH")
+          if echo "$ISSUE_DATA" | grep -q '"message": "Not Found"'; then
+            echo "❌ Issue #$ISSUE_NUMBER_FROM_BRANCH (from the branch name) does not exist"
+            exit 1
+          fi
+          echo "✅ Issue #$ISSUE_NUMBER_FROM_BRANCH exists"
 
           # Check if PR title contains "Closes #NUM" or "Fixes #NUM"
           if [[ "$PR_TITLE" =~ [Cc]loses\ #([0-9]+) ]]; then

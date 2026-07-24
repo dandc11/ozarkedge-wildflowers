@@ -1,6 +1,8 @@
 # Issue-to-Branch Automation: Implementation Complete
 
-> **Update (#302):** branches are no longer auto-created on issue open — that let a branch's fork point go stale if the issue sat in the backlog before pickup. Branch creation now happens at **pickup time** instead (by the developer or Claude, off current `main`); everything else on this page — naming/validation/PR-linking — is unchanged. See [CONTRIBUTING.md](../CONTRIBUTING.md) and `.claude/skills/github-issue-and-branch-workflow/SKILL.md` for the current flow. The sections below describing `create-branch-on-issue.yml` reflect the original (superseded) design.
+> **Update (#302):** branches are no longer auto-created on issue open — that let a branch's fork point go stale if the issue sat in the backlog before pickup. Branch creation now happens at **pickup time** instead (by the developer or Claude, off current `main`). `create-branch-on-issue.yml` is now a manual `workflow_dispatch` escape hatch, not an on-open trigger. See [CONTRIBUTING.md](../CONTRIBUTING.md) and `.claude/skills/github-issue-and-branch-workflow/SKILL.md` for the current flow. The sections below describing on-open auto-creation reflect the original (superseded) design.
+>
+> **Update (#315):** the enforced branch shape is now `{type}/issue-{NUMBER}-{slug}` where `{type}` ∈ `feature`/`research`/`fix`, optionally prefixed with `claude/` for Claude-authored branches (provenance). CI treats the `claude/` prefix as optional and enforces the same shape + issue-existence check at push time (`enforce-branch-naming` + local `.husky/pre-push`) and PR time (`validate-pr-linking`). Only the harness-assigned `claude/…` scratch landing-pad branch (matching `^claude/[^/]+$`, no `/issue-`) is skipped. The `.claude/skills/github-issue-and-branch-workflow/SKILL.md` skill is the single source of truth for the exact regex; the `feature/issue-…` examples below are still valid (feature is one of the types).
 
 ## ✅ What's Been Implemented
 
@@ -8,19 +10,20 @@
 
 All workflows are in `.github/workflows/`:
 
-- **`create-branch-on-issue.yml`** — Triggers when issues are created
-  - Automatically creates a branch: `feature/issue-{NUMBER}-{slug}`
+- **`create-branch-on-issue.yml`** — Manual escape hatch (`workflow_dispatch`; formerly triggered on issue create)
+  - Creates a bare branch: `{type}/issue-{NUMBER}-{slug}` (accepts a `type` input, default `feature`)
   - Parses issue title and generates kebab-case slug
   - Posts comment on issue with branch link
   - Auto-assigns issue to the issue creator
 
 - **`enforce-branch-naming.yml`** — Triggers on every push
-  - Validates branch name matches `feature/issue-{NUMBER}-{slug}` pattern
+  - Validates branch name matches `(claude/)?{type}/issue-{NUMBER}-{slug}` pattern (type ∈ feature/research/fix; harness `claude/…` scratch branches skipped)
   - Verifies the issue number exists and is open
   - Blocks non-conforming pushes with helpful error messages
   - Shows exact format expected if validation fails
 
 - **`validate-pr-linking.yml`** — Triggers on PR opened/edited
+  - Validates the branch shape (optional `claude/` prefix + type set) and that the referenced issue exists
   - Checks PR title contains `Closes #NUM` or `Fixes #NUM`
   - Verifies issue number in title matches issue number in branch
   - Auto-links PR to issue (GitHub does this automatically)
@@ -195,7 +198,7 @@ When you're ready to roll this out to your team, share:
 ## ❓ FAQ
 
 **Q: What if someone creates a branch manually?**
-A: If it doesn't match `feature/issue-{NUMBER}-*`, the push will be blocked with a helpful error message.
+A: If it doesn't match `(claude/)?{type}/issue-{NUMBER}-*` (type ∈ feature/research/fix), the push will be blocked with a helpful error message. The only exception is a harness-assigned `claude/…` scratch landing-pad branch, which is skipped.
 
 **Q: What if the issue number in the branch doesn't exist?**
 A: The `enforce-branch-naming` workflow will detect this and reject the push.

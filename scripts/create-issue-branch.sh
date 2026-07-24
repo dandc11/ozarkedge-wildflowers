@@ -5,8 +5,12 @@
 # 
 # Usage: ./scripts/create-issue-branch.sh
 #
-# Prompts for issue number and title, then creates a branch following:
-# feature/issue-{NUMBER}-{description-slug}
+# Prompts for issue number, branch type, and title, then creates a branch:
+# {type}/issue-{NUMBER}-{description-slug}   (type ∈ feature | research | fix)
+#
+# This helper is for human contributors and emits a BARE branch. Claude-authored
+# branches additionally carry a leading `claude/` prefix (see the
+# github-issue-and-branch-workflow skill); CI accepts either form.
 #
 
 set -e
@@ -25,6 +29,15 @@ read -p "$(echo -e ${YELLOW}Enter issue number (e.g., 42):${NC} )" ISSUE_NUMBER
 
 if [[ ! "$ISSUE_NUMBER" =~ ^[0-9]+$ ]]; then
   echo -e "${RED}Error: Issue number must be a positive integer${NC}"
+  exit 1
+fi
+
+# Prompt for branch type (feature | research | fix)
+read -p "$(echo -e ${YELLOW}Branch type [feature/research/fix] \(default: feature\):${NC} )" BRANCH_TYPE
+BRANCH_TYPE="${BRANCH_TYPE:-feature}"
+
+if [[ ! "$BRANCH_TYPE" =~ ^(feature|research|fix)$ ]]; then
+  echo -e "${RED}Error: branch type must be one of: feature, research, fix${NC}"
   exit 1
 fi
 
@@ -59,7 +72,7 @@ if [[ -z "$SLUG" ]]; then
   exit 1
 fi
 
-BRANCH_NAME="feature/issue-${ISSUE_NUMBER}-${SLUG}"
+BRANCH_NAME="${BRANCH_TYPE}/issue-${ISSUE_NUMBER}-${SLUG}"
 
 # Check if branch already exists
 if git rev-parse --verify "$BRANCH_NAME" >/dev/null 2>&1; then
