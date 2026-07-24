@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - '**'
+      # Claude Code web/remote sessions push to a harness-assigned `claude/*`
+      # scratch branch (named by the cloud system, not this convention). Skip
+      # push-time branch-name enforcement on all `claude/*` branches — including
+      # `claude/feature/issue-{N}-{slug}` work branches. The `feature/issue-{N}`
+      # shape is still enforced at PR time by `validate-pr-linking`, which accepts
+      # the optional `claude/` prefix.
+      - '!claude/**'
 
 jobs:
   validate-branch-name:

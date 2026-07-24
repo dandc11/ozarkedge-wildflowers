@@ -26,14 +26,17 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           echo "PR Title: $PR_TITLE"
 
-          # Extract issue number from branch name
-          if ! [[ "$BRANCH_NAME" =~ ^feature/issue-([0-9]+) ]]; then
+          # Extract issue number from branch name.
+          # Accept an optional `claude/` prefix so Claude-authored PR branches
+          # (`claude/feature/issue-{N}-{slug}`) pass alongside bare human branches
+          # (`feature/issue-{N}-{slug}`). Group 1 = optional prefix, group 2 = number.
+          if ! [[ "$BRANCH_NAME" =~ ^(claude/)?feature/issue-([0-9]+) ]]; then
             echo "❌ Could not extract issue number from branch name"
-            echo "Branch should follow format: feature/issue-{NUMBER}-{slug}"
+            echo "Branch should follow format: feature/issue-{NUMBER}-{slug} (optionally prefixed with claude/)"
             exit 1
           fi
 
-          ISSUE_NUMBER_FROM_BRANCH="${BASH_REMATCH[1]}"
+          ISSUE_NUMBER_FROM_BRANCH="${BASH_REMATCH[2]}"
           echo "ℹ️  Issue number from branch: #$ISSUE_NUMBER_FROM_BRANCH"
 
           # Check if PR title contains "Closes #NUM" or "Fixes #NUM"
