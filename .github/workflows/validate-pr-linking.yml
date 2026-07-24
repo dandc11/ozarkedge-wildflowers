@@ -26,13 +26,17 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           echo "PR Title: $PR_TITLE"
 
-          # Extract issue number from branch name.
-          # Accept an optional `claude/` prefix so Claude-authored PR branches
-          # (`claude/feature/issue-{N}-{slug}`) pass alongside bare human branches
-          # (`feature/issue-{N}-{slug}`). Group 1 = optional prefix, group 2 = number.
-          if ! [[ "$BRANCH_NAME" =~ ^(claude/)?feature/issue-([0-9]+) ]]; then
-            echo "❌ Could not extract issue number from branch name"
-            echo "Branch should follow format: feature/issue-{NUMBER}-{slug} (optionally prefixed with claude/)"
+          # Validate the full branch shape AND extract the issue number.
+          # This mirrors enforce-branch-naming's pattern (with the `$` end anchor
+          # and lowercase `-{slug}`), plus an optional `claude/` prefix. Because
+          # `claude/**` branches are skipped by enforce-branch-naming at push time,
+          # this PR-time check is their only branch-name gate and must be equally
+          # strict. Group 1 = optional prefix, group 2 = issue number.
+          if ! [[ "$BRANCH_NAME" =~ ^(claude/)?feature/issue-([0-9]+)-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
+            echo "❌ Branch name does not match the required format"
+            echo "Expected: feature/issue-{NUMBER}-{slug} (optionally prefixed with claude/)"
+            echo "  e.g. feature/issue-42-add-plant-filter or claude/feature/issue-42-add-plant-filter"
+            echo "Your branch: $BRANCH_NAME"
             exit 1
           fi
 
