@@ -30,19 +30,31 @@ fi
 echo -e "${BLUE}🔍 Validating branch name before push...${NC}"
 echo "   Branch: $BRANCH"
 
+# Harness scratch landing-pad branches (e.g. claude/public-repo-job-search-mndujp)
+# are a single segment after `claude/` with no `/issue-`. They're throwaway and
+# can't carry an issue number, so skip enforcement. Real claude/<type>/issue-N
+# work branches have a nested `/` and fall through to full validation below.
+if [[ "$BRANCH" =~ ^claude/[^/]+$ ]]; then
+  echo -e "${GREEN}ℹ️  Harness scratch branch — skipping branch-name validation${NC}"
+  exit 0
+fi
+
 # Check if branch matches the required pattern
-# Pattern: feature/issue-{NUMBER}-{slug}
-# Regex: ^feature/issue-[0-9]+-[a-z0-9](-?[a-z0-9])*$
-if ! [[ "$BRANCH" =~ ^feature/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
+# Pattern: <type>/issue-{NUMBER}-{slug}, <type> ∈ {feature, research, fix},
+#   optionally prefixed with `claude/` for Claude-authored branches.
+# Regex: ^(claude/)?(feature|research|fix)/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$
+if ! [[ "$BRANCH" =~ ^(claude/)?(feature|research|fix)/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
   echo ""
   echo -e "${RED}❌ PUSH REJECTED: Invalid branch name${NC}"
   echo ""
-  echo "Expected format: feature/issue-{NUMBER}-{description-slug}"
+  echo "Expected format: <type>/issue-{NUMBER}-{description-slug}"
+  echo "  <type> ∈ {feature, research, fix}; optionally prefixed with claude/"
   echo ""
   echo "Examples:"
   echo "  ✅ feature/issue-42-add-plant-filter"
-  echo "  ✅ feature/issue-15-fix-mobile-layout"
-  echo "  ✅ feature/issue-8-update-tests"
+  echo "  ✅ research/issue-15-spike-image-pipeline"
+  echo "  ✅ fix/issue-8-mobile-layout"
+  echo "  ✅ claude/feature/issue-42-add-plant-filter   (Claude-authored)"
   echo ""
   echo "Your branch: $BRANCH"
   echo ""

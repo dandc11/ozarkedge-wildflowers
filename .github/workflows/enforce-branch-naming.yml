@@ -21,20 +21,37 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          # Expected format: feature/issue-{NUMBER}-{slug}
-          # Regex: ^feature/issue-[0-9]+-[a-z0-9](-?[a-z0-9])*$
+          # Expected work-branch format: <type>/issue-{NUMBER}-{slug}
+          #   <type> ∈ {feature, research, fix}, optionally prefixed with `claude/`
+          #   for Claude-authored branches (provenance). CI treats the prefix as
+          #   optional and validates the same shape either way.
+          # Work-branch regex: ^(claude/)?(feature|research|fix)/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$
 
           echo "🔍 Validating branch name: $BRANCH_NAME"
 
-          if ! [[ "$BRANCH_NAME" =~ ^feature/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
+          # Claude Code web/remote sessions land on a harness-assigned scratch
+          # branch (e.g. `claude/public-repo-job-search-mndujp`) — a single
+          # segment after `claude/`, with no `/issue-`. It's a throwaway landing
+          # pad, not a work branch, and can't carry an issue number, so skip it.
+          # Real `claude/<type>/issue-N` work branches have a nested `/` and are
+          # validated below (shape + issue existence) like any other branch.
+          if [[ "$BRANCH_NAME" =~ ^claude/[^/]+$ ]]; then
+            echo "ℹ️  Harness scratch branch detected — skipping branch-name enforcement."
+            echo "   (Real claude/<type>/issue-N work branches are still fully validated.)"
+            exit 0
+          fi
+
+          if ! [[ "$BRANCH_NAME" =~ ^(claude/)?(feature|research|fix)/issue-[0-9]+-[a-z0-9]([a-z0-9-]*[a-z0-9])?$ ]]; then
             echo "❌ BRANCH NAME INVALID"
             echo ""
-            echo "Expected format: feature/issue-{NUMBER}-{description-slug}"
+            echo "Expected format: <type>/issue-{NUMBER}-{description-slug}"
+            echo "  <type> ∈ {feature, research, fix}; optionally prefixed with claude/"
             echo ""
             echo "Examples of valid branch names:"
             echo "  - feature/issue-42-add-plant-filter"
-            echo "  - feature/issue-15-fix-mobile-layout"
-            echo "  - feature/issue-8-update-tests"
+            echo "  - research/issue-15-spike-image-pipeline"
+            echo "  - fix/issue-8-mobile-layout"
+            echo "  - claude/feature/issue-42-add-plant-filter   (Claude-authored)"
             echo ""
             echo "Your branch: $BRANCH_NAME"
             echo ""

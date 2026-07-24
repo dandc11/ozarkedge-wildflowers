@@ -43,31 +43,34 @@ A Next.js 15 (App Router) site about native Arkansas wildflowers, powered by San
 When working on a GitHub issue, **always use this branch name format:**
 
 ```
-feature/issue-{NUMBER}-{slug}
+{type}/issue-{NUMBER}-{slug}
 ```
 
 Where:
 
+- `{type}` is `feature` (default — enhancements and general work), `research` (spikes/investigations), or `fix` (bug fixes)
 - `{NUMBER}` is the GitHub issue number (e.g., `178`)
 - `{slug}` is a kebab-case approximation of the issue title (lowercase, words separated by dashes, max ~40 chars)
+
+> **Prefix note:** the leading `claude/` prefix (`claude/{type}/issue-{NUMBER}-{slug}`) is reserved for **Claude Code** sessions as a provenance marker. Copilot and human contributors use the **bare** form above. CI accepts either and enforces the same shape.
 
 **Examples:**
 
 - Issue #178 "SEO: Content author tasks" → `feature/issue-178-seo-content-author-tasks`
-- Issue #181 "Set up Google Search Console" → `feature/issue-181-set-up-google-search-console`
+- Issue #181 "Set up Google Search Console" → `research/issue-181-set-up-google-search-console`
 
 Branches are created at **pickup time** (when work on the issue actually starts), not when the issue is opened — this keeps the fork point on current `main` instead of going stale in the backlog. Create it with:
 
 ```bash
 git fetch origin main
-git checkout -b feature/issue-{NUMBER}-{slug} origin/main
+git checkout -b {type}/issue-{NUMBER}-{slug} origin/main
 ```
 
-or run `./scripts/create-issue-branch.sh` for an interactive prompt. **If the branch already exists** (someone else started it), simply check it out:
+or run `./scripts/create-issue-branch.sh` for an interactive prompt (it asks for the `{type}`). **If the branch already exists** (someone else started it), simply check it out:
 
 ```bash
 git fetch origin
-git checkout feature/issue-{NUMBER}-{slug}
+git checkout {type}/issue-{NUMBER}-{slug}
 ```
 
 ### Pull Request Linking

@@ -11,6 +11,15 @@ on:
       issue_number:
         description: Issue number to create branch for
         required: true
+      type:
+        description: Branch type prefix
+        required: false
+        default: feature
+        type: choice
+        options:
+          - feature
+          - research
+          - fix
 
 jobs:
   create-branch:
@@ -32,6 +41,15 @@ jobs:
 
             const { owner, repo } = context.repo;
 
+            // Branch type prefix (feature | research | fix). This Action emits a
+            // BARE branch, matching scripts/create-issue-branch.sh — Claude-authored
+            // branches add a leading `claude/` prefix elsewhere; CI accepts either.
+            const type = (context.payload.inputs?.type || 'feature');
+            if (!['feature', 'research', 'fix'].includes(type)) {
+              core.setFailed(`Invalid branch type: ${type} (expected feature, research, or fix)`);
+              return;
+            }
+
             // Fetch issue to get title
             const { data: issue } = await github.rest.issues.get({
               owner, repo, issue_number: issueNumber
@@ -52,7 +70,7 @@ jobs:
               return;
             }
 
-            const branchName = `feature/issue-${issueNumber}-${slug}`;
+            const branchName = `${type}/issue-${issueNumber}-${slug}`;
 
             // Get SHA of main
             const { data: mainRef } = await github.rest.git.getRef({

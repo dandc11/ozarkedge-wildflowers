@@ -50,5 +50,5 @@ Review the changed files and check each area:
 
 ## Also Verify Before Opening the PR
 
-- [ ] Branch name matches `feature/issue-{NUMBER}-{slug}` — see the `github-issue-and-branch-workflow` skill
+- [ ] Branch name matches `(claude/)?{type}/issue-{NUMBER}-{slug}` (`{type}` ∈ feature/research/fix; `claude/` prefix for Claude-authored branches) — see the `github-issue-and-branch-workflow` skill
 - [ ] PR title starts with `Closes #{NUMBER}:` or `Fixes #{NUMBER}:` matching the issue number in the branch name

@@ -98,4 +98,4 @@ After creation, tell the user:
 
 - The issue number and URL
 - That GitHub Actions will automatically add it to the project board within ~15 seconds
-- That the branch (`feature/issue-{NUMBER}-{slug}`) is created when work on the issue actually starts, not now — see `.claude/skills/github-issue-and-branch-workflow/SKILL.md`
+- That the branch (`{type}/issue-{NUMBER}-{slug}` — `{type}` ∈ feature/research/fix, with a leading `claude/` prefix when Claude picks it up) is created when work on the issue actually starts, not now — see `.claude/skills/github-issue-and-branch-workflow/SKILL.md`
