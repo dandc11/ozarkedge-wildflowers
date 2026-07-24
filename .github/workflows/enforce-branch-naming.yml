@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - '**'
+      # Claude Code web/remote sessions push to a pre-assigned `claude/*` working
+      # branch (named by the harness, not this convention). Skip branch-name
+      # enforcement on those — the `feature/issue-{N}` format is still required on
+      # any branch that opens a PR, which `validate-pr-linking` enforces at PR time.
+      - '!claude/**'
 
 jobs:
   validate-branch-name:
