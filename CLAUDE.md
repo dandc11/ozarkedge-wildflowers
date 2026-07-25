@@ -78,4 +78,5 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 - [Backup & rollback runbook](docs/BACKUP_AND_ROLLBACK.md)
 - [Branch automation setup](docs/BRANCH_AUTOMATION_SETUP.md)
 - [Plant relationships queries](docs/PLANT_RELATIONSHIPS_QUERIES.md)
+- [TypeScript migration plan (#310)](docs/TYPESCRIPT_MIGRATION_PLAN.md)
 - [Design system plan (#197)](docs/DESIGN_SYSTEM_PLAN.md)
