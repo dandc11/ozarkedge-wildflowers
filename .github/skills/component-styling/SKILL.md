@@ -1,0 +1,1 @@
+../../../.claude/skills/component-styling/SKILL.md

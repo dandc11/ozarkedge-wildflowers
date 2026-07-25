@@ -1,0 +1,1 @@
+../../../.claude/skills/nextjs-page-scaffolding/SKILL.md

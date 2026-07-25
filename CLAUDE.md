@@ -44,6 +44,8 @@ Canonical Agent Skills live in `.claude/skills/*/SKILL.md`. `.github/skills/*/SK
 - **github-issue-and-branch-workflow** — issue templates/labels and the CI-enforced branch/PR naming rules
 - **pr-self-review** — repo-specific pre-PR checklist (pattern compliance, a11y, styles, security, testing)
 - **claude-design-workflow** — the Claude Code ↔ Claude Design loop for design-system work: divergent/convergent split, thin-brief handoff, four approval gates, DESIGN.md (design.md convention) as shared source of truth
+- **component-styling** — `styles/` directory split, token usage, container-query-first responsive design, and the no-Tailwind constraint
+- **nextjs-page-scaffolding** — the full new-page workflow (GROQ query, `sanityFetch`/`draftMode()`/`generateStaticParams`/`notFound`, page CSS, `generateMetadata`)
 
 ## Code Style
 
