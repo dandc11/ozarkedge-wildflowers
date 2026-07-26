@@ -216,7 +216,13 @@ Each phase is independently mergeable and sized to become its own
    _effort_ by Phase 0 (TypeGen reads schema definitions regardless of
    whether they're authored in `.js` or `.ts`), so this phase is about
    type-safety of the schema-authoring code itself (`defineField`/
-   `defineType` generics), not a prerequisite for TypeGen.
+   `defineType` generics), not a prerequisite for TypeGen. **Soft
+   dependency on #301** (dev Sanity dataset + sync strategy): this is the
+   one phase that touches schema-authoring code and eventually means
+   redeploying the Studio, so it should be validated against the dev
+   dataset first rather than the hosted Studio editors use daily.
+   Phases 0–2 don't touch schema definitions or require a Studio deploy,
+   so they aren't gated on #301.
 5. **Phase 4 — Components.** Convert `components/*` leaf-first (present
    sub-components before container components that compose them), test
    files trail or accompany per the judgment call above.
