@@ -19,7 +19,8 @@
     "test:integration": "jest --testPathPattern=tests/integration",
     "sanity:backup": "sanity dataset export prod backups/backup-$(date +%Y%m%d-%H%M%S).tar.gz",
     "sanity:backup-json": "sanity dataset export prod backups/backup-$(date +%Y%m%d-%H%M%S).json",
-    "sanity:backup-script": "node scripts/backup-sanity.js"
+    "sanity:backup-script": "node scripts/backup-sanity.js",
+    "sanity:sync-dev": "sanity dataset export prod .sanity-dev-sync.tar.gz --overwrite && sanity dataset import .sanity-dev-sync.tar.gz dev --replace && rm .sanity-dev-sync.tar.gz"
   },
   "prettier": {
     "semi": false,

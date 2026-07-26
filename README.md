@@ -43,7 +43,7 @@ Add these to `.env.local` (git-ignored). Values come from the Sanity project set
 | Variable | Required | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | ✅ | Sanity project ID used by the client |
-| `NEXT_PUBLIC_SANITY_DATASET` | ✅ | Sanity dataset name (e.g. `production`) |
+| `NEXT_PUBLIC_SANITY_DATASET` | ✅ | Sanity dataset name — `prod` for the live site, or `dev` for local development against the isolated dev dataset (see [docs/DEV_DATASET.md](docs/DEV_DATASET.md)) |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | optional | Sanity API version date (defaults to `2024-10-28` if unset) |
 | `SANITY_API_READ_TOKEN` | ✅ | Server-side read token for Draft Mode / authenticated reads |
 | `NEXT_PUBLIC_SANITY_STUDIO_URL` | optional | URL of the hosted Studio, used for "open in Studio" links |
@@ -67,6 +67,7 @@ Add these to `.env.local` (git-ignored). Values come from the Sanity project set
 | `npm run analyze` | Production build with the bundle analyzer (`ANALYZE=true`) |
 | `npm run migrate` | Run the Sanity content migration script |
 | `npm run sanity:backup` | Export the `prod` dataset to `backups/` |
+| `npm run sanity:sync-dev` | Refresh the `dev` dataset with a fresh copy of `prod` (see [docs/DEV_DATASET.md](docs/DEV_DATASET.md)) |
 
 ## Sanity Studio
 
