@@ -813,28 +813,47 @@ On the free tier, manage draft and published states using standard draft convent
 
 The Structure tool's default view lists all document types as flat document lists. For better editor experience, use Structure Builder to create singletons, group types, and add custom panes.
 
-**Current state:** This project uses `structureTool()` with no customization. Singleton document types (siteSettings, landingPage, aboutPage, plantListPage, notFound, menu) appear as document lists, which is suboptimal since editors should edit a single document rather than pick from a list.
+**Current state:** `sanity/structure/index.js` customizes the Structure pane (#213). Singleton document types (`welcomeSection`, `landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`, `siteSettings`, `menu`) open directly to their editor instead of a document list, with the four page singletons (`landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`) nested under a "Pages" list item. `nativePlant`, `season`, and `pollinator` are unaffected — they remain standard top-level document lists, not grouped under "Pages".
 
-**Singleton pattern:**
+**Singleton pattern — beware fixed vs. auto-generated `_id`:** `S.document().documentId(type)` only opens the right document if that document's `_id` actually equals `type`. `welcomeSection` was created that way, so it can hardcode the id directly. The other singletons in this project have ordinary auto-generated ids — hardcoding `.documentId('siteSettings')` for one of those would silently create a stray duplicate document instead of opening the existing one. For those, resolve the real id at Studio load time:
 
 ```javascript
 // structure/index.js
-import { structureTool } from 'sanity/structure'
+const SINGLETONS = ['welcomeSection', 'siteSettings']
 
-export const structure = (S) =>
+const singletonItem = (S, context, { type, title, icon }) =>
+  S.listItem()
+    .id(type)
+    .title(title)
+    .icon(icon)
+    .child(() =>
+      context
+        .getClient({ apiVersion: '2024-10-28' })
+        // Exclude drafts — documentId() expects the published base id and
+        // overlays the draft itself; a raw drafts.<id> targets the wrong document.
+        .fetch(`*[_type == $type && !(_id in path("drafts.**"))][0]._id`, { type })
+        .then((id) =>
+          S.document()
+            .schemaType(type)
+            .documentId(id || type)
+            .title(title),
+        ),
+    )
+
+export const structure = (S, context) =>
   S.list()
     .title('Content')
     .items([
-      // Singleton — opens directly to the document editor
+      // Fixed-id singleton — safe to hardcode documentId
       S.listItem()
-        .id('siteSettings')
-        .schemaType('siteSettings')
-        .title('Site Settings')
-        .child(S.editor().id('siteSettings').schemaType('siteSettings').documentId('siteSettings')),
+        .title('Welcome Section')
+        .child(S.document().schemaType('welcomeSection').documentId('welcomeSection')),
       S.divider(),
       // Regular document type lists
-      S.documentTypeListItem('nativePlant').title('Native Plants'),
-      S.documentTypeListItem('season').title('Seasons'),
+      ...S.documentTypeListItems().filter((item) => !SINGLETONS.includes(item.getId())),
+      S.divider(),
+      // Auto-generated-id singleton — resolved via singletonItem()
+      singletonItem(S, context, { type: 'siteSettings', title: 'Site Settings' }),
     ])
 ```
 
@@ -855,10 +874,10 @@ S.listItem()
     S.list()
       .title('Pages')
       .items([
-        S.documentTypeListItem('landingPage').title('Landing Page'),
-        S.documentTypeListItem('aboutPage').title('About Page'),
-        S.documentTypeListItem('plantListPage').title('Plant List Page'),
-        S.documentTypeListItem('notFound').title('404 Page'),
+        singletonItem(S, context, { type: 'landingPage', title: 'Landing Page' }),
+        singletonItem(S, context, { type: 'aboutPage', title: 'About Page' }),
+        singletonItem(S, context, { type: 'plantListPage', title: 'Plant List Page' }),
+        singletonItem(S, context, { type: 'notFoundPage', title: '404 Page' }),
       ]),
   )
 ```
