@@ -10,7 +10,7 @@
 rest of the conversion, skip codemod tooling, and stay a permanent JS/TS
 hybrid rather than commit to a big-bang or a 100%-converted end state.**
 
-The codebase is small (~11.3k non-test source lines across 116 `.js`/`.jsx`
+The codebase is small (~10.8k non-test source lines across 116 `.js`/`.jsx`
 files — see Inventory), already disciplined (JSDoc on 28 files, no PropTypes,
 no legacy class-component patterns to fight), and Next.js/Jest already
 support `.ts`/`.tsx` with zero config changes. The risk here isn't technical
