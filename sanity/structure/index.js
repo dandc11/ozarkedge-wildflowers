@@ -27,7 +27,10 @@ const SINGLETONS = [
 // Unlike welcomeSection, these singletons weren't created with a fixed _id matching
 // their type name — they have ordinary auto-generated ids. Resolve the real id at
 // Studio load time instead of hardcoding one, so we open the existing document
-// rather than creating a stray duplicate at `documentId(type)`.
+// rather than creating a stray duplicate at `documentId(type)`. Excluding drafts.**
+// keeps the lookup on the published base id — S.document().documentId() expects
+// that base id and overlays the draft itself, so a raw drafts.<id> would target
+// the wrong document.
 const singletonItem = (S, context, { type, title, icon }) =>
   S.listItem()
     .id(type)
@@ -36,8 +39,13 @@ const singletonItem = (S, context, { type, title, icon }) =>
     .child(() =>
       context
         .getClient({ apiVersion: '2024-10-28' })
-        .fetch(`*[_type == $type][0]._id`, { type })
-        .then((id) => S.document().schemaType(type).documentId(id || type).title(title)),
+        .fetch(`*[_type == $type && !(_id in path("drafts.**"))][0]._id`, { type })
+        .then((id) =>
+          S.document()
+            .schemaType(type)
+            .documentId(id || type)
+            .title(title),
+        ),
     )
 
 export const structure = (S, context) =>

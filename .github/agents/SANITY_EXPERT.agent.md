@@ -813,12 +813,14 @@ On the free tier, manage draft and published states using standard draft convent
 
 The Structure tool's default view lists all document types as flat document lists. For better editor experience, use Structure Builder to create singletons, group types, and add custom panes.
 
-**Current state:** `sanity/structure/index.js` customizes the Structure pane (#213). Singleton document types (`welcomeSection`, `landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`, `siteSettings`, `menu`) open directly to their editor instead of a document list; `nativePlant`, `season`, and `pollinator` remain standard document lists, grouped under "Pages" for the four page singletons.
+**Current state:** `sanity/structure/index.js` customizes the Structure pane (#213). Singleton document types (`welcomeSection`, `landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`, `siteSettings`, `menu`) open directly to their editor instead of a document list, with the four page singletons (`landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`) nested under a "Pages" list item. `nativePlant`, `season`, and `pollinator` are unaffected — they remain standard top-level document lists, not grouped under "Pages".
 
 **Singleton pattern — beware fixed vs. auto-generated `_id`:** `S.document().documentId(type)` only opens the right document if that document's `_id` actually equals `type`. `welcomeSection` was created that way, so it can hardcode the id directly. The other singletons in this project have ordinary auto-generated ids — hardcoding `.documentId('siteSettings')` for one of those would silently create a stray duplicate document instead of opening the existing one. For those, resolve the real id at Studio load time:
 
 ```javascript
 // structure/index.js
+const SINGLETONS = ['welcomeSection', 'siteSettings']
+
 const singletonItem = (S, context, { type, title, icon }) =>
   S.listItem()
     .id(type)
@@ -827,8 +829,15 @@ const singletonItem = (S, context, { type, title, icon }) =>
     .child(() =>
       context
         .getClient({ apiVersion: '2024-10-28' })
-        .fetch(`*[_type == $type][0]._id`, { type })
-        .then((id) => S.document().schemaType(type).documentId(id || type).title(title)),
+        // Exclude drafts — documentId() expects the published base id and
+        // overlays the draft itself; a raw drafts.<id> targets the wrong document.
+        .fetch(`*[_type == $type && !(_id in path("drafts.**"))][0]._id`, { type })
+        .then((id) =>
+          S.document()
+            .schemaType(type)
+            .documentId(id || type)
+            .title(title),
+        ),
     )
 
 export const structure = (S, context) =>
