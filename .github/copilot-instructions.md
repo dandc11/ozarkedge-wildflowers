@@ -33,7 +33,7 @@ A Next.js 15 (App Router) site about native Arkansas wildflowers, powered by San
 - Testing: [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)
 - Sanity Live + Draft Mode: [docs/SANITY_LIVE_DRAFT_MODE.md](docs/SANITY_LIVE_DRAFT_MODE.md)
 - Sanity Hosted Studio: [docs/SANITY_HOSTED_STUDIO.md](docs/SANITY_HOSTED_STUDIO.md)
-- Migrations: [docs/SANITY_MIGRATIONS.md](docs/SANITY_MIGRATIONS.md)
+- Migrations: [.github/skills/sanity-migrations/SKILL.md](.github/skills/sanity-migrations/SKILL.md)
 - Plant relationships: [docs/PLANT_RELATIONSHIPS_QUERIES.md](docs/PLANT_RELATIONSHIPS_QUERIES.md)
 
 ## Git & Development Workflow

@@ -165,7 +165,7 @@ export default defineType({
           { title: 'Glade', value: 'Glade' },
           { title: 'Woodland', value: 'Woodland' },
           { title: 'Grassland/Prairie', value: 'Grassland/Prairie' },
-          { title: 'Savannah', value: 'Savannah' },
+          { title: 'Savanna', value: 'Savanna' },
           { title: 'Wetland', value: 'Wetland' },
         ],
       },

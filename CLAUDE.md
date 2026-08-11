@@ -74,7 +74,7 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 - [Testing guide](docs/TESTING_GUIDE.md)
 - [Sanity Live + Draft Mode](docs/SANITY_LIVE_DRAFT_MODE.md)
 - [Sanity Hosted Studio](docs/SANITY_HOSTED_STUDIO.md)
-- [Sanity Migrations](docs/SANITY_MIGRATIONS.md)
+- [Sanity Migrations](.claude/skills/sanity-migrations/SKILL.md) (skill)
 - [Backup & rollback runbook](docs/BACKUP_AND_ROLLBACK.md)
 - [Branch automation setup](docs/BRANCH_AUTOMATION_SETUP.md)
 - [Plant relationships queries](docs/PLANT_RELATIONSHIPS_QUERIES.md)
