@@ -513,10 +513,23 @@ See [TypeScript API reference](https://www.sanity.io/docs/reference/api/sanity/m
 ## Project-Specific Notes (Ozarkedge Wildflowers)
 
 - Migrations live in `/migrations/<migration-id>/index.ts`
-- Always exclude drafts for published content: `!(_id in path("drafts.**"))`
+- **Usually** exclude drafts for published content: `!(_id in path("drafts.**"))` — but
+  this is a default, not a law. When you are correcting a **bad value** (a typo, a
+  renamed enum option, a dead reference) rather than backfilling a new one, drafts and
+  `versions.**` must be included. Excluding them looks clean immediately and silently
+  reintroduces the bad value the moment that draft is published or that release ships.
+  See `fix-savanna-spelling/` for a worked example of this exception.
 - Test migrations on development dataset before production
 - Document all migrations in version control
-- Prior migration examples in `/migrations/`: `convert-nearby-plants/`, `cleanup-nearby-plants-duplicates/`, `rename-pagebodyportabletext-objects/`
+- Prior migration examples in `/migrations/`: `fix-savanna-spelling/` (enum value
+  correction via `sanity/migrate`), `fix-nearby-commonname/`,
+  `convert-plant-names-to-arrays/`, `convert-stale-drafts/`, `copy-title-to-alttext/`
+- **Note on tooling:** most existing migrations here predate the `sanity/migrate`
+  helpers and use `@sanity/client` directly via `sanity exec --with-user-token`, with a
+  hand-rolled `--execute` flag for dry-run. New migrations should prefer
+  `defineMigration` + `sanity migrations run` (dry-run is the default), as in
+  `fix-savanna-spelling/`. `rename-pagebodyportabletext-objects/index.ts` is fully
+  commented out and is not a working example.
 
 ## Remember
 

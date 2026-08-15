@@ -238,7 +238,7 @@ const mockNativePlantData = {
       style: 'normal',
     },
   ],
-  habitatType: ['Glade', 'Grassland/Prairie', 'Savannah'],
+  habitatType: ['Glade', 'Grassland/Prairie', 'Savanna'],
   lede: [
     {
       _key: 'c2b16ced631a',
