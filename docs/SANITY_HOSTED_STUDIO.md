@@ -114,7 +114,7 @@ All use only Sanity-native packages (`@sanity/ui`, `@sanity/image-url`, `sanity`
 
 ### Media Gallery Tags Facet
 
-`sanity-plugin-media` (registered as `media()` in `sanity.config.js`, `^4.1.1` in `package.json`) stores per-asset tags at `opt.media.tags` and exposes a built-in `tag` search facet in the Media tool with `references` / `doesNotReference` / `empty` / `notEmpty` operators. The `empty` operator already covers "show me untagged assets" (see [For Content Authors](#finding-untagged-media-assets)) — no plugin upgrade or custom structure/GROQ view is needed for that use case. Bumping the plugin major version for other reasons should re-verify this facet still exists, since it isn't documented in the plugin's README.
+`sanity-plugin-media` (registered as `media()` in `sanity.config.js`, `^4.1.1` in `package.json`) stores per-asset tags at `opt.media.tags` and exposes a built-in `Tags` search facet in the Media tool with `references` / `doesNotReference` / `empty` / `notEmpty` operators. The `empty` operator already covers "show me untagged assets" (see [For Content Authors](#finding-untagged-media-assets)) — no plugin upgrade or custom structure/GROQ view is needed for that use case. Bumping the plugin major version for other reasons should re-verify this facet still exists, since it isn't documented in the plugin's README.
 
 ### Removed Files
 
