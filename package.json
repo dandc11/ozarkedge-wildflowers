@@ -20,7 +20,8 @@
     "test:integration": "jest --testPathPattern=tests/integration",
     "sanity:backup": "sanity dataset export prod backups/backup-$(date +%Y%m%d-%H%M%S).tar.gz",
     "sanity:backup-json": "sanity dataset export prod backups/backup-$(date +%Y%m%d-%H%M%S).json",
-    "sanity:backup-script": "node scripts/backup-sanity.js"
+    "sanity:backup-script": "node scripts/backup-sanity.js",
+    "sanity:sync-dev": "node -e \"const { execSync } = require('child_process'); const fs = require('fs'); const file = '.sanity-dev-sync.tar.gz'; try { execSync('sanity dataset export prod ' + file + ' --overwrite', { stdio: 'inherit' }); execSync('sanity dataset import ' + file + ' dev --replace', { stdio: 'inherit' }); } finally { try { fs.unlinkSync(file); } catch (_) {} }\""
   },
   "prettier": {
     "semi": false,

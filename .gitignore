@@ -21,6 +21,7 @@ jest-results.json
 # sanity generated
 sanity.types.ts
 .sanity/runtime/
+.sanity-dev-sync.tar.gz
 
 # misc
 .DS_Store
