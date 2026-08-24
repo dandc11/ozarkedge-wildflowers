@@ -21,6 +21,16 @@ The Sanity Studio is hosted by Sanity at **https://ozarkedgewildflowers.sanity.s
 - The Studio loads from `ozarkedgewildflowers.sanity.studio` instead of `ozarkedgewildflowers.com/studio`
 - The Studio may receive automatic updates from Sanity (non-breaking improvements)
 
+### Finding untagged media assets
+
+The Media tool's search panel already supports filtering for assets that have **no tags**, so untagged uploads don't get lost:
+
+1. Open the **Media** tool in the Studio.
+2. Open the search/filter panel and add a filter on the **Tags** facet.
+3. Choose the **is empty** operator (instead of picking a specific tag).
+
+This shows only assets with no tags applied. As soon as an asset is tagged it drops out of the filtered view automatically — no manual refresh needed. All other tag filtering (searching by a specific tag, combining with other facets like folder or file type) is unaffected.
+
 ## For Developers
 
 ### Local Development
@@ -101,6 +111,10 @@ These Studio preview components are bundled with the Studio and work in both emb
 - `schemas/components/TextInputWithCharCount.jsx` — text input with live character count for meta descriptions
 
 All use only Sanity-native packages (`@sanity/ui`, `@sanity/image-url`, `sanity`, `@portabletext/react`).
+
+### Media Gallery Tags Facet
+
+`sanity-plugin-media` (registered as `media()` in `sanity.config.js`, `^4.1.1` in `package.json`) stores per-asset tags at `opt.media.tags` and exposes a built-in `tag` search facet in the Media tool with `references` / `doesNotReference` / `empty` / `notEmpty` operators. The `empty` operator already covers "show me untagged assets" (see [For Content Authors](#finding-untagged-media-assets)) — no plugin upgrade or custom structure/GROQ view is needed for that use case. Bumping the plugin major version for other reasons should re-verify this facet still exists, since it isn't documented in the plugin's README.
 
 ### Removed Files
 
