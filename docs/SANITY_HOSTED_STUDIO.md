@@ -29,7 +29,7 @@ The Media tool's search panel already supports filtering for assets that have **
 2. Open the search/filter panel and add a filter on the **Tags** facet.
 3. Choose the **is empty** operator (instead of picking a specific tag).
 
-This shows only assets with no tags applied. As soon as an asset is tagged it drops out of the filtered view automatically — no manual refresh needed. All other tag filtering (searching by a specific tag, combining with other facets like folder or file type) is unaffected.
+This shows only assets with no tags applied. When you tag an asset, it will no longer match this filter (if it doesn’t disappear immediately, refresh the Media list). All other tag filtering (searching by a specific tag, combining with other facets like folder or file type) is unaffected.
 
 ## For Developers
 
