@@ -79,4 +79,5 @@ See `docs/BRANCH_AUTOMATION_SETUP.md` for full automation details.
 - [Branch automation setup](docs/BRANCH_AUTOMATION_SETUP.md)
 - [Plant relationships queries](docs/PLANT_RELATIONSHIPS_QUERIES.md)
 - [Dev dataset (#301)](docs/DEV_DATASET.md)
+- [TypeScript migration plan (#310)](docs/TYPESCRIPT_MIGRATION_PLAN.md)
 - [Design system plan (#197)](docs/DESIGN_SYSTEM_PLAN.md)
