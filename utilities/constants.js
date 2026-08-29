@@ -77,7 +77,7 @@ export const HABITAT_OPTIONS = [
   { label: 'Glade', value: 'Glade' },
   { label: 'Woodland', value: 'Woodland' },
   { label: 'Grassland/Prairie', value: 'Grassland/Prairie' },
-  { label: 'Savannah', value: 'Savannah' },
+  { label: 'Savanna', value: 'Savanna' },
   { label: 'Wetland', value: 'Wetland' },
 ]
 
