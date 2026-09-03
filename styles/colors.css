@@ -121,6 +121,7 @@
   --spring-text-color: #504346;
   --summer-heading-color: #864a6c;
   --fall-heading-color: #435146; /* bespoke muted teal; nearest ramp step is blue-green-light-900 (ΔE 6.4), still off-palette — kept intentionally (#275) */
+  --fall-text-color: var(--oe-orange-900); /* dark enough for body copy on the cream fall-bg-color panel (#330) */
   --spring-bg-color: hsl(98, 29%, 80%);
   --summer-bg-color: hsl(66.32deg 43.34% 87.66%);
   --fall-bg-color: var(--oe-orange-100);
