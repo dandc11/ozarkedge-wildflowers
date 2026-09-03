@@ -26,6 +26,13 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           echo "PR Title: $PR_TITLE"
 
+          # Claude Code web/remote sessions use a harness-assigned scratch branch
+          # without an issue number. Mirror enforce-branch-naming's exemption.
+          if [[ "$BRANCH_NAME" =~ ^claude/[^/]+$ ]]; then
+            echo "ℹ️  Harness scratch branch detected — skipping PR-link validation."
+            exit 0
+          fi
+
           # Extract the issue number from the branch and confirm the issue exists.
           # Accepts an optional `claude/` provenance prefix (Claude-authored
           # branches) and a {feature,research,fix} type — group 3 is the number.
