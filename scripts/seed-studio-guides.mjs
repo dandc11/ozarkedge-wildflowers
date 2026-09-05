@@ -18,6 +18,11 @@
  * Target a non-default dataset (do this before production):
  *
  *   npx sanity exec scripts/seed-studio-guides.mjs --with-user-token -- --dataset=dev --execute
+ *
+ * Delete guides that are no longer in the content module (studioGuide has no
+ * delete action in the Studio, so this is the only way to remove one):
+ *
+ *   npx sanity exec scripts/seed-studio-guides.mjs --with-user-token -- --prune --execute
  */
 
 import { createReadStream, existsSync } from 'node:fs'
@@ -32,6 +37,13 @@ const ASSET_DIR = join(dirname(fileURLToPath(import.meta.url)), 'studio-guide-as
 
 const EXECUTE = process.argv.includes('--execute')
 const DRY_RUN = !EXECUTE
+
+// Guides removed from the content module are reported but kept by default —
+// deleting content is not something a seed should do on its own. `--prune` opts
+// in. It matters because studioGuide has no delete action in the Studio, so an
+// orphaned guide cannot be removed through the UI at all; this script is the
+// only way to get rid of one.
+const PRUNE = process.argv.includes('--prune')
 
 // Reject a malformed --dataset rather than falling through to the env default,
 // which is production. `--dataset dev` (space) and `--dataset=` (empty) would
@@ -130,7 +142,8 @@ for (const doc of documents) {
 
 const orphans = [...existingIds].filter((id) => !documents.some((doc) => doc._id === id))
 if (orphans.length > 0) {
-  console.log(`\n  ${orphans.length} existing guide(s) not in this seed, left untouched:`)
+  const fate = PRUNE ? 'will be DELETED (--prune)' : 'left untouched — pass --prune to delete'
+  console.log(`\n  ${orphans.length} existing guide(s) not in this seed, ${fate}:`)
   orphans.forEach((id) => console.log(`    ${id}`))
 }
 
@@ -163,6 +176,11 @@ if (DRY_RUN) {
 
   const transaction = client.transaction()
   buildDocuments(assetIds).forEach((doc) => transaction.createOrReplace(doc))
+  if (PRUNE) {
+    // Same transaction as the writes, so a failure leaves the dataset untouched
+    // rather than deleting guides and then failing to write the rest.
+    orphans.forEach((id) => transaction.delete(id))
+  }
 
   try {
     // One transaction, so this is all-or-nothing — a failure leaves the dataset
@@ -174,5 +192,6 @@ if (DRY_RUN) {
     process.exit(1)
   }
 
-  console.log(`\nWrote ${documents.length} guide(s) to ${dataset}.`)
+  const pruned = PRUNE && orphans.length > 0 ? `, deleted ${orphans.length}` : ''
+  console.log(`\nWrote ${documents.length} guide(s)${pruned} to ${dataset}.`)
 }

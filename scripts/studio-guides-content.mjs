@@ -485,37 +485,4 @@ export const STUDIO_GUIDES = [
       ),
     ],
   },
-  {
-    id: 'studioGuide-recommendations-for-exploration',
-    order: 70,
-    title: 'Recommendations for Exploration',
-    body: [
-      p(
-        'Things worth an idle twenty minutes. None of these can break anything, as long as you do not publish what you were only poking at.',
-      ),
-      h2('Open something in Presentation'),
-      p(
-        'Pick a plant, hit Open in Presentation, and edit its description while watching the page. Seeing the connection between a field and the page it produces makes the rest of the Studio easier to reason about.',
-      ),
-      h2('Look at how plants connect'),
-      p(
-        'Plant documents reference other plants and pollinators, and those references are what build the season pages and the "growing nearby" sections. Following one plant through its references shows how much of the site assembles itself.',
-      ),
-      h2('Filter the Media library by no tags'),
-      p(
-        'It is a quick way to see how much of the library is unlabelled, and tagging a handful is genuinely useful work that takes minutes.',
-      ),
-      h2('Write your first note'),
-      p(
-        'Even a short one. The categories in Learnings & Notes exist so that scattered observations end up grouped rather than lost.',
-      ),
-      h2('Try to break a required field'),
-      p(
-        'Empty a required field and try to publish. Seeing the Studio refuse, and where it puts the message, is worth knowing before it happens on something you care about.',
-      ),
-      check(
-        'this is a reasonable tour, but it is a guess at what would be interesting to you rather than a response to what you want to understand better. Tell me what feels opaque and this guide should point there instead',
-      ),
-    ],
-  },
 ]
