@@ -9,8 +9,11 @@ export const mainDocuments = defineDocuments([
     route: '/season/:slug',
     filter: `_type == "season" && slug.current == $slug`,
   },
-  // Singleton pages. These have exactly one document each (see SINGLETONS in
-  // sanity/structure/index.js), so matching on _type alone resolves them.
+  // Singleton pages, so there is no slug to match on. Sanity queries these as
+  // *[<filter>][0], taking the first hit: correct as long as the type really does
+  // have one document. Studio hides these types from the create menu (SINGLETONS in
+  // sanity/structure/index.js) but nothing blocks a second document via Vision or
+  // the API, in which case the route would open an arbitrary one of them.
   {
     route: '/',
     filter: `_type == "landingPage"`,

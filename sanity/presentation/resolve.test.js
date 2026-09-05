@@ -11,7 +11,12 @@ jest.mock('sanity/presentation', () => ({
   defineDocuments: (documents) => documents,
 }))
 
+const fs = require('fs')
+const path = require('path')
+
 const { locations, mainDocuments } = require('./resolve')
+
+const DOCUMENTS_DIR = path.join(__dirname, '..', '..', 'schemas', 'documents')
 
 // Sanity type-checks these keys when preparing a preview and rejects any non-scalar.
 // A `select` map that targets array data through one of them breaks the whole entry.
@@ -98,5 +103,36 @@ describe('mainDocuments routes', () => {
         '/season/:slug',
       ]),
     )
+  })
+
+  // A typo in one of these _type literals is invisible: the query returns null, the
+  // route resolves to no document, and tests, lint and build all still pass. The type
+  // names are not inferable from filenames either — notFoundPage lives in notFound.js.
+  //
+  // Reading the schema files as text rather than importing them is deliberate: the
+  // schema modules pull in @sanity/ui React components that Jest's transform config
+  // does not currently handle, and mocking that chain would be more fragile than the
+  // regex.
+  it('references only document types that exist in the schema', () => {
+    const declaredTypes = fs
+      .readdirSync(DOCUMENTS_DIR)
+      .filter((file) => file.endsWith('.js'))
+      .map((file) => {
+        const source = fs.readFileSync(path.join(DOCUMENTS_DIR, file), 'utf8')
+        // Both defineType and defineConfig appear as the wrapper in this directory.
+        const match = source.match(/export default define\w+\(\{\s*\n(?:.*\n)??\s*name: '([^']+)'/)
+        if (!match) throw new Error(`Could not read a type name from ${file}`)
+        return match[1]
+      })
+
+    // Guard the guard: if the extraction silently stopped working, every assertion
+    // below would pass vacuously against an empty list.
+    expect(declaredTypes).toContain('nativePlant')
+
+    const routedTypes = mainDocuments.flatMap(({ filter }) =>
+      [...filter.matchAll(/_type\s*==\s*"([^"]+)"/g)].map((m) => m[1]),
+    )
+    expect(routedTypes.length).toBeGreaterThan(0)
+    routedTypes.forEach((type) => expect(declaredTypes).toContain(type))
   })
 })
