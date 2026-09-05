@@ -4,11 +4,9 @@
  * Kept separate from the seeding logic so the prose — the part that actually
  * needs reviewing — reads on its own.
  *
- * Passages marked with a `check()` block are ones written from what the repo and
- * docs establish rather than from observed editor workflow. They render as
- * blockquotes in the Studio so they stand out, and are meant to be confirmed or
- * corrected and then removed. They should not still be here when the guides are
- * considered finished.
+ * Everything here has been confirmed with the project owner. Draft passages were
+ * previously flagged inline for review; those are all resolved, so guides now go
+ * to the content editor without developer-facing annotations in them.
  */
 
 /**
@@ -50,7 +48,6 @@ export const h3 = (text) => block('h3', text)
 export const p = (text) => block('normal', text)
 export const bullet = (text) => block('normal', text, 'bullet')
 export const step = (text) => block('normal', text, 'number')
-export const check = (text) => block('blockquote', `⟨CHECK: ${text}⟩`)
 
 /**
  * A screenshot, named by its file in `scripts/studio-guide-assets/`.
@@ -154,9 +151,6 @@ export const STUDIO_GUIDES = [
       h2('Help & Guides and Learnings & Notes'),
       p(
         'The two sections at the bottom. Help & Guides is what you are reading; it is read-only. Learnings & Notes is yours to write in — see the guide on it further down this list.',
-      ),
-      check(
-        'this describes the nav as configured, but not which of these you actually touch week to week. If some sections are effectively read-only for you in practice, say so and this guide can point that out',
       ),
     ],
   },
@@ -396,8 +390,9 @@ export const STUDIO_GUIDES = [
       step('Review each proposed change rather than confirming the batch on trust.'),
       step('Publish yourself, as normal.'),
       step('Note anything surprising in Learnings & Notes.'),
-      check(
-        'this assumes you have access to the Sanity Dashboard and are set up on the organisation — that is separate from your Studio login. If the chat panel is not there when you look, that is the likely reason and it needs sorting out before any of this applies',
+      h3('If you cannot find the chat panel at all'),
+      p(
+        'Reaching the agent needs access to the Sanity **Dashboard**, which is granted separately from your Studio login — having one does not automatically give you the other. If you sign in and there is no chat panel, that is the likely reason, and it is worth asking rather than hunting for it.',
       ),
       h3('If it says it cannot find something'),
       p(
@@ -489,9 +484,6 @@ export const STUDIO_GUIDES = [
       h2('Write the note while it is annoying you'),
       p(
         'Learnings & Notes is most useful when you write in it at the moment something confuses you, not afterwards when you have worked around it and forgotten the detail.',
-      ),
-      check(
-        'these are inferred from how the Studio is set up rather than from watching you work. The genuinely useful version of this guide is the handful of things you worked out the hard way — those should replace these',
       ),
     ],
   },
