@@ -31,6 +31,15 @@ The Media tool's search panel already supports filtering for assets that have **
 
 This shows only assets with no tags applied. When you tag an asset, it will no longer match this filter (if it doesn’t disappear immediately, refresh the Media list). All other tag filtering (searching by a specific tag, combining with other facets like folder or file type) is unaffected.
 
+### In-Studio help
+
+The Studio carries its own documentation, so you don't need to leave it to look something up:
+
+- **📘 Help & Guides** — short reference pages covering Structure vs. Presentation, what each content type is for, how drafts become published pages, working with media tags, troubleshooting, and things worth exploring. These are **read-only**: the form is greyed out and there are no Publish or Delete buttons, because the guides are maintained alongside the code rather than edited in the Studio. If a guide is wrong or missing something, tell the developer — don't try to fix it in place, you won't be able to.
+- **✏️ Learnings & Notes** — your space. Create a note whenever you work something out, hit a snag, or have a request, pick a category so related notes group together, and publish it like any other document. Nothing here is read-only.
+
+Note the guides duplicate some of the author-facing material in this file on purpose: this file is the developer-facing copy, the guides are the editor-facing one. The tag walkthrough under _Finding untagged media assets_ above is the clearest example — the same steps appear in the "Working with Tags" guide.
+
 ## For Developers
 
 ### Local Development
@@ -74,10 +83,12 @@ npx sanity deploy
 
 ### Configuration Files
 
-| File               | Purpose                                                                                               |
-| ------------------ | ----------------------------------------------------------------------------------------------------- |
-| `sanity.config.js` | Studio configuration (plugins, presentation, document actions)                                        |
-| `sanity.cli.js`    | CLI config (`studioHost: 'ozarkedgewildflowers'`, `deployment.autoUpdates: true`, `deployment.appId`) |
+| File                                      | Purpose                                                                                                                 |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `sanity.config.js`                        | Studio configuration (plugins, presentation, document actions)                                                          |
+| `sanity.cli.js`                           | CLI config (`studioHost: 'ozarkedgewildflowers'`, `deployment.autoUpdates: true`, `deployment.appId`)                   |
+| `sanity/structure/index.js`               | Studio nav, including the 📘 Help & Guides and ✏️ Learnings & Notes sections and the `HIDDEN_FROM_AUTO_LIST` exclusions |
+| `sanity/actions/documentActionsPolicy.js` | Which document actions each type is allowed; unit-tested, wired into `sanity.config.js`                                 |
 
 ### Environment Variables
 
@@ -111,6 +122,18 @@ These Studio preview components are bundled with the Studio and work in both emb
 - `schemas/components/TextInputWithCharCount.jsx` — text input with live character count for meta descriptions
 
 All use only Sanity-native packages (`@sanity/ui`, `@sanity/image-url`, `sanity`, `@portabletext/react`).
+
+### Studio-only documentation types
+
+`studioGuide` and `studioNote` exist only inside the Studio. Neither is ever queried by or rendered on the Next.js site, and `sanity/lib/queries.test.js` fails `npm test` if either name appears in `sanity/lib/queries.js`, `sanity/lib/queryFragments.js`, or the `DOCUMENT_TYPES` list that backs internal links. Note no CI workflow currently runs Jest, so that guard only fires when the suite is run locally.
+
+`studioGuide` is view-only for editors, enforced in two places that have to stay in step:
+
+- `schemas/documents/studioGuide.js` sets `readOnly: true`, which greys out the form.
+- `sanity/actions/documentActionsPolicy.js` gives the type **no document actions at all** — an empty allowlist rather than a blocklist, since every built-in action mutates the document and an allowlist also excludes actions that Releases, Canvas or a future Sanity version would add. It also removes `studioGuide` from the global "create new" menu. `sanity.config.js` wires that module in under `document`; the policy is a pure function so `documentActionsPolicy.test.js` can assert the lockdown without booting a Studio.
+- `sanity/structure/index.js` clears the Help & Guides list's own create templates with `initialValueTemplates([])`. A document-type list pane reads its inferred templates directly and never consults `document.newDocumentOptions`, so both are needed to remove every create affordance.
+
+Both constraints are Studio-UI only. Guide content is authored by running `scripts/seed-studio-guides.mjs` or through the Sanity MCP tools, which write to the API directly and are unaffected.
 
 ### Media Gallery Tags Facet
 
