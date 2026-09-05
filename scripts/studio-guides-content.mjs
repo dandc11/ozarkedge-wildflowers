@@ -36,6 +36,7 @@ const block = (style, text, listItem) => (keyPrefix) => ({
 })
 
 export const h2 = (text) => block('h2', text)
+export const h3 = (text) => block('h3', text)
 export const p = (text) => block('normal', text)
 export const bullet = (text) => block('normal', text, 'bullet')
 export const step = (text) => block('normal', text, 'number')
@@ -186,6 +187,115 @@ export const STUDIO_GUIDES = [
       p('Working through that list occasionally is the cheapest way to keep the library usable.'),
       check(
         'the mechanics here are accurate, but not the vocabulary. What tags do you actually use, and is there a convention worth writing down — by plant, by season, by where the photo was taken? That is the part of this guide that would actually help, and it needs to come from you',
+      ),
+    ],
+  },
+  {
+    id: 'studioGuide-content-agent',
+    order: 45,
+    title: 'Using the Content Agent',
+    body: [
+      p(
+        'Sanity has a built-in assistant you can ask questions in plain English — the Content Agent. It can read everything on the site and answer things that would otherwise mean clicking through every plant one at a time.',
+      ),
+      p(
+        'It is genuinely useful for a few specific jobs and genuinely wasteful for others. This guide is about telling those apart.',
+      ),
+      h2('Where it lives'),
+      p(
+        'Not in the Studio. It lives in the Sanity **Dashboard** — sign in at sanity.io and look for the chat panel on the right. That is worth knowing before you go hunting for it in the Studio and conclude it is missing.',
+      ),
+      h2('The one thing to understand first'),
+      p(
+        'The agent never changes anything on its own. It **proposes**, you approve. When you ask it to change something, the edits appear in a Changes panel for you to look over, and nothing exists until you click to confirm. Even then it only creates drafts — publishing is still your click, exactly as it is for anything else.',
+      ),
+      p(
+        'So there is no way for it to quietly alter the site behind you. The risk is not that it changes things without asking; it is that you approve something without reading it closely.',
+      ),
+      h2('What it is genuinely good at here'),
+      p(
+        'The pattern to look for: **questions that span the whole site**. Anything you could answer yourself by opening one document is not worth asking it. Anything that would mean opening sixty is.',
+      ),
+      h3('Finding gaps'),
+      bullet('"Which plants have no photographs?"'),
+      bullet('"Which images are missing alt text?"'),
+      bullet('"Which plants have not been touched in over a year?"'),
+      bullet('"Which plants have the shortest descriptions?"'),
+      h3('Tidying tags'),
+      bullet('"Which media tags are barely used?"'),
+      bullet('"Are any tags near-duplicates of each other?"'),
+      bullet('"Which images have no tags at all?"'),
+      h3('Understanding how things are set up'),
+      p(
+        'This is the underrated one. You can ask it about the shape of the site rather than the content:',
+      ),
+      bullet('"What fields does a native plant have?"'),
+      bullet('"What has to be filled in before I can publish a plant?"'),
+      bullet('"Which plants reference this pollinator?"'),
+      h3('Checking your own consistency'),
+      bullet('"Do any plant descriptions disagree with their bloom times?"'),
+      bullet('"Which plants mention a pollinator in the text but have no pollinator linked?"'),
+      h2('The one thing not to use it for'),
+      p(
+        'Do not let it write botanical facts. Bloom times, native range, growing conditions, whether something is edible or toxic — an AI will produce confident, fluent, plausible sentences that are wrong, and wrong plant information on a wildflower site is worse than no information.',
+      ),
+      p(
+        'Asking it to tidy up wording you already wrote is fine. Asking it to tell you when something blooms is not. The test is simple: **would you need to check a reference book to write this sentence yourself?** If yes, do not let the agent write it either.',
+      ),
+      h2('What it costs, and why that matters here'),
+      p(
+        'The agent runs on credits, and this project is on Sanity’s free plan — a small allowance each month, which resets on the 1st and does not roll over. It is easy to spend a month’s worth in an afternoon without noticing.',
+      ),
+      p('Two things surprise people:'),
+      bullet(
+        '**Every message costs**, before any work happens. Asking a question, rephrasing it because the answer missed, and rephrasing again has cost you three times over.',
+      ),
+      bullet(
+        '**The work costs on top**, and scales with how much it has to read. Asking about one plant is cheap. Asking it to read every plant description is not.',
+      ),
+      p(
+        'For scale: a simple search runs a handful of credits, while changing a few documents runs several times that. It adds up faster than it feels like it should.',
+      ),
+      h3('The habit that saves the most'),
+      p(
+        'Before anything that sounds big, ask it to cost the job first: **"Estimate how many credits you would need to…"** and then describe what you want. It will tell you before spending anything, and you can decide whether it is worth it.',
+      ),
+      p(
+        'Also: narrow first, then widen. Ask about five plants, see whether the answer is what you wanted, and only then ask about all of them.',
+      ),
+      p(
+        'If it stops responding and mentions a limit, that is the monthly allowance gone. Nothing is broken — it comes back on the 1st.',
+      ),
+      h2('Other things worth knowing'),
+      h3('Undo is shorter than you would expect'),
+      p(
+        'The agent has no undo of its own; the official advice is to use document history. On this project history only goes back a few days, so a bulk change you approve and then regret three weeks later cannot be rolled back that way. Say something quickly if a change turns out wrong — there is a separate backup, but recovering from it is a developer job, not a button.',
+      ),
+      p(
+        'This is the strongest argument for approving changes in small batches you can actually read.',
+      ),
+      h3('Start a new chat for a new job'),
+      p(
+        'It remembers what you have been discussing, which helps within a task and hurts across tasks — leftover context from the last question can skew the next answer. When you move on to something unrelated, start a fresh chat.',
+      ),
+      h3('It cannot delete anything'),
+      p('Deliberately. Deleting is always yours to do in the Studio.'),
+      h3('It cannot change these guides'),
+      p(
+        'The Help & Guides pages are locked, and that lock applies to the agent too. If you ask it to fix something here, expect it to decline.',
+      ),
+      h2('A safe way to work'),
+      step('Ask your question narrowly, on a handful of documents.'),
+      step('Read the answer and check it against something you already know is true.'),
+      step('If you want changes, ask for an estimate first when the job sounds large.'),
+      step('Review each proposed change rather than confirming the batch on trust.'),
+      step('Publish yourself, as normal.'),
+      step('Note anything surprising in Learnings & Notes.'),
+      check(
+        'this assumes you have access to the Sanity Dashboard and are set up on the organisation — that is separate from your Studio login. If the chat panel is not there when you look, that is the likely reason and it needs sorting out before any of this applies',
+      ),
+      check(
+        'the agent also needs to have seen the site’s current setup, which happens the first time someone opens the published Studio after an update. If it claims not to know about Learnings & Notes, open the Studio once and ask again',
       ),
     ],
   },
