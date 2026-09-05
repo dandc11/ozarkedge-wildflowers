@@ -42,8 +42,37 @@ export const bullet = (text) => block('normal', text, 'bullet')
 export const step = (text) => block('normal', text, 'number')
 export const check = (text) => block('blockquote', `⟨CHECK: ${text}⟩`)
 
+/**
+ * A screenshot, named by its file in `scripts/studio-guide-assets/`.
+ *
+ * The seed script uploads each referenced file and resolves it to an asset id at
+ * seed time, rather than an id being hardcoded here. Two reasons: assets live per
+ * dataset, so a guide seeded into a dataset that never received the upload would
+ * show a broken image; and the seed writes guides with `createOrReplace`, so an
+ * image attached out of band is overwritten on the next run.
+ *
+ * `alt` is required by the `figure` schema. Describe what the screenshot shows,
+ * not that it is a screenshot.
+ */
+export const screenshot = (fileName, alt) => {
+  const make = (keyPrefix, assetIds = {}) => ({
+    _type: 'figure',
+    _key: keyPrefix,
+    alt,
+    asset: { _type: 'reference', _ref: assetIds[fileName] },
+  })
+  make.screenshotFile = fileName
+  return make
+}
+
+/** Every screenshot file the guides reference, for the seed script to upload. */
+export const screenshotFiles = (guides) => [
+  ...new Set(guides.flatMap((guide) => guide.body.map((b) => b.screenshotFile).filter(Boolean))),
+]
+
 /** Assigns stable `_key`s so re-seeding produces byte-identical documents. */
-export const buildBody = (blocks) => blocks.map((make, index) => make(`b${index}`))
+export const buildBody = (blocks, assetIds = {}) =>
+  blocks.map((make, index) => make(`b${index}`, assetIds))
 
 export const STUDIO_GUIDES = [
   {
@@ -64,7 +93,11 @@ export const STUDIO_GUIDES = [
       ),
       h2('Getting from one to the other'),
       p(
-        'You do not have to navigate Presentation by hand. Open a document in Structure and look for the **Open in Presentation** button (the eye icon) in the row of buttons at the bottom of the form. It jumps straight to that document with the right page already loaded.',
+        'You do not have to navigate Presentation by hand. Open a document in Structure and look at the bottom of the form: next to the **Publish** button there is a **⋯** button. Open that and choose **Open in Presentation** — the one with the eye icon. It jumps straight to that document with the right page already loaded.',
+      ),
+      screenshot(
+        'open-in-presentation.png',
+        'The document menu at the bottom of a Studio form, listing Duplicate, Delete, and a highlighted Open in Presentation option with an eye icon.',
       ),
       p('It works for the content that has a page of its own on the site:'),
       bullet('Native plants'),

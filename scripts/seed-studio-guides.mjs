@@ -20,9 +20,15 @@
  *   npx sanity exec scripts/seed-studio-guides.mjs --with-user-token -- --dataset=dev --execute
  */
 
+import { createReadStream, existsSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { createClient } from '@sanity/client'
 
-import { STUDIO_GUIDES, buildBody } from './studio-guides-content.mjs'
+import { STUDIO_GUIDES, buildBody, screenshotFiles } from './studio-guides-content.mjs'
+
+const ASSET_DIR = join(dirname(fileURLToPath(import.meta.url)), 'studio-guide-assets')
 
 const EXECUTE = process.argv.includes('--execute')
 const DRY_RUN = !EXECUTE
@@ -66,13 +72,16 @@ const client = createClient({
   perspective: 'raw',
 })
 
-const documents = STUDIO_GUIDES.map(({ id, order, title, body }) => ({
-  _id: id,
-  _type: 'studioGuide',
-  title,
-  order,
-  body: buildBody(body),
-}))
+const buildDocuments = (assetIds) =>
+  STUDIO_GUIDES.map(({ id, order, title, body }) => ({
+    _id: id,
+    _type: 'studioGuide',
+    title,
+    order,
+    body: buildBody(body, assetIds),
+  }))
+
+const documents = buildDocuments({})
 
 const duplicateIds = documents.map((doc) => doc._id).filter((id, i, all) => all.indexOf(id) !== i)
 if (duplicateIds.length > 0) {
@@ -87,6 +96,13 @@ if (duplicateOrders.length > 0) {
   console.error(
     `Duplicate order values, guides would sort unpredictably: ${duplicateOrders.join(', ')}`,
   )
+  process.exit(1)
+}
+
+const screenshots = screenshotFiles(STUDIO_GUIDES)
+const missingScreenshots = screenshots.filter((file) => !existsSync(join(ASSET_DIR, file)))
+if (missingScreenshots.length > 0) {
+  console.error(`Missing screenshot file(s) in ${ASSET_DIR}: ${missingScreenshots.join(', ')}`)
   process.exit(1)
 }
 
@@ -118,12 +134,35 @@ if (orphans.length > 0) {
   orphans.forEach((id) => console.log(`    ${id}`))
 }
 
+if (screenshots.length > 0) {
+  console.log(`\n  ${screenshots.length} screenshot(s) referenced: ${screenshots.join(', ')}`)
+}
+
 if (DRY_RUN) {
   console.log(`\nDry run complete — ${documents.length} guide(s) would be written.`)
   console.log('Re-run with -- --execute to write them.')
 } else {
+  // Assets live per dataset, so upload before writing: a guide seeded into a
+  // dataset that never received the image would reference an asset that isn't
+  // there. Sanity keys assets by content hash, so re-uploading the same file
+  // resolves to the same asset rather than duplicating it.
+  const assetIds = {}
+  for (const file of screenshots) {
+    try {
+      const asset = await client.assets.upload('image', createReadStream(join(ASSET_DIR, file)), {
+        filename: file,
+      })
+      assetIds[file] = asset._id
+      console.log(`  uploaded ${file} -> ${asset._id}`)
+    } catch (error) {
+      console.error(`\nFailed to upload ${file}: ${error.message}`)
+      console.error('No guides were written.')
+      process.exit(1)
+    }
+  }
+
   const transaction = client.transaction()
-  documents.forEach((doc) => transaction.createOrReplace(doc))
+  buildDocuments(assetIds).forEach((doc) => transaction.createOrReplace(doc))
 
   try {
     // One transaction, so this is all-or-nothing — a failure leaves the dataset
