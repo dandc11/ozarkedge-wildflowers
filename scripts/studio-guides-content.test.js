@@ -49,9 +49,10 @@ describe('studio guide content', () => {
       block.children.forEach((span) => {
         expect(span._type).toBe('span')
         expect(span.text).toBeTruthy()
-        // A stray ** means the bold splitter didn't match and the markup would
-        // render literally to the editor.
-        expect(span.text).not.toContain('**')
+        // Any surviving asterisk means the markup splitter didn't match and the
+        // raw `*`/`**` would render literally to the reader. Checking for `**`
+        // alone missed italics entirely, which shipped as visible asterisks.
+        expect(span.text).not.toContain('*')
       })
     })
   })

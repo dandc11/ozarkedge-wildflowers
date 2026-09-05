@@ -9,6 +9,8 @@ import {
 } from 'react-icons/gi'
 import { MdArticle } from 'react-icons/md'
 
+import { StudioGuideView } from '../../schemas/components/StudioGuideView'
+
 // Document types kept out of the generic `documentTypeListItems()` list below,
 // for one of two reasons:
 //   1. Singletons — locked to a single, fixed-ID document via Studio Structure, so
@@ -125,3 +127,21 @@ export const structure = (S, context) =>
         .title('✏️ Learnings & Notes')
         .child(S.documentTypeList('studioNote').title('Learnings & Notes')),
     ])
+
+/**
+ * Opens `studioGuide` documents on a rendered, full-width read view rather than the
+ * Portable Text editor. The guides are read-only, so the editor is the wrong surface
+ * for them: it renders in a narrow column behind a toolbar the reader cannot use, and
+ * a readable width is only reachable via the field's "expand editor" control. Making
+ * the read view the first view makes it the default. The form stays on the second tab.
+ */
+export const defaultDocumentNode = (S, { schemaType }) => {
+  if (schemaType === 'studioGuide') {
+    return S.document().views([
+      S.view.component(StudioGuideView).title('Guide').id('guide'),
+      S.view.form().title('Fields'),
+    ])
+  }
+
+  return S.document().views([S.view.form()])
+}

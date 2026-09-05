@@ -8,7 +8,7 @@ import { media } from 'sanity-plugin-media'
 
 import * as resolve from './sanity/presentation/resolve'
 import { schema } from './schemas/schema'
-import { structure } from './sanity/structure'
+import { structure, defaultDocumentNode } from './sanity/structure'
 import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
 import {
   resolveDocumentActions,
@@ -54,7 +54,7 @@ export default defineConfig({
     types: uniqueSchemaTypes,
   },
   plugins: [
-    structureTool({ structure }),
+    structureTool({ structure, defaultDocumentNode }),
     presentationTool({
       resolve,
       previewUrl: {

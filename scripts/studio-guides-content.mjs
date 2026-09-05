@@ -11,18 +11,28 @@
  * considered finished.
  */
 
-/** Splits `**bold**` runs into separate spans so guide prose stays readable here. */
+/**
+ * Splits `**bold**` and `*italic*` runs into separate spans so guide prose stays
+ * readable in this file. The `**` alternative has to come first in the pattern,
+ * or `*` would match the opening pair of a bold run and leave stray asterisks.
+ */
 const spans = (text, keyPrefix) =>
   text
-    .split(/(\*\*[^*]+\*\*)/g)
+    .split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
     .filter(Boolean)
     .map((part, index) => {
       const bold = part.startsWith('**') && part.endsWith('**')
+      const italic = !bold && part.startsWith('*') && part.endsWith('*') && part.length > 2
+
+      let marks = []
+      if (bold) marks = ['strong']
+      else if (italic) marks = ['em']
+
       return {
         _type: 'span',
         _key: `${keyPrefix}s${index}`,
-        text: bold ? part.slice(2, -2) : part,
-        marks: bold ? ['strong'] : [],
+        text: bold ? part.slice(2, -2) : italic ? part.slice(1, -1) : part,
+        marks,
       }
     })
 
