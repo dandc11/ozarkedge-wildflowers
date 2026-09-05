@@ -48,8 +48,12 @@ studio/.env.development
 # working plans (thinking artifacts, not shipped)
 /plans
 
-# dataset backup tarballs written by `npm run sanity:backup`
-/backups
+# Sanity dataset exports (documents + asset binaries) — never commit these.
+# Un-anchored so an export written anywhere in the tree is still ignored.
+backups/
+*.ndjson
+*.tar.gz
+prod-export-*/
 
 # editor/IDE config (developer-specific)
 .vscode/mcp.json
