@@ -184,9 +184,6 @@ export const STUDIO_GUIDES = [
       ),
       step('The page is cached in your browser. A hard refresh clears it.'),
       p('If none of those explain it, that is worth reporting rather than working around.'),
-      check(
-        'this assumes you publish directly and do not use scheduled Releases. Releases is hidden for non-administrator accounts, so this should be accurate for the editor account — but confirm you never schedule publishing as an admin, or this guide needs a section on it',
-      ),
     ],
   },
   {
@@ -195,31 +192,96 @@ export const STUDIO_GUIDES = [
     title: 'Working with Tags',
     body: [
       p(
-        'Tags are labels on images in the Media library. They exist so you can find a picture again months later without scrolling through everything.',
+        'Tags are labels on images. They are what makes a library of hundreds of photographs findable a year after you uploaded them.',
       ),
-      h2('Where they live'),
+      h2('Where tags actually live'),
       p(
-        'Open the **Media** tool from the top of the Studio. Every uploaded image is here, and each one can carry any number of tags.',
-      ),
-      h2('Tagging an image'),
-      step('Open the Media tool.'),
-      step('Click an image to open its details panel.'),
-      step('Add tags in the tags field, then save.'),
-      p('An image can hold several tags at once, so you do not have to pick a single best one.'),
-      h2('Finding images by tag'),
-      p(
-        'The search panel filters on tags. Add a filter on the **Tags** facet and choose the tag you want. Tag filters combine with the others — folder, file type — so you can narrow down from both directions.',
-      ),
-      h2('Finding images with no tags'),
-      p(
-        'Untagged images are the ones that get lost, so there is a way to list them specifically. Add a filter on the **Tags** facet and choose the **is empty** operator instead of picking a tag. That shows only untagged images.',
+        'Tags belong to **images**, not to plants or pages, and you work with them in the **Media** tool at the top of the Studio — not in the Studio’s left-hand content list.',
       ),
       p(
-        'Tag one and it drops out of that list. If it does not disappear straight away, refresh the Media list.',
+        'You may notice a **Media Tag** entry in that left-hand list. That is a technical listing of the tags themselves, and it is not where tagging happens. Nothing useful comes of editing it; use the Media tool instead.',
+      ),
+      p(
+        'Inside the Media tool, the **Tags** button on the right opens a panel listing every tag in use. Hover a tag there and three small controls appear: a magnifier to show only images carrying that tag, a pencil to rename it, and a bin to delete it.',
+      ),
+      p(
+        'The pencil is the one worth knowing about. Renaming a tag there changes it on **every image at once**, so it is the right way to fix a misspelled tag — far better than retagging images one at a time.',
+      ),
+      screenshot(
+        'media-tool-tags-panel.png',
+        'The Media tool in list view, showing filters for title and file name, a table of images with resolution, size and reference count, and the tags panel open on the right.',
+      ),
+      h2('Our conventions'),
+      p(
+        'There are already several hundred tags in use, and they follow a few patterns worth matching:',
+      ),
+      bullet(
+        '**Botanical names**, as written on the plant — *Asclepias verticillata*, *Allium canadense*.',
+      ),
+      bullet('**Common names** — *American alumroot*, *Missouri primrose*.'),
+      bullet(
+        '**Pollinators and other visitors**, which is the second-largest group — *American bumble bee*, *Eastern Tiger Swallowtail*, *Ailanthus webworm moth*.',
+      ),
+      bullet(
+        '**What the photograph shows**, where that is the useful thing — *Ripe seed pod*, *After flowering*, *Alternate leaves*, *Anther*.',
+      ),
+      bullet('Occasionally **where an image is used**, such as *About page*.'),
+      p(
+        'An image can carry several of these at once, and usually should: a photograph of a bee on a milkweed is reasonably tagged with both.',
+      ),
+      h2('The single most important habit'),
+      p(
+        'When you add a tag, **start typing and pick the existing tag from the list**. Do not type it out in full and press enter.',
+      ),
+      p(
+        'This matters more than it sounds. Tags are matched exactly, so anything that is not character-for-character identical becomes a separate tag. Two tags already exist called *Butterfly* — they look identical in every list, and differ only by a space at the end of one. Images tagged with one will never appear alongside images tagged with the other, and nothing warns you.',
+      ),
+      p('The three ways a duplicate creeps in:'),
+      bullet(
+        '**A stray space** at the start or end, which is invisible everywhere in the interface.',
+      ),
+      bullet(
+        '**A typo** — the library currently holds both *Ammophila nigricans* and *Ammopila nigricans*.',
+      ),
+      bullet(
+        '**Different capitalisation** — *glade coneflower* sits apart from the capitalised names around it.',
+      ),
+      p(
+        'Picking from the list avoids all three. Only type a tag out in full when you are genuinely creating one that does not exist yet.',
+      ),
+      h2('Finding images'),
+      p(
+        'The Media tool has a **Search** box and an **Add filter** button. Filters combine, so you can stack conditions:',
+      ),
+      bullet('**Tags** — images carrying a particular tag.'),
+      bullet('**In use** — whether an image appears in any document. Useful for spotting orphans.'),
+      bullet(
+        '**Alt text** and **Description** — mostly worth using to find images *missing* them.',
+      ),
+      bullet(
+        '**Width**, **Height**, **Orientation**, **File size**, **File type**, **File name**.',
+      ),
+      p(
+        'For example, description **is empty** combined with width **is greater than** 400 finds large images still lacking a description.',
+      ),
+      p(
+        'You can also reorder the gallery — newest or oldest first, by name, or by file size — which is often the quickest way to find something you uploaded recently but cannot name.',
+      ),
+      h3('Grid or list'),
+      p(
+        'The two small buttons under the filters switch between thumbnails and a table. The table is worth using when you are tidying rather than browsing: it shows each image’s dimensions, file size, when it was last updated, and a **References** count — how many documents actually use that image.',
+      ),
+      p(
+        'A reference count of zero means nothing on the site points at that image. That is not automatically a problem, but it is the first place to look when the library feels cluttered.',
+      ),
+      h2('Finding images with no tags at all'),
+      p(
+        'Untagged images are the ones that get lost. Add a filter on **Tags** and choose the **is empty** option to list only those. Tag one and it drops out of the list; refresh if it lingers.',
       ),
       p('Working through that list occasionally is the cheapest way to keep the library usable.'),
-      check(
-        'the mechanics here are accurate, but not the vocabulary. What tags do you actually use, and is there a convention worth writing down — by plant, by season, by where the photo was taken? That is the part of this guide that would actually help, and it needs to come from you',
+      h2('Spotting duplicates you have already made'),
+      p(
+        'With this many tags, near-duplicates are hard to see by scrolling. This is a good use of the Content Agent (see the previous guide): ask it to find tags that are near-duplicates of each other, or tags used only once. It will show you a list without changing anything.',
       ),
     ],
   },
