@@ -9,12 +9,17 @@ import {
 } from 'react-icons/gi'
 import { MdArticle } from 'react-icons/md'
 
-// Document types locked to a single, fixed-ID document via Studio Structure.
-// Add a type here once it should no longer be creatable/duplicatable from the generic list.
-// Note: this filtering plus the `duplicate` action block in sanity.config.js together cover
-// Studio's UI entry points, but neither prevents a second document from being created via
-// Vision or the API directly — accepted as a low-risk limitation for a solo-editor site.
-const SINGLETONS = [
+// Document types kept out of the generic `documentTypeListItems()` list below,
+// for one of two reasons:
+//   1. Singletons — locked to a single, fixed-ID document via Studio Structure, so
+//      they should not be creatable/duplicatable from the generic list.
+//   2. Types given a deliberate home elsewhere in this file (the Studio-only help
+//      documentation), so they don't sit alongside site content.
+// Note: for the singletons, this filtering plus the `duplicate` action block in
+// sanity.config.js together cover Studio's UI entry points, but neither prevents a
+// second document from being created via Vision or the API directly — accepted as a
+// low-risk limitation for a solo-editor site.
+const HIDDEN_FROM_AUTO_LIST = [
   'welcomeSection',
   'landingPage',
   'aboutPage',
@@ -22,6 +27,8 @@ const SINGLETONS = [
   'notFoundPage',
   'siteSettings',
   'menu',
+  'studioGuide',
+  'studioNote',
 ]
 
 // Unlike welcomeSection, these singletons weren't created with a fixed _id matching
@@ -62,7 +69,9 @@ export const structure = (S, context) =>
             .title('Welcome Section'),
         ),
       S.divider(),
-      ...S.documentTypeListItems().filter((listItem) => !SINGLETONS.includes(listItem.getId())),
+      ...S.documentTypeListItems().filter(
+        (listItem) => !HIDDEN_FROM_AUTO_LIST.includes(listItem.getId()),
+      ),
       S.divider(),
       S.listItem()
         .title('Pages')
@@ -96,4 +105,23 @@ export const structure = (S, context) =>
       S.divider(),
       singletonItem(S, context, { type: 'siteSettings', title: 'Site Settings', icon: GiGears }),
       singletonItem(S, context, { type: 'menu', title: 'Menu', icon: GiHamburgerMenu }),
+      S.divider(),
+      // Studio-only help documentation. Guides are read-only (see the studioGuide
+      // document actions in sanity.config.js); notes are the editor's own space.
+      S.listItem()
+        .id('studioGuide')
+        .title('📘 Help & Guides')
+        .child(
+          S.documentTypeList('studioGuide')
+            .title('Help & Guides')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+            // A document-type list infers its own create templates and reads them
+            // directly, so it never consults document.newDocumentOptions. Clearing
+            // them is what actually removes this pane's "+" button.
+            .initialValueTemplates([]),
+        ),
+      S.listItem()
+        .id('studioNote')
+        .title('✏️ Learnings & Notes')
+        .child(S.documentTypeList('studioNote').title('Learnings & Notes')),
     ])
