@@ -47,7 +47,22 @@ const customJestConfig = {
   testTimeout: 10000,
 
   // Ignore non-test helpers and utilities
-  testPathIgnorePatterns: ['/node_modules/', '/tests/utils/', '/tests/mocks/'],
+  // `.claude/worktrees/` holds full checkouts of other branches (one per parallel
+  // session). Without this, every test run collects the other worktrees' copies of
+  // these same files — inflating counts, reporting another branch's failures as
+  // this one's, and triggering haste-map collisions on duplicate package.json names.
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/tests/utils/',
+    '/tests/mocks/',
+    '/\\.claude/worktrees/',
+  ],
+
+  // Keep the worktrees out of the module/haste map too, not just test collection.
+  // Each worktree carries its own package.json with the same `name`, which collides
+  // in the haste map, and its own __mocks__ directory, which registers as a duplicate
+  // manual mock.
+  modulePathIgnorePatterns: ['/\\.claude/worktrees/'],
 
   // Clear mocks between tests
   clearMocks: true,
