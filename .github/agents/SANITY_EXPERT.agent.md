@@ -742,7 +742,7 @@ export default defineConfig({
 })
 ```
 
-**Filtering built-in actions:** Each default action has a static `action` property (e.g., `'publish'`, `'delete'`, `'duplicate'`). Filter by checking it:
+**Filtering built-in actions:** Each default action has a static `action` property. As of `sanity` 5.31.1 the defaults are `'publish'`, `'unpublish'`, `'discardChanges'`, `'duplicate'`, `'delete'` and `'restore'` — all of which mutate. Releases adds `'discardVersion'` and `'unpublishVersion'`; Canvas adds `'editInCanvas'` and `'linkToCanvas'`. **To make a type non-writable, return an empty array rather than filtering a blocklist** — a blocklist has to be revisited every time a feature is enabled or Sanity is upgraded, and fails open when it isn't. Filtering by the property is right when you are removing one specific action from an otherwise normal type:
 
 ```javascript
 document: {
@@ -756,6 +756,9 @@ document: {
 **Existing custom actions in this project (🔧 Project custom):**
 
 - `sanity/actions/OpenInPresentationAction.js` — Navigates from Structure to the Presentation tool with the correct preview URL. Supports document types that have Presentation locations configured in `sanity/presentation/resolve.js`.
+- `sanity/actions/documentActionsPolicy.js` (#278) — 🔧 an action _filter_, not a custom action. The per-type policy is a pure function so it can be unit-tested without booting a Studio (`documentActionsPolicy.test.js`); `sanity.config.js` wires it in under `document`. `studioGuide` is made view-only by returning no actions **and** setting `readOnly: true` on the schema type. Creation is blocked in two places, because they are read by different code paths: `document.newDocumentOptions` covers the global "create new" menu, and `initialValueTemplates([])` in the structure list covers that pane's own button. All of this is Studio-UI only; the seed script and MCP tools still write normally.
+
+  Note `newDocumentOptions` must sit **inside** `document: { }`. Sanity reads `config.document.newDocumentOptions`; a top-level key of the same name type-checks in JS and is silently ignored.
 
 #### Router Navigation Between Studio Tools (📦 API / 🔧 Custom usage)
 
@@ -813,13 +816,16 @@ On the free tier, manage draft and published states using standard draft convent
 
 The Structure tool's default view lists all document types as flat document lists. For better editor experience, use Structure Builder to create singletons, group types, and add custom panes.
 
-**Current state:** `sanity/structure/index.js` customizes the Structure pane (#213). Singleton document types (`welcomeSection`, `landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`, `siteSettings`, `menu`) open directly to their editor instead of a document list, with the four page singletons (`landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`) nested under a "Pages" list item. `nativePlant`, `season`, and `pollinator` are unaffected — they remain standard top-level document lists, not grouped under "Pages".
+**Current state:** `sanity/structure/index.js` customizes the Structure pane (#213). Singleton document types (`welcomeSection`, `landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`, `siteSettings`, `menu`) open directly to their editor instead of a document list, with the four page singletons (`landingPage`, `aboutPage`, `plantListPage`, `notFoundPage`) nested under a "Pages" list item. The Studio-only help types (`studioGuide`, `studioNote`, #278) sit in their own 📘 Help & Guides and ✏️ Learnings & Notes sections at the bottom. `nativePlant`, `season`, and `pollinator` are unaffected — they remain standard top-level document lists, not grouped under "Pages".
+
+The exclusion list is `HIDDEN_FROM_AUTO_LIST`. It holds the singletons plus any type given a deliberate home elsewhere in the file, so membership does not imply a type is a singleton.
 
 **Singleton pattern — beware fixed vs. auto-generated `_id`:** `S.document().documentId(type)` only opens the right document if that document's `_id` actually equals `type`. `welcomeSection` was created that way, so it can hardcode the id directly. The other singletons in this project have ordinary auto-generated ids — hardcoding `.documentId('siteSettings')` for one of those would silently create a stray duplicate document instead of opening the existing one. For those, resolve the real id at Studio load time:
 
 ```javascript
 // structure/index.js
-const SINGLETONS = ['welcomeSection', 'siteSettings']
+// Abridged — the real list in this repo holds nine entries
+const HIDDEN_FROM_AUTO_LIST = ['welcomeSection', 'siteSettings']
 
 const singletonItem = (S, context, { type, title, icon }) =>
   S.listItem()
@@ -850,7 +856,7 @@ export const structure = (S, context) =>
         .child(S.document().schemaType('welcomeSection').documentId('welcomeSection')),
       S.divider(),
       // Regular document type lists
-      ...S.documentTypeListItems().filter((item) => !SINGLETONS.includes(item.getId())),
+      ...S.documentTypeListItems().filter((item) => !HIDDEN_FROM_AUTO_LIST.includes(item.getId())),
       S.divider(),
       // Auto-generated-id singleton — resolved via singletonItem()
       singletonItem(S, context, { type: 'siteSettings', title: 'Site Settings' }),

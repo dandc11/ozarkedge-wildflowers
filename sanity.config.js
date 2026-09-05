@@ -8,8 +8,12 @@ import { media } from 'sanity-plugin-media'
 
 import * as resolve from './sanity/presentation/resolve'
 import { schema } from './schemas/schema'
-import { structure } from './sanity/structure'
+import { structure, defaultDocumentNode } from './sanity/structure'
 import { OpenInPresentationAction } from './sanity/actions/OpenInPresentationAction'
+import {
+  resolveDocumentActions,
+  resolveNewDocumentOptions,
+} from './sanity/actions/documentActionsPolicy'
 
 // Prefer SANITY_STUDIO_* env vars for Studio, but fall back to NEXT_PUBLIC_* vars
 // so local development works when only the Next.js env names are configured.
@@ -50,7 +54,7 @@ export default defineConfig({
     types: uniqueSchemaTypes,
   },
   plugins: [
-    structureTool({ structure }),
+    structureTool({ structure, defaultDocumentNode }),
     presentationTool({
       resolve,
       previewUrl: {
@@ -70,15 +74,18 @@ export default defineConfig({
   ],
   document: {
     actions: (prev, context) =>
-      context.schemaType === 'welcomeSection'
-        ? [...prev.filter((action) => action.action !== 'duplicate'), OpenInPresentationAction]
-        : [...prev, OpenInPresentationAction],
+      resolveDocumentActions(prev, context.schemaType, OpenInPresentationAction),
+    // Must be nested under `document` — Sanity reads `document.newDocumentOptions`
+    // and silently ignores a top-level key of the same name.
+    newDocumentOptions: (prev) => resolveNewDocumentOptions(prev),
   },
   // Vision (raw GROQ) and Releases (release scheduling) are developer/admin
   // tools that aren't relevant to editor-level users. Hide them for anyone
   // without the administrator role.
   tools: (prev, context) => {
     const isAdmin = context.currentUser?.roles?.some((role) => role.name === 'administrator')
-    return isAdmin ? prev : prev.filter((tool) => tool.name !== 'vision' && tool.name !== 'releases')
+    return isAdmin
+      ? prev
+      : prev.filter((tool) => tool.name !== 'vision' && tool.name !== 'releases')
   },
 })
