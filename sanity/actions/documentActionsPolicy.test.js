@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import { resolveDocumentActions, resolveNewDocumentOptions } from './documentActionsPolicy'
 
 /**
