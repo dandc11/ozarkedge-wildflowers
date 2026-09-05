@@ -53,3 +53,9 @@ studio/.env.development
 
 # vercel
 .vercel
+
+# Working plans (not shipped artifacts)
+plans/
+
+# Local dataset backups (the canonical copies live in the oe-dataset-backups repo)
+backups/
