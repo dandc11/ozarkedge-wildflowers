@@ -389,8 +389,9 @@ export const STUDIO_GUIDES = [
       check(
         'this assumes you have access to the Sanity Dashboard and are set up on the organisation — that is separate from your Studio login. If the chat panel is not there when you look, that is the likely reason and it needs sorting out before any of this applies',
       ),
-      check(
-        'the agent also needs to have seen the site’s current setup, which happens the first time someone opens the published Studio after an update. If it claims not to know about Learnings & Notes, open the Studio once and ask again',
+      h3('If it says it cannot find something'),
+      p(
+        'The agent learns the shape of the site when the published Studio is opened, so it can lag behind a recent change. If it insists a section does not exist — Learnings & Notes, say — open the Studio in a **fresh tab** first, then ask again. A tab that has been open for weeks does not count; see the troubleshooting guide on why that matters.',
       ),
     ],
   },
@@ -399,33 +400,57 @@ export const STUDIO_GUIDES = [
     order: 50,
     title: 'Studio Troubleshooting',
     body: [
-      h2('The Studio will not load'),
+      h2('Start here: reload the page'),
       p(
-        'The Studio lives at **ozarkedgewildflowers.sanity.studio**. If you have an older bookmark pointing at a /studio address on the main site, it will not work any more — the Studio moved to its own address. Update the bookmark.',
+        'Before anything else, reload. A surprising share of odd behaviour in the Studio is a stale page rather than a real fault, and reloading costs you nothing — your work is saved as you type, so there is nothing to lose by refreshing.',
       ),
-      p('Log in with the Sanity account you were invited with.'),
-      h2('A change is not on the website'),
       p(
-        'Almost always the document was edited but not published. Open it and look for the Publish button at the bottom of the form; if it is active, there are unpublished changes. The guide on drafts and publishing covers the rest.',
+        'The reason is worth understanding, because it makes the rest of this guide make sense. **The Studio updates itself, but a tab that is already open keeps running the version it loaded.** If you left a tab open three weeks ago, you are still using the Studio as it was three weeks ago — even though the up-to-date version is a reload away.',
+      ),
+      p('That shows up as things that look broken but are not:'),
+      bullet('A section someone told you about is missing from the sidebar.'),
+      bullet('A field that was added to a plant does not appear on the form.'),
+      bullet('Buttons that do nothing when clicked.'),
+      bullet('Being asked to sign in again, or edits that seem not to save.'),
+      bullet('Something described in these guides that you simply cannot find.'),
+      h3('How to reload properly'),
+      step('An ordinary refresh first — the reload button, or Cmd+R (Ctrl+R on Windows).'),
+      step(
+        'If that does not do it, a hard refresh: hold Shift and click reload, or Cmd+Shift+R (Ctrl+Shift+R on Windows). This throws away the copy your browser had saved.',
+      ),
+      step(
+        'Still odd? Close the tab completely and open the Studio fresh, rather than reloading again.',
+      ),
+      p(
+        'A habit worth forming: when you sit down to a session of editing, open a fresh tab rather than returning to one from last month. It costs a few seconds and prevents most of what follows.',
+      ),
+      h2('A change is not showing on the website'),
+      p(
+        'Almost always the document was edited but never published. Open it and look at the bottom of the form: if the **Publish** button is active, there are unpublished changes waiting. The guide on drafts and publishing covers the rest.',
+      ),
+      p(
+        'If it was definitely published, refresh the website itself — not the Studio — with a hard refresh. Browsers hold on to pages.',
       ),
       h2('The Publish button is greyed out'),
       p(
-        'Either nothing has changed since the last publish, or a required field is empty. The form marks the field that is missing.',
+        'Either nothing has changed since the last publish, or a required field is empty. The form marks the field that needs filling in.',
       ),
+      h2('The Studio will not load at all'),
+      p(
+        'The Studio lives at **ozarkedgewildflowers.sanity.studio**. An older bookmark pointing at a /studio address on the main site will no longer work — the Studio moved to its own address. Update the bookmark.',
+      ),
+      p('Sign in with the Sanity account you were invited with.'),
       h2('A form is greyed out and will not let me type'),
       p(
         'If it is one of these guides, that is deliberate — they are read-only. Anywhere else, that is not expected and is worth reporting.',
       ),
-      h2('Preview shows the wrong page, or nothing'),
+      h2('Preview opens the wrong page, or nothing'),
       p(
-        'The Open in Presentation button needs a slug for plants and seasons. If the document has no slug yet, the button stays disabled and the preview has no address to load.',
+        'Opening a plant or a season in Presentation needs a slug. Without one there is no address to preview, so the menu option stays disabled.',
       ),
-      h2('Something looks broken'),
+      h2('Something still looks broken'),
       p(
-        'Note what you were doing and what you expected instead, and write it up in Learnings & Notes under **Something Went Wrong**. That leaves a record with enough detail to actually chase down later, which a remembered description usually does not.',
-      ),
-      check(
-        'these are the failures the setup makes likely, not the ones you have actually hit. Tell me which problems keep recurring for you and they should replace or lead this list',
+        'Once you have reloaded and it persists, it is worth reporting rather than working around. Note what you were doing, what you expected, and what happened instead, and write it up in Learnings & Notes under **Something Went Wrong** — a written note at the time carries the detail that a remembered description loses.',
       ),
     ],
   },
