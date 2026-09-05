@@ -57,5 +57,8 @@ studio/.env.development
 .claude/launch.json
 .claude/worktrees/
 
+# working plans (local thinking, not shipped artifacts)
+/plans/
+
 # vercel
 .vercel
