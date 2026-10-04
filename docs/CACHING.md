@@ -47,10 +47,16 @@ Studio doesn't count; it runs on a different origin and doesn't mount this compo
 
 Keep it — it's valuable for editors watching a page live. It just can't be the only path.
 
-## Why there is no `export const revalidate`
+## Why `export const revalidate` doesn't refresh content
 
-This looks like the obvious way to add a time-based backstop, and it does not work here.
-From the Next.js route segment config docs:
+`app/layout.js` sets `export const revalidate = 3600`, but only for values read from the
+clock. The homepage's "Blooming in {month}" heading and the season class on `<body>` are
+computed at render time, and the month is passed to the blooming/season queries as a
+`$month` parameter. A new month is therefore a new query and a new Data Cache entry, so the
+hourly re-render picks it up (#342).
+
+It is not a backstop for published content, and it cannot be one. From the Next.js route
+segment config docs:
 
 > Set the default revalidation time for a layout or page. This option does not override the
 > `revalidate` value set by individual `fetch` requests.
@@ -62,8 +68,8 @@ nothing refreshed.
 
 `revalidatePath` is different: it invalidates the route's stored HTML, and Next.js records an
 implicit per-path tag on the fetches made while rendering that route, so the cached Sanity
-responses should be discarded with it. That is why the backstop is a scheduled
-`revalidatePath` call rather than a segment timer.
+responses should be discarded with it. That is why the content backstop is a scheduled
+`revalidatePath` call rather than relying on the segment timer.
 
 > **This second half is the load-bearing assumption of the whole design and has not yet been
 > confirmed against a deployed environment.** If `revalidatePath` clears only the stored HTML
