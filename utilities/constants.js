@@ -7,8 +7,6 @@ export const DOCTYPE_PATH_PREFIXES = {
   pollinator: '/pollinator/',
 }
 
-export const CURRENT_MONTH_NUMBER = new Date(Date.now()).getMonth() + 1
-
 export const MONTH_NAMES_MAP = new Map([
   [1, { fullName: 'January', abbreviation: 'Jan' }],
   [2, { fullName: 'February', abbreviation: 'Feb' }],
