@@ -9,6 +9,7 @@ import ResponsiveImage from '../components/ResponsiveImage'
 import WelcomeSection from '../components/WelcomeSection'
 import {
   getCurrentMonthName,
+  getCurrentMonthNumber,
   titleCase,
   getCurrentSeason,
   displaySeasonName,
@@ -59,9 +60,11 @@ export async function generateMetadata() {
  **/
 export default async function HomePage() {
   const { isEnabled: isDraftMode } = await draftMode()
+  const month = getCurrentMonthNumber()
   // Current season data (centralized query)
   const seasonQueryResponse = await sanityFetch({
     query: GET_CURRENT_SEASON_DATA_QUERY,
+    params: { month },
     perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })
@@ -69,6 +72,7 @@ export default async function HomePage() {
 
   const bloomingQueryResponse = await sanityFetch({
     query: GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY,
+    params: { month },
     perspective: isDraftMode ? 'drafts' : 'published',
     stega: isDraftMode,
   })

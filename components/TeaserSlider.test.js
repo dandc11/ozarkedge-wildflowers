@@ -57,6 +57,7 @@ jest.mock('./ResponsiveImage', () => {
 // Mock time-dependent utilities for deterministic tests
 jest.mock('../utilities/helperUtil', () => ({
   getCurrentMonthName: () => 'may',
+  getCurrentMonthNumber: () => 5,
   getCurrentSeason: () => ({ SEASON_NAME: 'spring' }),
   titleCase: (str) => str.charAt(0).toUpperCase() + str.slice(1),
 }))

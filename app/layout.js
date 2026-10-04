@@ -29,6 +29,10 @@ const raleway = Raleway({
   preload: true,
 })
 
+// The month and season are read from the clock at render time, so pages must
+// re-render after a month boundary even when no content has changed.
+export const revalidate = 3600
+
 export default async function RootLayout({ children }) {
   const { isEnabled: isDraftMode } = await draftMode()
   // Fetch the menu data from Sanity with proper perspective/stega

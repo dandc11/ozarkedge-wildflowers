@@ -1,7 +1,5 @@
 import { groq } from 'next-sanity'
 
-import { CURRENT_MONTH_NUMBER } from '../../utilities/constants'
-
 import {
   imageCollectionFields,
   imageFields,
@@ -76,7 +74,7 @@ export const GET_PLANT_LIST_PAGE_DATA_QUERY = groq`
 }`
 
 // retrieves native plant data for the first 7 plants blooming in the current month
-export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[ _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
+export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[ _type == "nativePlant" && $month in floweringMonths][0...7]
   {
     "docType": _type, 
     plantName, 
@@ -93,7 +91,7 @@ export const GET_BLOOMING_PLANTS_DATA_QUERY = groq`*[ _type == "nativePlant" && 
   }`
 
 // get the previewImage of the first 7 native plants with a floweringMonth matching the current month
-export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = groq`*[ _type == "nativePlant" && ${CURRENT_MONTH_NUMBER} in floweringMonths][0...7]
+export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = groq`*[ _type == "nativePlant" && $month in floweringMonths][0...7]
   {
     "image": previewImage {
       ...,
@@ -105,7 +103,7 @@ export const GET_BLOOMING_PLANTS_PREVIEW_IMAGES_QUERY = groq`*[ _type == "native
   }`
 
 // retrieves the season document that matches the current month
-export const GET_CURRENT_SEASON_DATA_QUERY = groq`*[ _type == "season" && ${CURRENT_MONTH_NUMBER} in monthNumbers]
+export const GET_CURRENT_SEASON_DATA_QUERY = groq`*[ _type == "season" && $month in monthNumbers]
   {
     ...,
     mainImage {
