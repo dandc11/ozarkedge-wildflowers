@@ -20,6 +20,10 @@ module.exports = [
   {
     // Build output, generated files and non-source dirs (formerly via .gitignore).
     ignores: [
+      // Full checkouts of other branches, one per parallel session. Linting them
+      // reports another branch's warnings as this one's. Same reason jest.config.js
+      // excludes them from test collection.
+      '.claude/worktrees/**',
       '.next/**',
       'out/**',
       'build/**',

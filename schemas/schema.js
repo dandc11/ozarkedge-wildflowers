@@ -22,6 +22,9 @@ import imageCollection from './objects/imageCollection'
 import teaserSection from './objects/teaserSection'
 import thumbnailImage from './objects/thumbnailImage'
 import feature from './objects/feature'
+import studioGuideBody from './objects/studioGuideBody'
+import studioGuide from './documents/studioGuide'
+import studioNote from './documents/studioNote'
 
 export const schema = {
   types: [
@@ -49,5 +52,8 @@ export const schema = {
     teaserSection,
     thumbnailImage,
     feature,
+    studioGuideBody,
+    studioGuide,
+    studioNote,
   ],
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 
-import { CURRENT_MONTH_NUMBER, IMG_SIZES } from '../utilities/constants'
+import { IMG_SIZES } from '../utilities/constants'
+import { getCurrentMonthNumber } from '../utilities/helperUtil'
 
 import Heading from './Heading'
 import ImageSlider from './ImageSlider'
@@ -53,7 +54,7 @@ const TeaserSlider = (props) => {
       return plant.image
     })
 
-  const teaserUrlParams = { months: [CURRENT_MONTH_NUMBER] }
+  const teaserUrlParams = { months: [getCurrentMonthNumber()] }
   return (
     <>
       {images && (

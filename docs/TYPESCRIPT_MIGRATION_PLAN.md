@@ -36,14 +36,14 @@ Non-test source files and lines, by area (`find`+`wc -l`, current `main`):
 | `hooks/`                        | 1                        | 0                | 53          | 0          | 0          |
 | `contexts/`                     | 1                        | 0                | 22          | 0          | 0          |
 | `__mocks__/`                    | 1                        | 0                | 17          | 0          | 0          |
-| **Total**                       | **116** (+15 test files) | **3**            | **~10,800** | **15**     | **~3,565** |
+| **Total**                       | **115** (+15 test files) | **3**            | **~10,800** | **15**     | **~3,565** |
 
-The per-area rows above sum to 106 `.js`/`.jsx` files; the other 10 are
+The per-area rows above sum to 106 `.js`/`.jsx` files; the other 9 are
 root-level config (`next.config.js`, `eslint.config.js`, `jest.config.js`,
 `jest.env.js`, `jest.setup.js`, `sanity.config.js`, `sanity.cli.js`,
-`postcss.config.js`, `prettier.config.js`) plus one Sanity-generated build
-artifact — none of it blocks a TS conversion; Next.js, Jest, and ESLint all
-resolve `.ts` config files interchangeably with `.js` ones.
+`postcss.config.js`) plus one Sanity-generated build artifact — none of it
+blocks a TS conversion; Next.js, Jest, and ESLint all resolve `.ts` config
+files interchangeably with `.js` ones.
 
 Notable in scoping the effort:
 
@@ -180,8 +180,8 @@ reason to block a component's conversion on its test converting same-PR.
   `@typescript-eslint/eslint-plugin@8.65.0` supports ESLint `^9.0.0`, so
   adding `eslint-config-next/typescript` (or `typescript-eslint`'s flat
   preset directly) is a drop-in addition, not a blocker.
-- **Prettier**: no changes needed — `prettier.config.js`'s settings apply to
-  `.ts`/`.tsx` identically.
+- **Prettier**: no changes needed — the `prettier` key in `package.json` is the
+  sole Prettier config, and its settings apply to `.ts`/`.tsx` identically.
 - **CI gates — important finding, not a TS-specific gap**: this repo
   currently has **no CI workflow that runs `npm run lint`, `npm run build`,
   or `npm test`** at all (`.github/workflows/` only contains the

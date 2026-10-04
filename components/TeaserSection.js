@@ -6,9 +6,9 @@ import PortTextWrapper from './PortTextWrapper'
 import {
   getCurrentMonthName,
   getMonthNumbersFromSeason,
+  getCurrentMonthNumber,
   getCurrentSeason,
 } from '../utilities/helperUtil'
-import { CURRENT_MONTH_NUMBER } from '../utilities/constants'
 import { IMG_SIZES } from '../utilities/constants'
 import Heading from './Heading'
 import Button from './Button'
@@ -68,7 +68,7 @@ const TeaserSection = (props) => {
   // Get month numbers for the season based on teaserTheme, with fallback to current season
   const seasonMonths = teaserTheme
     ? getMonthNumbersFromSeason(cleanedTheme)
-    : (getCurrentSeason()?.SEASON_MONTHS ?? [CURRENT_MONTH_NUMBER])
+    : (getCurrentSeason()?.SEASON_MONTHS ?? [getCurrentMonthNumber()])
 
   let teaserUrlParams = { months: seasonMonths }
 
