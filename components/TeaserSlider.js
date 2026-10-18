@@ -1,13 +1,13 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import cx from 'classnames'
 
 import { IMG_SIZES } from '../utilities/constants'
-import { getCurrentMonthNumber } from '../utilities/helperUtil'
+import { getCurrentMonthNumber, getPathFromDocType } from '../utilities/helperUtil'
 
 import Heading from './Heading'
 import ImageSlider from './ImageSlider'
-import Button from './Button'
 import ResponsiveImage from './ResponsiveImage'
 // SSR-friendly PortableText wrapper; heavy media blocks hydrate on client
 const PortTextWrapper = dynamic(() => import('./PortTextWrapper'))
@@ -17,11 +17,11 @@ const PortTextWrapper = dynamic(() => import('./PortTextWrapper'))
  * @param {array} props.images - list of images to display in the slider
  * @param {string} props.headingChildren - children to pass to the Heading component
  * @param {string} props.bodyText - text to display - can be sting or portable text
- * @param {string} props.buttonLink - link for the button
- * @param {string} props.buttonLinkText - text for the button link
- * @param {string} props.buttonLinkDocType - doc type for the button link
+ * @param {string} props.buttonLinkSlug - slug for the CTA link
+ * @param {string} props.buttonLinkText - text for the CTA link
+ * @param {string} props.buttonLinkDocType - doc type for the CTA link
  * @param {boolean} props.usePortText - whether to use the PortTextWrapper component for the body text
- * @param {boolean} props.showLinkButton - whether to show a link button
+ * @param {boolean} props.showLinkButton - whether to show the CTA link
  * @param {string} props.className - class name for the component's outer element
  * @returns {JSX.Element} - the component
  * @category Components
@@ -54,60 +54,63 @@ const TeaserSlider = (props) => {
       return plant.image
     })
 
-  const teaserUrlParams = { months: [getCurrentMonthNumber()] }
+  const ctaHref = `${getPathFromDocType(buttonLinkDocType || 'plantListPage', buttonLinkSlug)}?${new URLSearchParams({ months: getCurrentMonthNumber() })}`
   return (
     <>
       {images && (
-        <section
-          id={id}
-          className={cx(`teaser teaser-slider justify-center w-full`, className)}
-        >
+        <section id={id} className={cx(`teaser teaser-slider w-full`, className)}>
           <div
-            className={cx('teaser-slider-grid p-md w-full', gridClassName, {
+            className={cx('teaser-slider-grid', gridClassName, {
               'single-image': sliderPlants.length === 0,
             })}
           >
-            {headingChildren && (
-              <Heading id={headingId} className={headingClassName} headingClassName={`font-bold`}>
-                {headingChildren}
-              </Heading>
-            )}
-            {sliderPlants.length > 0 ? (
-              <ImageSlider
-                className={`teaser-image-slider overflow-hidden`}
-                sliderImages={sliderPlants}
-                lightboxIdentifier={lightboxIdentifier}
-                useLinks
-              />
-            ) : (
-              <ResponsiveImage
-                image={defaultImage}
-                alt={defaultImage?.alt || 'A placeholder image'}
-                disableHover
-                disablePointer
-                showCaption={false}
-                // loading="eager"
-                figureClassName="h-full w-full"
-                sizes={IMG_SIZES.TEASER}
-                wrapperClassName="teaser-image rounded-lg w-full mb-3xl bg-oe-green-yellow-200"
-                className="w-full h-full"
-              />
-            )}
-
-            <div className={`description p-in-md`}>
-              {bodyText && usePortText ? (
-                <PortTextWrapper value={bodyText} components={{}} />
-              ) : (
-                <p>{bodyText}</p>
+            <div className="teaser-text">
+              {headingChildren && (
+                <Heading id={headingId} className={headingClassName} textTypeClass="">
+                  {headingChildren}
+                </Heading>
               )}
-              <Button
-                className={cx('btn-season', `m-bk-xl`)}
-                slug={buttonLinkSlug}
-                linkDocType={buttonLinkDocType ? buttonLinkDocType : 'plantListPage'}
-                urlParams={teaserUrlParams}
-              >
-                {buttonLinkText}
-              </Button>
+              {bodyText && (
+                <div className="description">
+                  {usePortText ? (
+                    <PortTextWrapper value={bodyText} components={{}} />
+                  ) : (
+                    <p>{bodyText}</p>
+                  )}
+                </div>
+              )}
+              {showLinkButton && buttonLinkText && (
+                <div className="teaser-actions">
+                  <Link className="link-cta" href={ctaHref}>
+                    {buttonLinkText}{' '}
+                    <span className="link-cta-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className="teaser-media">
+              {sliderPlants.length > 0 ? (
+                <ImageSlider
+                  className={`teaser-image-slider`}
+                  sliderImages={sliderPlants}
+                  lightboxIdentifier={lightboxIdentifier}
+                  useLinks
+                />
+              ) : (
+                <ResponsiveImage
+                  image={defaultImage}
+                  alt={defaultImage?.alt || 'A placeholder image'}
+                  disableHover
+                  disablePointer
+                  showCaption={false}
+                  figureClassName="h-full w-full"
+                  sizes={IMG_SIZES.TEASER}
+                  wrapperClassName="teaser-image w-full bg-oe-green-yellow-200"
+                  className="w-full h-full"
+                />
+              )}
             </div>
           </div>
         </section>

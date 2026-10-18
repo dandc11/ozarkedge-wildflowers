@@ -22,8 +22,6 @@
   --season-stripe: transparent;
   --season-heading-color: var(--oe-white);
   --season-slider-text-color: var(--oe-white);
-  --season-btn-bg: var(--btn-gradient-1);
-  --season-btn-color: var(--oe-white);
   --season-footer-bg: var(--oe-grey-900);
 }
 
@@ -39,8 +37,6 @@
   --season-stripe: var(--spring-gradient);
   --season-heading-color: var(--spring-heading-color);
   --season-slider-text-color: var(--spring-text-color);
-  --season-btn-bg: var(--btn-gradient-1);
-  --season-btn-color: var(--oe-white);
   --season-footer-bg: var(--oe-green-700);
 }
 
@@ -53,8 +49,6 @@
   --season-stripe: var(--summer-gradient-2);
   --season-heading-color: var(--summer-heading-color);
   --season-slider-text-color: var(--summer-heading-color);
-  --season-btn-bg: var(--btn-gradient-2);
-  --season-btn-color: var(--oe-white);
   --season-footer-bg: var(--oe-blue-green-light-800);
 }
 
@@ -67,8 +61,6 @@
   --season-stripe: var(--fall-bg-gradient);
   --season-heading-color: var(--fall-heading-color);
   --season-slider-text-color: var(--fall-text-color);
-  --season-btn-bg: var(--btn-gradient-1);
-  --season-btn-color: var(--oe-white);
   --season-footer-bg: var(--oe-red-900);
 }
 
@@ -81,14 +73,5 @@
   --season-stripe: var(--winter-gradient-3);
   --season-heading-color: var(--oe-grey-700);
   --season-slider-text-color: var(--oe-white);
-  --season-btn-bg: var(--btn-gradient-3);
-  --season-btn-color: var(--oe-blue-dark-600);
   --season-footer-bg: var(--oe-grey-800);
-
-  /* Winter-only: the "Blooming now" panel goes dark with light text.
-     Other seasons leave these unset — consumers fall back (home.css). */
-  --season-blooming-bg: var(--winter-gradient-3);
-  --season-blooming-title: var(--oe-white);
-  --season-blooming-text: var(--oe-white);
-  --season-blooming-caption: var(--oe-white);
 }

@@ -32,12 +32,6 @@ jest.mock('./ImageSlider', () => {
   }
 })
 
-jest.mock('./Button', () => {
-  return function MockButton({ children }) {
-    return <button>{children}</button>
-  }
-})
-
 jest.mock('./Heading', () => {
   return function MockHeading({ children }) {
     return <div>{children}</div>
@@ -60,6 +54,7 @@ jest.mock('../utilities/helperUtil', () => ({
   getCurrentMonthNumber: () => 5,
   getCurrentSeason: () => ({ SEASON_NAME: 'spring' }),
   titleCase: (str) => str.charAt(0).toUpperCase() + str.slice(1),
+  getPathFromDocType: jest.requireActual('../utilities/helperUtil').getPathFromDocType,
 }))
 
 describe('TeaserSlider', () => {
@@ -128,6 +123,24 @@ describe('TeaserSlider', () => {
       render(<TeaserSlider {...defaultProps} images={imagesWithMissing} />)
       const sliderImages = screen.getAllByTestId('slider-image')
       expect(sliderImages).toHaveLength(2)
+    })
+  })
+
+  describe('CTA link', () => {
+    it('renders the CTA as a link to the season page filtered to the current month', () => {
+      render(<TeaserSlider {...defaultProps} />)
+      const link = screen.getByRole('link', { name: /Visit our spring page/ })
+      expect(link).toHaveAttribute('href', '/season/spring?months=5')
+    })
+
+    it('omits the description when there is no body text', () => {
+      const { container } = render(<TeaserSlider {...defaultProps} bodyText={null} />)
+      expect(container.querySelector('.description')).toBeNull()
+    })
+
+    it('omits the CTA when showLinkButton is false', () => {
+      render(<TeaserSlider {...defaultProps} showLinkButton={false} />)
+      expect(screen.queryByRole('link', { name: /Visit our spring page/ })).not.toBeInTheDocument()
     })
   })
 

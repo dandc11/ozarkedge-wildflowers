@@ -99,7 +99,7 @@ export default async function HomePage() {
   const teaserButtonLinkText = `Visit our ${displaySeasonName(currentSeason)} page`
   const thisMonth = getCurrentMonthName()
   const BloomingHeadingText = ({ thisMonth }) => (
-    <span className="blooming-title fw-400">
+    <span className="blooming-title">
       {currentSeason === 'winter'
         ? `${titleCase(thisMonth)}`
         : `Blooming in ${titleCase(thisMonth)}`}
@@ -129,7 +129,11 @@ export default async function HomePage() {
               data-sanity={editAttribute(landingPageData._id, 'landingPage', 'mainImage')}
             />
             <ResponsiveImage
-              image={landingPageData.mobileImage ? landingPageData.mobileImage : landingPageData.mainImage}
+              image={
+                landingPageData.mobileImage
+                  ? landingPageData.mobileImage
+                  : landingPageData.mainImage
+              }
               alt={landingPageData.mobileImage?.alt || 'A picture of the Ozarkedge property'}
               disableHover
               disablePointer
@@ -174,20 +178,21 @@ export default async function HomePage() {
                 lightboxIdentifier={`bloomingNow`}
               />
             </Suspense>
+            {(welcomeData?.introBody?.length > 0 || welcomeData?.locationBody?.length > 0) && (
+              <WelcomeSection
+                introImage={welcomeData.introImage}
+                locationImage={welcomeData.locationImage}
+                introBody={welcomeData.introBody}
+                locationBody={welcomeData.locationBody}
+                introHeading={welcomeData.introHeading}
+                locationHeading={welcomeData.locationHeading}
+                documentId={welcomeData._id}
+                documentType={welcomeData._type}
+                showButtons={true}
+                showEyebrow={false}
+              />
+            )}
           </div>
-          {(welcomeData?.introBody?.length > 0 || welcomeData?.locationBody?.length > 0) && (
-            <WelcomeSection
-              introImage={welcomeData.introImage}
-              locationImage={welcomeData.locationImage}
-              introBody={welcomeData.introBody}
-              locationBody={welcomeData.locationBody}
-              introHeading={welcomeData.introHeading}
-              locationHeading={welcomeData.locationHeading}
-              documentId={welcomeData._id}
-              documentType={welcomeData._type}
-              showButtons={true}
-            />
-          )}
         </div>
       )}
     </>
