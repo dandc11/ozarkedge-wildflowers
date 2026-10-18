@@ -157,7 +157,8 @@ h2 with an offset circle behind it (`--btf-circle-color`), a left content
 edge aligned to a 1180px well (`--btf-edge`, fed to the teaser as
 `--teaser-edge`), 42ch body copy, `.link-cta` CTAs and flat `md` imagery. The
 Blooming panel is `--oe-green-900` in every season; Welcome stays on
-`--btf-bg-color`. New sections added below the hero should join this
+`--btf-bg-color` with its heading in `--season-btf-heading-color` (the season
+heading color, except a darker grey in spring so it keeps 3:1 over the circle). New sections added below the hero should join this
 treatment rather than introduce their own.
 
 ## Do's and Don'ts

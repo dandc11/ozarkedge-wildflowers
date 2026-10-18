@@ -21,6 +21,7 @@
   --season-title-gradient-desktop: var(--oe-white);
   --season-stripe: transparent;
   --season-heading-color: var(--oe-white);
+  --season-btf-heading-color: var(--oe-white);
   --season-slider-text-color: var(--oe-white);
   --season-footer-bg: var(--oe-grey-900);
 }
@@ -36,6 +37,9 @@
   --season-title-gradient-desktop: var(--oe-white);
   --season-stripe: var(--spring-gradient);
   --season-heading-color: var(--spring-heading-color);
+  /* Darker than the spring heading so it holds 3:1 over the red-200
+     heading circle on the home page (#345). */
+  --season-btf-heading-color: var(--oe-grey-700);
   --season-slider-text-color: var(--spring-text-color);
   --season-footer-bg: var(--oe-green-700);
 }
@@ -48,6 +52,7 @@
   --season-title-gradient-desktop: var(--summer-gradient-3);
   --season-stripe: var(--summer-gradient-2);
   --season-heading-color: var(--summer-heading-color);
+  --season-btf-heading-color: var(--summer-heading-color);
   --season-slider-text-color: var(--summer-heading-color);
   --season-footer-bg: var(--oe-blue-green-light-800);
 }
@@ -60,6 +65,7 @@
   --season-title-gradient-desktop: var(--fall-gradient);
   --season-stripe: var(--fall-bg-gradient);
   --season-heading-color: var(--fall-heading-color);
+  --season-btf-heading-color: var(--fall-heading-color);
   --season-slider-text-color: var(--fall-text-color);
   --season-footer-bg: var(--oe-red-900);
 }
@@ -72,6 +78,7 @@
   --season-title-gradient-desktop: var(--winter-gradient);
   --season-stripe: var(--winter-gradient-3);
   --season-heading-color: var(--oe-grey-700);
+  --season-btf-heading-color: var(--oe-grey-700);
   --season-slider-text-color: var(--oe-white);
   --season-footer-bg: var(--oe-grey-800);
 }

@@ -140,7 +140,7 @@
       }
 
       .welcome-heading {
-        color: var(--season-heading-color);
+        color: var(--season-btf-heading-color);
         background: none;
         -webkit-text-fill-color: currentColor;
       }
