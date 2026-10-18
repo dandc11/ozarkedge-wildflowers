@@ -65,25 +65,143 @@
     }
   }
 
-  /* Season bg flows from the body's season class (fixes the old
-     winter bug that painted an accent color as the background). */
+  /* Below the fold (#345): Blooming and Welcome share one heading style,
+     left content edge, body size, CTA and flat image treatment. The edge
+     aligns content to a 1180px well. The gutter matches the heading circle's
+     offset so the circle never runs off-screen. */
   .btf {
-    background-color: var(--season-bg);
-  }
+    --btf-well: 1180px;
+    --btf-gutter: 1.75rem;
+    --btf-edge: max(var(--btf-gutter), calc((100cqi - var(--btf-well)) / 2 + var(--btf-gutter)));
+    --teaser-edge: var(--btf-edge);
 
-  .blooming-now {
-    /* Winter defines the --season-blooming-* overrides (seasons.css);
-       other seasons fall back to the normal teaser treatment. */
-    background: var(--season-blooming-bg, none);
-    --teaser-heading-color: var(--season-blooming-title, var(--season-heading-color));
-    --teaser-text-color: var(--season-blooming-text, var(--season-slider-text-color));
+    .blooming-heading .heading-title,
+    .welcome-heading {
+      position: relative;
+      z-index: 0;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-raleway);
+      font-weight: var(--fw-300);
+      font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+      line-height: 1.2;
+      text-wrap: balance;
 
-    .blooming-title {
-      text-transform: uppercase;
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: -1.1rem;
+        left: -1.75rem;
+        width: var(--sp-16);
+        height: var(--sp-16);
+        border-radius: 50%;
+        background: var(--btf-circle-color);
+        pointer-events: none;
+      }
     }
 
-    figure.img figcaption {
-      color: var(--season-blooming-caption, var(--oe-text-body));
+    .blooming-now {
+      --btf-circle-color: var(--oe-green-700);
+      --teaser-heading-color: var(--oe-green-100);
+      --teaser-text-color: var(--oe-white);
+      --teaser-caption-color: var(--oe-white);
+      --teaser-caption-underline: currentColor;
+      --teaser-scrollbar-color: var(--oe-green-200);
+      --link-cta-color: var(--oe-orange-300);
+      --link-cta-hover: var(--oe-orange-200);
+      background: var(--oe-green-900);
+    }
+
+    .welcome-section {
+      --btf-circle-color: var(--oe-red-200);
+
+      .welcome-inner {
+        max-width: none;
+        margin: 0;
+        padding: var(--sp-16) var(--btf-edge);
+        gap: var(--sp-16);
+      }
+
+      .welcome-split {
+        grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+        gap: var(--sp-16);
+      }
+
+      .welcome-split--reverse {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+      }
+
+      .welcome-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--sp-6);
+      }
+
+      .welcome-heading {
+        color: var(--season-btf-heading-color);
+        background: none;
+        -webkit-text-fill-color: currentColor;
+      }
+
+      .welcome-lead {
+        margin: 0;
+        max-width: 42ch;
+      }
+
+      .welcome-body > * + * {
+        margin-top: var(--sp-4);
+      }
+
+      .welcome-actions {
+        margin-top: var(--sp-4);
+      }
+
+      .welcome-media-img {
+        border-radius: var(--br-md);
+        box-shadow: none;
+      }
+
+      figcaption {
+        margin-top: var(--sp-2);
+        font-family: var(--font-raleway);
+        font-style: italic;
+        font-size: var(--fs-xs);
+        text-align: center;
+        color: var(--oe-grey-700);
+      }
+
+      @container welcome (width <= 820px) {
+        .welcome-inner {
+          padding: var(--sp-12) var(--sp-6);
+          gap: var(--sp-12);
+        }
+
+        .welcome-split,
+        .welcome-split--reverse {
+          grid-template-columns: minmax(0, 1fr);
+          gap: var(--sp-8);
+        }
+
+        .welcome-lead {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    @container homepage-content (width <= 820px) {
+      .blooming-heading .heading-title,
+      .welcome-heading {
+        font-size: 1.9rem;
+
+        &::before {
+          top: -0.9rem;
+          left: -1rem;
+          width: 3.25rem;
+          height: 3.25rem;
+        }
+      }
     }
   }
 
@@ -113,25 +231,5 @@
       justify-content: end;
       padding-block-start: var(--sp-12);
     }
-
-    .blooming-now {
-      padding-left: var(--sp-6);
-    }
-  }
-
-  .teaser-slider-grid .description {
-    container: description / inline-size;
-    margin-block-start: var(--sp-6);
-
-    @container teaser (width >= 800px) {
-      grid-row-start: 2;
-      margin-block-start: 0;
-    }
-  }
-}
-
-@container homepage-content (width >= 500px) {
-  .blooming-heading .heading-title {
-    padding-inline: var(--sp-4);
   }
 }

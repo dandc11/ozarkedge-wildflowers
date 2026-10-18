@@ -133,16 +133,33 @@ lifted imagery `lg`. No ad-hoc box-shadows.
 ## Shapes
 
 `--br-sm | md | lg | pill` (`styles/variables.css`). `pill` (9999px) for
-fully-rounded controls; imagery uses `lg`.
+fully-rounded controls; lifted imagery uses `lg`, flat imagery (no shadow)
+uses `md`.
 
 ## Components
 
 Component styling lives in **`styles/components/*.css`** (one file per
 component, imported by `global.css`) with markup in `/components/*.js`.
 **Read those files rather than re-deriving components from this document** —
-notable ones: `nav.css`, `button.css` (incl. `.btn-season`), `teaser.css`,
+notable ones: `nav.css`, `button.css` (incl. `.link-cta`), `teaser.css`,
 `footer.css`, `natureserve.css`, `image.css` (see the `image-components`
 skill for the ResponsiveImage/InteractiveImage tiers).
+
+**Text-link CTA** — `.link-cta` (+ `.link-cta-arrow`) in `button.css`: an
+underlined Raleway 600 link with a trailing arrow, no button chrome. Colors
+come from `--link-cta-color` / `--link-cta-hover` (default orange-700/800)
+so dark panels can remap them. Use a real `<a>`/`<Link>` for navigation, not
+a `<button>` that pushes the router.
+
+**Home below the fold** (`styles/pages/home.css`, `.btf`) — the Blooming
+slider and the Welcome section share one treatment: Raleway 300 sentence-case
+h2 with an offset circle behind it (`--btf-circle-color`), a left content
+edge aligned to a 1180px well (`--btf-edge`, fed to the teaser as
+`--teaser-edge`), 42ch body copy, `.link-cta` CTAs and flat `md` imagery. The
+Blooming panel is `--oe-green-900` in every season; Welcome stays on
+`--btf-bg-color` with its heading in `--season-btf-heading-color` (the season
+heading color, except a darker grey in spring so it keeps 3:1 over the circle). New sections added below the hero should join this
+treatment rather than introduce their own.
 
 ## Do's and Don'ts
 

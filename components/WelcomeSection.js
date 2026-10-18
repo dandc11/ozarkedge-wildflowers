@@ -20,6 +20,7 @@ const WelcomeSection = ({
   introHeading,
   locationHeading,
   showButtons = true,
+  showEyebrow = true,
   eyebrowText = 'Welcome',
   documentId,
   documentType,
@@ -37,19 +38,23 @@ const WelcomeSection = ({
         {hasIntro && (
           <div className="welcome-split">
             <div className="welcome-text">
-              <p className="welcome-eyebrow">
-                <span className="welcome-circle" aria-hidden="true" />
-                {eyebrowText}
-              </p>
+              {showEyebrow && (
+                <p className="welcome-eyebrow">
+                  <span className="welcome-circle" aria-hidden="true" />
+                  {eyebrowText}
+                </p>
+              )}
               <h2 className="welcome-heading">
                 {introHeading || 'A field guide to our corner of the Ozarks'}
               </h2>
-              <PortableText value={introBody} components={splitBodyComponents} />
+              <div className="welcome-body">
+                <PortableText value={introBody} components={splitBodyComponents} />
+              </div>
               {showButtons && (
                 <div className="welcome-actions">
-                  <Link className="welcome-btn" href="/native-plants/">
+                  <Link className="link-cta" href="/native-plants/">
                     Our native plant index{' '}
-                    <span className="welcome-btn-arrow" aria-hidden="true">
+                    <span className="link-cta-arrow" aria-hidden="true">
                       →
                     </span>
                   </Link>
@@ -80,19 +85,23 @@ const WelcomeSection = ({
         {hasLocation && (
           <div className="welcome-split welcome-split--reverse">
             <div className="welcome-text">
-              <p className="welcome-eyebrow">
-                <span className="welcome-circle" aria-hidden="true" />
-                Where we are
-              </p>
+              {showEyebrow && (
+                <p className="welcome-eyebrow">
+                  <span className="welcome-circle" aria-hidden="true" />
+                  Where we are
+                </p>
+              )}
               <h2 className="welcome-heading">
                 {locationHeading || 'Rooted in the Ozark Highlands'}
               </h2>
-              <PortableText value={locationBody} components={splitBodyComponents} />
+              <div className="welcome-body">
+                <PortableText value={locationBody} components={splitBodyComponents} />
+              </div>
               {showButtons && (
                 <div className="welcome-actions">
-                  <Link className="welcome-btn" href="/about#our-story-heading">
+                  <Link className="link-cta" href="/about#our-story-heading">
                     Read our story{' '}
-                    <span className="welcome-btn-arrow" aria-hidden="true">
+                    <span className="link-cta-arrow" aria-hidden="true">
                       →
                     </span>
                   </Link>
@@ -117,9 +126,7 @@ const WelcomeSection = ({
                     data-sanity={imageDataAttr('locationImage')}
                   />
                   {locationImage.caption && (
-                    <figcaption className="welcome-eco-caption">
-                      {locationImage.caption}
-                    </figcaption>
+                    <figcaption className="welcome-eco-caption">{locationImage.caption}</figcaption>
                   )}
                 </figure>
               ) : (
