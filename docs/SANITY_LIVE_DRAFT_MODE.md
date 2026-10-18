@@ -2,6 +2,10 @@
 
 To keep local dev fast and still give authors real-time previews in Studio Presentation, this project uses the following pattern:
 
+> **Cache invalidation for published content** lives in [CACHING.md](CACHING.md). `<SanityLive />` only clears the server cache when a browser
+> has the site open at the moment of publishing, so the Sanity webhook at `/api/revalidate` is the reliable path.
+
+
 - Default client to published with stega disabled (sanity/lib/sanity.client.js):
   - `perspective: 'published'`
   - `stega: { enabled: false, studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL }`
