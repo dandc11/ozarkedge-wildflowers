@@ -10,6 +10,8 @@
     "lint:fix": "npm run format && npm run lint -- --fix",
     "migrate:savanna-spelling:dry-run": "sanity migrations run fix-savanna-spelling",
     "migrate:savanna-spelling": "sanity migrations run fix-savanna-spelling --no-dry-run",
+    "migrate:retire-menu-fields:dry-run": "sanity migrations run retire-menu-links-and-images",
+    "migrate:retire-menu-fields": "sanity migrations run retire-menu-links-and-images --no-dry-run",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "test": "jest --passWithNoTests",

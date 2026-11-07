@@ -145,6 +145,19 @@ notable ones: `nav.css`, `button.css` (incl. `.link-cta`), `teaser.css`,
 `footer.css`, `natureserve.css`, `image.css` (see the `image-components`
 skill for the ResponsiveImage/InteractiveImage tiers).
 
+**Main menu** (`styles/components/nav.css`, `components/Nav*.js`) — a dark
+`--nav-bg-panel` overlay. Group labels use the **eyebrow**: Raleway 600
+`--fs-xs`, sentence case, `--nav-text-muted`, led by an 8px `--oe-red-200` dot
+(`.nav-eyebrow`). Plant tiles (`.nav-card-link`) are one link each: a cropped
+image (1:1 for the Recently added row, 16:7 for the featured plant), the name
+in Playfair, and a muted Raleway meta line; hover scales the image 1.04 and
+turns the name `--oe-red-200`, both off under `prefers-reduced-motion`. Search
+results sit on `--nav-bg-results` (one step lighter than the panel) in Raleway,
+not Playfair, so the swap from the link groups is obvious. Menu tokens in
+`colors.css`: `--nav-bg-results`, `--nav-divider`, `--nav-text-muted`. The
+current season is marked with bold only: `--season-accent` is a dark value
+meant for light surfaces and fails contrast on the dark panel.
+
 **Text-link CTA** — `.link-cta` (+ `.link-cta-arrow`) in `button.css`: an
 underlined Raleway 600 link with a trailing arrow, no button chrome. Colors
 come from `--link-cta-color` / `--link-cta-hover` (default orange-700/800)
