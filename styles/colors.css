@@ -131,6 +131,9 @@
   --nav-bg-color: var(--oe-white);
   --nav-bg-dark: var(--oe-red-800);
   --nav-bg-panel: var(--oe-grey-900); /* dark nav/overlay/image surfaces (was #181517 / #18170c) */
+  --nav-bg-results: var(--oe-grey-800); /* search-results surface, a step lighter than the panel */
+  --nav-divider: var(--oe-grey-700); /* hairlines and hover fills on the dark panel */
+  --nav-text-muted: var(--oe-grey-300); /* eyebrows, dates, secondary text on the dark panel */
 
   /* Gradients ----------------------------- */
   --spring-gradient: linear-gradient(60deg, hsl(349.09deg 9.48% 45.49%) 5%, #455e4b);

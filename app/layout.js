@@ -9,8 +9,18 @@ import { DisableDraftMode } from '../components/DisableDraftMode'
 import ContextProviders from '../components/ContextProviders'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import { GET_MENU_ITEMS_QUERY, GET_SITE_SETTINGS_QUERY } from '../sanity/lib/queries'
-import { getCurrentSeason } from '../utilities/helperUtil'
+import {
+  GET_MENU_BLOOMING_NOW_QUERY,
+  GET_MENU_RECENTLY_ADDED_PLANTS_QUERY,
+  GET_MENU_SETTINGS_QUERY,
+  GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY,
+  GET_SITE_SETTINGS_QUERY,
+} from '../sanity/lib/queries'
+import {
+  getCurrentMonthName,
+  getCurrentMonthNumber,
+  getCurrentSeason,
+} from '../utilities/helperUtil'
 import { sanityFetch } from '../sanity/lib/sanity.live'
 
 const playfairDisplay = Playfair_Display({
@@ -35,12 +45,21 @@ export const revalidate = 3600
 
 export default async function RootLayout({ children }) {
   const { isEnabled: isDraftMode } = await draftMode()
-  // Fetch the menu data from Sanity with proper perspective/stega
-  const menuData = await sanityFetch({
-    query: GET_MENU_ITEMS_QUERY,
-    perspective: isDraftMode ? 'drafts' : 'published',
-    stega: isDraftMode,
-  })
+  const perspective = isDraftMode ? 'drafts' : 'published'
+  const monthNumber = getCurrentMonthNumber()
+  // Menu data. Search names are fetched without stega so matching is not thrown off
+  // by the invisible Visual Editing markers.
+  const [menuSettings, bloomingNow, recentlyAdded, searchablePlants] = await Promise.all([
+    sanityFetch({ query: GET_MENU_SETTINGS_QUERY, perspective, stega: isDraftMode }),
+    sanityFetch({
+      query: GET_MENU_BLOOMING_NOW_QUERY,
+      params: { month: monthNumber },
+      perspective,
+      stega: isDraftMode,
+    }),
+    sanityFetch({ query: GET_MENU_RECENTLY_ADDED_PLANTS_QUERY, perspective, stega: isDraftMode }),
+    sanityFetch({ query: GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY, perspective, stega: false }),
+  ])
   const currentSeason = getCurrentSeason()
   const isProd = process.env.NODE_ENV === 'production'
   const shouldMountSanityLive = isProd || isDraftMode
@@ -50,8 +69,18 @@ export default async function RootLayout({ children }) {
       <body className={`oe-site-body ${currentSeason.SEASON_NAME}`}>
         {shouldMountSanityLive && <SanityLive />}
         <ContextProviders>
-          <a href="#page-content" className="skip-link">Skip to main content</a>
-          <Nav menuData={menuData?.data} />
+          <a href="#page-content" className="skip-link">
+            Skip to main content
+          </a>
+          <Nav
+            menuSettings={menuSettings?.data}
+            bloomingNow={bloomingNow?.data}
+            recentlyAdded={recentlyAdded?.data}
+            searchablePlants={searchablePlants?.data}
+            monthName={getCurrentMonthName()}
+            monthNumber={monthNumber}
+            currentSeasonName={currentSeason.SEASON_NAME}
+          />
           <main id={`page-content`} className={`relative`}>
             {children}
           </main>

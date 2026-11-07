@@ -11,7 +11,7 @@ Centralized guidance for writing GROQ queries in the ozarkedge-wildflowers proje
 
 - All queries live in [sanity/lib/queries.js](../../../sanity/lib/queries.js). Never write GROQ inline in components or pages.
 - Fetch with `sanityFetch` from [sanity/lib/sanity.live.js](../../../sanity/lib/sanity.live.js) — never bare `client.fetch`.
-- Naming: `GET_<RESOURCE>_QUERY` (e.g. `GET_MENU_ITEMS_QUERY`). Define with `defineQuery()` from `next-sanity`.
+- Naming: `GET_<RESOURCE>_QUERY` (e.g. `GET_MENU_SETTINGS_QUERY`). Define with `defineQuery()` from `next-sanity`.
 - Reuse fragment functions from [sanity/lib/queryFragments.js](../../../sanity/lib/queryFragments.js) (`figureFields`, `imageCollectionFields`, `imageFields`, etc.) instead of duplicating projections.
 
 ## Workflow: Adding a New Query

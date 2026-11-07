@@ -168,10 +168,12 @@ export const GET_SEASON_PAGE_DATA_QUERY = groq`*[ _type == "season" && slug.curr
 // retrieves the paths of all published native plants
 export const GET_ALL_NATIVE_PLANT_PATHS_QUERY = groq`*[ _type == "nativePlant" && defined(slug.current)][].slug.current`
 
-// retrieves the slugs and plant names of all native plant documents
-export const GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY = groq`*[ _type == "nativePlant"]{
-  plantName,
-  slug 
+// retrieves the slugs and common/botanical names of all native plants (kept small: it is
+// shipped to the browser for the menu search, so it omits the rich-text name information)
+export const GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY = groq`*[ _type == "nativePlant" && defined(slug.current)]{
+  "commonName": plantName.commonName,
+  "botanicalName": plantName.botanicalName,
+  "slug": slug.current
 }`
 
 // retrieves the document data of all published native plants
@@ -188,28 +190,51 @@ export const GET_NATIVE_PLANT_LIST_DATA_QUERY = groq`*[ _type == "nativePlant"]{
   slug
 }`
 
-// retrieves the document data of all published native plants
-export const GET_MENU_ITEMS_QUERY = groq`
-*[_type == "menu"]{
-  menuBackgroundImage {
-    ...,
-    "palette": asset->metadata.palette,
-    "lqip": asset->metadata.lqip,
-  }, 
-  mobileMenuBackgroundImage {
-    ...,
-    "palette": asset->metadata.palette,
-    "lqip": asset->metadata.lqip,
-  }, 
-  menuItems[]{
-    title,
-    "menuItemLink": {
-      "docType": link.internalLink->_type, 
-      "slug": link.internalLink->slug.current
+// retrieves the editor-chosen featured plant (and its optional note) shown in the main menu
+export const GET_MENU_SETTINGS_QUERY = groq`
+*[_type == "menu"][0]{
+  featuredNote,
+  featuredPlant->{
+    plantName,
+    "slug": slug.current,
+    "docType": _type,
+    previewImage {
+      ...,
+      "palette": asset->metadata.palette,
+      "lqip": asset->metadata.lqip,
     }
   }
 }
 `
+
+// retrieves the first 4 plants (alphabetical by common name) flowering in $month, plus the total count
+export const GET_MENU_BLOOMING_NOW_QUERY = groq`
+{
+  "plants": *[_type == "nativePlant" && defined(slug.current) && $month in floweringMonths]
+    | order(lower(plantName.commonName[0]) asc)[0...4]{
+      plantName,
+      "slug": slug.current,
+      floweringMonths
+    },
+  "count": count(*[_type == "nativePlant" && defined(slug.current) && $month in floweringMonths])
+}
+`
+
+// retrieves the 3 most recently created native plant pages for the main menu
+export const GET_MENU_RECENTLY_ADDED_PLANTS_QUERY = groq`
+*[_type == "nativePlant" && defined(slug.current)] | order(_createdAt desc)[0...3]{
+  plantName,
+  "slug": slug.current,
+  "docType": _type,
+  "addedAt": _createdAt,
+  previewImage {
+    ...,
+    "palette": asset->metadata.palette,
+    "lqip": asset->metadata.lqip,
+  }
+}
+`
+
 // gets all document data for the about page
 export const GET_ABOUT_PAGE_DATA_QUERY = groq`*[ _type == "aboutPage"]
   {

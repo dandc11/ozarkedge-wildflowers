@@ -1,7 +1,6 @@
 import siteSettings from './documents/siteSettings'
 import menu from './documents/menu'
 import mainImage from './objects/mainImage'
-import menuItem from './objects/menuItem'
 import figure from './objects/figure'
 import simpleImage from './objects/simpleImage'
 import nearbyPlantFigure from './objects/nearbyPlantFigure'
@@ -48,7 +47,6 @@ export const schema = {
     landingPage,
     notFoundPage,
     menu,
-    menuItem,
     teaserSection,
     thumbnailImage,
     feature,
