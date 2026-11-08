@@ -2,6 +2,13 @@
  * @jest-environment node
  */
 
+// jest.setup.js replaces stegaClean with a no-op; these tests need the real one.
+jest.unmock('@sanity/client/stega')
+
+import { stegaClean } from '@sanity/client/stega'
+// A transitive dependency of @sanity/client; used here to produce real Visual Editing markers.
+import { vercelStegaCombine } from '@vercel/stega'
+
 import {
   formatAddedDate,
   formatBloomMonths,
@@ -58,6 +65,41 @@ describe('menuUtil.js', () => {
     it('returns empty text for missing or invalid input', () => {
       expect(formatAddedDate(undefined)).toBe('')
       expect(formatAddedDate('not a date')).toBe('')
+    })
+  })
+
+  describe('searchPlants with Visual Editing markers', () => {
+    const withStega = (text) => vercelStegaCombine(text, { origin: 'sanity.io', href: '/edit' })
+    const plants = [
+      {
+        slug: withStega('indian-pink'),
+        commonName: [withStega('indian pink'), withStega('pinkroot')],
+        botanicalName: [withStega('Spigelia marilandica')],
+      },
+      {
+        slug: withStega('false-aloe'),
+        commonName: [withStega('false aloe')],
+        botanicalName: [withStega('Manfreda virginica')],
+      },
+    ]
+
+    it('matches and ranks as if the markers were not there', () => {
+      const results = searchPlants(plants, 'pink')
+      expect(results).toHaveLength(1)
+      expect(stegaClean(results[0].matchedName)).toBe('')
+      expect(searchPlants(plants, 'a').map(({ slug }) => slug)).toEqual([
+        'false-aloe',
+        'indian-pink',
+      ])
+    })
+
+    it('keeps the markers on displayed names and cleans the slug', () => {
+      const [result] = searchPlants(plants, 'pinkroot')
+      expect(result.slug).toBe('indian-pink')
+      expect(result.commonName).not.toBe('Indian pink')
+      expect(stegaClean(result.commonName)).toBe('Indian pink')
+      expect(result.botanicalName).toBe(plants[0].botanicalName[0])
+      expect(stegaClean(result.matchedName)).toBe('pinkroot')
     })
   })
 

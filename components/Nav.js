@@ -110,7 +110,10 @@ const Nav = ({
   const results = useMemo(() => searchPlants(searchablePlants, query), [searchablePlants, query])
   const statusMessage = getSearchStatusMessage(results.length, query)
 
+  // Focus moves to the menu button before the panel hides, so it is never left on a
+  // hidden or unmounted element (for example, choosing the page already being viewed).
   const closeMenu = useCallback(() => {
+    hamburgerRef.current?.focus()
     setIsMenuOpen(false)
     setQuery('')
   }, [])
@@ -156,7 +159,6 @@ const Nav = ({
         clearSearch()
       } else {
         closeMenu()
-        hamburgerRef.current?.focus()
       }
     }
     document.addEventListener('keydown', handleKeyDown)

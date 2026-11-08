@@ -153,7 +153,9 @@ image (1:1 for the Recently added row, 16:7 for the featured plant), the name
 in Playfair, and a muted Raleway meta line; hover scales the image 1.04 and
 turns the name `--oe-red-200`, both off under `prefers-reduced-motion`. Search
 results sit on `--nav-bg-results` (one step lighter than the panel) in Raleway,
-not Playfair, so the swap from the link groups is obvious. Menu tokens in
+not Playfair, so the swap from the link groups is obvious. On the
+`--nav-divider` hover/focus fill, muted text drops to 4.23:1, so it brightens
+to `--oe-grey-200` (5.74:1) there. Menu tokens in
 `colors.css`: `--nav-bg-results`, `--nav-divider`, `--nav-text-muted`. The
 current season is marked with bold only: `--season-accent` is a dark value
 meant for light surfaces and fails contrast on the dark panel.

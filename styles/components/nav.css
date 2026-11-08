@@ -216,6 +216,11 @@ body:has(.nav-dark) {
     &:hover,
     &:focus-visible {
       background-color: var(--nav-divider);
+
+      /* --nav-text-muted is 4.23:1 on this fill; grey-200 is 5.74:1 */
+      .nav-search-result-detail {
+        color: var(--oe-grey-200);
+      }
     }
 
     &:focus-visible {

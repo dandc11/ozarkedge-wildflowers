@@ -456,7 +456,17 @@ describe('Nav', () => {
 
       await user.keyboard('{Enter}')
 
-      expect(screen.getByRole('button', { name: 'Open the main menu' })).toBeInTheDocument()
+      const button = screen.getByRole('button', { name: 'Open the main menu' })
+      expect(button).toHaveFocus()
+    })
+
+    it('returns focus to the menu button when Enter opens the top result', async () => {
+      const user = createUser()
+      await searchFor(user, 'aster')
+
+      await user.keyboard('{Enter}')
+
+      expect(screen.getByRole('button', { name: 'Open the main menu' })).toHaveFocus()
     })
   })
 })

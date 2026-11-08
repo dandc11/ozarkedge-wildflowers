@@ -1,3 +1,5 @@
+import { stegaClean } from '@sanity/client/stega'
+
 import { MONTH_NAMES_MAP } from './constants'
 import { titleCase } from './helperUtil'
 
@@ -93,6 +95,8 @@ const scoreName = (name, query) => {
 /**
  * Searches the plant index by common and botanical name, including alternate
  * names. Results are ranked by match quality, then alphabetically.
+ * Names may carry Visual Editing (stega) markers. Matching and sorting use cleaned
+ * copies; the returned names keep the markers so they stay editable on screen.
  * @param {Array<{slug: string, commonName?: string[], botanicalName?: string[]}>} plants - Searchable plants
  * @param {string} query - What the visitor typed
  * @param {number} [limit=MAX_SEARCH_RESULTS] - Maximum number of results
@@ -113,7 +117,7 @@ export const searchPlants = (plants = [], query = '', limit = MAX_SEARCH_RESULTS
       const matches = [...commonNames, ...botanicalNames]
         .map((name) => ({
           name,
-          score: scoreName(name, normalizedQuery),
+          score: scoreName(stegaClean(name), normalizedQuery),
           isDisplayed: displayedNames.includes(name),
         }))
         .filter(({ score }) => score !== -1)
@@ -125,18 +129,20 @@ export const searchPlants = (plants = [], query = '', limit = MAX_SEARCH_RESULTS
         .sort((a, b) => a.score - b.score)[0]
       const matchedDisplayedName = matches.some(({ isDisplayed }) => isDisplayed)
 
+      const commonName = titleCase(commonNames[0] ?? '')
       return {
-        slug: plant.slug,
-        commonName: titleCase(commonNames[0] ?? ''),
+        slug: stegaClean(plant.slug),
+        commonName,
+        sortName: stegaClean(commonName),
         botanicalName: botanicalNames[0] ?? '',
         matchedName: matchedDisplayedName ? '' : (matchedAlternate?.name ?? ''),
         score: bestScore,
       }
     })
     .filter(Boolean)
-    .sort((a, b) => a.score - b.score || a.commonName.localeCompare(b.commonName))
+    .sort((a, b) => a.score - b.score || a.sortName.localeCompare(b.sortName))
     .slice(0, limit)
-    .map(({ score: _score, ...result }) => result)
+    .map(({ score: _score, sortName: _sortName, ...result }) => result)
 }
 
 /**

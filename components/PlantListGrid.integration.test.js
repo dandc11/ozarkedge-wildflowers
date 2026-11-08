@@ -205,6 +205,38 @@ describe('PlantListGrid integration', () => {
     expect(cards[0]).toHaveAccessibleName(/july blue/i)
   })
 
+  it('follows later URL changes while staying mounted, clearing filters the URL drops', () => {
+    const plants = [
+      makePlant({ commonName: 'July Blue', flowerColor: ['blue'], floweringMonths: [7] }),
+      makePlant({ commonName: 'August Yellow', flowerColor: ['yellow'], floweringMonths: [8] }),
+      makePlant({ commonName: 'July Purple', flowerColor: ['purple'], floweringMonths: [7] }),
+    ]
+    // A new element each time, so React re-renders it as a navigation would
+    const grid = () => (
+      <PlantListGrid
+        nativePlantList={plants}
+        nativePlantPageData={{ _id: 'page', plantListInformation: [] }}
+        plantListInformation={[]}
+      />
+    )
+
+    queryString = 'months=7&colors=blue'
+    const { rerender } = render(grid())
+    expect(screen.getAllByTestId('plant-card')).toHaveLength(1)
+
+    // The menu's "All n" link for a new month
+    queryString = 'months=8'
+    rerender(grid())
+    const augustCards = screen.getAllByTestId('plant-card')
+    expect(augustCards).toHaveLength(1)
+    expect(augustCards[0]).toHaveAccessibleName(/august yellow/i)
+
+    // The menu's "All plants A–Z" link
+    queryString = ''
+    rerender(grid())
+    expect(screen.getAllByTestId('plant-card')).toHaveLength(3)
+  })
+
   it('supports Show more to reveal beyond initial 30', () => {
     const manyPlants = Array.from({ length: 35 }, (_, i) =>
       makePlant({

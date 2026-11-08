@@ -47,8 +47,8 @@ export default async function RootLayout({ children }) {
   const { isEnabled: isDraftMode } = await draftMode()
   const perspective = isDraftMode ? 'drafts' : 'published'
   const monthNumber = getCurrentMonthNumber()
-  // Menu data. Search names are fetched without stega so matching is not thrown off
-  // by the invisible Visual Editing markers.
+  // Menu data. Search names keep their stega markers so results stay editable in
+  // Visual Editing; searchPlants() cleans its own copies for matching and sorting.
   const [menuSettings, bloomingNow, recentlyAdded, searchablePlants] = await Promise.all([
     sanityFetch({ query: GET_MENU_SETTINGS_QUERY, perspective, stega: isDraftMode }),
     sanityFetch({
@@ -58,7 +58,7 @@ export default async function RootLayout({ children }) {
       stega: isDraftMode,
     }),
     sanityFetch({ query: GET_MENU_RECENTLY_ADDED_PLANTS_QUERY, perspective, stega: isDraftMode }),
-    sanityFetch({ query: GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY, perspective, stega: false }),
+    sanityFetch({ query: GET_NATIVE_PLANT_NAMES_AND_SLUGS_QUERY, perspective, stega: isDraftMode }),
   ])
   const currentSeason = getCurrentSeason()
   const isProd = process.env.NODE_ENV === 'production'

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { stegaClean } from 'next-sanity'
 
@@ -29,7 +29,6 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
   const [colorsSelected, setColorsSelected] = useState('')
   const [animatedComponents, setAnimatedComponents] = useState({})
   const searchParams = useSearchParams()
-  const initializedFromUrl = useRef(false)
 
   // Lazily load react-select animated components on the client after mount
   useEffect(() => {
@@ -65,38 +64,39 @@ const PlantListGrid = ({ nativePlantList, nativePlantPageData, plantListInformat
     setHabitatsSelected(selectedOptions)
   }, [])
 
-  // Initialize filters from URL parameters only once - client side only
+  // Keep the filters in step with the URL. The grid stays mounted across client-side
+  // navigation within /native-plants (for example from the main menu), so this runs on
+  // every query-string change. A filter missing from the URL is cleared; habitat has no
+  // URL parameter, so it is cleared on every navigation.
+  const searchParamsKey = searchParams.toString()
   useEffect(() => {
-    if (initializedFromUrl.current || typeof window === 'undefined') return
+    const params = new URLSearchParams(searchParamsKey)
+    const monthsQuery = params.get('months')
+    const namesQuery = params.get('names')
+    const colorsQuery = params.get('colors')
 
-    const monthsQuery = searchParams.get('months')
-    const namesQuery = searchParams.get('names')
-    const colorsQuery = searchParams.get('colors')
-
-    if (monthsQuery) {
-      const months = monthsQuery.split(',').map(Number)
-      const selectedMonths = months
-        .map((month) => MONTH_OPTIONS.find((option) => option.value === month))
-        .filter(Boolean)
-      setMonthsSelected(selectedMonths)
-    }
-
-    if (namesQuery) {
-      const names = namesQuery.split(',').map(String)
-      const selectedNames = names.map((name) => ({ value: name, label: name }))
-      setNameSelected(selectedNames)
-    }
-
-    if (colorsQuery) {
-      const colors = colorsQuery.split(',').map(String)
-      const selectedColors = colors
-        .map((color) => FLOWER_COLOR_OPTIONS.find((option) => option.value === color))
-        .filter(Boolean)
-      setColorsSelected(selectedColors)
-    }
-
-    initializedFromUrl.current = true
-  }, [searchParams])
+    setMonthsSelected(
+      monthsQuery
+        ? monthsQuery
+            .split(',')
+            .map(Number)
+            .map((month) => MONTH_OPTIONS.find((option) => option.value === month))
+            .filter(Boolean)
+        : '',
+    )
+    setNameSelected(
+      namesQuery ? namesQuery.split(',').map((name) => ({ value: name, label: name })) : '',
+    )
+    setColorsSelected(
+      colorsQuery
+        ? colorsQuery
+            .split(',')
+            .map((color) => FLOWER_COLOR_OPTIONS.find((option) => option.value === color))
+            .filter(Boolean)
+        : '',
+    )
+    setHabitatsSelected('')
+  }, [searchParamsKey])
 
   // Create the name options for the filter, sorted alphabetically by common name
   const NAME_OPTIONS = useMemo(() => {
